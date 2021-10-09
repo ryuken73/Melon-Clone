@@ -1,23 +1,48 @@
-import logo from './logo.svg';
 import './App.css';
+import Box from '@mui/material/Box';
+import styled from 'styled-components';
+import {Switch, Route} from 'react-router-dom';
+import AlbumView from './Views/AlbumView';
+import SongView from './Views/SongView';
+import ArtistView from './Views/ArtistView';
+import PortalView from './Views/PortalView';
+import NotFoundView from './Views/NotFoundView';
+import AudioPlayer from './Components/AudioPlayer';
+import PlayList from './Components/PlayList';
+
+const LeftPane = styled(Box)`
+  width: 150px;
+  flex-grow:0;
+  background:black;
+`
+const RightPane = styled(Box)`
+  display: flex;
+  flex-direction: column;
+  width: 300px;
+  background:black;
+  flex-grow: 0;
+`
+const CenterPane = styled(Box)`
+  flex-grow:1;
+`
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <LeftPane>Left</LeftPane>
+      <CenterPane>
+        <Switch>
+          <Route exact path="/" component={PortalView} />
+          <Route path="/album" component={AlbumView} />
+          <Route path="/song" component={SongView} />
+          <Route path="/artist" component={ArtistView} />
+          <Route component={NotFoundView} />
+        </Switch>
+      </CenterPane>
+      <RightPane>
+        <AudioPlayer></AudioPlayer>
+        <PlayList></PlayList>
+      </RightPane>
     </div>
   );
 }
