@@ -1,8 +1,9 @@
 import React from 'react'
 import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
 import styled from 'styled-components';
 import colors from '../../config/colors';
+import SmallButton from '../Common/SmallButton';
+import TextBox from '../Common/TextBox';
 
 const Container = styled(Box)`
     display: flex;
@@ -19,17 +20,7 @@ const ButtonWrapper = styled(Box)`
     margin: 2px;
 `
 
-const SmallButton = styled(Button)`
-    && {
-        color: white;
-        font-size: ${props => props.fontsize || '10px'};
-        background: ${props => props.background || 'transparent'};
-        border-radius: 10px;
-        &:hover {
-            background:${props => props.background || 'transparent'};
-        }
-    }
-`
+
 
 const TabHeader = props => {
     const {
@@ -38,7 +29,7 @@ const TabHeader = props => {
      } = props;
 
     const onClickTabHaderButton = React.useCallback(event => {
-        setActiveTabId(event.target.id);
+        setActiveTabId(event.currentTarget.id);
     },[])
     return (
             <Container>
@@ -49,7 +40,7 @@ const TabHeader = props => {
                         background={activeTabId === 'song' && colors.centerPane} 
                         fontsize='11px'
                     >
-                        곡
+                        <TextBox text="곡"></TextBox>
                     </SmallButton>
                     <SmallButton 
                         id='playlist' 
@@ -57,7 +48,7 @@ const TabHeader = props => {
                         background={activeTabId === 'playlist' && colors.centerPane} 
                         fontsize='11px'
                     >
-                        플레이리스트
+                        <TextBox text="플레이리스트"></TextBox>
                     </SmallButton>
                 </ButtonWrapper>
             </Container>
