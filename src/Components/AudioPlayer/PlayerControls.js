@@ -13,23 +13,13 @@ import VolumeOffIcon from '@mui/icons-material/VolumeOff';
 import IconButton from '@mui/material/IconButton';
 import VerticalSlider from '../Common/SliderVertical';
 import Popover from '@mui/material/Popover';
+import HoverButton from '../Common/ButtonHover';
 
 const Container = styled(Box)`
     display: flex;
     justify-content: center;
     background: black;
 `
-const HoverButton = styled(IconButton)`
-    .MuiSvgIcon-root {
-        color: ${props => props.color || 'white'};
-        opacity: ${props => props.opacitynormal || '0.5'};
-        &:hover {
-            opacity: ${props => props.opacityhover || '0.7'};
-            /* color: white; */
-        }
-    }
-`
-
 const PlayerControls = props => {
     const {
         onClickRepeat=()=>{},

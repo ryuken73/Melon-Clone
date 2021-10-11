@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import colors from '../../config/colors';
 import TabHeader from './TabHeader';
 import SongBox from './SongBox';
+import SongHeader from './SongHeader';
 import SnackBar from '../Common/SnackBar';
 
 const Container = styled(Box)`
@@ -22,6 +23,7 @@ const PlayList = () => {
                 activeTabId={activeTabId}
                 setActiveTabId={setActiveTabId}
             ></TabHeader>
+            <SongHeader></SongHeader>
             <SongBox></SongBox>
             <SnackBar></SnackBar>
         </Container>
