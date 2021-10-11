@@ -45,10 +45,10 @@ const AudioPlayer = () => {
                 <ImageBox></ImageBox>
             </Image>
             <Title>
-                <TextBox fontSize="13px" text="곡명" color={colors.textMain}></TextBox>
+                <TextBox textalign="center" fontSize="13px" text="곡명" color={colors.textMain}></TextBox>
             </Title>
             <Artist>
-                <TextBox text="아티스트"></TextBox>
+                <TextBox textalign="center" text="아티스트"></TextBox>
             </Artist>
             <Progress>
                 <SliderBar />

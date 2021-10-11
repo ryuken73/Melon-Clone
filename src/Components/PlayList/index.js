@@ -3,6 +3,7 @@ import Box from '@mui/material/Box';
 import styled from 'styled-components';
 import colors from '../../config/colors';
 import TabHeader from './TabHeader';
+import SongBox from './SongBox';
 
 const Container = styled(Box)`
     background: ${colors.player};
@@ -18,6 +19,7 @@ const PlayList = () => {
                 activeTabId={activeTabId}
                 setActiveTabId={setActiveTabId}
             ></TabHeader>
+            <SongBox></SongBox>
         </Container>
     )
 }
