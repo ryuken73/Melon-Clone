@@ -6,13 +6,16 @@ import TextBox from '../Common/TextBox';
 import ProgressBar from '../Common/ProgressBar';
 import SliderBar from '../Common/SliderBar';
 import PlayerControls from './PlayerControls';
+import colors from '../../config/colors';
+import { ColorizeSharp } from '@mui/icons-material';
 
 const Container = styled(Box)`
     display: flex;
     flex-direction: column;
     flex-grow: 0;
     height: 350px;
-    background: #14181e;
+    /* background: #14181e; */
+    background: ${colors.player};
 `
 const Image = styled(Box)`
     margin-top: 20px;
@@ -42,7 +45,7 @@ const AudioPlayer = () => {
                 <ImageBox></ImageBox>
             </Image>
             <Title>
-                <TextBox fontSize="13px" text="곡명" color="#ffffff"></TextBox>
+                <TextBox fontSize="13px" text="곡명" color={colors.textMain}></TextBox>
             </Title>
             <Artist>
                 <TextBox text="아티스트"></TextBox>
@@ -51,8 +54,8 @@ const AudioPlayer = () => {
                 <SliderBar />
             </Progress>
             <Duration>
-                <TextBox fontSize="11px" text="00:01" color="#ffffff"></TextBox>
-                <TextBox fontSize="11px" text="03:01" marginLeft="5px" color="#6c5f5f"></TextBox>
+                <TextBox fontSize="11px" text="00:01" color={colors.textMain}></TextBox>
+                <TextBox fontSize="11px" text="03:01" marginLeft="5px" color={colors.textSub}></TextBox>
             </Duration>
             <Controls>
                 <PlayerControls></PlayerControls>
