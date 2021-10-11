@@ -4,12 +4,15 @@ import styled from 'styled-components';
 import colors from '../../config/colors';
 import TabHeader from './TabHeader';
 import SongBox from './SongBox';
+import SnackBar from '../Common/SnackBar';
 
 const Container = styled(Box)`
     background: ${colors.player};
     flex-grow: 1;
     display: flex;
     flex-direction: column;
+    justify-content: center;
+    align-items: center;
 `
 const PlayList = () => {
     const [activeTabId, setActiveTabId] = React.useState('song');
@@ -20,6 +23,7 @@ const PlayList = () => {
                 setActiveTabId={setActiveTabId}
             ></TabHeader>
             <SongBox></SongBox>
+            <SnackBar></SnackBar>
         </Container>
     )
 }
