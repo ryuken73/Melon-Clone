@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import Button from '@mui/material/Button';
 
-const SmallButton = styled(Button)`
+const ButtonSmall = styled(Button)`
     && {
         color: white;
         font-size: ${props => props.fontsize || '10px'};
@@ -13,4 +13,4 @@ const SmallButton = styled(Button)`
     }
 `
 
-export default SmallButton;
+export default ButtonSmall;

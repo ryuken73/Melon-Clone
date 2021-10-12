@@ -2,7 +2,7 @@ import React from 'react'
 import Box from '@mui/material/Box';
 import styled from 'styled-components';
 import colors from '../../config/colors';
-import SmallButton from '../Common/SmallButton';
+import ButtonSmall from '../Common/ButtonSmall';
 import TextBox from '../Common/TextBox';
 
 const Container = styled(Box)`
@@ -34,22 +34,22 @@ const TabHeader = props => {
     return (
             <Container>
                 <ButtonWrapper>
-                    <SmallButton 
+                    <ButtonSmall 
                         id='song' 
                         onClick={onClickTabHaderButton} 
                         background={activeTabId === 'song' && colors.centerPane} 
                         fontsize='11px'
                     >
                         <TextBox text="곡"></TextBox>
-                    </SmallButton>
-                    <SmallButton 
+                    </ButtonSmall>
+                    <ButtonSmall 
                         id='playlist' 
                         onClick={onClickTabHaderButton} 
                         background={activeTabId === 'playlist' && colors.centerPane} 
                         fontsize='11px'
                     >
                         <TextBox text="플레이리스트"></TextBox>
-                    </SmallButton>
+                    </ButtonSmall>
                 </ButtonWrapper>
             </Container>
     )
