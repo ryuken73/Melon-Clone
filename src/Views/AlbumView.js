@@ -1,9 +1,20 @@
-import React from 'react'
+import React from 'react';
+import Box from '@mui/material/Box';
+import styled from 'styled-components';
 
-export default function AlbumView() {
+const Container = styled(Box)`
+    display: flex;
+    justify-content: center;
+    background: transparent;
+`
+
+const AlbumView = props => {
+    const {match} = props;
     return (
-        <div>
-            Album
-        </div>
+        <Container>
+            album view[{match.params.id}]
+        </Container>
     )
 }
+
+export default AlbumView;

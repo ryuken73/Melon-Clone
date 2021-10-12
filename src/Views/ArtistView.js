@@ -1,9 +1,20 @@
-import React from 'react'
+import React from 'react';
+import Box from '@mui/material/Box';
+import styled from 'styled-components';
 
-export default function ArtistView() {
+const Container = styled(Box)`
+    display: flex;
+    justify-content: center;
+    background: transparent;
+`
+
+const ArtistView = props => {
+    const {match} = props;
     return (
-        <div>
-            Artist
-        </div>
+        <Container>
+            artist view[{match.params.id}]
+        </Container>
     )
 }
+
+export default ArtistView;

@@ -1,9 +1,20 @@
-import React from 'react'
+import React from 'react';
+import Box from '@mui/material/Box';
+import styled from 'styled-components';
 
-export default function PortalView() {
+const Container = styled(Box)`
+    display: flex;
+    justify-content: center;
+    background: transparent;
+`
+
+const PortalView = props => {
+    const {match} = props;
     return (
-        <div>
-            Portal
-        </div>
+        <Container>
+            portal[{match.params.id}]
+        </Container>
     )
 }
+
+export default PortalView;

@@ -1,9 +1,20 @@
-import React from 'react'
+import React from 'react';
+import Box from '@mui/material/Box';
+import styled from 'styled-components';
 
-export default function SongView() {
+const Container = styled(Box)`
+    display: flex;
+    justify-content: center;
+    background: transparent;
+`
+
+const SongView = props => {
+    const {match} = props;
     return (
-        <div>
-            Song
-        </div>
+        <Container>
+            song view[{match.params.id}]
+        </Container>
     )
 }
+
+export default SongView;
