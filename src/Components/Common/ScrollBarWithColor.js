@@ -16,7 +16,6 @@ const Thumb = styled(Box)`
 `
 
 const ScrollBarWithColor = props => {
-    console.log(props)
     const RenderTrack = ({ style, ...props }) => {
         console.log(style)
         return <Track style={{...style}} {...props} ></Track>
@@ -29,7 +28,7 @@ const ScrollBarWithColor = props => {
             // renderTrackVertical={RenderTrack}
             // renderTrackHorizontal={RenderTrack}
             {...props}
-            renderThumbHorizontal={RenderThumb}
+            // renderThumbHorizontal={RenderThumb}
             renderThumbVertical={RenderThumb}
 
         >
