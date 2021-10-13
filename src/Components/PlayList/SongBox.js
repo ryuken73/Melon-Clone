@@ -14,7 +14,28 @@ const Container = styled(Box)`
 const songs = [
     {id:1, title: '잊혀진 계절', artist: 'The One (더 원) 리메이크'},
     {id:2, title: '잊혀진 계절 (리메이크곡, 2021)', artist: 'The One (더 원) 리메이크'},
-    {id:3, title: 'Plastic', artist: 'Moses Sumeny'}
+    {id:3, title: 'Plastic', artist: 'Moses Sumeny'},
+    {id:1, title: '잊혀진 계절', artist: 'The One (더 원) 리메이크'},
+    {id:2, title: '잊혀진 계절 (리메이크곡, 2021)', artist: 'The One (더 원) 리메이크'},
+    {id:3, title: 'Plastic', artist: 'Moses Sumeny'},
+    {id:1, title: '잊혀진 계절', artist: 'The One (더 원) 리메이크'},
+    {id:2, title: '잊혀진 계절 (리메이크곡, 2021)', artist: 'The One (더 원) 리메이크'},
+    {id:3, title: 'Plastic', artist: 'Moses Sumeny'},
+    {id:1, title: '잊혀진 계절', artist: 'The One (더 원) 리메이크'},
+    {id:2, title: '잊혀진 계절 (리메이크곡, 2021)', artist: 'The One (더 원) 리메이크'},
+    {id:3, title: 'Plastic', artist: 'Moses Sumeny'},
+    {id:1, title: '잊혀진 계절', artist: 'The One (더 원) 리메이크'},
+    {id:2, title: '잊혀진 계절 (리메이크곡, 2021)', artist: 'The One (더 원) 리메이크'},
+    {id:3, title: 'Plastic', artist: 'Moses Sumeny'},
+    {id:1, title: '잊혀진 계절', artist: 'The One (더 원) 리메이크'},
+    {id:2, title: '잊혀진 계절 (리메이크곡, 2021)', artist: 'The One (더 원) 리메이크'},
+    {id:3, title: 'Plastic', artist: 'Moses Sumeny'},
+    {id:1, title: '잊혀진 계절', artist: 'The One (더 원) 리메이크'},
+    {id:2, title: '잊혀진 계절 (리메이크곡, 2021)', artist: 'The One (더 원) 리메이크'},
+    {id:3, title: 'Plastic', artist: 'Moses Sumeny'},
+    {id:1, title: '잊혀진 계절', artist: 'The One (더 원) 리메이크'},
+    {id:2, title: '잊혀진 계절 (리메이크곡, 2021)', artist: 'The One (더 원) 리메이크'},
+    {id:3, title: 'Plastic', artist: 'Moses Sumeny'},
 ]
 
 const SongBox = () => {
