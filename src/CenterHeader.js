@@ -5,11 +5,12 @@ import styled from 'styled-components';
 import path from 'path';
 import ButtonSmall from './Components/Common/ButtonSmall';
 import CenterHeaderNav from './CenterHeaderNav';
+import AutoComplete from './Components/Common/AutoComplete';
 
 const Container = styled(Box)`
     display: flex;
     padding: 5px;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
     background: transparent;
 `
@@ -32,6 +33,7 @@ const CenterHeader = props => {
     return (
         <Container>
             <CenterHeaderNav historyPushedCount={historyPushedCount} setHistoryPushedCount={setHistoryPushedCount}></CenterHeaderNav>
+            <AutoComplete></AutoComplete>
             {views.map(view => (
                 <Box mx="2px">
                     <ButtonSmall id={view.url} background="grey" onClick={handleClickButton}>{view.id}</ButtonSmall>
