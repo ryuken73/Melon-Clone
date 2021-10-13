@@ -10,6 +10,7 @@ import NotFoundView from './Views/NotFoundView';
 import AudioPlayer from './Components/AudioPlayer';
 import PlayList from './Components/PlayList';
 import CenterHeader from './CenterHeader';
+import colors from './config/colors';
 
 const LeftPane = styled(Box)`
   width: 150px;
@@ -25,6 +26,7 @@ const RightPane = styled(Box)`
 `
 const CenterPane = styled(Box)`
   flex-grow:1;
+  background: ${colors.centerPane}
 `
  
 function App() {
