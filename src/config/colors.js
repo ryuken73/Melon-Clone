@@ -1,7 +1,10 @@
 const colors = {
     'textMain': '#ffffff',
     'textSub': '#6c5f5f',
-    'centerPane': '#282c34',
+    'centerPane': '#032421',
+    'lightCenterPane': '#063d39',
+    'light2CenterPane': '#084540',
+    'light3CenterPane': '#085449',
     'player': '#14181e',
     99: 'black',
 }
