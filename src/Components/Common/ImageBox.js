@@ -8,9 +8,10 @@ const Container = styled(Box)`
 `
 const Image = styled.img`
     height: ${prop => prop.height || "150px"};
-    width: ${prop => prop.height || "150px"};
-    border-radius: ${prop => prop.height || "8px"};
-    object-fit: ${prop => prop.height || "cover"};
+    width: ${prop => prop.width || "150px"};
+    border-radius: ${prop => prop.borderRadius || "8px"};
+    object-fit: ${prop => prop.objectFit || "cover"};
+    aspect-ratio: 1
 
 `;
 
