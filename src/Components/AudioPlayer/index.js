@@ -22,8 +22,10 @@ const Image = styled(Box)`
 `;
 const Title = styled(Box)`
     margin-top: 10px;
+    align-self: center;
 `;
 const Artist = styled(Box)`
+    align-self: center;
     margin-top: 5px;
 `;
 const Progress = styled(Box)`
