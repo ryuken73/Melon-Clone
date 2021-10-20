@@ -1,23 +1,24 @@
 import React from 'react';
 import Box from '@mui/material/Box';
 import styled from 'styled-components';
-import AllRecentAlbums from '../Components/AlbumView/AllRecentAlbums';
 
 const Container = styled(Box)`
     display: flex;
+    align-items: flex-start;
     flex-direction: column;
-    justify-content: flex-start;
     background: transparent;
+    position: relative;
+    margin-left: 20px;
+    margin-right: 20px;
 `
 
-const AlbumListView = props => {
-    const {match} = props;
+const CommonPageHeader = props => {
+    const {children} = props;
     return (
         <Container>
-            <AllRecentAlbums />
+            {children}
         </Container>
-
     )
 }
 
-export default React.memo(AlbumListView);
+export default React.memo(CommonPageHeader);

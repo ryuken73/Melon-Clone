@@ -55,4 +55,4 @@ const TabHeader = props => {
     )
 }
 
-export default TabHeader
+export default React.memo(TabHeader)

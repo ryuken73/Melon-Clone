@@ -1,3 +1,4 @@
+import React from 'react';
 import styled from 'styled-components';
 import Button from '@mui/material/Button';
 
@@ -13,4 +14,4 @@ const ButtonSmall = styled(Button)`
     }
 `
 
-export default ButtonSmall;
+export default React.memo(ButtonSmall);

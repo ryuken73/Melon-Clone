@@ -1,3 +1,4 @@
+import React from 'react';
 import styled from 'styled-components';
 import IconButton from '@mui/material/IconButton';
 
@@ -15,4 +16,4 @@ const HoverButton = styled(IconButton)`
     }
 `
 
-export default HoverButton;
+export default React.memo(HoverButton);

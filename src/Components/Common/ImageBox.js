@@ -39,4 +39,4 @@ const ImageBox = props => {
     )
 }
 
-export default ImageBox;
+export default React.memo(ImageBox);

@@ -17,4 +17,4 @@ const NotFoundView = props => {
     )
 }
 
-export default NotFoundView;
+export default React.memo(NotFoundView);

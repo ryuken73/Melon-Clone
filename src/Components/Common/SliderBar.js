@@ -66,10 +66,12 @@ const StyledSlider = styled(SliderUnstyled)(
 `,
 );
 
-export default function UnstyledSlider() {
+const UnstyledSlider = () => { 
   return (
     <Box>
       <StyledSlider defaultValue={10} />
     </Box>
   );
 }
+
+export default React.memo(UnstyledSlider);

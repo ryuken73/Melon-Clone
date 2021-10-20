@@ -66,7 +66,7 @@ const StyledList = styled('li')(({ theme }) => ({
 }));
 
 
-export default function UseAutocomplete() {
+const UseAutocomplete = () => {
   const {
     getRootProps,
     getInputLabelProps,
@@ -243,3 +243,5 @@ const top100Films = [
   { title: '3 Idiots', year: 2009 },
   { title: 'Monty Python and the Holy Grail', year: 1975 },
 ];
+
+export default React.memo(UseAutocomplete);

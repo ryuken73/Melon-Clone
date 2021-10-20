@@ -1,10 +1,12 @@
 import React from 'react';
 import Box from '@mui/material/Box';
 import styled from 'styled-components';
+import RecentAlbums from '../Components/PortalView/RecentAlbums';
 
 const Container = styled(Box)`
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+    justify-content: flex-start;
     background: transparent;
 `
 
@@ -12,9 +14,9 @@ const PortalView = props => {
     const {match} = props;
     return (
         <Container>
-            portal[{match.params.id}]
+            <RecentAlbums></RecentAlbums>
         </Container>
     )
 }
 
-export default PortalView;
+export default React.memo(PortalView);

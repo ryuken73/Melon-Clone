@@ -19,4 +19,4 @@ const SnackBar = () => {
     )
 }
 
-export default SnackBar;
+export default React.memo(SnackBar);

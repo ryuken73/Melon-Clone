@@ -19,6 +19,7 @@ const AlbumBox = props => {
     return (
         <Container>
             <ImageBoxWithHoverIcon width="100%" height="100%"></ImageBoxWithHoverIcon>
+            <Box marginTop="5px"></Box>
             <TextBox 
                 fontSize="14px" 
                 color="white" 
@@ -37,4 +38,4 @@ const AlbumBox = props => {
     )
 }
 
-export default AlbumBox
+export default React.memo(AlbumBox)

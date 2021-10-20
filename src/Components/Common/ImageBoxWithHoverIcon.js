@@ -33,7 +33,6 @@ const ImageBoxWithHoverIcon = props => {
         title="related image",
     } = props;
     const [isHover, setHover] = React.useState(false);
-    console.log(isHover)
     const onClickPlay = ()=>{};
     const InnerElement = () => (
         <HoverButton onClick={onClickPlay} opacitynormal='0.7' opacityhover='1'>
@@ -68,4 +67,4 @@ const ImageBoxWithHoverIcon = props => {
     )
 }
 
-export default ImageBoxWithHoverIcon;
+export default React.memo(ImageBoxWithHoverIcon);

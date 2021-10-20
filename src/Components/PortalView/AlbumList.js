@@ -45,4 +45,4 @@ const AlbumList = props => {
     )
 }
 
-export default AlbumList
+export default React.memo(AlbumList)

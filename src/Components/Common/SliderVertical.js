@@ -13,7 +13,7 @@ const CustomSlider = styled(Slider)`
     }
 `
 
-export default function VerticalSlider() {
+const VerticalSlider = () => {
     function preventHorizontalKeyboardNavigation(event) {
       if (event.key === 'ArrowLeft' || event.key === 'ArrowRight') {
         event.preventDefault();
@@ -37,3 +37,5 @@ export default function VerticalSlider() {
       </Box>
     );
   }
+
+  export default React.memo(VerticalSlider);

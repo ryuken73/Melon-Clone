@@ -17,4 +17,4 @@ const SongView = props => {
     )
 }
 
-export default SongView;
+export default React.memo(SongView);

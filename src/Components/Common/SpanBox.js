@@ -25,4 +25,4 @@ const SpanBox = props => {
     )
 }
 
-export default SpanBox;
+export default React.memo(SpanBox);

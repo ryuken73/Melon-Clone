@@ -73,4 +73,4 @@ const CenterHeaderNav = props => {
     )
 }
 
-export default withRouter(CenterHeaderNav);
+export default React.memo(withRouter(CenterHeaderNav));

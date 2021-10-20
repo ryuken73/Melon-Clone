@@ -17,4 +17,4 @@ const ArtistView = props => {
     )
 }
 
-export default ArtistView;
+export default React.memo(ArtistView);

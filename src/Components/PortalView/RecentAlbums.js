@@ -1,19 +1,8 @@
 import React from 'react';
-import Box from '@mui/material/Box';
-import styled from 'styled-components';
+import CommonPageHeader from '../Common/CommonPageHeader';
 import {withRouter} from 'react-router-dom';
 import TextBox from '../Common/TextBox';
 import AlbumList from './AlbumList';
-
-const Container = styled(Box)`
-    display: flex;
-    align-items: flex-start;
-    flex-direction: column;
-    background: transparent;
-    position: relative;
-    margin-left: 20px;
-    margin-right: 20px;
-`
 
 const albums = [
     {id:1, nameAlbum:'잊혀진 계절', nameArtist:'이용'},
@@ -31,7 +20,7 @@ const RecentAlbums = props => {
         history.push('/albumList')
     },[history.location])
     return (
-        <Container>
+        <CommonPageHeader>
             <TextBox 
                 fontSize="20px" 
                 color="white" 
@@ -41,8 +30,8 @@ const RecentAlbums = props => {
                 onClick={handleOnClick}>
             </TextBox>
             <AlbumList albums={albums}></AlbumList>
-        </Container>
+        </CommonPageHeader>
     )
 }
 
-export default withRouter(RecentAlbums);
+export default React.memo(withRouter(RecentAlbums));

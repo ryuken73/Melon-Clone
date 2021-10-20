@@ -17,4 +17,4 @@ const AlbumView = props => {
     )
 }
 
-export default AlbumView;
+export default React.memo(AlbumView);

@@ -26,4 +26,4 @@ const SmallCheckBox = props => {
   );
 }
 
-export default SmallCheckBox;
+export default React.memo(SmallCheckBox);
