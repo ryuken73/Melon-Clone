@@ -4,21 +4,12 @@ import styled from 'styled-components';
 import AlbumBox from './AlbumBox';
 import ScrollBarWithColor from '../Common/ScrollBarWithColor';
 
-// const Container = styled(Box)`
-//     display: flex;
-//     /* flex-wrap: wrap; */
-//     height: ${prop => prop.height || "auto"};
-//     width: ${prop => prop.height || "auto"};
-//     margin-top: 10px;
-// `
-
 const Container = styled(Box)`
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr;
-    /* flex-wrap: wrap; */
     height: ${prop => prop.height || "auto"};
     width: ${prop => prop.height || "auto"};
-    margin-top: 10px;
+    margin-right: 10px;
 `
 
 const AlbumList = props => {
@@ -27,7 +18,6 @@ const AlbumList = props => {
         <ScrollBarWithColor autoHide style={{ width:'100%', height: '100vh' }}>
             <Container>
                 {albums.map(album => (  
-                // <Box height="50px" flex="1" bgcolor="red">{album.nameArtist}</Box>
                     <AlbumBox 
                         key={album.id}
                         nameAlbum={album.nameAlbum} 
