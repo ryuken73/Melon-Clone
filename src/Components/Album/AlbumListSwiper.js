@@ -2,9 +2,7 @@ import React from 'react'
 import Box from '@mui/material/Box';
 import styled from 'styled-components';
 import AlbumBox from './AlbumBox';
-import Slider from "react-slick";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
+import Swiper from '../Common/Swiper';
 
 const Container = styled(Box)`
     display: flex;
@@ -12,35 +10,21 @@ const Container = styled(Box)`
     width: ${prop => prop.height || "auto"};
     margin-top: 10px;
 `
-const slickOpts = {
-    dots: false,
-    arrows: false,
-    infinite: false,
-    speed: 500,
-    slidesToShow: 5,
-    slidesToScroll: 5,
-  };
 
 const AlbumList = props => {
-    const {albums={}} = props;
+    const {albums={}, history} = props;
     return (
         <Container width="100%">
-            {/* <div style={{maxWidth: '1200px', minWidth: '0px'}}> */}
-            <Slider
-                {...slickOpts}
-            >
+            <Swiper>
                 {albums.map(album => (
-                    // <Box height="50px" flex="1" bgcolor="red">{album.nameArtist}</Box>
                     <AlbumBox 
                         key={album.id}
                         nameAlbum={album.nameAlbum} 
                         nameArtist={album.nameArtist}
+                        history={history}
                      ></AlbumBox>
                 ))}
-                
-            </Slider>
-            {/* </div> */}
-
+            </Swiper>
         </Container>
     )
 }
