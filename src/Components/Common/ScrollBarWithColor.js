@@ -16,6 +16,7 @@ const Thumb = styled(Box)`
 `
 
 const ScrollBarWithColor = props => {
+    const {getMoreItem=()=>{}} = props;
     const RenderTrack = ({ style, ...props }) => {
         console.log(style)
         return <Track style={{...style}} {...props} ></Track>
@@ -23,12 +24,26 @@ const ScrollBarWithColor = props => {
     const RenderThumb = ({ style, ...props }) => {
         return <Thumb style={{...style}} {...props} ></Thumb>
     }
+    const handleAboutToReachBottom = React.useCallback(() => {
+        console.log('reach to bottom')
+        getMoreItem();
+    },[getMoreItem])
+    const handleUpdate = React.useCallback(values => {
+        const { scrollTop, scrollHeight, clientHeight } = values;
+        const pad = 1; // 100px of the bottom
+        // t will be greater than 1 if we are about to reach the bottom
+        const t = ((scrollTop + pad) / (scrollHeight - clientHeight));
+        if (t > 1) handleAboutToReachBottom();
+    },[handleAboutToReachBottom])
+
+
     return (
         <Scrollbars
             // renderTrackVertical={RenderTrack}
             // renderTrackHorizontal={RenderTrack}
             {...props}
             // renderThumbHorizontal={RenderThumb}
+            onUpdate={handleUpdate}
             renderThumbVertical={RenderThumb}
 
         >
