@@ -12,6 +12,7 @@ import NotFoundView from './Views/NotFoundView';
 import AudioPlayer from './Components/AudioPlayer';
 import PlayList from './Components/PlayList';
 import CenterHeader from './CenterHeader';
+import VerticalMenu from './VerticalMenu';
 import colors from './config/colors';
  
 const LeftPane = styled(Box)`
@@ -30,13 +31,16 @@ const RightPane = styled(Box)`
 `
 const CenterPane = styled(Box)`
   flex-grow:1;
+  min-width:800px;
   background: ${colors.centerPane}
 `
 
 function App() {
   return (
     <div className="App">
-      <LeftPane>Left</LeftPane>
+      <LeftPane>
+        <VerticalMenu></VerticalMenu>
+      </LeftPane>
       <CenterPane>
         <CenterHeader></CenterHeader>
         <Switch>
