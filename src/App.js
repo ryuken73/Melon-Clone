@@ -3,11 +3,11 @@ import React from 'react';
 import Box from '@mui/material/Box';
 import styled from 'styled-components';
 import {Switch, Route, withRouter} from 'react-router-dom';
-import AlbumListView from './Views/AlbumListView';
+import AlbumListPage from './Components/Album/AlbumListPage';
 import AlbumView from './Views/AlbumView';
 import SongView from './Views/SongView';
 import ArtistView from './Views/ArtistView';
-import PortalView from './Views/PortalView';
+import PortalView from './Components/Portal/PortalPage';
 import NotFoundView from './Views/NotFoundView';
 import AudioPlayer from './Components/AudioPlayer';
 import PlayList from './Components/PlayList';
@@ -45,7 +45,7 @@ function App() {
         <CenterHeader></CenterHeader>
         <Switch>
           <Route exact path="/" render={()=><PortalView />} />
-          <Route path="/albumList" render={(routerProps)=><AlbumListView {...routerProps} />} />
+          <Route path="/albumList" render={(routerProps)=><AlbumListPage {...routerProps} />} />
           <Route path="/album/:id?" render={(routerProps)=><AlbumView {...routerProps} />} />
           <Route path="/song/:id?" render={(routerProps)=><SongView {...routerProps} />} />
           <Route path="/artist/:id?" render={(routerProps)=><ArtistView {...routerProps} />} />

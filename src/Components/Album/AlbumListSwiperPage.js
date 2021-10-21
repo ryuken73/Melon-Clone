@@ -2,7 +2,7 @@ import React from 'react';
 import CommonPageHeader from '../Common/CommonPageHeader';
 import {withRouter} from 'react-router-dom';
 import TextBox from '../Common/TextBox';
-import AlbumList from './AlbumList';
+import AlbumListSwiper from './AlbumListSwiper';
 
 const albums = [
     {id:1, nameAlbum:'잊혀진 계절', nameArtist:'이용'},
@@ -15,7 +15,7 @@ const albums = [
     {id:8, nameAlbum:'iScreaM Vol.11:Queendom Remix', nameArtist:'Red Velvet(레드벨벳)'},
 ]
 
-const RecentAlbums = props => {
+const AlbumListSwiperPage = props => {
     const {history} = props;
     const handleOnClick = React.useCallback(()=>{
         console.log('### history.location changed', history)
@@ -31,9 +31,9 @@ const RecentAlbums = props => {
                 text="최신 앨범 >"
                 onClick={handleOnClick}>
             </TextBox>
-            <AlbumList albums={albums}></AlbumList>
+            <AlbumListSwiper albums={albums}></AlbumListSwiper>
         </CommonPageHeader>
     )
 }
 
-export default React.memo(withRouter(RecentAlbums));
+export default React.memo(withRouter(AlbumListSwiperPage));

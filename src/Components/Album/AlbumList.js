@@ -1,7 +1,7 @@
 import React from 'react'
 import Box from '@mui/material/Box';
 import styled from 'styled-components';
-import AlbumBox from '../PortalView/AlbumBox';
+import AlbumBox from './AlbumBox';
 import ScrollBarWithColor from '../Common/ScrollBarWithColor';
 
 // const Container = styled(Box)`
@@ -21,7 +21,7 @@ const Container = styled(Box)`
     margin-top: 10px;
 `
 
-const AllAlbumList = props => {
+const AlbumList = props => {
     const {albums=[]} = props;
     return (
         <ScrollBarWithColor autoHide style={{ width:'100%', height: '100vh' }}>
@@ -39,4 +39,4 @@ const AllAlbumList = props => {
     )
 }
 
-export default React.memo(AllAlbumList)
+export default React.memo(AlbumList)

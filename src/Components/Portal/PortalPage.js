@@ -1,7 +1,7 @@
 import React from 'react';
 import Box from '@mui/material/Box';
 import styled from 'styled-components';
-import AllRecentAlbums from '../Components/AlbumView/AllRecentAlbums';
+import AlbumListSwiperPage from '../Album/AlbumListSwiperPage';
 
 const Container = styled(Box)`
     display: flex;
@@ -10,14 +10,13 @@ const Container = styled(Box)`
     background: transparent;
 `
 
-const AlbumListView = props => {
+const PortalPage = props => {
     const {match} = props;
     return (
         <Container>
-            <AllRecentAlbums />
+            <AlbumListSwiperPage></AlbumListSwiperPage>
         </Container>
-
     )
 }
 
-export default React.memo(AlbumListView);
+export default React.memo(PortalPage);
