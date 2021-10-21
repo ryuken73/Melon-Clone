@@ -20,14 +20,16 @@ const SubContainer = styled(Box)`
     justify-content: space-between;
     align-items: baseline;
     width: 260px;
+    margin-bottom: 10px;
 `
 const SubTextBox = props => {
-    const {text} = props;
+    const {text, active} = props;
+    const opacity = active === true ? "1" : "0.7";
     return (
         <TextBox 
             fontSize="14px" 
             color="yellow" 
-            opacity="0.7" 
+            opacity={opacity}
             opacityOnHover="0.9" 
             text={text}
             {...props}>
@@ -48,11 +50,20 @@ const albums = [
     {id:10, nameAlbum:'iScreaM Vol.11:Queendom Remix', nameArtist:'Red Velvet(레드벨벳)'},
 ]
 
+const paths = {
+    all: '/albumList/all',
+    domestic: '/albumList/domestic',
+    overseas: '/albumList/overseas'
+}
+
 const AlbumListPage = props => {
-    const {history} = props;
-    const onClickAll = React.useCallback(()=>{history.push('/albumList/all')},[history.location])
-    const onClickDomestic = React.useCallback(()=>{history.push('/albumList/domestic')},[history.location])
-    const onClickOverseas = React.useCallback(()=>{history.push('/albumList/overseas')},[history.location])
+    const {history, location} = props;
+    const {pathname='/albumList/all'} = location;
+    console.log(location)
+
+    const onClickAll = React.useCallback(()=>{history.push(paths['all'])},[history.location])
+    const onClickDomestic = React.useCallback(()=>{history.push(paths['domestic'])},[history.location])
+    const onClickOverseas = React.useCallback(()=>{history.push(paths['overseas'])},[history.location])
     return (
         <Container>
             <CommonPageHeader>
@@ -65,9 +76,9 @@ const AlbumListPage = props => {
                         cursor="auto"
                         text="최신 앨범">
                     </TextBox>
-                    <SubTextBox text="전체" onClick={onClickAll}></SubTextBox>
-                    <SubTextBox text="국내" onClick={onClickDomestic}></SubTextBox>
-                    <SubTextBox text="해외" onClick={onClickOverseas}></SubTextBox>
+                    <SubTextBox text="전체" active={pathname === paths['all']} onClick={onClickAll}></SubTextBox>
+                    <SubTextBox text="국내" active={pathname === paths['domestic']} onClick={onClickDomestic}></SubTextBox>
+                    <SubTextBox text="해외" active={pathname === paths['overseas']} onClick={onClickOverseas}></SubTextBox>
                 </SubContainer>
                 <Switch>
                     <Route path="/albumList/:area?" render={(routerProps)=> <AlbumList albums={albums} {...routerProps} />}>
