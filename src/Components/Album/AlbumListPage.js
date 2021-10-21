@@ -25,10 +25,11 @@ const SubContainer = styled(Box)`
 const SubTextBox = props => {
     const {text, active} = props;
     const opacity = active === true ? "1" : "0.7";
+    const color = active === true ? "yellow" : "grey";
     return (
         <TextBox 
             fontSize="14px" 
-            color="yellow" 
+            color={color}
             opacity={opacity}
             opacityOnHover="0.9" 
             text={text}
