@@ -11,13 +11,15 @@ const albums = [
     {id:4, nameAlbum:'iScreaM Vol.11:Queendom Remix', nameArtist:'Red Velvet(레드벨벳)'},
     {id:5, nameAlbum:'iScreaM Vol.11:Queendom Remix', nameArtist:'Red Velvet(레드벨벳)'},
     {id:6, nameAlbum:'iScreaM Vol.11:Queendom Remix', nameArtist:'Red Velvet(레드벨벳)'},
+    {id:7, nameAlbum:'iScreaM Vol.11:Queendom Remix', nameArtist:'Red Velvet(레드벨벳)'},
+    {id:8, nameAlbum:'iScreaM Vol.11:Queendom Remix', nameArtist:'Red Velvet(레드벨벳)'},
 ]
 
 const RecentAlbums = props => {
     const {history} = props;
     const handleOnClick = React.useCallback(()=>{
         console.log('### history.location changed', history)
-        history.push('/albumList')
+        history.push('/albumList/all')
     },[history.location])
     return (
         <CommonPageHeader>

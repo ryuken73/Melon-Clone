@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import CommonPageHeader from '../Common/CommonPageHeader';
 import {Switch, Route, withRouter} from 'react-router-dom';
 import TextBox from '../Common/TextBox';
+import AllAlbumList from './AllAlbumList';
 // import AlbumList from './AlbumList';
 
 const SubContainer = styled(Box)`
@@ -21,7 +22,8 @@ const SubTextBox = props => {
             color="yellow" 
             opacity="0.7" 
             opacityOnHover="0.9" 
-            text={text}>
+            text={text}
+            {...props}>
         </TextBox>
     )
 }
@@ -47,14 +49,17 @@ const albums = [
     {id:4, nameAlbum:'iScreaM Vol.11:Queendom Remix', nameArtist:'Red Velvet(레드벨벳)'},
     {id:5, nameAlbum:'iScreaM Vol.11:Queendom Remix', nameArtist:'Red Velvet(레드벨벳)'},
     {id:6, nameAlbum:'iScreaM Vol.11:Queendom Remix', nameArtist:'Red Velvet(레드벨벳)'},
+    {id:7, nameAlbum:'iScreaM Vol.11:Queendom Remix', nameArtist:'Red Velvet(레드벨벳)'},
+    {id:8, nameAlbum:'iScreaM Vol.11:Queendom Remix', nameArtist:'Red Velvet(레드벨벳)'},
+    {id:9, nameAlbum:'iScreaM Vol.11:Queendom Remix', nameArtist:'Red Velvet(레드벨벳)'},
+    {id:10, nameAlbum:'iScreaM Vol.11:Queendom Remix', nameArtist:'Red Velvet(레드벨벳)'},
 ]
 
 const AllRecentAlbums = props => {
     const {history} = props;
-    const handleOnClick = React.useCallback(()=>{
-        console.log('### history.location changed', history)
-        history.push('/albumList')
-    },[history.location])
+    const onClickAll = React.useCallback(()=>{history.push('/albumList/all')},[history.location])
+    const onClickDomestic = React.useCallback(()=>{history.push('/albumList/domestic')},[history.location])
+    const onClickOverseas = React.useCallback(()=>{history.push('/albumList/overseas')},[history.location])
     return (
         <CommonPageHeader>
             <SubContainer>
@@ -63,15 +68,15 @@ const AllRecentAlbums = props => {
                     color="white" 
                     opacity="0.7" 
                     opacityOnHover="0.7" 
+                    cursor="auto"
                     text="최신 앨범">
                 </TextBox>
-                <SubTextBox text="전체"></SubTextBox>
-                <SubTextBox text="국내"></SubTextBox>
-                <SubTextBox text="해외"></SubTextBox>
+                <SubTextBox text="전체" onClick={onClickAll}></SubTextBox>
+                <SubTextBox text="국내" onClick={onClickDomestic}></SubTextBox>
+                <SubTextBox text="해외" onClick={onClickOverseas}></SubTextBox>
             </SubContainer>
             <Switch>
-                <Route path="/albumList/:area?" component={AlbumList}>
-                    {/* <AlbumList></AlbumList> */}
+                <Route path="/albumList/:area?" render={(routerProps)=> <AllAlbumList albums={albums} {...routerProps} />}>
                 </Route>
             </Switch>
             {/* <AlbumList albums={albums}></AlbumList> */}
