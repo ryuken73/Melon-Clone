@@ -8,8 +8,8 @@ const Container = styled(Box)`
     flex-direction: column;
     background: transparent;
     position: relative;
-    margin-left: 20px;
-    margin-right: 20px;
+    margin-left: 15px;
+    /* margin-right: 10px; */
 `
 
 const CommonPageHeader = props => {

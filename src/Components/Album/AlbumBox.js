@@ -8,8 +8,8 @@ const Container = styled(Box)`
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    margin-left: 5px;
     margin-right: 5px;
+    margin-top: 15px;
     height: ${prop => prop.height || "auto"};
     width: ${prop => prop.height || "auto"};
 `
