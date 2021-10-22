@@ -1,3 +1,4 @@
+import { RestartAltSharp } from '@mui/icons-material';
 import React from 'react'
 import styled from 'styled-components';
 
@@ -5,14 +6,15 @@ const ColoredDivider = styled.hr`
     height: ${props => props.height};
     border-width: ${props => props.width};
     border-color: ${props => props.color};
+    opacity: ${props => props.opacity || 0.5};
+    margin: ${props => props.margin || "8px"};
     border-style: groove;
-    opacity: 0.5;
 `
 
 const Divider = props => {
-    const {color='grey', width='100%', height="1px"} = props;
+    const {color='grey', width='100%', height="1px", ...rest} = props;
     return (
-        <ColoredDivider color={color} width={width} height={height}>
+        <ColoredDivider color={color} width={width} height={height} {...rest}>
         </ColoredDivider>
     )
 }
