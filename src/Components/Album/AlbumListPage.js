@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import CommonPageHeader from '../Common/CommonPageHeader';
 import {Switch, Route, withRouter} from 'react-router-dom';
 import TextBox from '../Common/TextBox';
+import TextBoxHighlight from '../Common/TextBoxHighlight';
 import AlbumList from './AlbumList';
 // import AlbumList from './AlbumList';
 
@@ -22,22 +23,6 @@ const SubContainer = styled(Box)`
     width: 260px;
     margin-bottom: 10px;
 `
-const SubTextBox = props => {
-    const {text, active} = props;
-    const opacity = active === true ? "1" : "0.7";
-    const color = active === true ? "yellow" : "grey";
-    return (
-        <TextBox 
-            fontSize="14px" 
-            color={color}
-            opacity={opacity}
-            opacityOnHover="0.9" 
-            text={text}
-            {...props}>
-        </TextBox>
-    )
-}
-
 const albums = [
     {id:1, nameAlbum:'잊혀진 계절', nameArtist:'이용'},
     {id:2, nameAlbum:'유미의 세포들 OST Part8', nameArtist:'멜로망스'},
@@ -77,9 +62,9 @@ const AlbumListPage = props => {
                         cursor="auto"
                         text="최신 앨범">
                     </TextBox>
-                    <SubTextBox text="전체" active={pathname === paths['all']} onClick={onClickAll}></SubTextBox>
-                    <SubTextBox text="국내" active={pathname === paths['domestic']} onClick={onClickDomestic}></SubTextBox>
-                    <SubTextBox text="해외" active={pathname === paths['overseas']} onClick={onClickOverseas}></SubTextBox>
+                    <TextBoxHighlight text="전체" active={pathname === paths['all']} onClick={onClickAll}></TextBoxHighlight>
+                    <TextBoxHighlight text="국내" active={pathname === paths['domestic']} onClick={onClickDomestic}></TextBoxHighlight>
+                    <TextBoxHighlight text="해외" active={pathname === paths['overseas']} onClick={onClickOverseas}></TextBoxHighlight>
                 </SubContainer>
                 <Switch>
                     <Route path="/albumList/:area?" render={(routerProps)=> <AlbumList albums={albums} {...routerProps} />}>
