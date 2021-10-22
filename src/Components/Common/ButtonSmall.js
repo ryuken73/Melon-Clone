@@ -9,7 +9,7 @@ const ButtonSmall = styled(Button)`
         background: ${props => props.background || 'transparent'};
         border-radius: 10px;
         &:hover {
-            background:${props => props.background || 'transparent'};
+            background:${props => props.hoverBackground || 'transparent'};
         }
     }
 `
