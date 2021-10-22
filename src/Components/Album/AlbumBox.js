@@ -15,17 +15,23 @@ const Container = styled(Box)`
 `
 
 const AlbumBox = props => {
-    const {nameAlbum="잊어야 한다는", nameArtist="김광석"} = props;
+    const {nameAlbum="잊어야 한다는", nameArtist="김광석", history} = props;
+    const handleClickAlbum = React.useCallback(()=> {
+        history.push('/album/144/songList')
+    },[history.location])
+
     return (
         <Container>
-            <ImageBoxWithHoverIcon width="100%" height="100%"></ImageBoxWithHoverIcon>
+            <ImageBoxWithHoverIcon onClick={handleClickAlbum} width="100%" height="100%"></ImageBoxWithHoverIcon>
             <Box marginTop="5px"></Box>
             <TextBox 
                 fontSize="14px" 
                 color="white" 
                 opacity="0.7" 
                 opacityOnHover="0.9"
-                text={nameAlbum}>
+                text={nameAlbum}
+                onClick={handleClickAlbum}
+            >
             </TextBox>
             <TextBox 
                 fontSize="12px" 

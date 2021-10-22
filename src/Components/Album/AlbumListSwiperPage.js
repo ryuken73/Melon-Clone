@@ -31,7 +31,7 @@ const AlbumListSwiperPage = props => {
                 text="최신 앨범 >"
                 onClick={handleOnClick}>
             </TextBox>
-            <AlbumListSwiper albums={albums}></AlbumListSwiper>
+            <AlbumListSwiper history={history} albums={albums}></AlbumListSwiper>
         </CommonPageHeader>
     )
 }
