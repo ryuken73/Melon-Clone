@@ -16,7 +16,7 @@ const Container = styled(Box)`
 const BoxWithScrollbar = props => {
     console.log(props)
     return (
-        <ScrollBarWithColor autoHide style={{width:'auto', height: '100%' }}>
+        <ScrollBarWithColor autoHide style={{width:'auto', height: '100vh' }}>
             <Container>
                 {props.children}
             </Container>

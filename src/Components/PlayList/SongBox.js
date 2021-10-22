@@ -35,12 +35,12 @@ const songs = [
     {id:21, title: 'Plastic', artist: 'Moses Sumeny'},
     {id:22, title: '잊혀진 계절', artist: 'The One (더 원) 리메이크'},
     {id:23, title: '잊혀진 계절 (리메이크곡, 2021)', artist: 'The One (더 원) 리메이크'},
-    {id:24, title: 'Plastic', artist: 'Moses Sumeny'},
+    {id:24, title: 'last song', artist: 'Moses Sumeny'},
 ]
 
 const SongBox = () => {
     return (
-        <ScrollBarWithColor autoHide style={{ width:'300px', height: '100%' }}>
+        <ScrollBarWithColor autoHide style={{ width:'300px', height: 'calc(100vh - 500px)' }}>
             <Container>
                 {songs.map(song => <Song key={song.id} song={song}></Song>)}
             </Container>
