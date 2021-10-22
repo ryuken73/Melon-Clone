@@ -17,6 +17,8 @@ const SubContainer = styled(Box)`
     justify-content: space-between;
     height: ${prop => prop.height || "auto"};
     width: ${prop => prop.width || "auto"};
+    margin-top: 20px;
+    margin-bottom: 10px;
 `
 
 const AlbumDetailTab = props => {
@@ -31,10 +33,10 @@ const AlbumDetailTab = props => {
     return (
         <Container>
             <SubContainer width="150px">
-                <TextBoxHighlight onClick={onClickSongList} fontSize="15px" text="수록곡"></TextBoxHighlight>
-                <TextBoxHighlight onClick={onClickAlbumInfo} fontSize="15px" text="상세정보"></TextBoxHighlight>
+                <TextBoxHighlight active={pathname.includes('songList')} onClick={onClickSongList} fontSize="15px" text="수록곡"></TextBoxHighlight>
+                <TextBoxHighlight active={pathname.includes('albumInfo')} onClick={onClickAlbumInfo} fontSize="15px" text="상세정보"></TextBoxHighlight>
             </SubContainer>
-            <Divider></Divider>
+            <Divider margin="0px"></Divider>
         </Container>
     )
 }
