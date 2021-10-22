@@ -5,12 +5,14 @@ import colors from '../../config/colors';
 import ButtonIcon from '../Common/ButtonIcon';
 import CheckIcon from '@mui/icons-material/Check';
 import PlayArrowIcon from '@mui/icons-material/PlayArrow';
+import SongItemsWithIndex from '../Song/SongItemsWithIndex';
 
 const Container = styled(Box)`
     display: flex;
     flex-direction: column;
     height: ${prop => prop.height || "auto"};
     width: ${prop => prop.height || "auto"};
+    margin-top: 10px;
 `
 const ButtonContainer = styled(Box)`
     display: flex;
@@ -24,7 +26,7 @@ const ButtonContainer = styled(Box)`
     }
 `
 
-const AlbumDetailList = () => {
+const AlbumDetailList = props => {
     return (
         <Container>
             <ButtonContainer>
@@ -41,6 +43,7 @@ const AlbumDetailList = () => {
                     hoverBackground={colors.light3CenterPane}
                 ></ButtonIcon>
             </ButtonContainer>
+            <SongItemsWithIndex></SongItemsWithIndex>
         </Container>
     )
 }
