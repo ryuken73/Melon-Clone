@@ -17,7 +17,7 @@ const Container = styled(Box)`
         align-items: center;
         height: 55px;
         width: 100%;
-        background: ${props => props.checked ? colors.lightCenterPane : 'transparent'};
+        background: ${props => props.checked && !props.header ? colors.lightCenterPane : 'transparent'};
         ${props => props.header || `&:hover {
                 background: ${colors.highCenterPane}
             }`

@@ -17,7 +17,7 @@ const Image = styled.img`
 
 const ImageBox = props => {
     const {
-        src='/images/no_image_black.jpg',
+        src='/images/4MB029205.jpg',
         onClick=()=>{},
         alt="image",
         title="related image",
