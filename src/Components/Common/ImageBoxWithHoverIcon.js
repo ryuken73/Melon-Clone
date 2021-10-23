@@ -4,11 +4,25 @@ import styled from 'styled-components';
 import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 import HoverButton from './ButtonHover';
 import ImageBox from './ImageBox';
+import colors from '../../config/colors';
 
 const Container = styled(Box)`
     height: ${prop => prop.height || "auto"};
     width: ${prop => prop.height || "auto"};
     position: relative;
+    &:before {
+        content: '';
+        display: block;
+        position: absolute;
+        height: 0%;
+        width: 100%;
+        bottom: 0;
+        pointer-events: none;
+        background: linear-gradient(to bottom, transparent, ${colors.highCenterPane});
+    }
+    &:hover:before {
+        height: 100%;
+    }
 `
 const BoxShownOnHover = styled(Box)`
     && {
