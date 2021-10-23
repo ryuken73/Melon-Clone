@@ -33,14 +33,19 @@ const AlbumDetailList = props => {
                 <ButtonIcon 
                     text="전체선택" 
                     iconComponent={<CheckIcon fontSize="small"></CheckIcon>} 
-                    background={colors.light2CenterPane}
-                    hoverBackground={colors.light3CenterPane}
+                    border="1px solid rgba(255, 255, 255, .5)"
+                    hoverBorder="1px solid rgba(255, 255, 255, 0.8)"
+                    
+                    // background={colors.light2CenterPane}
+                    // hoverBackground={colors.light3CenterPane}
                 ></ButtonIcon>
                 <ButtonIcon 
                     text="전체재생" 
                     iconComponent={<PlayArrowIcon fontSize="small"></PlayArrowIcon>} 
-                    background={colors.light2CenterPane}
-                    hoverBackground={colors.light3CenterPane}
+                    border="1px solid rgba(255, 255, 255, .5)"
+                    hoverBorder="1px solid rgba(255, 255, 255, 0.8)"
+                    // background={colors.light2CenterPane}
+                    // hoverBackground={colors.light3CenterPane}
                 ></ButtonIcon>
             </ButtonContainer>
             <SongItemsWithIndex></SongItemsWithIndex>

@@ -8,8 +8,11 @@ const ButtonSmall = styled(Button)`
         font-size: ${props => props.fontsize || '10px'};
         background: ${props => props.background || 'transparent'};
         border-radius: 10px;
+        border: ${props => props.border || 'none'}; 
         &:hover {
             background:${props => props.hoverBackground || 'transparent'};
+            border: ${props => props.hoverBorder || 'none'};
+
         }
     }
 `
