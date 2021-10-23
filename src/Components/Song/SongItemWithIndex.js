@@ -17,11 +17,11 @@ const Container = styled(Box)`
         align-items: center;
         height: 55px;
         width: 100%;
+        background: ${props => props.checked ? colors.lightCenterPane : 'transparent'};
         ${props => props.header || `&:hover {
                 background: ${colors.highCenterPane}
             }`
         }
-
     }
 `
 
@@ -36,7 +36,7 @@ const SongItemWithIndex = props => {
         setHovered(false);
     },[setHovered])
     return (
-            <Container header={header} onMouseEnter={onHovered} onMouseLeave={onHoverOut}>
+            <Container header={header} checked={checked} onMouseEnter={onHovered} onMouseLeave={onHoverOut}>
                 <SmallCheckBox checked={checked} setChecked={setChecked} />
                 <Box flex="1">
                     {/* 순번 */}
