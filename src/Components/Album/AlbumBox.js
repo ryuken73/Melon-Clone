@@ -22,7 +22,7 @@ const AlbumBox = props => {
 
     return (
         <Container>
-            <ImageBoxWithHoverIcon onClick={handleClickAlbum} width="100%" height="100%"></ImageBoxWithHoverIcon>
+            <ImageBoxWithHoverIcon onClick={handleClickAlbum}></ImageBoxWithHoverIcon>
             <Box marginTop="5px"></Box>
             <TextBox 
                 fontSize="14px" 

@@ -44,7 +44,7 @@ const AudioPlayer = () => {
     return (
         <Container>
             <Image>
-                <ImageBox></ImageBox>
+                <ImageBox width="150px" height="150px"></ImageBox>
             </Image>
             <Title>
                 <TextBox textalign="center" fontSize="13px" text="곡명" color={colors.textMain}></TextBox>

@@ -31,7 +31,7 @@ const AlbumDetailInfo = props => {
 const AlbumDetailHeader = () => {
     return (
         <Container>
-            <ImageBox></ImageBox>
+            <ImageBox width="150px" height="150px"></ImageBox>
             <AlbumDetailInfo></AlbumDetailInfo>
         </Container>
     )

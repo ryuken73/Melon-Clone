@@ -7,12 +7,11 @@ const Container = styled(Box)`
     width: ${prop => prop.height || "auto"};
 `
 const Image = styled.img`
-    height: ${prop => prop.height || "150px"};
-    width: ${prop => prop.width || "150px"};
+    max-width: 100%;
+    height: auto;
     border-radius: ${prop => prop.borderRadius || "8px"};
     object-fit: ${prop => prop.objectFit || "cover"};
-    aspect-ratio: 1
-
+    aspect-ratio: 1;
 `;
 
 
@@ -21,8 +20,9 @@ const ImageBox = props => {
         src='/images/no_image_black.jpg',
         onClick=()=>{},
         alt="image",
-        title="related image"
-
+        title="related image",
+        width="500",
+        height="500"
     } = props;
     return (
         <Container>
@@ -31,7 +31,9 @@ const ImageBox = props => {
                 title={title}
                 src={src}
                 onClick={onClick}
-                {...props}
+                width={width}
+                height={height}
+                // {...props}
             >
             
             </Image>
