@@ -46,6 +46,12 @@ const AlbumListPage = props => {
     const {history, location} = props;
     const {pathname='/albumList/all'} = location;
     console.log(location)
+    const [localAlbums, setLocalAlbums] = React.useState(albums)
+    const getMoreItem = React.useCallback(()=>{
+        setLocalAlbums(localAlbums => {
+            return [...localAlbums, ...localAlbums]
+        })
+    },[setLocalAlbums])
 
     const onClickAll = React.useCallback(()=>{history.push(paths['all'])},[history.location])
     const onClickDomestic = React.useCallback(()=>{history.push(paths['domestic'])},[history.location])
@@ -67,7 +73,7 @@ const AlbumListPage = props => {
                     <TextBoxHighlight text="해외" active={pathname === paths['overseas']} onClick={onClickOverseas}></TextBoxHighlight>
                 </SubContainer>
                 <Switch>
-                    <Route path="/albumList/:area?" render={(routerProps)=> <AlbumList albums={albums} {...routerProps} />}>
+                    <Route path="/albumList/:area?" render={(routerProps)=> <AlbumList getMoreItem={getMoreItem} albums={localAlbums} {...routerProps} />}>
                     </Route>
                 </Switch>
             </CommonPageHeader>

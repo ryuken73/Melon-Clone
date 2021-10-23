@@ -13,13 +13,13 @@ const Container = styled(Box)`
 `
 
 const AlbumList = props => {
-    const {albums=[], history} = props;
+    const {albums=[], history, getMoreItem=()=>{}} = props;
     return (
-        <ScrollBarWithColor autoHide style={{ width:'100%', height: 'calc(100vh - 100px)' }}>
+        <ScrollBarWithColor getMoreItem={getMoreItem} autoHide style={{ width:'100%', height: 'calc(100vh - 100px)' }}>
             <Container>
-                {albums.map(album => (  
+                {albums.map((album,index) => (  
                     <AlbumBox 
-                        key={album.id}
+                        key={index}
                         nameAlbum={album.nameAlbum} 
                         nameArtist={album.nameArtist}
                         history={history}
