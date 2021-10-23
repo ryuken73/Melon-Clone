@@ -18,7 +18,7 @@ const Container = styled(Box)`
         height: 55px;
         width: 100%;
         ${props => props.header || `&:hover {
-                background: ${colors.light2CenterPane}
+                background: ${colors.highCenterPane}
             }`
         }
 
