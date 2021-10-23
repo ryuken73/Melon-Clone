@@ -8,6 +8,7 @@ import SongHeader from './SongHeader';
 import SnackBar from '../Common/SnackBar';
 
 const Container = styled(Box)`
+    position: relative;
     background: ${colors.player};
     flex-grow: 1;
     display: flex;
