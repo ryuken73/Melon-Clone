@@ -5,6 +5,9 @@ import styled from 'styled-components';
 const Container = styled(Box)`
     height: ${prop => prop.height || "auto"};
     width: ${prop => prop.height || "auto"};
+    overflow: hidden;
+    border-radius: 8px;
+
 `
 const Image = styled.img`
     max-width: 100%;
@@ -12,6 +15,13 @@ const Image = styled.img`
     border-radius: ${prop => prop.borderRadius || "8px"};
     object-fit: ${prop => prop.objectFit || "cover"};
     aspect-ratio: 1;
+    vertical-align: bottom;
+    transform: scale(1.0);
+    transition: transform 0.2s ease-out;
+    &:hover {
+        transform: scale(1.1);
+        transition: transform 0.5s linear 0.1s;
+    }
 `;
 
 
@@ -22,7 +32,7 @@ const ImageBox = props => {
         alt="image",
         title="related image",
         width="500",
-        height="500"
+        height="500",
     } = props;
     return (
         <Container>

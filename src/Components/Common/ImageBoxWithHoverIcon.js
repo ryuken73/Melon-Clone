@@ -10,7 +10,7 @@ const Container = styled(Box)`
     height: ${prop => prop.height || "auto"};
     width: ${prop => prop.height || "auto"};
     position: relative;
-    &:before {
+    /* &:before {
         content: '';
         display: block;
         position: absolute;
@@ -22,7 +22,7 @@ const Container = styled(Box)`
     }
     &:hover:before {
         height: 100%;
-    }
+    } */
 `
 const BoxShownOnHover = styled(Box)`
     && {
