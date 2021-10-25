@@ -7,6 +7,7 @@ import HoverButton from '../Common/ButtonHover';
 import FileDownloadIcon from '@mui/icons-material/FileDownload';
 import AddIcon from '@mui/icons-material/Add';
 import DeleteIcon from '@mui/icons-material/Delete';
+import Slide from '@mui/material/Slide';
 
 const Container = styled(Box)`
     && {
@@ -30,20 +31,22 @@ const ButtonContainer = styled(Box)`
         flex: 1;
 `
 
-const SnackBar = () => {
+const SnackBar = props => {
+    const {show=true, count=1} = props;
+    const text = `선택한 ${count} 곡을`;
     return (
-        <Container>
-            <Box flex="1" justifyContent="center">
-                <TextBox textAlign="center" text="선택된 1곡을"></TextBox>
-            </Box>
-            <ButtonContainer>
-                <HoverButton><FileDownloadIcon fontSize="small"></FileDownloadIcon></HoverButton>
-                <HoverButton><AddIcon fontSize="small"></AddIcon></HoverButton>
-                <HoverButton><DeleteIcon fontSize="small"></DeleteIcon></HoverButton>
-            </ButtonContainer>
-
-
-        </Container>
+        <Slide direction="up" in={show} mountOnEnter unmountOnExit>
+            <Container>
+                <Box flex="1" justifyContent="center">
+                    <TextBox textAlign="center" text={text}></TextBox>
+                </Box>
+                <ButtonContainer>
+                    <HoverButton><FileDownloadIcon fontSize="small"></FileDownloadIcon></HoverButton>
+                    <HoverButton><AddIcon fontSize="small"></AddIcon></HoverButton>
+                    <HoverButton><DeleteIcon fontSize="small"></DeleteIcon></HoverButton>
+                </ButtonContainer>
+            </Container>
+        </Slide>
     )
 }
 
