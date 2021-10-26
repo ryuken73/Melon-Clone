@@ -9,6 +9,7 @@ import PlayerControls from './PlayerControls';
 import colors from '../../config/colors';
 import { ColorizeSharp } from '@mui/icons-material';
 import Hls from 'hls.js';
+import useHlsAudioPlayer from '../../hooks/useHlsAudioPlayer';
 
 const Container = styled(Box)`
     display: flex;
@@ -61,42 +62,20 @@ const eventHandlers = {
 const hlsSource = 'http://10.11.31.51:1935/music/_definst_/mp3:Audio_WAVE1/4MB/4MB029154/4MB029154_Track01.mp3/playlist.m3u8'
 
 const AudioPlayer = props => {
-    const [hls, setHls] = React.useState(null);
-    const [canPlay, setCanPlay] = React.useState(false);
     const [currentEvent, setCurrentEvent] = React.useState(null);
+    const [playerRef, hls, canPlay] = useHlsAudioPlayer(hlsSource);
 
     const playerDefaultEventHandler = React.useCallback(event => {
         console.log(`event on:`,event.type, event.target.src)
         setCurrentEvent(event.type)
     },[]);
 
-    let playerRef = React.useRef(null);
-
     React.useEffect(()=>{
-        if(Hls.isSupported()){
-            const audioElement = new Audio();
-            playerRef.current = audioElement;
-            const hls = new Hls();
-            hls.attachMedia(audioElement);
-            hls.on(Hls.Events.MEDIA_ATTACHED, () => {
-                console.log('audio is attached to hls');
-                playerRef.current = audioElement;
-                setHls(hls);
-            })
-            Object.keys(eventHandlers).forEach(eventType => {
-                audioElement.addEventListener(eventType, props[eventHandlers[eventType]]||playerDefaultEventHandler)
-            })
-        }
-    },[]);
-
-    React.useEffect(()=>{
-        if(hls === null) return;
-        hls.loadSource(hlsSource);
-        hls.on(Hls.Events.MANIFEST_PARSED, (event, data) => {
-            console.log('manifest loaded, found data:', data);
-            setCanPlay(true)
+        if(playerRef.current === null) return;
+        Object.keys(eventHandlers).forEach(eventType => {
+            playerRef.current.addEventListener(eventType, props[eventHandlers[eventType]]||playerDefaultEventHandler)
         })
-    },[hls])
+    },[playerRef.current, eventHandlers])
 
     return (
         <Container>
