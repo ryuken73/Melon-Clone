@@ -3,13 +3,11 @@ import Box from '@mui/material/Box';
 import styled from 'styled-components';
 import ImageBox from '../Common/ImageBox';
 import TextBox from '../Common/TextBox';
-import ProgressBar from '../Common/ProgressBar';
 import SliderBar from '../Common/SliderBar';
 import PlayerControls from './PlayerControls';
 import colors from '../../config/colors';
-import { ColorizeSharp } from '@mui/icons-material';
-import Hls from 'hls.js';
 import useHlsAudioPlayer from '../../hooks/useHlsAudioPlayer';
+import useEventEmitter from '../../hooks/useEventEmitter';
 
 const Container = styled(Box)`
     display: flex;
@@ -42,40 +40,25 @@ const Controls = styled(Box)`
     margin-top: auto;
 `;
 
-
-
-const eventHandlers = {
-    'abort': 'onAbort',
-    'canplay': 'onCanPlay',
-    'canplaythrough': 'onCanPlayThrough',
-    'durationchange': 'onDurationChange',
-    'progress': 'onProgress',
-    'timeupdate': 'onTimeUpdate',
-    'pause': 'onPause',
-    'play': 'onPlay',
-    'seeked': 'onSeeked',
-    'error': 'onError',
-    'ended': 'onEnded'
-
-}
-
 const hlsSource = 'http://10.11.31.51:1935/music/_definst_/mp3:Audio_WAVE1/4MB/4MB029154/4MB029154_Track01.mp3/playlist.m3u8'
 
+const durationToSeconds = duration => {
+    const [minutes, seconds] = duration.split(':');
+    return minutes * 60 + seconds;
+}
+
 const AudioPlayer = props => {
-    const [currentEvent, setCurrentEvent] = React.useState(null);
-    const [playerRef, hls, canPlay] = useHlsAudioPlayer(hlsSource);
-
-    const playerDefaultEventHandler = React.useCallback(event => {
-        console.log(`event on:`,event.type, event.target.src)
-        setCurrentEvent(event.type)
-    },[]);
-
-    React.useEffect(()=>{
-        if(playerRef.current === null) return;
-        Object.keys(eventHandlers).forEach(eventType => {
-            playerRef.current.addEventListener(eventType, props[eventHandlers[eventType]]||playerDefaultEventHandler)
-        })
-    },[playerRef.current, eventHandlers])
+    const [playerRef, hls, manifestLoaded, event] = useHlsAudioPlayer(hlsSource);
+    const [isPlaying, duration, currentTime, progress] = useEventEmitter(playerRef, event);
+    console.log('duration changed:',duration)
+    const handleMoveProgressSlider = React.useCallback(progressPercent => {
+        const player = playerRef.current;
+        const {duration} = player;
+        if(duration === undefined || duration === null) return;
+        const timeToGo = (duration * progressPercent/100);
+        console.log(duration, timeToGo)
+        player.currentTime = timeToGo;
+    },[duration]);
 
     return (
         <Container>
@@ -89,14 +72,14 @@ const AudioPlayer = props => {
                 <TextBox textalign="center" text="아티스트"></TextBox>
             </Artist>
             <Progress>
-                <SliderBar />
+                <SliderBar value={progress} onChange={handleMoveProgressSlider} />
             </Progress>
             <Duration>
-                <TextBox fontSize="11px" text="00:01" color={colors.textMain}></TextBox>
-                <TextBox fontSize="11px" text="03:01" marginLeft="5px" color={colors.textSub}></TextBox>
+                <TextBox fontSize="11px" text={currentTime} color={colors.textMain}></TextBox>
+                <TextBox fontSize="11px" text={duration} marginLeft="5px" color={colors.textSub}></TextBox>
             </Duration>
             <Controls>
-                <PlayerControls playerRef={playerRef} canPlay={canPlay} currentEvent={currentEvent}></PlayerControls>
+                <PlayerControls playerRef={playerRef} canPlay={manifestLoaded} isPlaying={isPlaying}></PlayerControls>
             </Controls>
         </Container>
     )

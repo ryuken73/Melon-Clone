@@ -19,8 +19,8 @@ const Image = styled.img`
     transform: scale(1.0);
     transition: transform 0.2s ease-out;
     &:hover {
-        transform: scale(1.1);
-        transition: transform 0.5s linear 0.1s;
+        transform: scale(1.02);
+        transition: transform 0.3s linear;
     }
 `;
 

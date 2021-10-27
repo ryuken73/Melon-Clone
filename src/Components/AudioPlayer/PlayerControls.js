@@ -22,13 +22,11 @@ const Container = styled(Box)`
     background: black;
 `
 
-const isPlaying = player => !!(player !== null && player.currentTime > 0 && !player.paused && !player.ended && player.readyState > 2);
-
 const PlayerControls = props => {
     const {
         playerRef=null, 
         canPlay=false, 
-        currentEvent=null
+        isPlaying=false
         // playerStopped=true
     } = props;
 
@@ -43,12 +41,6 @@ const PlayerControls = props => {
     } = props;   
 
     const player = playerRef.current;
-
-    const [isPlaying, setIsPlaying] = React.useState(false);
-    React.useEffect(() => {
-        console.log('currentEvent:', currentEvent)
-        setIsPlaying(!!(player !== null && player.currentTime > 0 && !player.paused && !player.ended && player.readyState > 2))
-    },[currentEvent, player])
 
     const onClickPlay = React.useCallback(() => {
         if(playerRef === null) return;
