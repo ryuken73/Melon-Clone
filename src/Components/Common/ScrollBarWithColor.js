@@ -15,8 +15,32 @@ const Thumb = styled(Box)`
     width: 2px !important;
 `
 
+function useDebounce(value, delay) {
+    // State and setters for debounced value
+    const [debouncedValue, setDebouncedValue] = React.useState(value);
+    React.useEffect(
+      () => {
+        // Update debounced value after delay
+        const handler = setTimeout(() => {
+          setDebouncedValue(value);
+        }, delay);
+        // Cancel the timeout if value changes (also on delay change or unmount)
+        // This is how we prevent debounced value from updating if value is changed ...
+        // .. within the delay period. Timeout gets cleared and restarted.
+        return () => {
+          clearTimeout(handler);
+        };
+      },
+      [value, delay] // Only re-call effect if value or delay changes
+    );
+    return debouncedValue;
+  }
+
 const ScrollBarWithColor = props => {
     const {getMoreItem=()=>{}} = props;
+    const [t, setT] = React.useState(0);
+    const debouncedValue = useDebounce(t, 500);
+
     const RenderTrack = ({ style, ...props }) => {
         console.log(style)
         return <Track style={{...style}} {...props} ></Track>
@@ -25,15 +49,22 @@ const ScrollBarWithColor = props => {
         return <Thumb style={{...style}} {...props} ></Thumb>
     }
     const handleAboutToReachBottom = React.useCallback(() => {
-        console.log('reach to bottom')
+        // console.log('reach to bottom')
         getMoreItem();
     },[getMoreItem])
+
+    React.useEffect(() => {
+        if (debouncedValue > 1) handleAboutToReachBottom();
+    },[debouncedValue, handleAboutToReachBottom])    
+
     const handleUpdate = React.useCallback(values => {
         const { scrollTop, scrollHeight, clientHeight } = values;
+        // console.log(scrollTop, scrollHeight, clientHeight)
         const pad = 1; // 100px of the bottom
         // t will be greater than 1 if we are about to reach the bottom
         const t = ((scrollTop + pad) / (scrollHeight - clientHeight));
-        if (t > 1) handleAboutToReachBottom();
+        setT(t);
+        // if (t > 1) handleAboutToReachBottom();
     },[handleAboutToReachBottom])
 
 
