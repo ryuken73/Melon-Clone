@@ -19,9 +19,6 @@ const ButtonWrapper = styled(Box)`
     border-radius: 10px;
     margin: 2px;
 `
-
-
-
 const TabHeader = props => {
     const {
         activeTabId='song', 
@@ -37,16 +34,16 @@ const TabHeader = props => {
                     <ButtonSmall 
                         id='song' 
                         onClick={onClickTabHaderButton} 
-                        background={activeTabId === 'song' && colors.centerPane} 
-                        fontsize='11px'
+                        background={activeTabId === 'song' ? colors.centerPane:'transparent'} 
+                        fontSize='11px'
                     >
                         <TextBox text="곡"></TextBox>
                     </ButtonSmall>
                     <ButtonSmall 
                         id='playlist' 
                         onClick={onClickTabHaderButton} 
-                        background={activeTabId === 'playlist' && colors.centerPane} 
-                        fontsize='11px'
+                        background={activeTabId === 'playlist' ? colors.centerPane:'transparent'} 
+                        fontSize='11px'
                     >
                         <TextBox text="플레이리스트"></TextBox>
                     </ButtonSmall>

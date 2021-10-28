@@ -28,8 +28,6 @@ const SongHeader = props => {
                 <TextBox textalign="right" text="반복재생"></TextBox>
                 <HoverButton onClick={onClickRepeat}><RepeatIcon fontSize="small"></RepeatIcon></HoverButton>
             </Box>
-
-     
         </Container>
     )
 }
