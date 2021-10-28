@@ -34,6 +34,9 @@ const ImageBox = props => {
         width="500",
         height="500",
     } = props;
+    const onError = React.useCallback(event => {
+        event.target.src='/images/no-image.png';
+    },[])
     return (
         <Container>
             <Image
@@ -43,6 +46,7 @@ const ImageBox = props => {
                 onClick={onClick}
                 width={width}
                 height={height}
+                onError={onError}
                 // {...props}
             >
             
