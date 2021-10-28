@@ -3,11 +3,15 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import Root from './Root';
 import reportWebVitals from './reportWebVitals';
+import {store} from './store';
+import {Provider} from 'react-redux';
 
 ReactDOM.render(
-  <React.StrictMode>
-    <Root />
-  </React.StrictMode>,
+  <Provider store={store}>
+    <React.StrictMode>
+      <Root />
+    </React.StrictMode>
+  </Provider>,
   document.getElementById('root')
 );
 
