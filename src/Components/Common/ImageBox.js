@@ -19,7 +19,7 @@ const Image = styled.img`
     transform: scale(1.0);
     transition: transform 0.2s ease-out;
     &:hover {
-        transform: scale(1.02);
+        transform: scale(1.05);
         transition: transform 0.3s linear;
     }
 `;
