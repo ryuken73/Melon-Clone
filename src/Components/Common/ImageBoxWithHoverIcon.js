@@ -41,7 +41,7 @@ const BoxShownOnHover = styled(Box)`
 `
 const ImageBoxWithHoverIcon = props => {
     const {
-        src='/images/4MB029205.jpg',
+        src='/images/no_image_black.jpg',
         onClick=()=>{},
         alt="image",
         title="related image",

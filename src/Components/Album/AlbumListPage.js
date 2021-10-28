@@ -6,8 +6,8 @@ import {Switch, Route, withRouter} from 'react-router-dom';
 import TextBox from '../Common/TextBox';
 import TextBoxHighlight from '../Common/TextBoxHighlight';
 import AlbumList from './AlbumList';
-// import AlbumList from './AlbumList';
 
+// import AlbumList from './AlbumList';
 const Container = styled(Box)`
     display: flex;
     flex-direction: column;
@@ -20,42 +20,25 @@ const SubContainer = styled(Box)`
     flex-direction: row;
     justify-content: space-between;
     align-items: baseline;
-    width: 260px;
+    width: 350px;
     margin-bottom: 10px;
 `
-const albums = [
-    {id:1, nameAlbum:'잊혀진 계절', nameArtist:'이용'},
-    {id:2, nameAlbum:'유미의 세포들 OST Part8', nameArtist:'멜로망스'},
-    {id:3, nameAlbum:'iScreaM Vol.11:Queendom Remix', nameArtist:'Red Velvet(레드벨벳)'},
-    {id:4, nameAlbum:'iScreaM Vol.11:Queendom Remix', nameArtist:'Red Velvet(레드벨벳)'},
-    {id:5, nameAlbum:'iScreaM Vol.11:Queendom Remix', nameArtist:'Red Velvet(레드벨벳)'},
-    {id:6, nameAlbum:'iScreaM Vol.11:Queendom Remix', nameArtist:'Red Velvet(레드벨벳)'},
-    {id:7, nameAlbum:'iScreaM Vol.11:Queendom Remix', nameArtist:'Red Velvet(레드벨벳)'},
-    {id:8, nameAlbum:'iScreaM Vol.11:Queendom Remix', nameArtist:'Red Velvet(레드벨벳)'},
-    {id:9, nameAlbum:'iScreaM Vol.11:Queendom Remix', nameArtist:'Red Velvet(레드벨벳)'},
-    {id:10, nameAlbum:'iScreaM Vol.11:Queendom Remix', nameArtist:'Red Velvet(레드벨벳)'},
-]
-
 const paths = {
     all: '/albumList/all',
-    domestic: '/albumList/domestic',
-    overseas: '/albumList/overseas'
+    kpop: '/albumList/kpop',
+    pop: '/albumList/pop',
+    classic: '/albumList/classic',
+    etc: '/albumList/etc'
 }
 
 const AlbumListPage = props => {
     const {history, location} = props;
     const {pathname='/albumList/all'} = location;
-    console.log(location)
-    const [localAlbums, setLocalAlbums] = React.useState(albums)
-    const getMoreItem = React.useCallback(()=>{
-        setLocalAlbums(localAlbums => {
-            return [...localAlbums, ...localAlbums]
-        })
-    },[setLocalAlbums])
-
     const onClickAll = React.useCallback(()=>{history.push(paths['all'])},[history.location])
-    const onClickDomestic = React.useCallback(()=>{history.push(paths['domestic'])},[history.location])
-    const onClickOverseas = React.useCallback(()=>{history.push(paths['overseas'])},[history.location])
+    const onClickKpop = React.useCallback(()=>{history.push(paths['kpop'])},[history.location])
+    const onClickPop = React.useCallback(()=>{history.push(paths['pop'])},[history.location])
+    const onClickClassic = React.useCallback(()=>{history.push(paths['classic'])},[history.location])
+    const onClickEtc = React.useCallback(()=>{history.push(paths['etc'])},[history.location])
     return (
         <Container>
             <CommonPageHeader>
@@ -68,12 +51,14 @@ const AlbumListPage = props => {
                         cursor="auto"
                         text="최신 앨범">
                     </TextBox>
-                    <TextBoxHighlight text="전체" active={pathname === paths['all']} onClick={onClickAll}></TextBoxHighlight>
-                    <TextBoxHighlight text="국내" active={pathname === paths['domestic']} onClick={onClickDomestic}></TextBoxHighlight>
-                    <TextBoxHighlight text="해외" active={pathname === paths['overseas']} onClick={onClickOverseas}></TextBoxHighlight>
+                    <TextBoxHighlight text="종합" active={pathname === paths['all']} onClick={onClickAll}></TextBoxHighlight>
+                    <TextBoxHighlight text="가요" active={pathname === paths['kpop']} onClick={onClickKpop}></TextBoxHighlight>
+                    <TextBoxHighlight text="팝송" active={pathname === paths['pop']} onClick={onClickPop}></TextBoxHighlight>
+                    <TextBoxHighlight text="클래식" active={pathname === paths['classic']} onClick={onClickClassic}></TextBoxHighlight>
+                    <TextBoxHighlight text="기타" active={pathname === paths['etc']} onClick={onClickEtc}></TextBoxHighlight>
                 </SubContainer>
                 <Switch>
-                    <Route path="/albumList/:area?" render={(routerProps)=> <AlbumList getMoreItem={getMoreItem} albums={localAlbums} {...routerProps} />}>
+                    <Route path="/albumList/:area?" render={(routerProps)=> <AlbumList {...routerProps} />}>
                     </Route>
                 </Switch>
             </CommonPageHeader>
