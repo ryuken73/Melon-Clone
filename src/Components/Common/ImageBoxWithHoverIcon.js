@@ -69,6 +69,7 @@ const ImageBoxWithHoverIcon = props => {
                 title={title}
                 src={src}
                 onClick={onClick}
+                isHoverInnerElement={isHover}
                 {...props}
             >            
             </ImageBox>

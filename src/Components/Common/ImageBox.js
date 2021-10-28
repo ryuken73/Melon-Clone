@@ -22,6 +22,11 @@ const Image = styled.img`
         transform: scale(1.05);
         transition: transform 0.3s linear;
     }
+    ${({isHoverInnerElement}) => isHoverInnerElement && `
+        transform: scale(1.05);
+        transition: transform 0.3s linear;
+    `
+    }
 `;
 
 
@@ -33,6 +38,7 @@ const ImageBox = props => {
         title="related image",
         width="500",
         height="500",
+        isHoverInnerElement=false
     } = props;
     const onError = React.useCallback(event => {
         event.target.src='/images/no-image.png';
@@ -47,6 +53,7 @@ const ImageBox = props => {
                 width={width}
                 height={height}
                 onError={onError}
+                isHoverInnerElement={isHoverInnerElement}
                 // {...props}
             >
             
