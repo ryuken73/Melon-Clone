@@ -15,14 +15,14 @@ const Container = styled(Box)`
 `
 
 const AlbumBox = props => {
-    const {nameAlbum="잊어야 한다는", nameArtist="김광석", history} = props;
+    const {nameAlbum="잊어야 한다는", nameArtist="김광석", imagePath="/images/no_image_black.jpg", history} = props;
     const handleClickAlbum = React.useCallback(()=> {
         history.push('/album/144/songList')
     },[history.location])
-
+    console.log('re-render albumbox:', nameAlbum)
     return (
         <Container>
-            <ImageBoxWithHoverIcon onClick={handleClickAlbum}></ImageBoxWithHoverIcon>
+            <ImageBoxWithHoverIcon src={imagePath} onClick={handleClickAlbum}></ImageBoxWithHoverIcon>
             <Box marginTop="5px"></Box>
             <TextBox 
                 fontSize="14px" 

@@ -11,20 +11,21 @@ const Container = styled(Box)`
     width: ${prop => prop.height || "auto"};
     margin-top: 10px;
 `
-const FETCH_COUNT = 10;
+const FETCH_COUNT = 15;
 
 const AlbumList = props => {
     const {history} = props;
-    const albums = useFetchRecentAlbums(FETCH_COUNT);
+    const {albums, error, loading} = useFetchRecentAlbums(FETCH_COUNT);
     return (
         <Container width="100%">
             {albums.length > 0 &&
                 <Swiper>
                     {albums.map(album => (
                         <AlbumBox 
-                            key={album.id}
-                            nameAlbum={album.nameAlbum} 
-                            nameArtist={album.nameArtist}
+                            key={album.receipt_no}
+                            nameAlbum={album.album_name} 
+                            nameArtist={album.artist}
+                            imagePath={album.eval_imagePath}
                             history={history}
                         ></AlbumBox>
                     ))}

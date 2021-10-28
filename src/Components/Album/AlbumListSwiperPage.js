@@ -4,17 +4,6 @@ import {withRouter} from 'react-router-dom';
 import TextBox from '../Common/TextBox';
 import AlbumListSwiper from './AlbumListSwiper';
 
-const albums = [
-    {id:1, nameAlbum:'잊혀진 계절', nameArtist:'이용'},
-    {id:2, nameAlbum:'유미의 세포들 OST Part8', nameArtist:'멜로망스'},
-    {id:3, nameAlbum:'iScreaM Vol.11:Queendom Remix', nameArtist:'Red Velvet(레드벨벳)'},
-    {id:4, nameAlbum:'iScreaM Vol.11:Queendom Remix', nameArtist:'Red Velvet(레드벨벳)'},
-    {id:5, nameAlbum:'iScreaM Vol.11:Queendom Remix', nameArtist:'Red Velvet(레드벨벳)'},
-    {id:6, nameAlbum:'iScreaM Vol.11:Queendom Remix', nameArtist:'Red Velvet(레드벨벳)'},
-    {id:7, nameAlbum:'iScreaM Vol.11:Queendom Remix', nameArtist:'Red Velvet(레드벨벳)'},
-    {id:8, nameAlbum:'iScreaM Vol.11:Queendom Remix', nameArtist:'Red Velvet(레드벨벳)'},
-]
-
 const AlbumListSwiperPage = props => {
     const {history} = props;
     const handleOnClick = React.useCallback(()=>{
@@ -31,7 +20,7 @@ const AlbumListSwiperPage = props => {
                 text="최신 앨범 >"
                 onClick={handleOnClick}>
             </TextBox>
-            <AlbumListSwiper history={history} albums={albums}></AlbumListSwiper>
+            <AlbumListSwiper history={history}></AlbumListSwiper>
         </CommonPageHeader>
     )
 }
