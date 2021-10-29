@@ -2,11 +2,13 @@ import React from 'react';
 import useFetch from 'use-http';
 import {baseUrl, apiMap, responseToObject} from '../config/apis';
 import {getString} from '../lib/util';
+import usePrevious from './usePrevious';
+
 
 const SERVER_NAME = 'musicbank';
 const API_NAME = 'searchAlbum';
 
-export default function useFetchRecentAlbums(pathname, pageNum, count) {
+export default function useFetchAlbums(pathname, pageNum, count) {
     const [albums, setAlbums] = React.useState([]);
     const api = apiMap[API_NAME];
     const {uri, headers} = api;
@@ -22,7 +24,7 @@ export default function useFetchRecentAlbums(pathname, pageNum, count) {
         'etc': 0
     }
     const {post, response, error, loading} = useFetch(fetchOptions);
-    
+    const previousPageNum = usePrevious(pageNum);
     React.useEffect(() => {
         setAlbums([]);
     },[pathname])
@@ -49,9 +51,10 @@ export default function useFetchRecentAlbums(pathname, pageNum, count) {
                 setAlbums(albums => [...albums, ...imagePathAttachedAlbums])
             }
         }
-        console.log(pathname, pageNum, count)
+        console.log(pathname, pageNum, previousPageNum, count)
+        if(pageNum !== 1 && pageNum === previousPageNum) return ;
         fetchData(pathname, pageNum, count);
-    },[pageNum, count]);
+    },[pathname, pageNum, count]);
 
     return {albums, error, loading};
 }
