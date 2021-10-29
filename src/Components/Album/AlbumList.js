@@ -18,7 +18,7 @@ const FETCH_COUNT=12;
 const AlbumList = props => {
     const {history} = props;
     const {match} = props;
-    const pathname = match.params.area;
+    const {pathname} = match.params;
     const [pageNum, setPageNum] = React.useState(1);
 
     React.useEffect(()=>{

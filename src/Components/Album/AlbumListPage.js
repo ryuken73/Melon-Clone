@@ -23,22 +23,23 @@ const SubContainer = styled(Box)`
     width: 350px;
     margin-bottom: 10px;
 `
-const paths = {
-    all: '/albumList/all',
-    kpop: '/albumList/kpop',
-    pop: '/albumList/pop',
-    classic: '/albumList/classic',
-    etc: '/albumList/etc'
+const PATHS = {
+    '종합': '/albumList/all',
+    '가요': '/albumList/kpop',
+    '팝송': '/albumList/pop',
+    '클래식': '/albumList/classic',
+    '기타': '/albumList/etc'
 }
 
 const AlbumListPage = props => {
-    const {history, location} = props;
-    const {pathname='/albumList/all'} = location;
-    const onClickAll = React.useCallback(()=>{history.push(paths['all'])},[history.location])
-    const onClickKpop = React.useCallback(()=>{history.push(paths['kpop'])},[history.location])
-    const onClickPop = React.useCallback(()=>{history.push(paths['pop'])},[history.location])
-    const onClickClassic = React.useCallback(()=>{history.push(paths['classic'])},[history.location])
-    const onClickEtc = React.useCallback(()=>{history.push(paths['etc'])},[history.location])
+    const {history} = props;
+    const [acitveTab, setActiveTab] = React.useState('종합');
+    const handleClick = React.useCallback(event => {
+        const tabName = event.target.innerText;
+        setActiveTab(tabName);
+        history.push(PATHS[tabName]);
+    },[history, setActiveTab])
+
     return (
         <Container>
             <CommonPageHeader>
@@ -51,14 +52,12 @@ const AlbumListPage = props => {
                         cursor="auto"
                         text="최신 앨범">
                     </TextBox>
-                    <TextBoxHighlight text="종합" active={pathname === paths['all']} onClick={onClickAll}></TextBoxHighlight>
-                    <TextBoxHighlight text="가요" active={pathname === paths['kpop']} onClick={onClickKpop}></TextBoxHighlight>
-                    <TextBoxHighlight text="팝송" active={pathname === paths['pop']} onClick={onClickPop}></TextBoxHighlight>
-                    <TextBoxHighlight text="클래식" active={pathname === paths['classic']} onClick={onClickClassic}></TextBoxHighlight>
-                    <TextBoxHighlight text="기타" active={pathname === paths['etc']} onClick={onClickEtc}></TextBoxHighlight>
+                    {Object.keys(PATHS).map(category => (
+                        <TextBoxHighlight text={category} active={acitveTab === category} onClick={handleClick}></TextBoxHighlight>
+                    ))}
                 </SubContainer>
                 <Switch>
-                    <Route path="/albumList/:area?" render={(routerProps)=> <AlbumList {...routerProps} />}>
+                    <Route path="/albumList/:pathname?" render={(routerProps)=> <AlbumList {...routerProps} />}>
                     </Route>
                 </Switch>
             </CommonPageHeader>
