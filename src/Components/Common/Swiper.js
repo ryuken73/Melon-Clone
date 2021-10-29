@@ -18,7 +18,13 @@ const Swiper = props => {
 
     const handleSwiped = React.useCallback(() => {
       setSwiped(true)
+      console.log('swipe')
+
     }, [setSwiped])
+
+    const handleSwipeEdge = event => {
+      console.log('edge')
+    }
   
     const handleOnItemClick = React.useCallback(
       (e) => {
@@ -33,6 +39,7 @@ const Swiper = props => {
     return (
         <Slider
             onSwipe={handleSwiped}
+            onReinit={handleSwipeEdge}
             {...slickOpts}
         >
             {React.Children.map(children, child => (
