@@ -13,6 +13,18 @@ const Thumb = styled(Box)`
     background: ${props => props.thumbColor || 'grey'};
     height: 15px;
     width: 2px !important;
+    &:hover {
+        background: yellow;
+    }
+    &:active {
+        background: yellow;
+    }
+    &::after {
+        content:'';
+        position:absolute;
+        top:-10px; bottom:-10px; 
+        left:-10px; right:-10px; 
+    }
 `
 
 function useDebounce(value, delay) {
