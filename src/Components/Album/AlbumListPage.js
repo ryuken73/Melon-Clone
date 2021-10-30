@@ -31,13 +31,24 @@ const PATHS = {
     '기타': '/albumList/etc'
 }
 
+const findPathKeyByUrl = url => {
+    const index = Object.values(PATHS).findIndex(path => path === url);
+    return Object.keys(PATHS)[index] || '종합';
+}
+
 const AlbumListPage = props => {
     const {history} = props;
-    const [acitveTab, setActiveTab] = React.useState('종합');
+    const [activeTab, setActiveTab] = React.useState('종합');
+    React.useEffect(()=>{
+        const {pathname} = history.location;
+        const tabName = findPathKeyByUrl(pathname);
+        setActiveTab(tabName);
+    },[history.location])
+
     const handleClick = React.useCallback(event => {
         const tabName = event.target.innerText;
         setActiveTab(tabName);
-        history.push(PATHS[tabName]);
+        history.push(PATHS[tabName], {tabName});
     },[history, setActiveTab])
 
     return (
@@ -53,7 +64,7 @@ const AlbumListPage = props => {
                         text="최신 앨범">
                     </TextBox>
                     {Object.keys(PATHS).map(category => (
-                        <TextBoxHighlight text={category} active={acitveTab === category} onClick={handleClick}></TextBoxHighlight>
+                        <TextBoxHighlight key={category} text={category} active={activeTab === category} onClick={handleClick}></TextBoxHighlight>
                     ))}
                 </SubContainer>
                 <Switch>
