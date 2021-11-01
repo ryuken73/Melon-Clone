@@ -54,6 +54,7 @@ const ImageBox = props => {
                 height={height}
                 onError={onError}
                 isHoverInnerElement={isHoverInnerElement}
+                loading="lazy"
                 // {...props}
             >
             

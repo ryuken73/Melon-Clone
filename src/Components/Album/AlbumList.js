@@ -25,7 +25,13 @@ const AlbumList = props => {
     console.log('%% result: ', albums)
 
     return (
-        <ScrollBarWithColor getMoreItem={getMoreItem} autoHide style={{ width:'100%', height: 'calc(100vh - 100px)' }}>
+        <ScrollBarWithColor 
+            moveScrollToTop={newFetchRequired} 
+            getMoreItem={getMoreItem} 
+            pathname={pathname}
+            autoHide 
+            style={{ width:'100%', height: 'calc(100vh - 100px)' }}
+        >
             <Container>
                 {albums.map((album,index) => (  
                     <AlbumBox 

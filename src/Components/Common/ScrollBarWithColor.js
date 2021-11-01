@@ -49,9 +49,23 @@ function useDebounce(value, delay) {
   }
 
 const ScrollBarWithColor = props => {
-    const {getMoreItem=()=>{}} = props;
+    const {getMoreItem=()=>{}, moveScrollToTop=false, pathname} = props;
     const [t, setT] = React.useState(0);
-    const debouncedValue = useDebounce(t, 500);
+    const [notMoveScroll, setNotMoveScroll] = React.useState(false);
+    const scrollbar = React.useRef(null);
+
+    React.useEffect(()=>{
+        if(scrollbar === null) return;
+        if(notMoveScroll) {
+            setNotMoveScroll(false);
+            return;
+        }
+        if(moveScrollToTop){
+            console.log('scroll to top:', scrollbar.current)
+            moveScrollToTop && scrollbar.current.scrollTop();
+        }
+    },[moveScrollToTop, pathname, props.children]) 
+
 
     const RenderTrack = ({ style, ...props }) => {
         console.log(style)
@@ -60,11 +74,14 @@ const ScrollBarWithColor = props => {
     const RenderThumb = ({ style, ...props }) => {
         return <Thumb style={{...style}} {...props} ></Thumb>
     }
+
     const handleAboutToReachBottom = React.useCallback(() => {
         // console.log('reach to bottom')
+        setNotMoveScroll(true)
         getMoreItem();
     },[getMoreItem])
 
+    const debouncedValue = useDebounce(t, 500);
     React.useEffect(() => {
         if (debouncedValue > 1) handleAboutToReachBottom();
     },[debouncedValue, handleAboutToReachBottom])    
@@ -89,7 +106,7 @@ const ScrollBarWithColor = props => {
             // renderThumbHorizontal={RenderThumb}
             onUpdate={handleUpdate}
             renderThumbVertical={RenderThumb}
-
+            ref={scrollbar}
         >
             {/* {props.children} */}
         </Scrollbars>
