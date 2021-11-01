@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import AlbumBox from './AlbumBox';
 import ScrollBarWithColor from '../Common/ScrollBarWithColor';
 import {withRouter} from 'react-router-dom';
-import useFetchAlbums from '../../hooks/useFetchAlbums';
+import useAlbumList from '../../hooks/useAlbumList';
 
 const Container = styled(Box)`
     display: grid;
@@ -19,17 +19,10 @@ const AlbumList = props => {
     const {history} = props;
     const {match} = props;
     const {pathname} = match.params;
-    const [pageNum, setPageNum] = React.useState(1);
-
-    React.useEffect(()=>{
-        setPageNum(1)
-    },[pathname])
-
-    const getMoreItem = React.useCallback(() => {
-        setPageNum(pageNum => pageNum+1)
-    },[]) 
-
-    const {albums, error, loading} = useFetchAlbums(pathname, pageNum, FETCH_COUNT);
+    const newFetchRequired = history.action === 'PUSH' || history.location.state === undefined;
+    console.log('re-render albumlist:', newFetchRequired)
+    const [albums, getMoreItem] = useAlbumList(pathname, newFetchRequired);
+    console.log('%% result: ', albums)
 
     return (
         <ScrollBarWithColor getMoreItem={getMoreItem} autoHide style={{ width:'100%', height: 'calc(100vh - 100px)' }}>
@@ -37,6 +30,7 @@ const AlbumList = props => {
                 {albums.map((album,index) => (  
                     <AlbumBox 
                         key={album.receipt_no}
+                        receiptNo={album.receipt_no}
                         nameAlbum={album.album_name} 
                         nameArtist={album.artist}
                         imagePath={album.eval_imagePath}
