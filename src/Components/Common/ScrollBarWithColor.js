@@ -71,7 +71,8 @@ const ScrollBarWithColor = props => {
 
     const handleUpdate = React.useCallback(values => {
         const { scrollTop, scrollHeight, clientHeight } = values;
-        // console.log(scrollTop, scrollHeight, clientHeight)
+        console.log(scrollTop, scrollHeight, clientHeight)
+        if(scrollTop === 0) return; // not enough rows;
         const pad = 1; // 100px of the bottom
         // t will be greater than 1 if we are about to reach the bottom
         const t = ((scrollTop + pad) / (scrollHeight - clientHeight));
