@@ -34,11 +34,11 @@ const CenterHeader = props => {
         <Container>
             <CenterHeaderNav historyPushedCount={historyPushedCount} setHistoryPushedCount={setHistoryPushedCount}></CenterHeaderNav>
             <AutoComplete></AutoComplete>
-            {views.map(view => (
+            {/* {views.map(view => (
                 <Box key={view.id} mx="2px">
                     <ButtonSmall id={view.url} background="grey" onClick={handleClickButton}>{view.id}</ButtonSmall>
                 </Box>
-            ))}
+            ))} */}
         </Container>
     )
 }

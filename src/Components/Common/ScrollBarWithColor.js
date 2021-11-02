@@ -61,7 +61,7 @@ const ScrollBarWithColor = props => {
             return;
         }
         if(moveScrollToTop){
-            console.log('scroll to top:', scrollbar.current)
+            // console.log('scroll to top:', scrollbar.current)
             moveScrollToTop && scrollbar.current.scrollTop();
         }
     },[moveScrollToTop, pathname, props.children]) 
