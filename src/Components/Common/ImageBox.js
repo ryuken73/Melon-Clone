@@ -30,10 +30,10 @@ const Image = styled.img`
 `;
 
 const LoadingImage = styled(Image)`
-    display: ${props => props.loaded && "none"}
+    display: ${props => props.loaded && "none !important"}
 `
 const LoadedImage = styled(Image)`
-    display: ${props => !props.loaded && "none"}
+    display: ${props => !props.loaded && "none !important"}
 `
 
 const ImageBox = props => {
