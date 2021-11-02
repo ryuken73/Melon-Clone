@@ -29,6 +29,12 @@ const Image = styled.img`
     }
 `;
 
+const LoadingImage = styled(Image)`
+    display: ${props => props.loaded && "none"}
+`
+const LoadedImage = styled(Image)`
+    display: ${props => !props.loaded && "none"}
+`
 
 const ImageBox = props => {
     const {
@@ -40,12 +46,31 @@ const ImageBox = props => {
         height="500",
         isHoverInnerElement=false
     } = props;
+    const [loaded, setLoaded] = React.useState(false);
+    const showImage = React.useCallback(() => {
+        setLoaded(true);
+    },[setLoaded])
     const onError = React.useCallback(event => {
         event.target.src='/images/no-image.png';
     },[])
     return (
         <Container>
-            <Image
+            <LoadingImage
+                alt={alt}
+                title={title}
+                src='/images/loading-album.png'
+                onClick={onClick}
+                width={width}
+                height={height}
+                onError={onError}
+                isHoverInnerElement={isHoverInnerElement}
+                loading="lazy"
+                loaded={loaded}
+                // {...props}
+            >
+            
+            </LoadingImage>
+            <LoadedImage
                 alt={alt}
                 title={title}
                 src={src}
@@ -54,11 +79,13 @@ const ImageBox = props => {
                 height={height}
                 onError={onError}
                 isHoverInnerElement={isHoverInnerElement}
-                loading="lazy"
+                // loading="lazy"
+                loaded={loaded}
+                onLoad={showImage}
                 // {...props}
             >
             
-            </Image>
+            </LoadedImage>
         </Container>
     )
 }
