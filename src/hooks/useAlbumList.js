@@ -1,6 +1,6 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { addFetchedAlbums, replaceAlbums, fetchAlbums } from '../Components/Album/albumSlice';
+import { fetchAlbums } from '../Components/Album/albumSlice';
 import {getString} from '../lib/util';
 
 const genre = {
@@ -15,31 +15,35 @@ const getDateTimeString = () => {
   return getString(now, {sep:''}).substring(0,8);
 }
 
-function useAlbumList(pathname, newFetchRequired) {
+function useAlbumList(pathname, fetchRequired, replaceRequired) {
   const albums = useSelector((state) => state.album.fetched[pathname]);
   const dispatch = useDispatch();
   const genreNum = genre[pathname];
+  const additionalQuery = pathname === 'all' ? '' : `and top_genre=${genreNum}`;
 
   React.useEffect(()=>{
-    const additionalQuery = pathname === 'all' ? '' : `and top_genre=${genre[pathname]}`;
+    // const additionalQuery = pathname === 'all' ? '' : `and top_genre=${genre[pathname]}`;
     const options = {
       pathname, 
       query: {
         'query':`status='Y' and open_dt <= '${getDateTimeString()}' ${additionalQuery}`
       }
     };
-    dispatch(fetchAlbums({...options, replace: newFetchRequired}));
-  },[pathname])
+    console.log('fetch in useAlbumList:', pathname, additionalQuery, fetchRequired, replaceRequired);
+    if(fetchRequired){
+      dispatch(fetchAlbums({...options, replace: replaceRequired}));
+    }
+  },[pathname, additionalQuery, fetchRequired, replaceRequired,  dispatch])
 
   const getMoreItem = React.useCallback(()=>{
     console.log('getMoreItem.....')
-    const additionalQuery = pathname === 'all' ? '' : `and top_genre=${genre[pathname]}`;
+    // const additionalQuery = pathname === 'all' ? '' : `and top_genre=${genre[pathname]}`;
     const options = {
       pathname, 
       query: {'query':`status='Y' and open_dt <= '${getDateTimeString()}' ${additionalQuery}`}
     };
     dispatch(fetchAlbums({...options, replace: false}));
-  },[pathname, dispatch])
+  },[pathname, additionalQuery, dispatch])
 
   return [albums, getMoreItem]
 }

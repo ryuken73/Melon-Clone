@@ -19,14 +19,16 @@ const AlbumList = props => {
     const {history} = props;
     const {match} = props;
     const {pathname} = match.params;
-    const newFetchRequired = history.action === 'PUSH' || history.location.state === undefined;
-    console.log('re-render albumlist:', newFetchRequired)
-    const [albums, getMoreItem] = useAlbumList(pathname, newFetchRequired);
+    const replaceRequired = history.action === 'PUSH' || history.location.state === undefined;
+    const fetchRequired = history.action === 'PUSH';
+    console.log('re-render albumlist:', pathname, fetchRequired, replaceRequired)
+    React.useEffect(() => {console.log('re-mount AlbumList')},[])
+    const [albums, getMoreItem] = useAlbumList(pathname, fetchRequired, replaceRequired);
     console.log('%% result: ', albums)
 
     return (
         <ScrollBarWithColor 
-            moveScrollToTop={newFetchRequired} 
+            moveScrollToTop={replaceRequired} 
             getMoreItem={getMoreItem} 
             pathname={pathname}
             autoHide 

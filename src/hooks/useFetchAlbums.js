@@ -13,7 +13,7 @@ const fetchOptions = {
     }
 }
 
-export default function useFetchAlbums(options, newFetchRequired=true) {
+export default function useFetchAlbums(options, replaceRequired=true) {
     const [albums, setAlbumsFetched] = React.useState([]);
     const {post, response, error, loading} = useFetch(fetchOptions);
     const fetchData = React.useCallback(async () => {
@@ -32,12 +32,12 @@ export default function useFetchAlbums(options, newFetchRequired=true) {
         }
     },[options])
     React.useEffect(()=>{
-        console.log('useFetchAlbum:', options, newFetchRequired)
-        if(newFetchRequired){
+        console.log('useFetchAlbum:', options, replaceRequired)
+        if(replaceRequired){
             fetchData();
         } else {
             setAlbumsFetched([]);
         }
-    },[options, newFetchRequired]);
+    },[options, replaceRequired]);
     return {albums, error, loading, fetchData};
 }

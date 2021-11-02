@@ -36,6 +36,11 @@ const CenterPane = styled(Box)`
 `
 
 function App() {
+  /* React.useEffect(()=>  {
+        if ("scrollRestoration" in window.history) {
+            window.history.scrollRestoration = "manual"
+          }
+  },[]); */
   return (
     <div className="App">
       <LeftPane>
