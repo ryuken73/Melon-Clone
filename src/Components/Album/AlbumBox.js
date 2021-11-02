@@ -26,7 +26,7 @@ const AlbumBox = props => {
     const handleClickAlbum = React.useCallback(()=> {
         history.push(`/album/${receiptNo}/songList`, {receiptNo})
     },[history.location])
-    console.log('re-render albumbox:', nameAlbum)
+    // console.log('re-render albumbox:', nameAlbum)
     return (
         <Container>
             <ImageBoxWithHoverIcon title={nameAlbum} src={imagePath} onClick={handleClickAlbum}></ImageBoxWithHoverIcon>
