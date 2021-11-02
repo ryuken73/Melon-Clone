@@ -2,6 +2,7 @@ import React from 'react';
 import Box from '@mui/material/Box';
 import styled from 'styled-components';
 import { Scrollbars } from 'react-custom-scrollbars';
+import CONSTANTS from '../../config/constants.js';
 
 const Track = styled(Box)`
     padding: ${props => props.viewPadding || 15};
@@ -81,14 +82,14 @@ const ScrollBarWithColor = props => {
         getMoreItem();
     },[getMoreItem])
 
-    const debouncedValue = useDebounce(t, 500);
+    const debouncedValue = useDebounce(t, CONSTANTS.GET_MORE_WAIT_SEC_DEBOUNCE);
     React.useEffect(() => {
         if (debouncedValue > 1) handleAboutToReachBottom();
     },[debouncedValue, handleAboutToReachBottom])    
 
     const handleUpdate = React.useCallback(values => {
         const { scrollTop, scrollHeight, clientHeight } = values;
-        console.log(scrollTop, scrollHeight, clientHeight)
+        // console.log(scrollTop, scrollHeight, clientHeight)
         if(scrollTop === 0) return; // not enough rows;
         const pad = 1; // 100px of the bottom
         // t will be greater than 1 if we are about to reach the bottom
