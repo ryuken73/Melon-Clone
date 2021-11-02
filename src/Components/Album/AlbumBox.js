@@ -10,6 +10,7 @@ const Container = styled(Box)`
     align-items: flex-start;
     margin-right: 5px;
     margin-top: 15px;
+    padding: 5px;
     height: ${prop => prop.height || "auto"};
     width: ${prop => prop.height || "auto"};
 `

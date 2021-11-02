@@ -32,7 +32,7 @@ export const albumSlice = createSlice({
 
 const DEFAULT_FETCH_QUERY = {
     // 'page_num': 1,
-    'page_sizes': 12,
+    'page_sizes': 20,
     'scn': 'album',
     'query': `status='Y'`,
     'orderby': 'order by open_dt desc',
