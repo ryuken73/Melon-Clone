@@ -29,13 +29,6 @@ const Image = styled.img`
     }
 `;
 
-const LoadingImage = styled(Image)`
-    display: ${props => props.loaded && "none !important"}
-`
-const LoadedImage = styled(Image)`
-    display: ${props => !props.loaded && "none !important"}
-`
-
 const ImageBox = props => {
     const {
         src='/images/4MB029205.jpg',
@@ -46,46 +39,51 @@ const ImageBox = props => {
         height="500",
         isHoverInnerElement=false
     } = props;
-    const [loaded, setLoaded] = React.useState(false);
-    const showImage = React.useCallback(() => {
-        setLoaded(true);
-    },[setLoaded])
+    const imgRef = React.useRef(null);
+    const observerRef = React.useRef();
+    const [isLoaded, setIsLoaded] = React.useState(false);
+
+    const onIntersection = (entries, io)=>{
+        entries.forEach(entry => {
+            if(entry.isIntersecting){
+                io.unobserve(entry.target);
+                setIsLoaded(true);
+            }
+        })
+    }
+
+    React.useEffect(()=>{
+        if(!observerRef.current){
+            observerRef.current = new IntersectionObserver(onIntersection, {
+                threshold: 0.5
+            })
+        }
+        imgRef.current && observerRef.current.observe(imgRef.current);
+    },[])
+
+
     const onError = React.useCallback(event => {
         event.target.src='/images/no-image.png';
     },[])
     return (
         <Container>
-            <LoadingImage
+            <Image
+                ref={imgRef}
                 alt={alt}
                 title={title}
-                src='/images/loading-album.png'
-                onClick={onClick}
-                width={width}
-                height={height}
-                onError={onError}
-                isHoverInnerElement={isHoverInnerElement}
-                loading="lazy"
-                loaded={loaded}
-                // {...props}
-            >
-            
-            </LoadingImage>
-            <LoadedImage
-                alt={alt}
-                title={title}
-                src={src}
+                src={isLoaded ? src : '/images/loading-album.png'}
                 onClick={onClick}
                 width={width}
                 height={height}
                 onError={onError}
                 isHoverInnerElement={isHoverInnerElement}
                 // loading="lazy"
-                loaded={loaded}
-                onLoad={showImage}
+                // loaded={loaded}
+                // onLoad={showImage}
                 // {...props}
             >
             
-            </LoadedImage>
+            </Image>
         </Container>
     )
 }
