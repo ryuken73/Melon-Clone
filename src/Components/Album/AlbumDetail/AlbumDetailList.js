@@ -1,11 +1,11 @@
 import React from 'react'
 import Box from '@mui/material/Box';
 import styled from 'styled-components';
-import colors from '../../config/colors';
-import ButtonIcon from '../Common/ButtonIcon';
+import colors from 'config/colors';
+import ButtonIcon from 'Components/Common/ButtonIcon';
 import CheckIcon from '@mui/icons-material/Check';
 import PlayArrowIcon from '@mui/icons-material/PlayArrow';
-import SongItemsWithIndex from '../Song/SongItemsWithIndex';
+import SongItemsWithIndex from 'Components/Song/SongItemsWithIndex';
 
 const Container = styled(Box)`
     display: flex;

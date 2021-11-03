@@ -1,10 +1,10 @@
 import React from 'react';
 import Box from '@mui/material/Box';
 import styled from 'styled-components';
-import CommonPageHeader from '../Common/CommonPageHeader';
+import CommonPageHeader from 'Components/Common/CommonPageHeader';
 import {Switch, Route, withRouter} from 'react-router-dom';
-import TextBox from '../Common/TextBox';
-import TextBoxHighlight from '../Common/TextBoxHighlight';
+import TextBox from 'Components/Common/TextBox';
+import TextBoxHighlight from 'Components/Common/TextBoxHighlight';
 import AlbumList from './AlbumList';
 
 // import AlbumList from './AlbumList';

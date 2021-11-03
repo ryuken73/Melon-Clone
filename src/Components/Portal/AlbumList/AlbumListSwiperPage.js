@@ -1,7 +1,7 @@
 import React from 'react';
-import CommonPageHeader from '../Common/CommonPageHeader';
+import CommonPageHeader from 'Components/Common/CommonPageHeader';
 import {withRouter} from 'react-router-dom';
-import TextBox from '../Common/TextBox';
+import TextBox from 'Components/Common/TextBox';
 import AlbumListSwiper from './AlbumListSwiper';
 
 const AlbumListSwiperPage = props => {

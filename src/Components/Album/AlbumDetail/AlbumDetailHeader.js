@@ -1,8 +1,8 @@
 import React from 'react'
 import Box from '@mui/material/Box';
 import styled from 'styled-components';
-import ImageBox from '../Common/ImageBox';
-import TextBox from '../Common/TextBox';
+import ImageBox from 'Components/Common/ImageBox';
+import TextBox from 'Components/Common/TextBox';
 
 const Container = styled(Box)`
     display: flex;

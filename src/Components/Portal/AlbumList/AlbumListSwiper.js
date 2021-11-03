@@ -1,10 +1,10 @@
 import React from 'react'
 import Box from '@mui/material/Box';
 import styled from 'styled-components';
-import AlbumBox from './AlbumBox';
-import Swiper from '../Common/Swiper';
-import useFetchAlbums from '../../hooks/useFetchAlbums';
-import {getString} from '../../lib/util';
+import AlbumBox from 'Components/Album/AlbumBox';
+import Swiper from 'Components/Common/Swiper';
+import useFetchAlbums from 'hooks/useFetchAlbums';
+import {getString} from 'lib/util';
 
 const Container = styled(Box)`
     display: flex;

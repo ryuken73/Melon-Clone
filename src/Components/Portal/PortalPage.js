@@ -1,7 +1,7 @@
 import React from 'react';
 import Box from '@mui/material/Box';
 import styled from 'styled-components';
-import AlbumListSwiperPage from '../Album/AlbumListSwiperPage';
+import AlbumListSwiperPage from 'Components/Portal/AlbumList/AlbumListSwiperPage';
 
 const Container = styled(Box)`
     display: flex;

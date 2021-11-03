@@ -6,7 +6,7 @@ import AlbumDetailTab from './AlbumDetailTab';
 import AlbumDetailList from './AlbumDetailList';
 import AlbumDetailInfo from './AlbumDetailInfo';
 import {withRouter, Switch, Route} from 'react-router-dom';
-import doListAlbum from './albumSlice';
+import doListAlbum from '../albumSlice';
 
 const Container = styled(Box)`
     display: flex;

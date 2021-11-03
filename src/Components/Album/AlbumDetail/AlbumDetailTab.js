@@ -1,9 +1,9 @@
 import React from 'react'
 import Box from '@mui/material/Box';
 import styled from 'styled-components';
-import TextBox from '../Common/TextBox';
-import TextBoxHighlight from '../Common/TextBoxHighlight';
-import Divider from '../Common/Divider';
+import TextBox from 'Components/Common/TextBox';
+import TextBoxHighlight from 'Components/Common/TextBoxHighlight';
+import Divider from 'Components/Common/Divider';
 
 const Container = styled(Box)`
     display: flex;
