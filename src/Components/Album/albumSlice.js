@@ -8,7 +8,8 @@ const initialState = {
         'pop': [],
         'classic': [],
         'etc': []
-    }
+    },
+    songList: {}
 }
 
 export const albumSlice = createSlice({
@@ -30,19 +31,7 @@ export const albumSlice = createSlice({
     }
 })
 
-const DEFAULT_FETCH_QUERY = {
-    // 'page_num': 1,
-    'page_sizes': 20,
-    'scn': 'album',
-    'query': `status='Y'`,
-    'orderby': 'order by open_dt desc',
-    'bool': true
-}
-
 const SERVER_NAME = 'musicbank';
-const API_NAME = 'searchAlbum';
-const api = apiMap[API_NAME];
-const {uri, headers:responseHeaders} = api;
 
 const DEFAULT_FETCH_OPTIONS = {
     method: 'POST',
@@ -52,6 +41,17 @@ const DEFAULT_FETCH_OPTIONS = {
 }
 
 export const fetchAlbums = ({pathname='all', query, replace=false}) => async (dispatch, getState) => {
+    const API_NAME = 'searchAlbum';
+    const api = apiMap[API_NAME];
+    const {uri, headers:responseHeaders} = api;
+    const DEFAULT_FETCH_QUERY = {
+        'page_sizes': 100,
+        'scn': 'album',
+        'query': `status='Y'`,
+        'orderby': 'order by open_dt desc',
+        'bool': true
+    }
+
     const searchParam = new URLSearchParams();
     const mergedQuery = {...DEFAULT_FETCH_QUERY, ...query};
     const state = getState();
@@ -74,6 +74,19 @@ export const fetchAlbums = ({pathname='all', query, replace=false}) => async (di
     } else {
         dispatch(addFetchedAlbums({category:pathname, albums:imagePathAttachedAlbums}));
     }
+}
+
+export const doListAlbum = ({receiptNo}) => async (dispatch, getState) => {
+    const API_NAME = 'doListAlbum';
+    const api = apiMap[API_NAME];
+    const {uri, headers:responseHeaders} = api;
+    const searchParam = new URLSearchParams();
+    searchParam.append('receipt_no', receiptNo);
+    const response = await fetch(uri, {body: searchParam});
+    const jsonfied = await response.json();
+    const {songList} = jsonfied;
+    const songListObject = responseToObject(songList, responseHeaders);
+    console.log(songListObject);
 }
 
 export const {addFetchedAlbums, replaceAlbums} = albumSlice.actions;

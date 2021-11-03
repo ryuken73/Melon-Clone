@@ -35,5 +35,36 @@ export const apiMap = {
             'brd_time',
             'digital_yn'
         ]
+    },
+    'doListAlbum': {
+        uri: '/mbs/searchMusic/doListAlbum.mb',
+        method: 'POST',
+        headers: [
+            "receipt_no",
+            "song_name",
+            "dlbr_rslt2",
+            "release_year",
+            "runtime",
+            "del_flag",
+            "artist_type",
+            "dat_flag",
+            "reg_no",
+            "size",
+            "album_place",
+            "version",
+            "album_id",
+            "rownum",
+            "top_genre",
+            "lyrics_chk",
+            "attach_name",
+            "encode_yn",
+            "artist",
+            "attach_path",
+            "track_no",
+            "prgs_type",
+            "dlbr_rslt",
+            "modr"
+
+        ]
     }
 }

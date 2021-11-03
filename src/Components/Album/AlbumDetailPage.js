@@ -6,6 +6,7 @@ import AlbumDetailTab from './AlbumDetailTab';
 import AlbumDetailList from './AlbumDetailList';
 import AlbumDetailInfo from './AlbumDetailInfo';
 import {withRouter, Switch, Route} from 'react-router-dom';
+import doListAlbum from './albumSlice';
 
 const Container = styled(Box)`
     display: flex;
@@ -19,6 +20,10 @@ const Container = styled(Box)`
 const AlbumDetailPage = props => {
     const {match} = props;
     const {history, location} = props;
+    const {receiptNo} = match.params;
+    React.useEffect(()=>{
+
+    })
     return (
         <Container>
             <AlbumDetailHeader></AlbumDetailHeader>
