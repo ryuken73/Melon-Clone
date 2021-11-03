@@ -12,8 +12,7 @@ const Track = styled(Box)`
 
 const Thumb = styled(Box)`
     background: ${props => props.thumbColor || 'grey'};
-    height: 15px;
-    width: 2px !important;
+    width: 5px !important;
     &:hover {
         background: yellow;
     }
