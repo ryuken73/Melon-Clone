@@ -17,14 +17,14 @@ const Container = styled(Box)`
 
 const AlbumBox = props => {
     const {
-        receiptNo=0,
+        receipt_no=0,
         nameAlbum="잊어야 한다는", 
         nameArtist="김광석", 
         imagePath="/images/no_image_black.jpg", 
         history
     } = props;
     const handleClickAlbum = React.useCallback(()=> {
-        history.push(`/album/${receiptNo}/songList`, {receiptNo})
+        history.push(`/album/${receipt_no}/songList`, {receipt_no})
     },[history.location])
     // console.log('re-render albumbox:', nameAlbum)
     return (

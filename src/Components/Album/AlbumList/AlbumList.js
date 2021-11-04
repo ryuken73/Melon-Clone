@@ -38,7 +38,7 @@ const AlbumList = props => {
                 {albums.map((album,index) => (  
                     <AlbumBox 
                         key={album.receipt_no}
-                        receiptNo={album.receipt_no}
+                        receipt_no={album.receipt_no}
                         nameAlbum={album.album_name} 
                         nameArtist={album.artist}
                         imagePath={album.eval_imagePath}
