@@ -1,6 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import {baseUrl, apiMap, responseToObject} from 'config/apis';
 import CONSTANTS from 'config/constants'
+import {pushObjectToState} from 'Components/PlayList/playlistSlice';
 
 const initialState = {
     fetched:{
@@ -10,7 +11,7 @@ const initialState = {
         'classic': [],
         'etc': []
     },
-    songList: {},
+    songListInAlbum: {},
     albumInfoList: {}
 }
 
@@ -95,7 +96,8 @@ export const doListAlbum = ({receipt_no}) => async (dispatch, getState) => {
     console.log('###', jsonfied)
     const {info, list_song} = jsonfied;
     const imagePathAttachedAlbum = {...info, eval_imagePath: `${baseUrl[SERVER_NAME]}/Video/small_image/${info.label_no}.JPG`}
-    dispatch(addObjectToState({stateKey:'songList', key: receipt_no, value: list_song}))
+    dispatch(addObjectToState({stateKey:'songListInAlbum', key: receipt_no, value: list_song}))
+    list_song.map(song => dispatch(pushObjectToState({stateKey:'currentPlaylist', value: song})));
     dispatch(addObjectToState({stateKey:'albumInfoList', key:receipt_no, value: imagePathAttachedAlbum}))
 }
 

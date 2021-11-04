@@ -26,7 +26,7 @@ const Song = props => {
     }
     const {song=defaultSong} = props;
     const {id, title, artist} = song;
-    const [checked, setChecked] = React.useState(true);
+    const [checked, setChecked] = React.useState(false);
 
     return (
         <Container>

@@ -3,7 +3,7 @@ import Box from '@mui/material/Box';
 import styled from 'styled-components';
 import colors from '../../config/colors';
 import TabHeader from './TabHeader';
-import SongBox from './SongBox';
+import SongList from './SongList';
 import SongHeader from './SongHeader';
 import SnackBar from '../Common/SnackBar';
 
@@ -25,7 +25,7 @@ const PlayList = () => {
                 setActiveTabId={setActiveTabId}
             ></TabHeader>
             <SongHeader></SongHeader>
-            <SongBox></SongBox>
+            <SongList></SongList>
             <SnackBar></SnackBar>
         </Container>
     )
