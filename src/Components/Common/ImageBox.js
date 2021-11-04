@@ -1,6 +1,7 @@
 import React from 'react';
 import Box from '@mui/material/Box';
 import styled from 'styled-components';
+import CONSTANTS from 'config/constants';
 
 const Container = styled(Box)`
     height: ${prop => prop.height || "auto"};
@@ -29,6 +30,8 @@ const Image = styled.img`
     }
 `;
 
+const THRESHOLD = CONSTANTS.IMAGE_LAZY_SHOW_THRESHOLD
+
 const ImageBox = props => {
     const {
         src='/images/4MB029205.jpg',
@@ -55,7 +58,7 @@ const ImageBox = props => {
     React.useEffect(()=>{
         if(!observerRef.current){
             observerRef.current = new IntersectionObserver(onIntersection, {
-                threshold: 0.5
+                threshold: 0
             })
         }
         imgRef.current && observerRef.current.observe(imgRef.current);
