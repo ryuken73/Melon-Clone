@@ -9,6 +9,7 @@ const Container = styled(Box)`
         width: ${props => props.width || "auto"};
         max-width: ${props => props.maxwidth || "100%"};
         margin: ${props => props.margin || "0px"};
+        margin-right: ${props => props.marginRight || "0px"};
         text-align: ${props => props.textalign || "left"};
     }
 

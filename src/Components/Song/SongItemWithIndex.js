@@ -35,6 +35,7 @@ const SongItemWithIndex = props => {
     const onHoverOut = React.useCallback(()=>{
         setHovered(false);
     },[setHovered])
+    // console.log('###', cellValues)
     return (
             <Container header={header} checked={checked} onMouseEnter={onHovered} onMouseLeave={onHoverOut}>
                 <SmallCheckBox checked={checked} setChecked={setChecked} />
@@ -44,22 +45,26 @@ const SongItemWithIndex = props => {
                 </Box>
                 <Box flex="5" display="flex" flexDirection="row" alignItems="center">
                     {/* 곡명 */}
-                    <TextBox text={cellValues[1]} {...rest}></TextBox>
+                    <TextBox containerProps={{marginRight:"15px"}} text={cellValues[1]} {...rest}></TextBox>
                     {!header && hovered && (
-                        <Box ml="auto" mr="30px">
+                        <Box flexShrink="0" width="150px" ml="auto" mr="20px">
                             <HoverButton><PlayArrowIcon fontSize="small"></PlayArrowIcon></HoverButton>
                             <HoverButton><FileDownloadIcon fontSize="small"></FileDownloadIcon></HoverButton>
                             <HoverButton><AddIcon fontSize="small"></AddIcon></HoverButton>
                         </Box>
                     )}
                 </Box>
-                <Box width="30%">
+                <Box width="20%">
                     {/* 아티스트 */}
                     <TextBox text={cellValues[2]} {...rest} color="darkgrey"></TextBox>
                 </Box>
-                <Box width="20%" display="flex" flexDirection="row" alignItems="center">
-                    {/* 재생시간 */}
+                <Box width="15%" display="flex" flexDirection="row" alignItems="center">
+                    {/* 버전 */}
                     <TextBox text={cellValues[3]} {...rest} cursor="auto" color="darkgrey"></TextBox>
+                </Box>
+                <Box width="15%" display="flex" flexDirection="row" alignItems="center">
+                    {/* 재생시간 */}
+                    <TextBox text={cellValues[4]} {...rest} cursor="auto" color="darkgrey"></TextBox>
                     {!header && hovered && (
                         <Box ml="auto">
                             <HoverButton><MoreVertIcon fontSize="small"></MoreVertIcon></HoverButton>
