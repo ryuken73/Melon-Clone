@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
-import {baseUrl, apiMap, responseToObject} from '../../config/apis';
+import {baseUrl, apiMap, responseToObject} from 'config/apis';
+import CONSTANTS from 'config/constants'
 
 const initialState = {
     fetched:{
@@ -9,7 +10,8 @@ const initialState = {
         'classic': [],
         'etc': []
     },
-    songList: {}
+    songList: {},
+    albumInfo: {}
 }
 
 export const albumSlice = createSlice({
@@ -28,11 +30,23 @@ export const albumSlice = createSlice({
             const {category, albums} = payload
             state.fetched[category] = albums;
         },
+        addSongList: (state, action) => {
+            console.log(action);
+            const {type, payload} = action;
+            const {receipt_no, list_song} = payload
+            state.songList[receipt_no] = list_song;  
+        },
+        addAlbumInfo: (state, action) => {
+            console.log(action);
+            const {type, payload} = action;
+            const {receipt_no, album_info} = payload
+            state.albumInfo[receipt_no] = album_info;  
+        }
     }
 })
 
 const SERVER_NAME = 'musicbank';
-
+const PAGE_SIZE = CONSTANTS.ALBUM_PAGE_SIZE;
 const DEFAULT_FETCH_OPTIONS = {
     method: 'POST',
     headers: {
@@ -45,7 +59,7 @@ export const fetchAlbums = ({pathname='all', query, replace=false}) => async (di
     const api = apiMap[API_NAME];
     const {uri, headers:responseHeaders} = api;
     const DEFAULT_FETCH_QUERY = {
-        'page_sizes': 100,
+        'page_sizes': PAGE_SIZE,
         'scn': 'album',
         'query': `status='Y'`,
         'orderby': 'order by open_dt desc',
@@ -76,18 +90,20 @@ export const fetchAlbums = ({pathname='all', query, replace=false}) => async (di
     }
 }
 
-export const doListAlbum = ({receiptNo}) => async (dispatch, getState) => {
+export const doListAlbum = ({receipt_no}) => async (dispatch, getState) => {
     const API_NAME = 'doListAlbum';
     const api = apiMap[API_NAME];
-    const {uri, headers:responseHeaders} = api;
+    const {uri, headers: responseHeaders} = api;
     const searchParam = new URLSearchParams();
-    searchParam.append('receipt_no', receiptNo);
-    const response = await fetch(uri, {body: searchParam});
+    searchParam.append('receipt_no', receipt_no);
+    const response = await fetch(uri, {...DEFAULT_FETCH_OPTIONS, body: searchParam});
     const jsonfied = await response.json();
-    const {songList} = jsonfied;
-    const songListObject = responseToObject(songList, responseHeaders);
-    console.log(songListObject);
+    console.log('###', jsonfied)
+    const {info, list_song} = jsonfied;
+    const imagePathAttachedAlbum = {...info, eval_imagePath: `${baseUrl[SERVER_NAME]}/Video/small_image/${info.label_no}.JPG`}
+    dispatch(addSongList({receipt_no, list_song}))
+    dispatch(addAlbumInfo({receipt_no, album_info: imagePathAttachedAlbum}))
 }
 
-export const {addFetchedAlbums, replaceAlbums} = albumSlice.actions;
+export const {addFetchedAlbums, replaceAlbums, addSongList, addAlbumInfo} = albumSlice.actions;
 export default albumSlice.reducer;

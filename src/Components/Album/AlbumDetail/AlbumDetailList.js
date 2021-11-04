@@ -6,6 +6,7 @@ import ButtonIcon from 'Components/Common/ButtonIcon';
 import CheckIcon from '@mui/icons-material/Check';
 import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 import SongItemsWithIndex from 'Components/Song/SongItemsWithIndex';
+import useSongsInAlbum from 'hooks/useSongsInAlbum';
 
 const Container = styled(Box)`
     display: flex;
@@ -25,8 +26,17 @@ const ButtonContainer = styled(Box)`
         opacity: ${props => props.opacitynormal || '0.7'};
     }
 `
-
 const AlbumDetailList = props => {
+    const {match} = props;
+    const {receipt_no} = match.params;
+    const songsInAlbum = useSongsInAlbum(receipt_no);
+
+    console.log(songsInAlbum)
+    const songs = songsInAlbum.length > 0 ? songsInAlbum.map(song => {
+        const {rownum, song_name, artist, version, runtime} = song;
+        return [rownum, song_name, artist, version, runtime]
+    }) : [];
+
     return (
         <Container>
             <ButtonContainer>
@@ -48,7 +58,9 @@ const AlbumDetailList = props => {
                     // hoverBackground={colors.light3CenterPane}
                 ></ButtonIcon>
             </ButtonContainer>
-            <SongItemsWithIndex></SongItemsWithIndex>
+            <SongItemsWithIndex
+                songs={songs}
+            ></SongItemsWithIndex>
         </Container>
     )
 }

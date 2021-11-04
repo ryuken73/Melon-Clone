@@ -22,18 +22,19 @@ const SubContainer = styled(Box)`
 `
 
 const AlbumDetailTab = props => {
-    const {history, location} = props;
+    const {history, location, match} = props;
     const {pathname} = location;
-    const onClickSongList = React.useCallback(()=>{
-        history.push('/album/144/songList');
+    const {receipt_no} = match.params;
+    const onClickTab = React.useCallback(()=>{
+        history.push(`/album/${receipt_no}/songList`);
     },[history.location])
     const onClickAlbumInfo = React.useCallback(()=>{
-        history.push('/album/144/albumInfo');
+        history.push(`/album/${receipt_no}/albumInfo`);
     },[history.location])
     return (
         <Container>
             <SubContainer width="150px">
-                <TextBoxHighlight active={pathname.includes('songList')} onClick={onClickSongList} fontSize="15px" text="수록곡"></TextBoxHighlight>
+                <TextBoxHighlight active={pathname.includes('songList')} onClick={onClickTab} fontSize="15px" text="수록곡"></TextBoxHighlight>
                 <TextBoxHighlight active={pathname.includes('albumInfo')} onClick={onClickAlbumInfo} fontSize="15px" text="상세정보"></TextBoxHighlight>
             </SubContainer>
             <Divider margin="0px"></Divider>

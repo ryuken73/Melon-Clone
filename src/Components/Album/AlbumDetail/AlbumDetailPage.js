@@ -6,7 +6,6 @@ import AlbumDetailTab from './AlbumDetailTab';
 import AlbumDetailList from './AlbumDetailList';
 import AlbumDetailInfo from './AlbumDetailInfo';
 import {withRouter, Switch, Route} from 'react-router-dom';
-import doListAlbum from '../albumSlice';
 
 const Container = styled(Box)`
     display: flex;
@@ -18,19 +17,16 @@ const Container = styled(Box)`
 `
 
 const AlbumDetailPage = props => {
-    const {match} = props;
-    const {history, location} = props;
-    const {receiptNo} = match.params;
-    React.useEffect(()=>{
-
-    })
+    const {history, location, match} = props;
+    const {receipt_no} = match.params
+     
     return (
         <Container>
-            <AlbumDetailHeader></AlbumDetailHeader>
-            <AlbumDetailTab history={history} location={location}></AlbumDetailTab>
+            <AlbumDetailHeader receipt_no={receipt_no} ></AlbumDetailHeader>
+            <AlbumDetailTab history={history} location={location} match={match}></AlbumDetailTab>
             <Switch>
-                <Route path="/album/:id/songList" render={(renderProps) => <AlbumDetailList {...renderProps}></AlbumDetailList> }></Route>
-                <Route path="/album/:id/albumInfo" render={(renderProps) => <AlbumDetailInfo {...renderProps}></AlbumDetailInfo> }></Route>
+                <Route path="/album/:receipt_no/songList" render={(renderProps) => <AlbumDetailList {...renderProps}></AlbumDetailList> }></Route>
+                <Route path="/album/:receipt_no/albumInfo" render={(renderProps) => <AlbumDetailInfo {...renderProps}></AlbumDetailInfo> }></Route>
             </Switch>
         </Container>
     )

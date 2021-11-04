@@ -3,6 +3,7 @@ import Box from '@mui/material/Box';
 import styled from 'styled-components';
 import ImageBox from 'Components/Common/ImageBox';
 import TextBox from 'Components/Common/TextBox';
+import useAlbumInfo from 'hooks/useAlbumInfo';
 
 const Container = styled(Box)`
     display: flex;
@@ -18,21 +19,33 @@ const InfoContainer = styled(Box)`
 `
 
 const AlbumDetailInfo = props => {
+    const {albumInfo} = props
+    // console.log('rerender AlbumDetailInfo:', albumInfo)
+    const {
+        album_name = '',
+        album_type = '',
+        title_song = '',
+        producer = '',
+        artist = '',
+    } = albumInfo;
     return (
         <InfoContainer>
-            <TextBox mb="20px" fontSize="14px" text="싱글"></TextBox>
-            <TextBox mt="10px" fontSize="18px" color="white" text="2021 월간 윤종신 Repair 10월호"></TextBox>
-            <TextBox my="5px" fontSize="15px" opacity="0.9" text="윤종신"></TextBox>
-            <TextBox fontSize="14px" text="2021.10.21"></TextBox>
+            <TextBox mb="20px" fontSize="14px" text={album_type}></TextBox>
+            <TextBox mt="10px" fontSize="18px" color="white" text={album_name}></TextBox>
+            <TextBox my="5px" fontSize="15px" opacity="0.9" text={artist}></TextBox>
+            <TextBox fontSize="14px" cursor="auto" text={producer}></TextBox>
         </InfoContainer>
     )
 }
 
-const AlbumDetailHeader = () => {
+const AlbumDetailHeader = props => {
+    const {receipt_no=1} = props;
+    const albumInfo = useAlbumInfo(receipt_no);
+    const {eval_imagePath = '/images/no-image.png'} = albumInfo;
     return (
         <Container>
-            <ImageBox width="150px" height="150px"></ImageBox>
-            <AlbumDetailInfo></AlbumDetailInfo>
+            <ImageBox width="150px" height="150px" src={eval_imagePath}></ImageBox>
+            <AlbumDetailInfo albumInfo={albumInfo}></AlbumDetailInfo>
         </Container>
     )
 }
