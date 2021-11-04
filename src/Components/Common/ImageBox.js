@@ -19,15 +19,18 @@ const Image = styled.img`
     vertical-align: bottom;
     transform: scale(1.0);
     transition: transform 0.2s ease-out;
-    &:hover {
-        transform: scale(1.05);
-        transition: transform 0.3s linear;
-    }
-    ${({isHoverInnerElement}) => isHoverInnerElement && `
-        transform: scale(1.05);
-        transition: transform 0.3s linear;
-    `
-    }
+    ${({isResizeOnHover, isHoverInnerElement}) => isResizeOnHover && `
+        &:hover {
+            transform: scale(1.05);
+            transition: transform 0.3s linear;
+        }
+        ${({isHoverInnerElement}) => isHoverInnerElement && `
+                transform: scale(1.05);
+                transition: transform 0.3s linear;
+            `
+        }
+    `}
+
 `;
 
 const THRESHOLD = CONSTANTS.IMAGE_LAZY_SHOW_THRESHOLD
@@ -40,6 +43,7 @@ const ImageBox = props => {
         title="related image",
         width="500",
         height="500",
+        isResizeOnHover=false,
         isHoverInnerElement=false
     } = props;
     const imgRef = React.useRef(null);
@@ -79,6 +83,7 @@ const ImageBox = props => {
                 width={width}
                 height={height}
                 onError={onError}
+                isResizeOnHover={isResizeOnHover}
                 isHoverInnerElement={isHoverInnerElement}
                 // loading="lazy"
                 // loaded={loaded}

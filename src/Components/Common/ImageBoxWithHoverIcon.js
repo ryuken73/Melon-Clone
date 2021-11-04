@@ -70,6 +70,7 @@ const ImageBoxWithHoverIcon = props => {
                 src={src}
                 onClick={onClick}
                 isHoverInnerElement={isHover}
+                isResizeOnHover={true}
                 {...props}
             >            
             </ImageBox>
