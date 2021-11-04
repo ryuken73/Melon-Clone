@@ -11,14 +11,14 @@ const initialState = {
         'etc': []
     },
     songList: {},
-    albumInfo: {}
+    albumInfoList: {}
 }
 
 export const albumSlice = createSlice({
     name: 'album',
     initialState,
     reducers: {
-        addFetchedAlbums: (state, action) => {
+        pushFetchedAlbums: (state, action) => {
             console.log(action)
             const {type, payload} = action;
             const {category, albums} = payload
@@ -30,18 +30,12 @@ export const albumSlice = createSlice({
             const {category, albums} = payload
             state.fetched[category] = albums;
         },
-        addSongList: (state, action) => {
+        addObjectToState: (state, action) => {
             console.log(action);
             const {type, payload} = action;
-            const {receipt_no, list_song} = payload
-            state.songList[receipt_no] = list_song;  
+            const {stateKey, key, value} = payload
+            state[stateKey][key] = value;  
         },
-        addAlbumInfo: (state, action) => {
-            console.log(action);
-            const {type, payload} = action;
-            const {receipt_no, album_info} = payload
-            state.albumInfo[receipt_no] = album_info;  
-        }
     }
 })
 
@@ -86,7 +80,7 @@ export const fetchAlbums = ({pathname='all', query, replace=false}) => async (di
     if(replace){
         dispatch(replaceAlbums({category:pathname, albums:imagePathAttachedAlbums}));
     } else {
-        dispatch(addFetchedAlbums({category:pathname, albums:imagePathAttachedAlbums}));
+        dispatch(pushFetchedAlbums({category:pathname, albums:imagePathAttachedAlbums}));
     }
 }
 
@@ -101,9 +95,9 @@ export const doListAlbum = ({receipt_no}) => async (dispatch, getState) => {
     console.log('###', jsonfied)
     const {info, list_song} = jsonfied;
     const imagePathAttachedAlbum = {...info, eval_imagePath: `${baseUrl[SERVER_NAME]}/Video/small_image/${info.label_no}.JPG`}
-    dispatch(addSongList({receipt_no, list_song}))
-    dispatch(addAlbumInfo({receipt_no, album_info: imagePathAttachedAlbum}))
+    dispatch(addObjectToState({stateKey:'songList', key: receipt_no, value: list_song}))
+    dispatch(addObjectToState({stateKey:'albumInfoList', key:receipt_no, value: imagePathAttachedAlbum}))
 }
 
-export const {addFetchedAlbums, replaceAlbums, addSongList, addAlbumInfo} = albumSlice.actions;
+export const {pushFetchedAlbums, replaceAlbums, addObjectToState} = albumSlice.actions;
 export default albumSlice.reducer;
