@@ -5,7 +5,7 @@ import colors from '../../config/colors';
 import TabHeader from './TabHeader';
 import SongList from './SongList';
 import SongHeader from './SongHeader';
-import SnackBar from '../Common/SnackBar';
+import Helper from './Helper';
 
 const Container = styled(Box)`
     position: relative;
@@ -26,7 +26,7 @@ const PlayList = () => {
             ></TabHeader>
             <SongHeader></SongHeader>
             <SongList></SongList>
-            <SnackBar></SnackBar>
+            <Helper></Helper>
         </Container>
     )
 }
