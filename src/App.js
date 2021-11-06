@@ -14,6 +14,7 @@ import PlayList from 'Components/PlayList';
 import CenterHeader from './CenterHeader';
 import VerticalMenu from './VerticalMenu';
 import colors from 'config/colors';
+import MessageBox from './MessageBox';
  
 const LeftPane = styled(Box)`
   width: 150px;
@@ -61,6 +62,7 @@ function App() {
         <AudioPlayer></AudioPlayer>
         <PlayList></PlayList>
       </RightPane> 
+      <MessageBox></MessageBox>
     </div>
   );
 }

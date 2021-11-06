@@ -13,18 +13,19 @@ const Container = styled(Box)`
         position: absolute;
         border-radius: 8px;
         bottom: 10px;
-        width: 80%;
+        width: ${props => props.width || '80%'};
         padding: 5px;
-        background: ${colors.highCenterPane}
+        background: ${props => props.bgcolor || colors.highCenterPane}
     }
 `
 
 
 const SnackBar = props => {
-    const {show=true, children} = props;
+    const {hidden=true, direction="up", children} = props;
+    const {containerProps} = props;
     return (
-        <Slide direction="up" in={show} mountOnEnter unmountOnExit>
-            <Container>
+        <Slide direction={direction} timeout={500} in={!hidden} mountOnEnter unmountOnExit>
+            <Container {...containerProps}>
                 {children}
             </Container>
         </Slide>

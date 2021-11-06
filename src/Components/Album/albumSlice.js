@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import {baseUrl, apiMap, responseToObject} from 'config/apis';
 import CONSTANTS from 'config/constants'
 import {pushObjectToState} from 'Components/PlayList/playlistSlice';
+import {showMessageBoxForDuration, setMessageBoxText} from 'appSlice';
 
 const initialState = {
     fetched:{
@@ -117,7 +118,10 @@ export const addSongInAlbum = ({receipt_no}) => async (dispatch, getState) => {
     const jsonfied = await response.json();
     console.log('###', jsonfied)
     const {info, list_song} = jsonfied;
-    list_song.map(song => dispatch(pushObjectToState({stateKey:'currentPlaylist', value: song})));
+    list_song.forEach(song => dispatch(pushObjectToState({stateKey:'currentPlaylist', value: song})));
+    dispatch(setMessageBoxText(`${list_song.length}곡을 재생목록에 추가했습니다.`));
+    dispatch(showMessageBoxForDuration());
+    
 
 }
 
