@@ -5,6 +5,8 @@ import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 import HoverButton from './ButtonHover';
 import ImageBox from './ImageBox';
 import colors from '../../config/colors';
+import {addSongInAlbum} from 'Components/Album/albumSlice';
+import { useDispatch } from 'react-redux';
 
 const Container = styled(Box)`
     height: ${prop => prop.height || "auto"};
@@ -40,14 +42,19 @@ const BoxShownOnHover = styled(Box)`
 
 `
 const ImageBoxWithHoverIcon = props => {
-    const {
+  const dispatch = useDispatch();
+  const {
+        receipt_no=0,
         src='/images/no_image_black.jpg',
         onClick=()=>{},
         alt="image",
         title="related image",
     } = props;
     const [isHover, setHover] = React.useState(false);
-    const onClickPlay = ()=>{};
+    const onClickPlay = React.useCallback(()=>{
+        console.log('click play:', receipt_no)
+        dispatch(addSongInAlbum({receipt_no}));
+    },[receipt_no], dispatch);
     const InnerElement = () => (
         <HoverButton onClick={onClickPlay} opacitynormal='0.7' opacityhover='1'>
             <PlayArrowIcon fontSize="large" ></PlayArrowIcon>

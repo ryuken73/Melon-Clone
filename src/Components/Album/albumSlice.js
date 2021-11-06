@@ -97,8 +97,28 @@ export const doListAlbum = ({receipt_no}) => async (dispatch, getState) => {
     const {info, list_song} = jsonfied;
     const imagePathAttachedAlbum = {...info, eval_imagePath: `${baseUrl[SERVER_NAME]}/Video/small_image/${info.label_no}.JPG`}
     dispatch(addObjectToState({stateKey:'songListInAlbum', key: receipt_no, value: list_song}))
-    list_song.map(song => dispatch(pushObjectToState({stateKey:'currentPlaylist', value: song})));
+    // list_song.map(song => dispatch(pushObjectToState({stateKey:'currentPlaylist', value: song})));
     dispatch(addObjectToState({stateKey:'albumInfoList', key:receipt_no, value: imagePathAttachedAlbum}))
+}
+
+export const addSongInAlbum = ({receipt_no}) => async (dispatch, getState) => {
+    const state = getState();
+    const listSong = state.album.songListInAlbum[receipt_no];
+    if(listSong !== undefined){
+        listSong.map(song => dispatch(pushObjectToState({stateKey:'currentPlaylist', value: song})));
+        return
+    }
+    const API_NAME = 'doListAlbum';
+    const api = apiMap[API_NAME];
+    const {uri, headers: responseHeaders} = api;
+    const searchParam = new URLSearchParams();
+    searchParam.append('receipt_no', receipt_no);
+    const response = await fetch(uri, {...DEFAULT_FETCH_OPTIONS, body: searchParam});
+    const jsonfied = await response.json();
+    console.log('###', jsonfied)
+    const {info, list_song} = jsonfied;
+    list_song.map(song => dispatch(pushObjectToState({stateKey:'currentPlaylist', value: song})));
+
 }
 
 export const {pushFetchedAlbums, replaceAlbums, addObjectToState} = albumSlice.actions;

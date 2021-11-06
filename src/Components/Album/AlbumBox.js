@@ -29,7 +29,12 @@ const AlbumBox = props => {
     // console.log('re-render albumbox:', nameAlbum)
     return (
         <Container>
-            <ImageBoxWithHoverIcon title={nameAlbum} src={imagePath} onClick={handleClickAlbum}></ImageBoxWithHoverIcon>
+            <ImageBoxWithHoverIcon 
+                receipt_no={receipt_no} 
+                title={nameAlbum} 
+                src={imagePath} 
+                onClick={handleClickAlbum}
+            ></ImageBoxWithHoverIcon>
             <Box marginTop="5px"></Box>
             <TextBox 
                 fontSize="14px" 
