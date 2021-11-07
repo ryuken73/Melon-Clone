@@ -22,7 +22,7 @@ const SongList = () => {
 
     console.log('###songs:', songs)
     return (
-        <ScrollBarWithColor autoHide style={{ width:'300px', height: 'calc(100vh - 500px)' }}>
+        <ScrollBarWithColor autoHide style={{ width:'300px', height: 'calc(100vh - 450px)' }}>
             <Container>
                 {songs.map(song => <Song key={song.id} song={song}></Song>)}
             </Container>

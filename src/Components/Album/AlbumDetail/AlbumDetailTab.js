@@ -10,6 +10,7 @@ const Container = styled(Box)`
     flex-direction: column;
     height: ${prop => prop.height || "auto"};
     width: ${prop => prop.width || "auto"};
+    margin-right: 10px;
 `
 const SubContainer = styled(Box)`
     display: flex;

@@ -13,7 +13,7 @@ const Container = styled(Box)`
     height: ${prop => prop.height || "auto"};
     width: ${prop => prop.height || "auto"};
     margin-left: 15px;
-    margin-right: 15px;
+    /* margin-right: 15px; */
 `
 
 const AlbumDetailPage = props => {

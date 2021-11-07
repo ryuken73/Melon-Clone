@@ -1,6 +1,8 @@
 import React from 'react'
 import Box from '@mui/material/Box';
 import styled from 'styled-components';
+import AlbumInfoTable from './AlbumInfoTable';
+import ScrollBarWithColor from 'Components/Common/ScrollBarWithColor';
 
 const Container = styled(Box)`
     display: flex;
@@ -12,7 +14,12 @@ const Container = styled(Box)`
 const AlbumDetailInfo = () => {
     return (
         <Container>
-            Album Info
+            <ScrollBarWithColor 
+                autoHide 
+                style={{width:'100%', height:'calc(100vh - 258px)'}}
+            >
+                <AlbumInfoTable></AlbumInfoTable>
+            </ScrollBarWithColor>
         </Container>
     )
 }
