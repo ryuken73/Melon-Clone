@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import TextBox from '../Common/TextBox';
 import SmallCheckBox from '../Common/CheckBox';
 import colors from '../../config/colors';
+import useSongPlaylist from 'hooks/useSongPlaylist';
 
 const Container = styled(Box)`
     && {
@@ -18,19 +19,22 @@ const Container = styled(Box)`
 `
 
 const Song = props => {
-
     const defaultSong = {
         id: 1,
         title: '제목',
-        artist: 'Artist'
+        artist: 'Artist',
+        checked: false
     }
     const {song=defaultSong} = props;
-    const {id, title, artist} = song;
-    const [checked, setChecked] = React.useState(false);
+    const {id, title, artist, checked} = song;
+    const [removeFromPlaylist, setChecked] = useSongPlaylist(id);
+    const onChecked = React.useCallback(() => {
+        setChecked(!checked)
+    },[checked, setChecked])
 
     return (
         <Container>
-            <SmallCheckBox checked={checked} setChecked={setChecked} />
+            <SmallCheckBox checked={checked} setChecked={onChecked} />
             <TextBox text={title} margin="0px 15px 0px 0px" width="150px"></TextBox>
             <TextBox text={artist} width="90px"></TextBox>
         </Container>

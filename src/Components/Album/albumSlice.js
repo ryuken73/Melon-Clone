@@ -97,12 +97,14 @@ export const doListAlbum = ({receipt_no}) => async (dispatch, getState) => {
     console.log('###', jsonfied)
     const {info, list_song} = jsonfied;
     const imagePathAttachedAlbum = {...info, eval_imagePath: `${baseUrl[SERVER_NAME]}/Video/small_image/${info.label_no}.JPG`}
-    dispatch(addObjectToState({stateKey:'songListInAlbum', key: receipt_no, value: list_song}))
-    // list_song.map(song => dispatch(pushObjectToState({stateKey:'currentPlaylist', value: song})));
+    const withMoreAttrListSong = list_song.map(song =>{
+        return {...song, id: `${song.receipt_no}:${song.reg_no}`, checked:false, currentPlaying:false}
+    })
+    dispatch(addObjectToState({stateKey:'songListInAlbum', key: receipt_no, value: withMoreAttrListSong}))
     dispatch(addObjectToState({stateKey:'albumInfoList', key:receipt_no, value: imagePathAttachedAlbum}))
 }
 
-export const addSongInAlbum = ({receipt_no}) => async (dispatch, getState) => {
+export const addSongsInAlbumToCurrentPlaylist = ({receipt_no}) => async (dispatch, getState) => {
     const state = getState();
     const listSong = state.album.songListInAlbum[receipt_no];
     if(listSong !== undefined){
@@ -118,11 +120,12 @@ export const addSongInAlbum = ({receipt_no}) => async (dispatch, getState) => {
     const jsonfied = await response.json();
     console.log('###', jsonfied)
     const {info, list_song} = jsonfied;
-    list_song.forEach(song => dispatch(pushObjectToState({stateKey:'currentPlaylist', value: song})));
-    dispatch(setMessageBoxText(`${list_song.length}곡을 재생목록에 추가했습니다.`));
+    const withMoreAttrListSong = list_song.map(song =>{
+        return {...song, id: `${song.receipt_no}:${song.reg_no}`, checked:false, currentPlaying:false}
+    })
+    withMoreAttrListSong.forEach(song => dispatch(pushObjectToState({stateKey:'currentPlaylist', value: song})));
+    dispatch(setMessageBoxText(`${withMoreAttrListSong.length}곡을 재생목록에 추가했습니다.`));
     dispatch(showMessageBoxForDuration());
-    
-
 }
 
 export const {pushFetchedAlbums, replaceAlbums, addObjectToState} = albumSlice.actions;

@@ -5,6 +5,8 @@ import styled from 'styled-components';
 import TextBox from '../Common/TextBox';
 import SmallCheckBox from '../Common/CheckBox';
 import HoverButton from '../Common/ButtonHover';
+// import {setCheckAll} from './playlistSlice';
+import useCurrentPlaylist from 'hooks/useCurrentPlaylist';
 
 const Container = styled(Box)`
     && {
@@ -18,18 +20,36 @@ const Container = styled(Box)`
 
 const SongHeader = props => {
 
-    const [checked, setChecked] = React.useState(false);
+    // const [checked, setChecked] = React.useState(false);
+    const  [
+        currentPlaylist, 
+        checkedCount, 
+        removeFromCurrentPlaylist, 
+        toggleCurrentPlayList, 
+        allChecked
+    ] = useCurrentPlaylist();
+    
+    const onClickSetChecked = React.useCallback(()=>{
+        // console.log('toggle:', checked)
+        toggleCurrentPlayList();
+    }, [toggleCurrentPlayList])
+
     const onClickRepeat = () => {};
+    
+    // React.useEffect(() => {
+    //     console.log()
+    //     currentPlaylist.length === 0 && setCheckAll(false);
+    // },[currentPlaylist, setCheckAll])
 
     return (
         <Container>
-            <SmallCheckBox checked={checked} setChecked={setChecked} />
+            <SmallCheckBox checked={allChecked} setChecked={onClickSetChecked} />
             <Box display="flex" alignItems="center" ml="auto" mr="10px" width="90px">
                 <TextBox textalign="right" text="반복재생"></TextBox>
                 <HoverButton onClick={onClickRepeat}><RepeatIcon fontSize="small"></RepeatIcon></HoverButton>
             </Box>
         </Container>
-    )
+    )   
 }
 
 export default React.memo(SongHeader)

@@ -7,11 +7,17 @@ function useMessageBox(text='') {
   const [msgBoxText, setText] = useState(text);
   const dispatch = useDispatch();
 
+  const showMessageBoxDispatch = React.useEffect((duration) => {
+    return () => {
+      dispatch(showMessageBoxForDuration(duration))
+    }
+  },[dispatch])
+
   useEffect(() => {
     dispatch(setMessageBoxText(msgBoxText));
   }, [msgBoxText, dispatch]); 
 
-  return [showMessageBoxForDuration, setText];
+  return [showMessageBoxDispatch, setText];
 }
 
 export default useMessageBox;

@@ -13,11 +13,14 @@ const Container = styled(Box)`
 `
 
 const SongList = () => {
-    const currentPlaylist = useCurrentPlaylist();
+    const [currentPlaylist, checkedCount, removeFromCurrentPlaylist, toggleCurrentPlayList] = useCurrentPlaylist();
     const songs = currentPlaylist.length > 0 ? currentPlaylist.map(song => {
-        const {rownum, song_name, artist} = song;
-        return {id: rownum, title: song_name, artist}
+        console.log('#### song', song)
+        const {id, recept_no, reg_no, song_name, receipt_no, artist, checked} = song;
+        return {id, recept_no, reg_no, title: song_name, receipt_no, artist, checked}
     }) : [];
+
+    console.log('###songs:', songs)
     return (
         <ScrollBarWithColor autoHide style={{ width:'300px', height: 'calc(100vh - 500px)' }}>
             <Container>
