@@ -27,7 +27,7 @@ const Container = styled(Box)`
     }
 `
 
-const SongItemWithIndex = props => {
+const SongItemAlbumDetail = props => {
     const {cellValues=[], header=false, ...rest} = props;
     const [checked, setChecked] = React.useState(false);
     const [hovered, setHovered] = React.useState(false);
@@ -81,4 +81,4 @@ const SongItemWithIndex = props => {
     )
 }
 
-export default React.memo(SongItemWithIndex)
+export default React.memo(SongItemAlbumDetail)

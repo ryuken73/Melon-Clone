@@ -5,7 +5,7 @@ import colors from 'config/colors';
 import ButtonIcon from 'Components/Common/ButtonIcon';
 import CheckIcon from '@mui/icons-material/Check';
 import PlayArrowIcon from '@mui/icons-material/PlayArrow';
-import SongItemsWithIndex from 'Components/Song/SongItemsWithIndex';
+import SongListInAlbumDetail from 'Components/Song/SongListInAlbumDetail';
 import useSongsInAlbum from 'hooks/useSongsInAlbum';
 
 const Container = styled(Box)`
@@ -54,9 +54,9 @@ const AlbumDetailList = props => {
                     hoverBorder="1px solid rgba(255, 255, 255, 0.8)"
                 ></ButtonIcon>
             </ButtonContainer>
-            <SongItemsWithIndex
+            <SongListInAlbumDetail
                 songs={songs}
-            ></SongItemsWithIndex>
+            ></SongListInAlbumDetail>
         </Container>
     )
 }

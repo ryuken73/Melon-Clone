@@ -2,6 +2,7 @@ import React from 'react'
 import styled from 'styled-components';
 import Box from '@mui/material/Box';
 import TextBox from 'Components/Common/TextBox'
+import ItemWithTitleNvalue from 'Components/Common/ItemWithTitleNValue';
 
 const Container = styled(Box)`
     && {
@@ -39,32 +40,6 @@ const TableTitle = styled(TextBoxWithNoramlCursor)`
     margin-bottom: 10px;
     width: fit-content;
 `
-const ItemContainer = styled(Box)`
-    display: flex;
-    flex-direction: row;
-    margin-top: 5px;
-    margin-bottom: 5px;
-`
-const ItemTitle = styled(TextBoxWithNoramlCursor)`
-    font-weight: string;
-    color: grey;
-    opacity: 0.8;
-    width: 120px;
-`
-const ItemValue = styled(TextBoxWithNoramlCursor)`
-    font-weight: string;
-    color: grey;
-    opacity: 1.0;
-`
-const TableItem = props => {
-    const {title, value} = props;
-    return (
-        <ItemContainer>
-            <ItemTitle text={title}></ItemTitle>
-            <ItemValue text={value}></ItemValue>
-        </ItemContainer>
-    )
-}
 
 const PreWithWrap = styled.div`
     white-space: pre-line;
@@ -103,7 +78,7 @@ const AlbumInfoTable = () => {
         <Container>
             <TableTitle text="활동정보"></TableTitle>
             {items.map(item => (
-                <TableItem title={item.title} value={item.value}></TableItem>
+                <ItemWithTitleNvalue title={item.title} value={item.value}></ItemWithTitleNvalue>
             ))}
             <TitleContainer>
                 <TableTitle text="앨범소개"></TableTitle>
