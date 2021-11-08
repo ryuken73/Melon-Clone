@@ -9,6 +9,8 @@ import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 import AddIcon from '@mui/icons-material/Add';
 import HoverButton from '../Common/ButtonHover';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
+import {secondsToTime} from 'lib/util'
+import LinkArtist from 'Components/Links/LinkArtist';
 
 const Container = styled(Box)`
     && {
@@ -36,6 +38,8 @@ const SongItemWithIndex = props => {
         setHovered(false);
     },[setHovered])
     // console.log('###', cellValues)
+    const durationInSeconds = cellValues[4];
+    const duration = isNaN(parseInt(durationInSeconds)) ? durationInSeconds:secondsToTime(durationInSeconds)
     return (
             <Container header={header} checked={checked} onMouseEnter={onHovered} onMouseLeave={onHoverOut}>
                 <SmallCheckBox checked={checked} setChecked={setChecked} />
@@ -56,7 +60,8 @@ const SongItemWithIndex = props => {
                 </Box>
                 <Box width="20%">
                     {/* 아티스트 */}
-                    <TextBox text={cellValues[2]} {...rest} color="darkgrey"></TextBox>
+                    {/* <TextBox text={cellValues[2]} {...rest} color="darkgrey"></TextBox> */}
+                    <LinkArtist artist={cellValues[2]} {...rest} color="darkgrey"></LinkArtist>
                 </Box>
                 <Box width="15%" display="flex" flexDirection="row" alignItems="center">
                     {/* 버전 */}
@@ -64,7 +69,7 @@ const SongItemWithIndex = props => {
                 </Box>
                 <Box width="15%" display="flex" flexDirection="row" alignItems="center">
                     {/* 재생시간 */}
-                    <TextBox text={cellValues[4]} {...rest} cursor="auto" color="darkgrey"></TextBox>
+                    <TextBox text={duration} {...rest} cursor="auto" color="darkgrey"></TextBox>
                     {!header && hovered && (
                         <Box ml="auto">
                             <HoverButton><MoreVertIcon fontSize="small"></MoreVertIcon></HoverButton>

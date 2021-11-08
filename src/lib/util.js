@@ -33,3 +33,10 @@ export const getString = (date, separator={}) => {
     const timeString = `${hour}${timeSep}${minute}${timeSep}${second}`;
     return `${dateString}${sep}${timeString}`;
 }
+
+export const secondsToTime = seconds => {
+    if(typeof(seconds) !== 'number' || seconds === Infinity){
+        return '00:00'
+    }
+    return new Date(seconds*1000).toISOString().substr(14,5)
+}

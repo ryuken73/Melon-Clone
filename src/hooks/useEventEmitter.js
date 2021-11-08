@@ -1,11 +1,5 @@
 import React from 'react';
-
-const secondsToTime = seconds => {
-    if(typeof(seconds) !== 'number' || seconds === Infinity){
-        return '00:00'
-    }
-    return new Date(seconds*1000).toISOString().substr(14,5)
-}
+import {secondsToTime} from 'lib/util';
 
 export default function useEventEmitter(playerRef, event) {
     const [isPlayinng, setIsPlaying] = React.useState(false);
