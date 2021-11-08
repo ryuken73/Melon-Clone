@@ -5,6 +5,7 @@ import styled from 'styled-components';
 import {Switch, Route, withRouter} from 'react-router-dom';
 import AlbumListPage from 'Components/Album/AlbumList/AlbumListPage';
 import AlbumDetailPage from 'Components/Album/AlbumDetail/AlbumDetailPage';
+import ArtistDetailPage from 'Components/Artist/ArtistDetail/ArtistDetailPage';
 import SongView from 'Views/SongView';
 import ArtistView from 'Views/ArtistView';
 import PortalView from 'Components/Portal/PortalPage';
@@ -58,7 +59,7 @@ function App() {
           <Route path="/albumList" render={(routerProps)=><AlbumListPage {...routerProps} />} />
           <Route path="/album/:receipt_no/:category" render={(routerProps)=><AlbumDetailPage {...routerProps} />} />
           <Route path="/song/:id?" render={(routerProps)=><SongView {...routerProps} />} />
-          <Route path="/artist/:id?" render={(routerProps)=><ArtistView {...routerProps} />} />
+          <Route path="/artist/:id/:category" render={(routerProps)=><ArtistDetailPage {...routerProps} />} />
           <Route render={()=><withRouterNotFoundView />} />
         </Switch>
       </CenterPane>
