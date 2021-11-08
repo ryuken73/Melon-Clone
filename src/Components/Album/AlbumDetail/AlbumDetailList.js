@@ -14,6 +14,7 @@ const Container = styled(Box)`
     height: ${prop => prop.height || "auto"};
     width: ${prop => prop.height || "auto"};
     margin-top: 10px;
+    margin-right: 15px;
 `
 const ButtonContainer = styled(Box)`
     display: flex;
@@ -45,17 +46,12 @@ const AlbumDetailList = props => {
                     iconComponent={<CheckIcon fontSize="small"></CheckIcon>} 
                     border="1px solid rgba(255, 255, 255, .5)"
                     hoverBorder="1px solid rgba(255, 255, 255, 0.8)"
-                    
-                    // background={colors.light2CenterPane}
-                    // hoverBackground={colors.light3CenterPane}
                 ></ButtonIcon>
                 <ButtonIcon 
                     text="전체재생" 
                     iconComponent={<PlayArrowIcon fontSize="small"></PlayArrowIcon>} 
                     border="1px solid rgba(255, 255, 255, .5)"
                     hoverBorder="1px solid rgba(255, 255, 255, 0.8)"
-                    // background={colors.light2CenterPane}
-                    // hoverBackground={colors.light3CenterPane}
                 ></ButtonIcon>
             </ButtonContainer>
             <SongItemsWithIndex
