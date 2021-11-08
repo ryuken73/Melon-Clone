@@ -13,7 +13,7 @@ import AudioPlayer from 'Components/AudioPlayer';
 import PlayList from 'Components/PlayList';
 import CenterHeader from './CenterHeader';
 import VerticalMenu from './VerticalMenu';
-import colors from 'config/colors';
+import colors from 'config/colors' ;
 import MessageBox from './MessageBox';
  
 const LeftPane = styled(Box)`
@@ -29,6 +29,10 @@ const RightPane = styled(Box)`
   background:black;
   flex-grow: 0;
   flex-shrink: 0;
+`
+const RightPaneHeader = styled(Box)`
+  background: ${colors.player};
+  min-height: 30px;
 `
 const CenterPane = styled(Box)`
   flex-grow:1;
@@ -59,6 +63,7 @@ function App() {
         </Switch>
       </CenterPane>
       <RightPane>
+        <RightPaneHeader></RightPaneHeader>
         <AudioPlayer></AudioPlayer>
         <PlayList></PlayList>
       </RightPane> 
