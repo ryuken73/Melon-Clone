@@ -7,6 +7,9 @@ const colors = {
     'light2CenterPane': '#084540',
     'light3CenterPane': '#085449',
     'player': '#14181e',
+    'playerLight1': '#1d1e2a',
+    'playerLight2': '#1f242c',
+    'playerLight3': '#252b34',
     99: 'black',
 }
 

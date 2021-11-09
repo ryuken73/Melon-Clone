@@ -1,70 +1,70 @@
 import * as React from 'react';
+import Box from '@mui/material/Box';
 import { useAutocomplete } from '@mui/core/AutocompleteUnstyled';
-import { styled } from '@mui/material/styles';
+// import { styled } from '@mui/material/styles';
+import styled from 'styled-components';
 import parse from 'autosuggest-highlight/parse';
 import match from 'autosuggest-highlight/match';
 import colors from '../../config/colors';
 import SpanBox from './SpanBox';
+import { color } from '@mui/system';
 
-const Input = styled('input')(({ theme }) => ({
-  width: 200,
-  height: 25,
-  backgroundColor: colors.lightCenterPane,
-  color: 'white',
-  borderStyle: 'solid',
-  borderColor: 'transparent',
-  fontSize: '12px',
-  borderRadius: 10,
-  ':hover' : {
-    backgroundColor: colors.light2CenterPane,
-  },
-  ':focus' : {
-    backgroundColor: colors.light3CenterPane,
-    outline: 'none'
+const Input = styled.input`
+  width: 300px;
+  height: 25px;
+  background: ${colors.player};
+  color: white;
+  border: 1px solid rgba(255,255,255,.3);
+  font-size: 12px;
+  padding-right: 5px;
+  padding-left: 5px;
+  border-radius: 10px;
+  :hover {
+    background: ${colors.playerLight1};
+    border: 1px solid rgba(255,255,255,.6);
   }
-}));
-
-const Listbox = styled('div')(({ theme }) => ({
-  width: 208,
-  height: 'auto',
-  maxHeight: '40%',
-  marginTop: 5,
-  padding: 0,
-  zIndex: 1,
-  borderRadius: 10,
-  position: 'absolute',
-  listStyle: 'none',
-  backgroundColor: colors.light3CenterPane,
-  overflow: 'auto',
-  '::-webkit-scrollbar':{
-    display: 'none'
-  },
-  fontSize: "12px",
-  textAlign: "left",
-//   border: '1px solid rgba(0,0,0,.25)',
-  '& li[data-focus="true"]': {
-    backgroundColor: 'yellow',
-    color: 'white',
-    cursor: 'pointer',
-  },
-  '& li:active': {
-    backgroundColor: 'yellow',
-    color: 'white',
-  },
-  '& li:hover': {
-    backgroundColor: colors.player
+  :focus {
+    background: ${colors.playerLight1};
+    border: 1px solid rgba(255,255,255,.8);
+    outline: none;
   }
-}));
-
-const StyledList = styled('li')(({ theme }) => ({
-    padding: 3,
-    margin: 5,
-    overflow: 'hidden',
-    textOverflow: 'ellipsis',
-    whiteSpace: 'nowrap',
-    borderRadius: 5
-}));
-
+`;
+const Listbox = styled(Box)`
+  width: 308px;
+  height: auto;
+  max-height: 40%;
+  margin-top: 5px;
+  padding: 0px;
+  z-index: 1;
+  border-radius: 10px;
+  position: absolute;
+  list-style: none;
+  background: ${colors.playerLight1};
+  overflow: auto;
+  font-size: 12px;
+  text-align: left;
+  border: 1px solid rgba(255,255,255,0.4);
+  &::-webkit-scrollbar {
+    display: none;
+  };
+`;
+const StyledList = styled(Box)`
+  padding: 2px;
+  margin: 2px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  border-radius: 2px;
+  &.Mui-focusVisible {
+    background: ${colors.playerLight3};
+  }
+  &:hover {
+    background: ${colors.playerLight3}
+  }
+  &:focus-within {
+    background: yellow;
+  }
+`;
 
 const UseAutocomplete = () => {
   const {
