@@ -40,3 +40,11 @@ export const secondsToTime = seconds => {
     }
     return new Date(seconds*1000).toISOString().substr(14,5)
 }
+
+export const debounce = (callback, timeout) => {
+	let id;
+	return (...args) => {
+		clearTimeout(id)
+		return (id = setTimeout(() => callback(...args), timeout))
+	}
+}
