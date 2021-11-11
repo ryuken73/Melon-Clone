@@ -11,6 +11,7 @@ import HoverButton from '../Common/ButtonHover';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import {secondsToTime} from 'lib/util'
 import LinkArtist from 'Components/Links/LinkArtist';
+import useSongsInAlbum from 'hooks/useSongsInAlbum';
 
 const Container = styled(Box)`
     && {
@@ -19,17 +20,15 @@ const Container = styled(Box)`
         align-items: center;
         height: 55px;
         width: 100%;
-        background: ${props => props.checked && !props.header ? colors.lightCenterPane : 'transparent'};
-        ${props => props.header || `&:hover {
-                background: ${colors.highCenterPane}
-            }`
+        background: ${props => props.checked ? colors.playerLight3 : 'transparent'};
+        &:hover {
+            background: ${colors.playerLight2}
         }
     }
 `
 
 const SongItemAlbumDetail = props => {
-    const {cellValues=[], header=false, ...rest} = props;
-    const [checked, setChecked] = React.useState(false);
+    const {song, receipt_no, ...rest} = props;
     const [hovered, setHovered] = React.useState(false);
     const onHovered = React.useCallback(()=>{
         setHovered(true);
@@ -38,39 +37,43 @@ const SongItemAlbumDetail = props => {
         setHovered(false);
     },[setHovered])
     // console.log('###', cellValues)
-    const durationInSeconds = cellValues[4];
-    const duration = isNaN(parseInt(durationInSeconds)) ? durationInSeconds:secondsToTime(durationInSeconds)
+    const {rownum, song_name, artist, version, runtime, checkedSongList} = song;
+    const duration = isNaN(parseInt(runtime)) ? runtime:secondsToTime(runtime)
+    const {addSongByRownum, toggleSongChecked} = useSongsInAlbum(receipt_no, rownum);
+    const onChecked = React.useCallback(() => {
+        toggleSongChecked()
+    },[toggleSongChecked])
+
     return (
-            <Container header={header} checked={checked} onMouseEnter={onHovered} onMouseLeave={onHoverOut}>
-                <SmallCheckBox checked={checked} setChecked={setChecked} />
+            <Container checked={checkedSongList} onMouseEnter={onHovered} onMouseLeave={onHoverOut}>
+                <SmallCheckBox checked={checkedSongList} setChecked={onChecked} />
                 <Box flex="1">
                     {/* 순번 */}
-                    <TextBox text={cellValues[0]} {...rest} cursor="auto"></TextBox>
+                    <TextBox text={rownum} {...rest} cursor="auto"></TextBox>
                 </Box>
                 <Box flex="5" display="flex" flexDirection="row" alignItems="center">
                     {/* 곡명 */}
-                    <TextBox containerProps={{marginRight:"15px"}} text={cellValues[1]} {...rest}></TextBox>
-                    {!header && hovered && (
+                    <TextBox containerProps={{marginRight:"15px"}} text={song_name} {...rest}></TextBox>
+                    {hovered && (
                         <Box flexShrink="0" width="150px" ml="auto" mr="20px">
-                            <HoverButton><PlayArrowIcon fontSize="small"></PlayArrowIcon></HoverButton>
-                            <HoverButton><FileDownloadIcon fontSize="small"></FileDownloadIcon></HoverButton>
-                            <HoverButton><AddIcon fontSize="small"></AddIcon></HoverButton>
+                            <HoverButton><PlayArrowIcon fontSize="medium"></PlayArrowIcon></HoverButton>
+                            <HoverButton><FileDownloadIcon fontSize="medium"></FileDownloadIcon></HoverButton>
+                            <HoverButton onClick={addSongByRownum}><AddIcon fontSize="medium"></AddIcon></HoverButton>
                         </Box>
                     )}
                 </Box>
                 <Box width="20%">
                     {/* 아티스트 */}
-                    {/* <TextBox text={cellValues[2]} {...rest} color="darkgrey"></TextBox> */}
-                    <LinkArtist artist={cellValues[2]} {...rest} color="darkgrey"></LinkArtist>
+                    <LinkArtist artist={artist} {...rest} color="darkgrey"></LinkArtist>
                 </Box>
                 <Box width="15%" display="flex" flexDirection="row" alignItems="center">
                     {/* 버전 */}
-                    <TextBox text={cellValues[3]} {...rest} cursor="auto" color="darkgrey"></TextBox>
+                    <TextBox text={version} {...rest} cursor="auto" color="darkgrey"></TextBox>
                 </Box>
                 <Box width="15%" display="flex" flexDirection="row" alignItems="center">
                     {/* 재생시간 */}
                     <TextBox text={duration} {...rest} cursor="auto" color="darkgrey"></TextBox>
-                    {!header && hovered && (
+                    {hovered && (
                         <Box ml="auto">
                             <HoverButton><MoreVertIcon fontSize="small"></MoreVertIcon></HoverButton>
                         </Box>

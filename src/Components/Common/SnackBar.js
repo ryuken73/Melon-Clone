@@ -15,7 +15,10 @@ const Container = styled(Box)`
         bottom: 10px;
         width: ${props => props.width || '80%'};
         padding: 5px;
-        background: ${props => props.bgcolor || colors.highCenterPane}
+        background: ${props => props.bgcolor || colors.highCenterPane};
+        left: 0;
+        right: 0;
+        margin: auto;
     }
 `
 

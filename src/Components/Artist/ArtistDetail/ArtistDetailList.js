@@ -31,7 +31,7 @@ const AlbumDetailList = props => {
     const {match} = props;
     const {receipt_no} = match.params;
     const songsInAlbum = [];
-    // const songsInAlbum = useSongsInAlbum(receipt_no);
+    //const songsInAlbum = useSongsInAlbum(receipt_no);
 
     console.log(songsInAlbum)
     const songs = songsInAlbum.length > 0 ? songsInAlbum.map(song => {

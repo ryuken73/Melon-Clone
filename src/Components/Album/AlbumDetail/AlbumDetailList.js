@@ -7,6 +7,7 @@ import CheckIcon from '@mui/icons-material/Check';
 import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 import SongListInAlbumDetail from 'Components/Song/SongListInAlbumDetail';
 import useSongsInAlbum from 'hooks/useSongsInAlbum';
+import Helper from './Helper';
 
 const Container = styled(Box)`
     display: flex;
@@ -30,13 +31,7 @@ const ButtonContainer = styled(Box)`
 const AlbumDetailList = props => {
     const {match} = props;
     const {receipt_no} = match.params;
-    const songsInAlbum = useSongsInAlbum(receipt_no);
-
-    console.log(songsInAlbum)
-    const songs = songsInAlbum.length > 0 ? songsInAlbum.map(song => {
-        const {rownum, song_name, artist, version, runtime} = song;
-        return [rownum, song_name, artist, version, runtime]
-    }) : [];
+    const {songsInAlbum} = useSongsInAlbum(receipt_no);
 
     return (
         <Container>
@@ -55,8 +50,10 @@ const AlbumDetailList = props => {
                 ></ButtonIcon>
             </ButtonContainer>
             <SongListInAlbumDetail
-                songs={songs}
+                songs={songsInAlbum}
+                receipt_no={receipt_no}
             ></SongListInAlbumDetail>
+            <Helper receipt_no={receipt_no}></Helper>
         </Container>
     )
 }
