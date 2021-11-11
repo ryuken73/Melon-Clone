@@ -26,7 +26,8 @@ export const showMessageBoxForDuration = (duration=1000) => async (dispatch, get
         dispatch(setMessageBoxHide(true));
     }, [duration])
     setTimeout(()=>{
-        dispatch(setMessageBoxText(''));
+        const state = getState();
+        if(state.app.isMessageBoxHidden) dispatch(setMessageBoxText(''));
     }, [duration+500])
 
 }

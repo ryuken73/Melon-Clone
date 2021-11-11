@@ -20,7 +20,7 @@ const Container = styled(Box)`
 const SongItemHeaderInAlbumDetail = props => {
     const {receipt_no, headers=[], ...rest} = props;
     // console.log('### in SongItemHeaderInAlbumDetail: ', receipt_no)
-    const {toggleAllSongChecked, allChecked} = useSongsInAlbum(receipt_no);
+    const {toggleAllSongChecked, allChecked=false} = useSongsInAlbum(receipt_no);
     return (
             <Container>
                 <SmallCheckBox checked={allChecked} setChecked={toggleAllSongChecked} />

@@ -138,16 +138,22 @@ export const addSongsInAlbumToCurrentPlaylist = ({receipt_no, rownum, allChecked
         const targetSong = listSong.find(song => song.rownum === rownum);
         if(targetSong !== undefined){
             dispatch(pushObjectToState({stateKey:'currentPlaylist', value: targetSong}));
+            dispatch(setMessageBoxText(`1곡을 재생목록에 추가했습니다.`));
+            dispatch(showMessageBoxForDuration());
         }
         return  
     }
     if(allChecked){
         const songsChecked = listSong.map(song => song.checkedSongList);
-        songsChecked.map(song => dispatch(pushObjectToState({stateKey:'currentPlaylist', value: song})));
+        songsChecked.forEach(song => dispatch(pushObjectToState({stateKey:'currentPlaylist', value: song})));
+        dispatch(setMessageBoxText(`${songsChecked.length}곡을 재생목록에 추가했습니다.`));
+        dispatch(showMessageBoxForDuration());
         return
     }
     if(listSong !== undefined){
-        listSong.map(song => dispatch(pushObjectToState({stateKey:'currentPlaylist', value: song})));
+        listSong.forEach(song => dispatch(pushObjectToState({stateKey:'currentPlaylist', value: song})));
+        dispatch(setMessageBoxText(`${listSong.length}곡을 재생목록에 추가했습니다.`));
+        dispatch(showMessageBoxForDuration());
         return
     }
     const API_NAME = 'doListAlbum';
