@@ -7,6 +7,8 @@ import match from 'autosuggest-highlight/match';
 import colors from '../../config/colors';
 import SpanBox from './SpanBox';
 import {useQuery} from 'react-query';
+import useDebounce from 'hooks/useDebounce';
+import useQuerySuggest from 'hooks/useQuerySuggest';
 
 const Input = styled.input`
   width: 300px;
@@ -79,7 +81,7 @@ const querySuggests = async ({queryKey}) => {
 };
 
 const UseAutocomplete = () => {
-  const [options, setOptions] = React.useState([])
+  const [options, setOptions] = React.useState([]);
   const {
     getRootProps,
     getInputLabelProps,
@@ -92,15 +94,18 @@ const UseAutocomplete = () => {
     options: options,
     limit: 10,
     filterOptions: options => options,
-    getOptionLabel: (option) => `${option.artistName}:${option.songName}`,
+    getOptionLabel: (option) => `${option.artistName}: ${option.songName}`,
   });
 
   const inputValue = getInputProps().value;
   const uriEncoded = encodeURIComponent(inputValue);
-  const { isLoading, isError, data, error } = useQuery(['autocomplete', uriEncoded], querySuggests);
+  const debounced = useDebounce(uriEncoded);
+  console.log(debounced)
+  // const { isLoading, isError, data, error } = useQuery(['autocomplete', uriEncoded], querySuggests);
+  const { isLoading, isError, data, error } = useQuerySuggest(debounced);
 
   React.useEffect(()=>{
-    if(isLoading !== true && isError !== true && data.result !== null){
+    if(isLoading !== true && isError !== true && data?.result !== undefined && data?.result !== null){
       setOptions(data.result.slice(0,100));
       return
     }
@@ -108,8 +113,8 @@ const UseAutocomplete = () => {
   },[data])
 
   const getHighlightParts = React.useCallback(option => {
-    const matches = match(`${option.artistName}:${option.songName}`, inputValue);
-    const parts = parse(`${option.artistName}:${option.songName}`, matches);
+    const matches = match(`${option.artistName}: ${option.songName}`, inputValue);
+    const parts = parse(`${option.artistName}: ${option.songName}`, matches);
     return parts;
   },[inputValue]);
 
