@@ -23,18 +23,18 @@ const Song = props => {
         id: 1,
         title: '제목',
         artist: 'Artist',
-        checked: false
+        checkedPlaylist: false
     }
     const {song=defaultSong} = props;
-    const {id, title, artist, checked} = song;
+    const {id, title, artist, checkedPlaylist} = song;
     const [removeFromPlaylist, setChecked] = useSongPlaylist(id);
     const onChecked = React.useCallback(() => {
-        setChecked(!checked)
-    },[checked, setChecked])
+        setChecked(!checkedPlaylist)
+    },[checkedPlaylist, setChecked])
 
     return (
         <Container>
-            <SmallCheckBox checked={checked} setChecked={onChecked} />
+            <SmallCheckBox checked={checkedPlaylist} setChecked={onChecked} />
             <TextBox text={title} margin="0px 15px 0px 0px" width="150px"></TextBox>
             <TextBox text={artist} width="90px"></TextBox>
         </Container>

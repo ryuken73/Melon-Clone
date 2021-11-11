@@ -20,7 +20,7 @@ export const playlistSlice = createSlice({
         removeChecked: (state,action) => {
             const {type, payload} = action;
             state.currentPlaylist = state.currentPlaylist.filter(song => {
-                return song.checked === false;
+                return song.checkedPlaylist === false;
             })
             console.log(`## length of song list:`, state.currentPlaylist.length)
         },
@@ -39,17 +39,17 @@ export const playlistSlice = createSlice({
             const {id, checked} = payload;
             state.currentPlaylist = state.currentPlaylist.map(song => {
                 if(song.id === id){
-                    song.checked = checked;
+                    song.checkedPlaylist = checked;
                 }
                 return song;
             })
         },
         toggleAllChecked: (state, action) => {
-            if(state.currentPlaylist.every(song => song.checked)){
-                state.currentPlaylist.forEach(song => song.checked = false);
+            if(state.currentPlaylist.every(song => song.checkedPlaylist)){
+                state.currentPlaylist.forEach(song => song.checkedPlaylist = false);
                 return
             }
-            state.currentPlaylist.forEach(song => song.checked = true);
+            state.currentPlaylist.forEach(song => song.checkedPlaylist = true);
         },
     }
 })

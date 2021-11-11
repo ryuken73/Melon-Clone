@@ -16,8 +16,8 @@ const SongList = () => {
     const [currentPlaylist, checkedCount, removeFromCurrentPlaylist, toggleCurrentPlayList] = useCurrentPlaylist();
     const songs = currentPlaylist.length > 0 ? currentPlaylist.map(song => {
         console.log('#### song', song)
-        const {id, recept_no, reg_no, song_name, receipt_no, artist, checked} = song;
-        return {id, recept_no, reg_no, title: song_name, receipt_no, artist, checked}
+        const {id, recept_no, reg_no, song_name, receipt_no, artist, checkedPlaylist} = song;
+        return {id, recept_no, reg_no, title: song_name, receipt_no, artist, checkedPlaylist}
     }) : [];
 
     console.log('###songs:', songs)
