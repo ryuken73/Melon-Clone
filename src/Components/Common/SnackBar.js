@@ -13,7 +13,8 @@ const Container = styled(Box)`
         position: absolute;
         border-radius: 8px;
         bottom: 10px;
-        width: ${props => props.width || '80%'};
+        width: ${props => props.width || 'auto'};
+        height: ${props => props.height || 'auto'};
         padding: 5px;
         background: ${props => props.bgcolor || colors.highCenterPane};
         left: 0;
