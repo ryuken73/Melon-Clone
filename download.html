@@ -1,0 +1,862 @@
+
+
+
+<!DOCTYPE html>
+<html>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta charset="utf-8">
+<head>
+<style  type="text/css">
+/* table download */
+#listWrap_down { width:950px; margin:0 0 0 15px; }
+#listWrap_down th { background:#f8f4ef; border-top:1px solid #ded1c5; border-bottom:1px solid #ede3da; font-size:12px; height:30px; }
+#listWrap_down th.left { text-align:left; padding-left:10px; height:30px; }
+#listWrap_down td { border-bottom:1px solid #e6e6e6; text-align:center; padding:5px 0; }
+#listWrap_down td.no { color:#999; font-family:Tahoma; font-size:11px; }
+#listWrap_down td.left { text-align:left; padding-left:10px; }
+#listWrap_down td.right { text-align:right; padding-left:10px; }
+#scrollbox {width:970px; height:480px; overflow-y:auto;  padding:0px; border:0; border-style:solid; border-color:black} 
+#scrollbox .right_btn { align:right; text-align:right; padding:0 1px; }
+</style>
+<base target="_self">
+<title>SBS뮤직뱅크-파일다운로드</title>
+<link href="/css/common.css" rel="stylesheet" type="text/css">
+<link href="/css/protoload.css" rel="stylesheet" type="text/css">
+<link href="/css/styleVal.css" rel="stylesheet" type="text/css" >
+<link href="/css/themes/default.css" rel="stylesheet" type="text/css">
+<link href="/css/themes/alphacube.css" rel="stylesheet" type="text/css">
+<link href="/css/themes/lighting/lighting.css" rel="stylesheet" type="text/css">
+<link href="/css/themes/alert.css" rel="stylesheet" type="text/css"/>
+<link href="/css/component/calendar.css" rel="stylesheet" type="text/css" />
+<link href="/css/component/calendar-blue.css" rel="stylesheet" type="text/css" />
+<!-- @@@ COMMON CSS 신규 이미지42-->  
+<link rel="stylesheet" type="text/css" href="/common/basic.css" />
+<!-- @@@ COMMON JS -->
+<script type='text/javascript' src='/js/framework/prototype/prototype.js'></script> 
+<script type='text/javascript' src='/js/framework/scriptaculous/scriptaculous.js?load=effects'></script>  
+<script type='text/javascript' src='/js/framework/scriptaculous/scriptaculous.js?load=controls'></script>  
+<script type='text/javascript' src='/js/framework/scriptaculous/scriptaculous.js?load=dragdrop'></script> 
+<script type='text/javascript' src='/js/framework/scriptaculous/scriptaculous.js?load=builder'></script> 
+<link rel="stylesheet" href="/js/framework/prototype/proto.menu.0.6.css" type="text/css" media="screen">
+<script type="text/javascript" src="/js/framework/prototype/proto.menu.0.6.js"></script>
+<script type='text/javascript' src='/js/component/json/json2.js'></script>  
+<script type='text/javascript' src='/js/component/fastinit.js'></script> 
+<script type='text/javascript' src='/js/component/indicator/globalhandler.js'></script>
+<script type='text/javascript' src='/js/component/indicator/protoload.js'></script>
+
+<script type='text/javascript' src='/js/component/button/dhtmlx_ImgButton.js'></script>
+<script type='text/javascript' src='/js/component/layout/layout_toggle.js'></script>  
+<!-- @@@ DhtmlWindow JS  -->
+<script type="text/javascript" src="/js/util/stringUtil.js"></script>
+<script type="text/javascript" src="/js/util/dateUtil.js"></script>
+<script type="text/javascript" src="/js/validator/validator.js"></script>
+<script type='text/javascript' src='/js/component/windows/window.js'></script>
+<script type='text/javascript' src='/js/component/windows/window_ext.js'></script>
+<script type='text/javascript' src='/js/component/windows/window_effects.js'></script> 
+<script type='text/javascript' src='/js/common_combo.js'></script> 
+<script type="text/javascript" src="/js/component/jscalendar/calendar.js"></script>
+<script type="text/javascript" src="/js/component/jscalendar/calendar-ko-utf8.js"></script>
+
+<script type="text/javascript" src="/js/help/comm_help.js"></script>
+
+<script type="text/javascript" src="/js/select.js"></script>
+<script type="text/javascript" src="/js/common.js"></script>
+<script type="text/javascript" src="/js/component/dext5upload_new/js/dext5upload.js"></script>
+<script type="text/javascript" src="/js/browser-detect.js"></script>
+
+<script type="text/javascript">
+    
+    window.document.oncontextmenu = function() {
+        window.status = '오른쪽 마우스는 사용할 수 없습니다.';
+        return false;
+    }
+    
+    var ctxPathSub = "/mbs";
+    //----------------------------------------------
+    //팝업 호출 jsp에 fncHelpUserSet()에서 인자값을 가져옴
+    //-----------------------------------------------
+        
+    var mAlt = false;
+    var mLpAlt = false;
+    var mEvAlt = false;
+    var helpGenre = [];
+    var mGenre = false;
+    var ip = 'musicbank.sbs.co.kr';
+    var port = '80';
+     
+    var URL = ctxPathSub + "/help_upload/"; // AJAX 요청 URL
+    var mediType = "nwav"; //default
+    var pLength = 0;
+    
+    var dir = sessionStorage.getItem('dir');
+    var musicGubun = sessionStorage.getItem('musicGubun');
+    
+    
+    var downloadParam = "";
+    var downloadParamDict = [];
+//    var checkbox_type = true ;
+    
+    var helpParam;
+
+	
+    Event.observe(window, 'load', function() {
+    	
+        helpParam = opener.window.fncSetDownloadFileSelPath();
+        
+        // 일반 다운로드
+        if (musicGubun == "M") {
+            new Ajax.Request( ctxPathSub + "/help_download_sel/doDownChk.mb", {
+                method: "post",
+                parameters: { 
+                    user_id: 'mbs',
+                    down_week: 'N'
+                },
+                onSuccess: function(transport) {
+                    var userCnt = transport.responseText.evalJSON().user_cnt;
+                    
+                    if (userCnt.length >= 2) {
+                        var userTodayCnt = userCnt[0].cnt; //today cnt
+                        var userDwLimit  = userCnt[1].dw_limit; //권한 CNT
+                        var userBoardCnt = userCnt[1].down_cnt; //사용자 테이블 개인 cnt 제한 
+                        
+                        // 1. 권한 CNT 체크
+                        if ( userDwLimit > userBoardCnt ) {
+                            if ( userTodayCnt > userDwLimit) {
+                                if ('N' == "N") {
+                                    alert("일일 다운로드 횟수를 초과 하였습니다.(권한)");
+                                } else {
+                                    alert("주간(월~일) 다운로드 횟수를 초과 하였습니다.(권한)");
+                                }
+                                window.close();
+                                return;
+                            }
+                            
+                            //현재 다운로드 비교 helpParam.length userDwLimit
+                            var downCntChk = userBoardCnt - userTodayCnt;
+                            if (downCntChk < helpParam.length) {
+                                alert(" 다운로드 건수를 초과 하였습니다. 다운로드는  " + downCntChk + "개 가능합니다.");
+                                window.close();
+                                return;
+                            }
+                        } else {
+                            if (userTodayCnt > userBoardCnt) {
+                                if ('N' == "N") {
+                                    alert("일일 다운로드 횟수를 초과 하였습니다.(개인)");
+                                } else {
+                                    alert("주간(월~일) 다운로드 횟수를 초과 하였습니다.(개인)");
+                                }
+                                window.close();
+                                return;
+                            }
+                            
+                            //현재 다운로드 비교 helpParam.length userDwLimit
+                            var downCntChk = userBoardCnt - userTodayCnt;
+                            if (downCntChk < helpParam.length) {
+                                alert(" 다운로드 건수를 초과 하였습니다. 다운로드는  " + downCntChk + "개 가능합니다.");
+                                window.close();
+                                return;
+                            }
+                        }
+                    }
+                }
+            });
+        }
+        
+        if (musicGubun == "M") {
+            var down_ip_chk = 'P';
+        }
+        
+        pLength = helpParam.length;
+        
+        //console.log(pLength+" 개 다운로드"); // 다운로드갯수
+        
+        //--------------------------------------------------------------
+        // global indicator를 사용하지 않는다.
+        //--------------------------------------------------------------
+        Ajax.Responders.unregister(myGlobalLoadingHandlers);
+
+        var paramSong = "";
+        
+        for (var i = 0; i < pLength; i++ ) {
+            var item2 = helpParam[i];
+            
+            if (musicGubun == "M") {
+                paramSong += item2.getAttachName() + ";" + item2.getAttachPath() + ";" + item2.getReceiptNo() + ";" + item2.getRegNo() + ";" + item2.getLabelNo() + "---";
+            }
+        }
+                
+        new Ajax.Request( ctxPathSub + "/help_file/doFileSize.mb?gubun=M", {
+            method: "post",
+            parameters: {
+                params: paramSong
+            },
+            onSuccess: function(transport) {
+                dataSetMst = transport.responseText.evalJSON().song_list;
+                
+                for (var i = 0; i < pLength; i++) {
+                    var item3 = helpParam[i];
+                    for (var j = 0; j < dataSetMst.length; j++) {
+                        if (musicGubun == "M") {
+                            if ( trim(item3.getReceiptNo()) == trim(dataSetMst[j].receipt_no) && trim(item3.RegNo()) == trim(dataSetMst[j].reg_no) ) {
+                                 helpGenre.push(dataSetMst[j].genre);
+                            }
+                        }
+                    }
+                }
+            }
+            
+        }); // End Ajax.Request
+        
+        //return;
+        
+        //-----------------------------
+        // indicator를 사용 전환 
+        //-----------------------------
+        Ajax.Responders.register(myGlobalLoadingHandlers);
+        ////////////////////////////////////////////////////////////////
+        
+        _updateYn = 'Y';
+        
+        //v_html
+        var html = "";
+        html += "<table id='listWrap_down'>";
+        html += "<colgroup>";
+        html += "<col style='width:60px;' />";
+        html += "<col style='white-space: nowrap' />";
+        
+        // artist album_name
+        if (musicGubun == "M") {
+            html += "<col style='width:120px;text-align:left' />";
+            html += "<col style='width:100px;text-align:left' />";
+        }
+        
+        html += "<col style='width:320px;' />";
+        html += "</colgroup>";
+        html += "<tr>"; 
+        html += "<th class='no'>번호</th>";
+        html += "<th class='left'>파일</th>";
+        
+        // artist album_name
+        if (musicGubun == "M") {
+            html += "<th>아티스트</th> ";
+            html += "<th>앨범</th> ";
+        }
+        
+        if (musicGubun == "M") {
+            html += "<th style='width:180px;' class='center'>";
+            html += "&nbsp;wav(원본)&nbsp;<input type='radio' id='radio_type' name='radio_type' onclick='fncTypeCheck(\"wav\")' >";
+            html += "&nbsp;wav(송출용)&nbsp;<input type='radio' id='radio_type' name='radio_type' onclick='fncTypeCheck(\"nwav\")'checked >";
+          //  html += "&nbsp;mp2&nbsp;<input type='radio' id='radio_type' name='radio_type' onclick='fncTypeCheck(\"mp2\")' >";
+            html += "&nbsp;가사&nbsp;<input type='checkbox' id='checkbox_type' name='checkbox_type' onclick='fncLycCheck()' checked disabled='true'></th>";
+        } else {
+            html += "<th class='center'>";
+            html += "&nbsp;wav(원본)&nbsp;<input type='radio' id='radio_type' name='radio_type' onclick='fncTypeCheck(\"wav\")' >";
+            html += "&nbsp;wav(송출용)&nbsp;<input type='radio' id='radio_type' name='radio_type' onclick='fncTypeCheck(\"nwav\")' checked >";
+          //  html += "&nbsp;mp2&nbsp;<input type='radio' id='radio_type' name='radio_type' onclick='fncTypeCheck(\"mp2\")' ></th>";
+        }
+        
+        html += "</tr>";
+        
+        for (var i=0;i < pLength; i++) {
+            var item4 = helpParam[i];
+            
+            if (i%2 == 0) {
+                html += "<tr bgcolor='#ffffff'>";
+            } else {
+                html += "<tr bgcolor='f8f8f8'>";
+            }
+            
+            html += "<td>" + (i + 1) + "</td>";
+            
+            if (musicGubun == "M") {
+                if (item4[9] == "005") {
+                    html += "<td style='text-align:left' title='" + rtrim(item4.getSongName()) + "'>" + fncSetDelBrack( rtrim( item4.getSongName().substr(0, 60) ) ) + "&nbsp;<img src='/image/reviewRespondence19.gif' alt='방송적합(19)' /></td>";
+                } else {
+                    html += "<td style='text-align:left' title='" + rtrim(item4.getSongName()) + "'>" + fncSetDelBrack( rtrim( item4.getSongName().substr(0, 60) ) ) + "</td>";
+                }
+                
+                html += "<td title='" + item4.getArtist() + "' style='text-align:left'>" + fncSetDelBrack( item4.getArtist().substr(0, 9) ) + "</td>";
+                html += "<td title='" + item4.getAlbumName() + "' style='text-align:left'>" + fncSetDelBrack( item4.getAlbumName().substr(0, 10) ) + "</td>";
+            } else {
+                html += "<td style='text-align:left' title='" + rtrim(item4.getSongName()) + "'>" + fncSetDelBrack( rtrim( item4.getSongName().substr(0, 30) ) ) + "</td>";
+            }
+            
+            var idMk_wave = "radio_type_w_" + i;
+            var idMk_normal_wave = "radio_type_nw_" + i
+            var idMk_mp = "radio_type_m_" + i;
+            
+            if (musicGubun == "M" && item4.getLyricsChk()) {
+                var idMk_chk = "chk_music_" + i;
+                
+                pDis = "checked";
+                
+                if (item4.getLyricsChk() == "y") {
+                    pDis = "checked";
+                }
+                
+                html += "<td class='center'>";
+                html += "&nbsp;wav(원본)&nbsp;<input type='radio' id='" + idMk_wave + "' name='" + idMk_wave + "' onclick='javascript:fncSetChecked(\"" + i + "\", \"wav\")'>";
+                html += "&nbsp;wav(송출용)&nbsp;<input type='radio' id='" + idMk_normal_wave + "' name='" + idMk_normal_wave + "' onclick='javascript:fncSetChecked(\""+i+"\", \"nwav\")'checked>";
+             //   html += "&nbsp;mp2&nbsp;";
+             //   html += "<input type='radio' id='" + idMk_mp + "' name='" + idMk_mp + "' onclick='javascript:fncSetChecked(\""+i+"\", \"mp2\")' >";
+                html += "&nbsp;가사&nbsp;<input type='checkbox' id='" + idMk_chk + "' name='" + idMk_chk + "' " + pDis + " checked disabled='true'></td>";
+            } else {
+                html += "<td class='center'>";
+                html += "&nbsp;wav(원본)&nbsp;<input type='radio' id='" + idMk_wave + "' name='" + idMk_wave + "' onclick='javascript:fncSetChecked(\"" + i + "\", \"wav\")'>";
+                html += "&nbsp;wav(송출용)&nbsp;<input type='radio' id='" + idMk_normal_wave + "' name='" + idMk_normal_wave + "' onclick='javascript:fncSetChecked(\"" + i + "\", \"nwav\")'checked>";
+             //   html += "&nbsp;mp2&nbsp;<input type='radio' id='" + idMk_mp + "' name='" + idMk_mp + "' onclick='javascript:fncSetChecked(\""+i+"\", \"mp2\")' ></td>";
+            }
+            
+            html += "</tr>";
+            html += "";
+        }
+        
+        html += "</table>";
+        
+        $('v_html').innerHTML = html;
+        
+        //fncDownType(2);
+    }); // End Event onload
+    
+    // 선택시
+    function fncSetChecked(pId, pType) {
+        var idMk_wave = "radio_type_w_" + pId;
+        var idMk_normal_wave = "radio_type_nw_" + pId;
+        var idMk_mp = "radio_type_m_" + pId;
+        
+        if (pType == "wav") {
+            $(idMk_wave).checked = true;
+            $(idMk_normal_wave).checked = false;
+         //   $(idMk_mp).checked = false;
+        } else if (pType == "nwav") {
+            $(idMk_wave).checked = false;
+            $(idMk_normal_wave).checked = true;
+         //   $(idMk_mp).checked = false;
+        } else {
+            $(idMk_wave).checked = false;
+            $(idMk_normal_wave).checked = false;
+         //   $(idMk_mp).checked = true;
+        }
+    }
+    
+    // 모두 선택시.
+    function fncTypeCheck(pType) {
+        for(var i=0;i<pLength;i++) {
+            //combo box checked
+            var idMk_wave = "radio_type_w_" + i;
+            var idMk_normal_wave = "radio_type_nw_" + i;
+            var idMk_mp = "radio_type_m_" + i;
+            
+            if (pType == "wav") {
+                $(idMk_wave).checked = true;
+                $(idMk_normal_wave).checked = false;
+      //          $(idMk_mp).checked = false;
+            } else if (pType == "nwav") {
+                $(idMk_wave).checked = false;
+                $(idMk_normal_wave).checked = true;
+      //          $(idMk_mp).checked = false;
+            } else {
+                $(idMk_wave).checked = false;
+                $(idMk_normal_wave).checked = false;
+       //         $(idMk_mp).checked = true;
+            }
+        }
+    }
+    
+    //------------------------------
+    //lyc checkbox
+    //-------------------------------
+    function fncLycCheck() {
+        for(var i=0;i<pLength;i++) {
+            //check box checked   "chk_music_"+i;
+            var pChk = "chk_music_" + i;
+            
+            if (!$(pChk).disabled) {
+                if ($('checkbox_type').checked) {
+                    $(pChk).checked = true; 
+                } else {
+                    $(pChk).checked = false;
+                }
+            }
+        }
+    }
+    
+    var errorFlag = false;
+    
+    // 컴포넌트 로드 완료시 자동 호출되는 콜백 함수
+    function DEXT5UPLOAD_OnCreationComplete(uploadID) {
+    	if (BrowserDetect.browser != "IE") {
+    		 //fn_addFile();
+    		 //doStartDownload_chrome();
+    	
+    		//$("DEXT_fiVe_UP_ly_wrapper").style.display="block";
+    		
+    		var node = document.createElement("div");
+    		
+			//var textnode = document.createTextNode("다운로드 폴더는 크롬 설정 > 다운로드와 캡처 > 다운로드 에서 변경이 가능합니다.");
+			//node.appendChild(textnode);
+			
+			document.getElementById("DEXT_fiVe_UP_ly_content").appendChild(node);
+			
+			//document.getElementById("DEXT_fiVe_UP_ly_content").style.height = "273px";
+			document.getElementById("DEXT_fiVe_UP_ly_wrapper").style.height = "273px";
+			
+			node.style.margin = 10+"px";
+    	
+    	} else {
+    		DEXT5UPLOAD.Hidden(uploadID);	
+    	}
+    }
+    
+    function DEXT5UPLOAD_OnError(uploadID, code, message, uploadedFileListObj) {
+    	//console.log(uploadID, code, message, uploadedFileListObj); 
+    	errorFlag = true;
+         alert("다운로드에 실패하였습니다.저장 위치를 확인해 주세요.");
+    }
+    
+    function DEXT5UPLOAD_AfterDownload(uploadID, strDownloadPath, nViewOrSave) {
+    	//console.log("DEXT5UPLOAD_AfterDownload",new Date());
+    	//console.log("after download " + uploadID, strDownloadPath, nViewOrSave);
+    	//cancel();
+        if(!errorFlag) {
+            //window.close();
+        } 
+    }
+    
+    function DEXT5UPLOAD_BeforeFileDownload(uploadID, nWebFile, strItemKey, strItemOrgName, strItemUrlOrPath, largeFiles, isLastEvent) {
+		
+    	//console.log("다운로드 경로");
+		//console.log("DEXT5UPLOAD_BeforeFileDownload",new Date());
+    	//console.log(uploadID, nWebFile, strItemKey, strItemOrgName, strItemUrlOrPath, largeFiles, isLastEvent);
+    	
+		console.log(strItemUrlOrPath);
+		
+		//var eachDownloadRecord = downloadParamDict[strItemKey];
+        //fncDownHistory(eachDownloadRecord, musicGubun);
+      	
+        // 설정 > 다운로드와 캡처 > 다운로드 위치 
+        return true;
+    }
+
+    function DEXT5UPLOAD_FinishDownloaded(uploadID, nDownloadItemCount) {
+		if (!errorFlag) {
+			// 전체 다운로드 시
+			//fncDownHistory(downloadParam, musicGubun);
+			alert("다운로드가 완료 되었습니다.");
+			window.close();
+		}
+	}
+    
+    function cancel() {
+        DEXT5UPLOAD.Cancel("chrome_downloader");
+    }
+    
+    function DEXT5UPLOAD_onLanguageDefinition(uploadID, objLang) {
+    	//objLang.message_all_remove = "다운로드 초기 셋팅을 해야 합니다."; //20211020 전형진담당
+        //objLang.message_upload_cancel = "전송 취소 시 뜨는 문구 변경";
+    }
+    
+    function doStartDownload() {
+    	
+    	DEXT5UPLOAD.DeleteSelectedFile("chrome_downloader");
+    	
+    	doStartDownload_chrome_show();
+    	
+        errorFlag = false;
+        
+        if (AX.hasOwnProperty('GetRegVolue')) {
+
+            //라디오아카이브 구축 당시 다운로드 경로
+            //var iniPath = AX.GetRegVolue("C:\\Program Files\\SBSWinnerAF\\MBank_Play\\mbconfig.ini");
+            var iniPath = AX.GetRegVolue("C:\\MaxNine\\NIKE\\MBank_Play\\mbconfig.ini");
+            DEXT5UPLOAD.SetDefaultSavePath(iniPath,"chrome_downloader");
+        }
+        
+        //DEXT5UPLOAD.DeleteAllFile("chrome_downloader");
+        
+        
+        downloadParam2 = "";
+        downloadParamDict2 = [];
+        
+        // 파일 중복검사 파일명_아티스트 
+        
+        //console.log(musicGubun);
+        
+        if(musicGubun == "M") {
+        	
+            //item.getSongName() fileName
+            var comCnt = 0;
+            
+            for(var i=0;i<pLength;i++) {
+            	
+                var item = helpParam[i];
+                
+                var compareNm = trim(fncSetDelBrack(item.getSongName()));
+                 
+                for(var j=0;j < pLength;j++) {
+                    
+                	var compareItem = helpParam[j];
+                    
+                    // 파일명이 중복되었을 경우에 대한 처리
+                    if( compareNm == trim(fncSetDelBrack(compareItem.getSongName())) && i != j) {
+                        var file_name = trim(fncSetDelBrack(compareItem.getSongName())) + "_" + fncDownNm(fncSetDelBrack(compareItem.getAlbumName()));
+                         
+                        helpParam[j].setSongName(file_name);
+                        
+                        comCnt++;
+                    }
+                }
+                
+                // 19 이상 check
+                if(item.getDesc() == "005") {
+                    mAlt = true;
+                }
+                 
+                if(item.getLabelNo().substr(0, 2) == "1K") {
+                    mLpAlt = true;
+                }
+                
+                // 저작권 관련 메시지 
+                if(item.getLabelNo().substr(0, 3) == "2EV") {
+                    mEvAlt = true;
+                }
+                
+                // 장르 체크 Add swbae -- janpan 곡.
+                if (helpGenre[i] == "114") {
+                    mGenre = true ;
+                }
+            }
+            if (mGenre) {
+                alert("(주의)일본어 가사가 포함된 곡은 방송용도 사용 불가입니다. !!!");
+            }
+            
+            if(comCnt > 0) {
+                alert("동일 파일명이 존재합니다.파일명에 앨범명이 추가되었습니다.");
+            }
+            
+            if(mAlt) {
+                alert("* 보건복지가족부 청소년보호위원회 결정 /n- 청소년 유해매체물 19세 이상 청취 가능\n* 방송시간 제한\n - 평일 07~09시, 13~22시\n- 토요일 07~22시\n- 공휴일, 방학기간 07~22시");
+            }
+            
+            if(mLpAlt) {
+                alert("다운로드 곡 중 LP복각 음원이 있어 음질상태가 나쁩니다.\n 확인 후 사용 바랍니다.");
+            }
+            
+            if(mEvAlt) {
+                alert("저작권 구매 음원입니다.\n반드시 방송제작용으로만 사용 가능하고\n기타 용도의 사용은 불가능합니다.");
+            }
+        }
+        
+        for(var i=0;i < pLength;i++) {
+        	
+            // 0 org_file_name 1 file_path 2 receipt_no 3 reg_no 4 song_name(파일이름) 5 label_no 6 id artist 7 album_name 8
+            var item5 = helpParam[i];
+            var idMk_wave = "radio_type_w_" + i;
+            var idMk_normal_wave = "radio_type_nw_" + i;
+            var idMk_mp = "radio_type_m_" + i;
+            var vFileName = "";
+            var fileName = "";
+            var filePath = "";
+            var typeCheck = "";
+            var lycFileName = "skip";
+ 
+            // 가사 다운로드 
+            var pChk = "chk_music_" + i;
+            
+            dept_cd = 'A3CA01';
+            
+            // 아티스트 이름 뒤에 콤마 있으면 제거한다.
+            if (item5.getArtist().endsWith(",")) {
+                var tmp = item5.getArtist();
+                item5.setArtist(tmp.slice(0, tmp.lastIndexOf(",")));
+            }
+            
+            if($(idMk_wave).checked) { // 원본
+                
+            	fileName = trim(item5.getAttachName()) + ".wav";
+                
+                if (musicGubun == "M") {
+                      if(item5.getAttachPath() == "music/onair_wave1"){
+                          var wave_paths = {
+                                  "music/onair_wave1": "Audio_WAVE1"
+                              };
+                              item5.setAttachPath(wave_paths[item5.getAttachPath()]);
+                      }else if(item5.getAttachPath() == "music/onair_wave2"){
+                          var wave_paths = {
+                                  "music/onair_wave2": "Audio_WAVE2"
+                              };
+                              item5.setAttachPath(wave_paths[item5.getAttachPath()]);
+                      }else if(item5.getAttachPath() == "music/onair_wave3"){
+                            var wave_paths = {
+                                    "music/onair_wave3": "Audio_WAVE3"
+                                };
+                              item5.setAttachPath(wave_paths[item5.getAttachPath()]);
+                      }
+                      
+                    filePath = fncMusicFilePath(dir, item5.getAttachPath(), item5.getLabelNo(), '', "wav");
+                                      
+                    var d = new Date();
+                    vFileName = fncDownNm( fncSetDelBrack( endTrim(item5.getSongName()) ) ) + '_'+( ("00" + d.getHours()).slice(-2) + ("00" + d.getMinutes()).slice(-2) + ("00" + d.getSeconds()).slice(-2) )+".wav";
+                   
+                } else if(musicGubun == "E") {
+                    
+                    if(item5.getAttachPath() == "/NAS/Audio_Effect/onair_effect"){
+                         item5.setAttachPath("/NAS/Audio_Effect/effect");
+                    };
+                     item5.setAttachPath("/NAS/Audio_Effect/effect");
+                   
+                     filePath = item5.getAttachPath() + "/" + item5.getAttachName().substr(0, 8) + "/";
+                      
+                    var d = new Date();
+                    vFileName ="effect_" + fncDownNm( fncSetDelBrack( endTrim(item5.getSongName()) ) ) + '_'+( ("00" + d.getHours()).slice(-2) + ("00" + d.getMinutes()).slice(-2)  + ("00" + d.getSeconds()).slice(-2) )+".wav";
+                    
+                    // 신규후 receipt_no 20으로시작   --> by swbae 2012.10.06 무조건 _track 붙이도록 수정. 신규 효과음이 20 으로 시작하지 않음
+                    fileName = item5.getAttachName().substr(0, 8) + '_' + 'Track' + item5.getAttachName().substr(9, 10) + ".wav";
+                    
+                    if(item5.getLabelNo().substr(0,2) == "20" && item5.getLabelNo() != "") {
+                        fileName = item5.getAttachName().substr(0, 8) + '_' + 'Track' + item5.getAttachName().substr(9, 10) + ".wav";
+                    }
+                } 
+                typeCheck = "wav";
+                
+            } else if($(idMk_normal_wave).checked) { // 송출용
+                //nwav
+                // 뮤직 일 때랑 효과음 일 때랑 구분해서 경로 처리(TODO)
+               fileName = trim(item5.getAttachName()) + ".wav";
+                
+                if (musicGubun == "M") {
+                	
+                	var wave_paths2 = {
+                        "Audio_WAVE1"       : "music/onair_wave1",
+                        "Audio_WAVE2"       : "music/onair_wave2",
+                        "Audio_WAVE3"       : "music/onair_wave3",
+                        "music/onair_wave1" : "music/onair_wave1",
+                        "music/onair_wave2" : "music/onair_wave2",
+                        "music/onair_wave3" : "music/onair_wave3"
+                    };
+              		
+                    item5.setAttachPath(wave_paths2[item5.getAttachPath()]);
+              		
+                    filePath = fncMusicFilePath(dir, item5.getAttachPath(), item5.getLabelNo(), '', "nwav");
+              		
+                    var d = new Date();
+                    vFileName = fncDownNm( fncSetDelBrack( endTrim(item5.getSongName()) ) ) + '_'+( ("00" + d.getHours()).slice(-2) + ("00" + d.getMinutes()).slice(-2) + ("00" + d.getSeconds()).slice(-2) )+".wav";
+                
+                } else if(musicGubun == "E") {
+                	
+                    item5.setAttachPath("/NAS/Audio_Effect/onair_effect");
+                   
+                    filePath = item5.getAttachPath() + "/" + item5.getAttachName().substr(0, 8) + "/";
+                  
+                    var d = new Date();
+                    vFileName ="effect_" + fncDownNm( fncSetDelBrack( endTrim(item5.getSongName()) ) ) + '_'+( ("00" + d.getHours()).slice(-2) + ("00" + d.getMinutes()).slice(-2) + ("00" + d.getSeconds()).slice(-2) )+".wav";
+                    
+                    // 신규후 receipt_no 20으로시작   --> by swbae 2012.10.06 무조건 _track 붙이도록 수정. 신규 효과음이 20 으로 시작하지 않음
+                    fileName = item5.getAttachName().substr(0, 8) + '_' + 'Track' + item5.getAttachName().substr(9, 10) + ".wav";
+                    
+                    if(item5.getLabelNo().substr(0,2) == "20" && item5.getLabelNo() != "") {
+                        fileName = item5.getAttachName().substr(0, 8) + '_' + 'Track' + item5.getAttachName().substr(9, 10) + ".wav";
+                    }
+                }
+                
+                typeCheck = "nwav";
+                
+            }else {
+ 
+                fileName = item5.getAttachName() + ".mp2";
+                
+                if(musicGubun == "M") {
+                    filePath = fncMusicFilePath(dir, item5.getAttachPath(), item5.getLabelNo(), '', "mp2");
+                  
+                    vFileName = fncDownNm( fncSetDelBrack( endTrim(item5.getSongName()) ) ) + ".mp2";
+                } else if(musicGubun == "E") {
+                  
+                    filePath = item5.getAttachPath() + "/" + item5.getAttachName().substr(0, 8) + "/";
+                    vFileName = "effect_" + fncDownNm( fncSetDelBrack( endTrim(item5.getSongName()) ) ) + ".mp2";
+                    fileName = item5.getAttachName().substr(0, 8) + '_' + 'Track' + item5.getAttachName().substr(9, 10) + ".mp2";
+                }
+                
+                typeCheck = "mp2";
+            }
+            
+            // 다운로드 운영 경로
+             var url = "http://10.11.31.51:8554";
+            
+            // 개발 NAS 다운로드 경로
+            //var url = "http://10.11.32.55";
+            
+            var param = "?file_path=" + filePath + "&_filename=" + fileName;
+            
+            url  = url + "/" + filePath.replace("/NAS/", "") + fileName;
+            
+            //url = "/js/111.js";
+            
+            DEXT5UPLOAD.AddUploadedFile(item5.getReceiptNo(), vFileName, url, item5.getAttachSize(), '', "chrome_downloader");
+            
+            // 가사가 있는거
+            if (musicGubun == "M" && ($(pChk) !== null && $(pChk).checked) ) {
+                
+            	var param = "?search_receipt_no=" + item5.getReceiptNo() + "&search_reg_no=" + item5.getRegNo();
+                
+            	if(port == "80") {
+            		var url_txt  = "http://" + ip + "/mbs/help_download/doLycSearch.mb" + param;
+            	} else {
+            		var url_txt  = "http://" + ip + ":" + port + "/mbs/help_download/doLycSearch.mb" + param;
+            	}
+                
+                var d = new Date();
+                
+                vFileName = fncDownNm( fncSetDelBrack( endTrim(item5.getSongName()) ) ) + '_'+( ("00" + d.getHours()).slice(-2) + ("00" + d.getMinutes()).slice(-2) + ("00" + d.getSeconds()).slice(-2) )+".txt";
+                
+                //console.log(url_txt, vFileName);
+                
+                DEXT5UPLOAD.AddUploadedFile(item5.getReceiptNo(), vFileName, url_txt, item5.getAttachSize(), '', "chrome_downloader");
+                
+            }
+          
+            if(musicGubun == "M") {
+                if(i == 0 ) {
+                	   downloadParam2 = item5.getReceiptNo() + ';' + item5.getRegNo() + ';' + typeCheck + ';' + lycFileName;
+                	    if (i == pLength-1){
+                           //fncDownHistory(downloadParam2, musicGubun);
+                    } 
+                } else {
+                	 downloadParam2 = downloadParam2 + '-' + item5.getReceiptNo() + ';' + item5.getRegNo() + ';' + typeCheck + ';' + lycFileName;
+                	  if (i == pLength-1){
+                        //fncDownHistory(downloadParam2, musicGubun);
+                 } 
+                }
+                
+            } else if(musicGubun == "E") {
+
+                if(i == 0) {
+                    downloadParam2 = item5.getReceiptNo() + '-' + item5.getRegNo().substr(1) + ';' + item5.getRegNo() + ';' + typeCheck;
+                    if (i == pLength-1){
+                    	fncDownHistory(downloadParam2, musicGubun);
+                    }
+                } else {
+                    downloadParam2 = downloadParam2 + '*' + item5.getReceiptNo() + '-' + item5.getRegNo().substr(1) + ';' + item5.getRegNo() + ';' + typeCheck;
+                    if (i == pLength-1){
+                    fncDownHistory(downloadParam2, musicGubun);
+                    }
+                }
+                
+            }
+        }
+        
+       DEXT5UPLOAD.SetSelectItem('-1', '1', 'chrome_downloader');
+       DEXT5UPLOAD.DownloadAllFile("chrome_downloader");
+   
+	}
+
+    
+    function doStartDownload_chrome_show(){
+    	 document.getElementById('downloadPanel').style.display = 'none';
+    }
+    
+
+        
+    // 다운로드 히스토리
+    function fncDownHistory(pParam, history_gubun) {
+        //console.log(pParam+"::::히스토리 start ",new Date());
+        //--------------------------------------------------------------
+        // global indicator를 사용하지 않는다.
+        //--------------------------------------------------------------
+        Ajax.Responders.unregister(myGlobalLoadingHandlers);
+        
+        var history_url = "/history/doProcessEach.mb";
+        if (history_gubun == "E") {
+            // 효과음이면..
+            history_url = "/history/doProcessEachEffect.mb";
+        }
+        new Ajax.Request(ctxPathSub + history_url, {
+            method: "post",
+            parameters: {
+                gubun: "nwav", //default
+                params: pParam
+            }, onSuccess: function(transport) {
+                // 히스토리 로깅 성공해도 암것도 안함
+            }
+        });
+        //-----------------------------
+        // indicator를 사용 전환 
+        //-----------------------------
+        Ajax.Responders.register(myGlobalLoadingHandlers);
+       // console.log(pParam+"::::히스토리 end"+new Date());
+    }
+	
+    function closepop(){
+    	 document.getElementById('downloadPanel').style.display = 'none';
+    }
+    
+    function transfer() {
+        DEXT5UPLOAD.Transfer("upload1");
+    }
+    
+</script>
+
+<style>
+	#DEXT_fiVe_UP_ly_content { height:auto !important; }
+</style>
+
+</head>
+<body style="width: 99%; height: 99%; margin: 0px;">
+
+<div id="dext_component" style="display:none;"></div>
+	        
+	<div style="width:500px;height:200px; display:none; position:absolute; top:150px; left:270px;" id="downloadPanel" >
+		<div style="text-align:right; background:#dfe7f2;color:#000;padding:10px;border-top:1px solid #000"><span style="font-weight:bold;display:block"><a href="javascript:closepop();">닫기</a></span></div>
+        <script type="text/javascript">
+        if(BrowserDetect.browser != "IE"){
+        	//DEXT5UPLOAD.config.InitXml = "dext5upload.config.xml";
+        	DEXT5UPLOAD.config.Mode = 'view'; // edit, view
+        	DEXT5UPLOAD.config.Height = '380px';
+        	DEXT5UPLOAD.config.ButtonBarView = 'download,download_all';
+        	DEXT5UPLOAD.config.FolderTransfer = '1';
+            DEXT5UPLOAD.config.FolderDetailHeader = '1';
+            DEXT5UPLOAD.config.UseAfterDownloadEvent = '1';
+            DEXT5UPLOAD.config.DownloadMulti = '1';
+            
+         	var uploader2 = new Dext5Upload("chrome_downloader");
+        }
+        </script>
+        <style>
+        	#dext5uploader_holder_chrome_downloader { width:100% !important; }
+        </style>
+	</div>
+
+
+<form name="f_write">
+    &nbsp;&nbsp;<h2 class='type1'>다운로드..</h2>
+    <table border='0'>
+        <tr>
+            <td align='right'>
+                <div class='right_btn'>
+<!--                     <input type='radio' id='radio_type' name='radio_dn_type' onclick='fncDownType(1);' >&nbsp;없는 파일 받기&nbsp; -->
+<!--                     <input type='radio' id='radio_type' name='radio_dn_type' onclick='fncDownType(2);' checked>&nbsp;다른 이름으로 저장(덮어쓰기/이어받기)&nbsp; -->
+&nbsp;&nbsp;&nbsp;
+                    <a href="#" onclick='javascript:doStartDownload();return false;'><img src='/image/btn/btnDownload.gif' align='right'></a>
+                </div><br/>
+             </td>
+         </tr>
+         <tr>
+             <td>
+                 <div id='scrollbox'>
+                    <div id='v_html'></div>
+                 </div>
+             </td>
+         </tr>
+         <tr>
+             <td align='right'>
+                 <br />
+                 <div class='right_btn'>
+                     <a href="#" onclick='javascript:doStartDownload();return false;'><img src='/image/btn/btnDownload.gif' align='right'></a>
+                 </div>
+             </td>
+         </tr>
+     </table>
+</form> 
+<object classid="clsid:FADDAA20-5AEE-46E1-B1A5-880425C616A9" codebase="atSBSPlayerProj1.ocx#version=1,0,0,1" width="0" height="0"
+        hspace="0" vspace="0" id="AX"></object>
+</body> 
+</html>
