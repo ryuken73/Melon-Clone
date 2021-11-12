@@ -20,7 +20,8 @@ export const appSlice = createSlice({
     }
 })
 
-export const showMessageBoxForDuration = (duration=1000) => async (dispatch, getState) => {
+export const showMessageBoxForDuration = (text, duration=1000) => async (dispatch, getState) => {
+    dispatch(setMessageBoxText(text));
     dispatch(setMessageBoxHide(false));
     setTimeout(()=>{
         dispatch(setMessageBoxHide(true));
