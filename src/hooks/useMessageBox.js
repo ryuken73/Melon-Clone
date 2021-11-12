@@ -1,23 +1,16 @@
-import { useState, useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { showMessageBoxForDuration, setMessageBoxText } from 'appSlice';
+import { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import { showMessageBoxForDuration } from 'appSlice';
 
 
 function useMessageBox(text='') {
-  const [msgBoxText, setText] = useState(text);
   const dispatch = useDispatch();
 
-  const showMessageBoxDispatch = React.useEffect((duration) => {
-    return () => {
-      dispatch(showMessageBoxForDuration(duration))
-    }
+  const showMessageBox = useEffect((text, duration) => {
+      dispatch(showMessageBoxForDuration(text, duration))
   },[dispatch])
 
-  useEffect(() => {
-    dispatch(setMessageBoxText(msgBoxText));
-  }, [msgBoxText, dispatch]); 
-
-  return [showMessageBoxDispatch, setText];
+  return [showMessageBox];
 }
 
 export default useMessageBox;
