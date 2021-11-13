@@ -16,6 +16,21 @@ const initialState = {
     albumInfoList: {}
 }
 
+const addMoreAttr = (list_song, label_no) => {
+    return list_song.map(song => {
+        const {attach_path, attach_name} = song;
+        const label = label_no.substr(0,3);
+        return {
+            ...song, 
+            id: `${song.receipt_no}:${song.reg_no}`, 
+            src: `${CONSTANTS.BASE_STREAM_URL}${attach_path}/${label}/${label_no}/${attach_name}.mp3/playlist.m3u8`,
+            albumImageSrc: `${BASE_API_URL}/Video/small_image/${label_no}.JPG`,
+            checkedSongList:false, 
+            checkedPlaylist:false, 
+            currentPlaying:false}
+    }) 
+}
+
 export const albumSlice = createSlice({
     name: 'album',
     initialState,
@@ -37,6 +52,13 @@ export const albumSlice = createSlice({
             const {type, payload} = action;
             const {stateKey, key, value} = payload
             state[stateKey][key] = value;  
+        },
+        setSongCheckedInSongList: (state, action) => {
+            const {type, payload} = action;
+            const {receipt_no, rownum, checked} = payload;
+            const song = state.songListInAlbum[receipt_no].find(song => song.rownum === rownum);
+            song.checkedSongList = checked;
+
         },
         toggleAllSongsCheckedInPlaylist: (state, action) => {
             const {type, payload} = action;
@@ -69,6 +91,7 @@ export const albumSlice = createSlice({
 
 const SERVER_NAME = 'musicbank';
 const PAGE_SIZE = CONSTANTS.ALBUM_PAGE_SIZE;
+const {BASE_API_URL} = CONSTANTS;
 const DEFAULT_FETCH_OPTIONS = {
     method: 'POST',
     headers: {
@@ -103,7 +126,9 @@ export const fetchAlbums = ({pathname='all', query, replace=false}) => async (di
     const {fdata} = response;
     const albums = responseToObject(fdata, responseHeaders);
     const imagePathAttachedAlbums = albums.map(album => {
-        return {...album, eval_imagePath: `${baseUrl[SERVER_NAME]}/Video/small_image/${album.label_no}.JPG`}
+        // return {...album, eval_imagePath: `${baseUrl[SERVER_NAME]}/Video/small_image/${album.label_no}.JPG`}
+        const albumImageSrc = `${BASE_API_URL}/Video/small_image/${album.label_no}.JPG`;
+        return {...album, eval_imagePath: albumImageSrc}
     })
     if(replace){
         dispatch(replaceAlbums({category:pathname, albums:imagePathAttachedAlbums}));
@@ -123,9 +148,7 @@ export const doListAlbum = ({receipt_no}) => async (dispatch, getState) => {
     console.log('###', jsonfied)
     const {info, list_song} = jsonfied;
     const imagePathAttachedAlbum = {...info, eval_imagePath: `${baseUrl[SERVER_NAME]}/Video/small_image/${info.label_no}.JPG`}
-    const withMoreAttrListSong = list_song.map(song =>{
-        return {...song, id: `${song.receipt_no}:${song.reg_no}`, checkedSongList:false, checkedPlaylist:false, currentPlaying:false}
-    })
+    const withMoreAttrListSong = addMoreAttr(list_song, info.label_no);
     dispatch(addObjectToState({stateKey:'songListInAlbum', key: receipt_no, value: withMoreAttrListSong}))
     dispatch(addObjectToState({stateKey:'albumInfoList', key:receipt_no, value: imagePathAttachedAlbum}))
 }
@@ -139,6 +162,7 @@ export const addSongsInAlbumToCurrentPlaylist = ({receipt_no, rownum, allChecked
         if(targetSong !== undefined){
             dispatch(pushObjectToState({stateKey:'currentPlaylist', value: targetSong}));
             dispatch(showMessageBoxForDuration(`1곡을 재생목록에 추가했습니다.`));
+            dispatch(setSongCheckedInSongList({receipt_no, rownum, checked: false}))
         }
         return  
     }
@@ -146,11 +170,13 @@ export const addSongsInAlbumToCurrentPlaylist = ({receipt_no, rownum, allChecked
         const songsChecked = listSong.map(song => song.checkedSongList);
         songsChecked.forEach(song => dispatch(pushObjectToState({stateKey:'currentPlaylist', value: song})));
         dispatch(showMessageBoxForDuration(`${songsChecked.length}곡을 재생목록에 추가했습니다.`));
+        songsChecked.forEach(song => dispatch(setSongCheckedInSongList({receipt_no, rownum: song.rownum, checked: false})))
         return
     }
     if(listSong !== undefined){
         listSong.forEach(song => dispatch(pushObjectToState({stateKey:'currentPlaylist', value: song})));
         dispatch(showMessageBoxForDuration(`${listSong.length}곡을 재생목록에 추가했습니다.`));
+        listSong.forEach(song => dispatch(setSongCheckedInSongList({receipt_no, rownum: song.rownum, checked: false})))
         return
     }
     const API_NAME = 'doListAlbum';
@@ -162,9 +188,8 @@ export const addSongsInAlbumToCurrentPlaylist = ({receipt_no, rownum, allChecked
     const jsonfied = await response.json();
     console.log('###', jsonfied)
     const {info, list_song} = jsonfied;
-    const withMoreAttrListSong = list_song.map(song =>{
-        return {...song, id: `${song.receipt_no}:${song.reg_no}`, checkedSongList:false, checkedPlaylist:false, currentPlaying:false}
-    })
+    const withMoreAttrListSong = addMoreAttr(list_song, info.label_no);
+    dispatch(addObjectToState({stateKey:'songListInAlbum', key: receipt_no, value: withMoreAttrListSong}))
     withMoreAttrListSong.forEach(song => dispatch(pushObjectToState({stateKey:'currentPlaylist', value: song})));
     dispatch(setMessageBoxText(`${withMoreAttrListSong.length}곡을 재생목록에 추가했습니다.`));
 }
@@ -173,6 +198,7 @@ export const {
     pushFetchedAlbums, 
     replaceAlbums, 
     addObjectToState, 
+    setSongCheckedInSongList,
     toggleSongCheckedInSongList,
     toggleAllSongsCheckedInPlaylist,
     toggleAllSongsCheckedInSongList
