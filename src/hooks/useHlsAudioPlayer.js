@@ -27,40 +27,52 @@ const mediaEvents = [
 ]
 
 export default function useHlsAudioPlayer(hlsSource) {
-    const [hls, setHls] = React.useState(null);
     const [manifestLoaded, setManifestLoaded] = React.useState(false);
     const [event, setEvent] = React.useState(null);
-    let playerRef = React.useRef(null);
+    const audioElementRef = React.useRef(null);
+    const hlsRef = React.useRef(null);
     React.useEffect(()=>{
+        console.log('### hlsSource changed!:', hlsSource);
+        if(audioElementRef.current !== null){
+             mediaEvents.forEach(eventType => {
+                audioElementRef.current.removeEventListener(eventType, setEvent)
+            })
+            audioElementRef.current = null;
+        }
+        console.log('!! ref:', hlsRef.curret);
+        if(hlsRef.current !== null){
+            hlsRef.current.destroy();
+        }
         if(Hls.isSupported()){
-            const audioElement = new Audio();
-            const hls = new Hls();
-            hls.attachMedia(audioElement);
-            hls.on(Hls.Events.MEDIA_ATTACHED, () => {
+            console.log('!! create audio Element')
+            audioElementRef.current = new Audio();
+            hlsRef.current = new Hls();
+            hlsRef.current.attachMedia(audioElementRef.current);
+            hlsRef.current.on(Hls.Events.MEDIA_ATTACHED, () => {
                 console.log('audio is attached to hls');
-                playerRef.current = audioElement;
-                setHls(hls);
-                hls.loadSource(hlsSource);
+                hlsRef.current.loadSource(hlsSource);
+                console.log('!! attach event to player', audioElementRef)
                 mediaEvents.forEach(eventType => {
-                    playerRef.current.addEventListener(eventType, setEvent)
+                    audioElementRef.current.addEventListener(eventType, setEvent)
                 })
             })
-            hls.on(Hls.Events.MANIFEST_PARSED, (event, data) => {
+            hlsRef.current.on(Hls.Events.MANIFEST_PARSED, (event, data) => {
                 console.log('manifest loaded, found data:', data);
                 setManifestLoaded(true)
             })
         }
         return (() => {
             mediaEvents.forEach(eventType => {
-                playerRef.current.removeEventListener(eventType, setEvent)
+                audioElementRef.current.removeEventListener(eventType, setEvent)
             })
         })
-    },[]);
-    React.useEffect(()=>{
-        if(hls !== null){
-                hls.loadSource(hlsSource);
-        }
-    },[hls, hlsSource]);
+    },[hlsSource]);
+    // React.useEffect(()=>{
+    //     if(hls !== null){
+    //         console.log('!! loadSource:', hlsSource)
+    //         hls.loadSource(hlsSource);
+    //     }
+    // },[hls, hlsSource]);
 
-    return [playerRef, hls, manifestLoaded, event];
+    return [audioElementRef, manifestLoaded, event];
 }

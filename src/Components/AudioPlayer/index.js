@@ -1,13 +1,14 @@
 import React from 'react'
 import Box from '@mui/material/Box';
 import styled from 'styled-components';
-import ImageBox from '../Common/ImageBox';
-import TextBox from '../Common/TextBox';
-import SliderBar from '../Common/SliderBar';
+import ImageBox from 'Components/Common/ImageBox';
+import TextBox from 'Components/Common/TextBox';
+import SliderBar from 'Components/Common/SliderBar';
 import PlayerControls from './PlayerControls';
-import colors from '../../config/colors';
-import useHlsAudioPlayer from '../../hooks/useHlsAudioPlayer';
-import useEventEmitter from '../../hooks/useEventEmitter';
+import colors from 'config/colors';
+import useHlsAudioPlayer from 'hooks/useHlsAudioPlayer';
+import useHlsPlayerEvent from 'hooks/useHlsPlayerEvent';
+import useAudioPlayer from 'hooks/useAudioPlayer';
 
 const Container = styled(Box)`
     display: flex;
@@ -48,9 +49,10 @@ const durationToSeconds = duration => {
 }
 
 const AudioPlayer = props => {
-    const [playerRef, hls, manifestLoaded, event] = useHlsAudioPlayer(hlsSource);
-    const [isPlaying, duration, currentTime, progress] = useEventEmitter(playerRef, event);
-    console.log('duration changed:',duration)
+    const {src:hlsSrc, image:imageSrc} = useAudioPlayer();
+    const [playerRef, manifestLoaded, event] = useHlsAudioPlayer(hlsSrc);
+    const [isPlaying, duration, currentTime, progress] = useHlsPlayerEvent(playerRef, event);
+    // console.log('!! audio player:', playerRef.current, duration, event)
     const handleMoveProgressSlider = React.useCallback(progressPercent => {
         const player = playerRef.current;
         const {duration} = player;
@@ -63,7 +65,7 @@ const AudioPlayer = props => {
     return (
         <Container>
             <Image>
-                <ImageBox width="150px" height="150px"></ImageBox>
+                <ImageBox src={imageSrc} width="150px" height="150px"></ImageBox>
             </Image>
             <Title>
                 <TextBox textalign="center" fontSize="13px" text="곡명" color={colors.textMain}></TextBox>

@@ -8,10 +8,11 @@ export default function useEventEmitter(playerRef, event) {
     const [progress, setProgress] = React.useState(0);
     const player = playerRef.current;
     React.useEffect(()=>{
-        if(player===null) {
+        if(player === null){
             setIsPlaying(false);
-            return
+            return;
         }
+        //console.log('!! emit event of player:', event, player)
         if(event===null) return;
         if(player.currentTime > 0 && !player.paused && !player.ended){
             setIsPlaying(true);
@@ -21,6 +22,7 @@ export default function useEventEmitter(playerRef, event) {
         if(event.type === 'loadedmetadata'){
             const durationSec = parseInt(playerRef.current.duration);
             setDuration(secondsToTime(durationSec));
+            playerRef.current.play();
             return;
         }
         if(event.type === 'timeupdate'){

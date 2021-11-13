@@ -5,6 +5,7 @@ import TextBox from '../Common/TextBox';
 import SmallCheckBox from '../Common/CheckBox';
 import colors from '../../config/colors';
 import useSongPlaylist from 'hooks/useSongPlaylist';
+import useAudioPlayer from 'hooks/useAudioPlayer';
 
 const Container = styled(Box)`
     && {
@@ -26,16 +27,21 @@ const Song = props => {
         checkedPlaylist: false
     }
     const {song=defaultSong} = props;
-    const {id, title, artist, checkedPlaylist} = song;
+    const {id, title, artist, checkedPlaylist, albumImageSrc, src} = song;
+    // const [loadPlayer, setLoadPlayer] = React.useState(false);
     const [removeFromPlaylist, setChecked] = useSongPlaylist(id);
+    const {setPlayerSource} = useAudioPlayer();
     const onChecked = React.useCallback(() => {
         setChecked(!checkedPlaylist)
     },[checkedPlaylist, setChecked])
+    const onDoubleClick = React.useCallback(() => {
+        setPlayerSource(src, albumImageSrc);
+    },[src, albumImageSrc, setPlayerSource])
 
     return (
         <Container>
             <SmallCheckBox checked={checkedPlaylist} setChecked={onChecked} />
-            <TextBox text={title} margin="0px 15px 0px 0px" width="150px"></TextBox>
+            <TextBox text={title} onDoubleClick={onDoubleClick} margin="0px 15px 0px 0px" width="150px"></TextBox>
             <TextBox text={artist} width="90px"></TextBox>
         </Container>
     )
