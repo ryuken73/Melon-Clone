@@ -5,13 +5,13 @@ export const baseUrl = {
 export const responseToObject = (fdata, headers) => {
     return fdata.map(responses => {
         return responses.reduce((acc, response, index) => {
-                    acc[headers[index]] = response;
-                    return acc;
-                },{})
+            acc[headers[index]] = response;
+            return acc;
+        },{})
     })
 }
 
-const fetchOptions = {
+const DEFAULT_FETCH_OPTIONS = {
     headers: {
         'Content-type': 'application/x-www-form-urlencoded;charset=UTF-8',
     }
@@ -47,6 +47,26 @@ const headers = {
         'artist_2',      
         'artist_3',      
         'down_limit_id' 
+    ], 
+    album: [
+        'receipt_no',
+        'status',
+        'open_dt',
+        'label_no',
+        'attach_path',
+        'attach_name',
+        'attach_size',
+        'song_cnt',
+        'album_name',
+        'title_song',
+        'release_year',
+        'arrang_type',
+        'arrang_type_nm',
+        'artist',
+        'reg_dt',
+        'new_flag',
+        'brd_time',
+        'digital_yn'
     ]
 }
 
@@ -84,12 +104,16 @@ export const apiMap = {
         searchParam.append('orderby', orderby);
         searchParam.append('bool', bool);
         return {
-            uri: '/mbs/searchEngin/doListSearchMusicAll.mb',
-            method: 'POST',
-            searchParam,
-            fetchOptions,
-            responseKey: 'fdata',
-            headers: headers[scn]
+            url: '/mbs/searchEngin/doListSearchMusicAll.mb',
+            fetchOptions: {
+                method: 'POST',
+                body: searchParam,
+                ...DEFAULT_FETCH_OPTIONS
+            },
+            responseMap: {
+                key: 'fdata',
+                headers: headers[scn]
+            }
         }
     },
     'doListAlbum': {
@@ -122,24 +146,59 @@ export const apiMap = {
             "modr"
         ]
     },
+
+    // doListArtist
+    // returns {"sch_artist":"하은","list":[{"id":30034,"artist":"하은"}],"dataMap":{}}
     'doListArtist': sch_artist => {
         const searchParam = new URLSearchParams();
         searchParam.append('sch_artist', sch_artist);
         return {
-            uri: '/mbs/regist300e/doListArtist.mb',
-            method: 'POST',
-            searchParam,
-            fetchOptions
+            url: '/mbs/regist300e/doListArtist.mb',
+            fetchOptions: {
+                method: 'POST',
+                body: searchParam,
+                ...DEFAULT_FETCH_OPTIONS
+            }
         }
-    },
+    } ,
+
+    // doGetArtistInfo
+    // returns {
+    // dataMap: {}
+    // info: {genre: "2", member: "", attach_org_name: "장하은.jpg", belong: "", artist_type: "여성솔로", id: 28087,…}
+    // artist: "장하은"
+    // artist_type: "여성솔로"
+    // attach_name: "a-1c3458a-d3eb-41e3-8ab7-97729a6ef417.jpg"
+    // attach_org_name: "장하은.jpg"
+    // attach_path: "20120606"
+    // attach_size: "14460"
+    // belong: ""
+    // debut_song: "단물 쪽"
+    // genre: "3"
+    // genre_nm: "/국내음악/가요/트로트"
+    // id: 28085
+    // member: ""
+    // title_song: ""
+    // sch_id: "28085"
+    // }
     'doGetArtistInfo': sch_id => {
         const searchParam = new URLSearchParams();
         searchParam.append('sch_id', sch_id);
         return {
-            uri: '/mbs/regist300e/doGet.mb',
-            method: 'POST',
-            searchParam,
-            fetchOptions
+            url: '/mbs/regist300e/doGet.mb',
+            fetchOptions: {
+                method: 'POST',
+                body: searchParam,
+                ...DEFAULT_FETCH_OPTIONS
+            }
         }
     },
+    'querySuggest': searchKeyword => {
+        return {
+            url: `http://10.11.31.51:3010/searchSong/withWorkers/${searchKeyword}?userId=null&supportThreeWords=true&count=100`,
+            fetchOptions: {
+                method: 'GET'
+            }
+        }
+    }
 }

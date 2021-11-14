@@ -3,7 +3,6 @@ import Box from '@mui/material/Box';
 import styled from 'styled-components';
 import ImageBox from 'Components/Common/ImageBox';
 import TextBox from 'Components/Common/TextBox';
-import useAlbumInfo from 'hooks/useAlbumInfo';
 import ItemWithTitleNValue from 'Components/Common/ItemWithTitleNValue';
 
 const Container = styled(Box)`
@@ -22,14 +21,13 @@ const InfoContainer = styled(Box)`
 const TITLE_WIDTH = '80px';
 
 const ArtistDetailInfo = props => {
-    const {albumInfo} = props
-    // console.log('rerender ArtistDetailInfo:', albumInfo)
+    const {artistInfo} = props
     const {
         artist = '아이유',
         artist_type = '여성솔로',
         title_song = '나만 몰랐던 이야기',
         debut_song = '미아'
-    } = albumInfo;
+    } = artistInfo;
     return (
         <InfoContainer>
             <TextBox mt="10px" fontSize="18px" color="white" text={artist}></TextBox>
@@ -41,13 +39,12 @@ const ArtistDetailInfo = props => {
 }
 
 const ArtistDetailHeader = props => {
-    const {receipt_no=1} = props;
-    const albumInfo = useAlbumInfo(receipt_no);
-    const {eval_imagePath = '/images/no-image.png'} = albumInfo;
+    const {artistInfo} = props;
+    const {image_path} = artistInfo;
     return (
         <Container>
-            <ImageBox width="150px" height="150px" src={eval_imagePath}></ImageBox>
-            <ArtistDetailInfo albumInfo={albumInfo}></ArtistDetailInfo>
+            <ImageBox width="150px" height="150px" src={image_path}></ImageBox>
+            <ArtistDetailInfo artistInfo={artistInfo}></ArtistDetailInfo>
         </Container>
     )
 }

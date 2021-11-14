@@ -33,6 +33,10 @@ export default function useHlsAudioPlayer(hlsSource) {
     const hlsRef = React.useRef(null);
     React.useEffect(()=>{
         console.log('### hlsSource changed!:', hlsSource);
+        if(hlsSource === ''){
+            console.error('hlsSource is null. just return')
+            return;
+        }
         if(audioElementRef.current !== null){
              mediaEvents.forEach(eventType => {
                 audioElementRef.current.removeEventListener(eventType, setEvent)

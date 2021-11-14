@@ -7,6 +7,9 @@ import ArtistDetailList from './ArtistDetailList';
 import ArtistDetailInfo from './ArtistDetailInfo';
 import AlbumList from 'Components/Album/AlbumList/AlbumList';
 import {withRouter, Switch, Route} from 'react-router-dom';
+import useArtistId from 'hooks/useArtistId';
+import useArtistInfo from 'hooks/useArtistInfo';
+
 
 const Container = styled(Box)`
     display: flex;
@@ -19,16 +22,25 @@ const Container = styled(Box)`
 
 const ArtistDetailPage = props => {
     const {history, location, match} = props;
-    const {receipt_no} = match.params
-     
+    const {artist_name} = match.params
+    const [artist_id, setArtistId] = React.useState(null);
+    const artistId = useArtistId(artist_name);
+    React.useEffect(() => {
+        console.log('^^ uhh artistId changed')
+        setArtistId(artistId)
+    },[artistId])
+    console.log('^^ artistDetailPage id:', artistId);
+    const artistInfo = useArtistInfo(artist_id);
+    console.log('^^ artistDetailPage info:', artistInfo);
+
     return (
         <Container>
-            <ArtistDetailHeader receipt_no={receipt_no} ></ArtistDetailHeader>
-            <ArtistDetailTab history={history} location={location} match={match}></ArtistDetailTab>
+            {/* <ArtistDetailHeader artistInfo={artistInfo} ></ArtistDetailHeader> */}
+            {/* <ArtistDetailTab history={history} location={location} match={match}></ArtistDetailTab> */}
             <Switch>
-                <Route path="/artist/:receipt_no/songList" render={(renderProps) => <ArtistDetailList {...renderProps}></ArtistDetailList> }></Route>
+                <Route path="/artist/:artist_name/songList" render={(renderProps) => <ArtistDetailList {...renderProps}></ArtistDetailList> }></Route>
                 {/* <Route path="/artist/:receipt_no/albumList" render={(renderProps) => <ArtistDetailInfo {...renderProps}></ArtistDetailInfo> }></Route> */}
-                <Route path="/artist/:receipt_no/:pathname" render={(renderProps) => <AlbumList {...renderProps}></AlbumList> }></Route>
+                {/* <Route path="/artist/:artist_name/:pathname" render={(renderProps) => <AlbumList {...renderProps}></AlbumList> }></Route> */}
             </Switch>
         </Container>
     )

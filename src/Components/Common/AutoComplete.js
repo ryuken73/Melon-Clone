@@ -68,7 +68,6 @@ const StyledList = styled(Box)`
 `;
 
 const querySuggests = async ({queryKey}) => {
-  console.log('fetch called:',queryKey)
   const [_key, uriEncoded ] = queryKey;
   if(uriEncoded.length < 2){
     return Promise.resolve({result:null, count:0})
@@ -100,7 +99,6 @@ const UseAutocomplete = () => {
   const inputValue = getInputProps().value;
   const uriEncoded = encodeURIComponent(inputValue);
   const debounced = useDebounce(uriEncoded);
-  console.log(debounced)
   // const { isLoading, isError, data, error } = useQuery(['autocomplete', uriEncoded], querySuggests);
   const { isLoading, isError, data, error } = useQuerySuggest(debounced);
 

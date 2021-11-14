@@ -57,9 +57,9 @@ function App() {
         <Switch>
           <Route exact path="/" render={()=><PortalView />} />
           <Route path="/albumList" render={(routerProps)=><AlbumListPage {...routerProps} />} />
-          <Route path="/album/:receipt_no/:category" render={(routerProps)=><AlbumDetailPage {...routerProps} />} />
-          <Route path="/song/:id?" render={(routerProps)=><SongView {...routerProps} />} />
-          <Route path="/artist/:id/:category" render={(routerProps)=><ArtistDetailPage {...routerProps} />} />
+          <Route path="/album/:receipt_no" render={(routerProps)=><AlbumDetailPage {...routerProps} />} />
+          <Route path="/song/:id" render={(routerProps)=><SongView {...routerProps} />} />
+          <Route path="/artist/:artist_name" render={(routerProps)=><ArtistDetailPage {...routerProps} />} />
           <Route render={()=><withRouterNotFoundView />} />
         </Switch>
       </CenterPane>

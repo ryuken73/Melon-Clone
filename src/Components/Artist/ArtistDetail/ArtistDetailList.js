@@ -29,7 +29,7 @@ const ButtonContainer = styled(Box)`
 `
 const AlbumDetailList = props => {
     const {match} = props;
-    const {receipt_no} = match.params;
+    const {artist_name} = match.params;
     const songsInAlbum = [];
     //const songsInAlbum = useSongsInAlbum(receipt_no);
 
@@ -57,6 +57,7 @@ const AlbumDetailList = props => {
             </ButtonContainer>
             <SongListInAlbumDetail
                 songs={songs}
+                receipt_no='2021110322'
             ></SongListInAlbumDetail>
         </Container>
     )
