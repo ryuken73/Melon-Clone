@@ -48,6 +48,7 @@ const AlbumList = props => {
                             nameArtist={album.artist}
                             imagePath={album.eval_imagePath}
                             history={history}
+                            resizeOnHover={false}
                         ></AlbumBox>
                     ))}
                 </Swiper>

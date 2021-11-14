@@ -49,6 +49,7 @@ const ImageBoxWithHoverIcon = props => {
         onClick=()=>{},
         alt="image",
         title="related image",
+        resizeOnHover=true,
     } = props;
     const [isHover, setHover] = React.useState(false);
     const onClickPlay = React.useCallback(()=>{
@@ -77,7 +78,7 @@ const ImageBoxWithHoverIcon = props => {
                 src={src}
                 onClick={onClick}
                 isHoverInnerElement={isHover}
-                isResizeOnHover={true}
+                isResizeOnHover={resizeOnHover}
                 {...props}
             >            
             </ImageBox>

@@ -21,6 +21,7 @@ const AlbumBox = props => {
         nameAlbum="잊어야 한다는", 
         nameArtist="김광석", 
         imagePath="/images/no_image_black.jpg", 
+        resizeOnHover=true,
         history
     } = props;
     const handleClickAlbum = React.useCallback(()=> {
@@ -34,6 +35,7 @@ const AlbumBox = props => {
                 title={nameAlbum} 
                 src={imagePath} 
                 onClick={handleClickAlbum}
+                resizeOnHover={resizeOnHover}
             ></ImageBoxWithHoverIcon>
             <Box marginTop="5px"></Box>
             <TextBox 
