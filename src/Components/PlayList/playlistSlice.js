@@ -14,8 +14,12 @@ export const playlistSlice = createSlice({
         pushObjectToState: (state, action) => {
             console.log(action);
             const {type, payload} = action;
-            const {stateKey, value} = payload
-            state[stateKey].push(value);  
+            const {stateKey, value, reverse=true} = payload
+            if(reverse){
+                state[stateKey].unshift(value);
+            } else {
+                state[stateKey].push(value);  
+            }
         },
         removeChecked: (state,action) => {
             const {type, payload} = action;
