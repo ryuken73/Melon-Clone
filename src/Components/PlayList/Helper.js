@@ -25,7 +25,7 @@ const Helper = props => {
         removeFromCurrentPlaylist();
     },[])
     return (
-        <SnackBar hidden={hidden}>
+        <SnackBar hidden={hidden} containerProps={{width:'200px'}}>
             <Box flex="1" justifyContent="center">
                 <TextBox textAlign="center" text={text}></TextBox>
             </Box>

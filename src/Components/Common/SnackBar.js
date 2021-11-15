@@ -12,7 +12,7 @@ const Container = styled(Box)`
         justify-content: center;
         position: absolute;
         border-radius: 8px;
-        bottom: 10px;
+        bottom: 20px;
         width: ${props => props.width || 'auto'};
         height: ${props => props.height || 'auto'};
         padding: 5px;
