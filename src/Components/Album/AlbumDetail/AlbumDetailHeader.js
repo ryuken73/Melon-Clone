@@ -42,6 +42,7 @@ const AlbumDetailHeader = props => {
     const {receipt_no=1} = props;
     const albumInfo = useAlbumInfo(receipt_no);
     const {eval_imagePath = '/images/no-image.png'} = albumInfo;
+    console.log('^^ header albumInfo:', albumInfo)
     return (
         <Container>
             <ImageBox width="150px" height="150px" src={eval_imagePath}></ImageBox>

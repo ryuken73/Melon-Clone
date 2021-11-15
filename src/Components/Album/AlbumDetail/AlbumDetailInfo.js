@@ -11,14 +11,16 @@ const Container = styled(Box)`
     width: ${prop => prop.height || "auto"};
 `
 
-const AlbumDetailInfo = () => {
+const AlbumDetailInfo = props => {
+    const {history, location, match} = props;
+    const {receipt_no} = match.params;
     return (
         <Container>
             <ScrollBarWithColor 
                 autoHide 
                 style={{width:'100%', height:'calc(100vh - 258px)'}}
             >
-                <AlbumInfoTable></AlbumInfoTable>
+                <AlbumInfoTable receipt_no={receipt_no} ></AlbumInfoTable>
             </ScrollBarWithColor>
         </Container>
     )
