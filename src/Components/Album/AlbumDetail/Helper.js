@@ -34,7 +34,7 @@ const Helper = props => {
             <ButtonContainer>
                 <HoverButton><PlayArrowIcon fontSize="medium"></PlayArrowIcon></HoverButton>
                 <HoverButton><FileDownloadIcon fontSize="medium"></FileDownloadIcon></HoverButton>
-                <HoverButton><AddIcon fontSize="medium"></AddIcon></HoverButton>
+                <HoverButton onClick={handleAddCurrentPlaylist}><AddIcon fontSize="medium"></AddIcon></HoverButton>
             </ButtonContainer>     
         </SnackBar>
     )

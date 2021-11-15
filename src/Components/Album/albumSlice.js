@@ -167,14 +167,16 @@ export const addSongsInAlbumToCurrentPlaylist = ({receipt_no, rownum, allChecked
         return  
     }
     if(allChecked){
-        const songsChecked = listSong.map(song => song.checkedSongList);
-        songsChecked.forEach(song => dispatch(pushObjectToState({stateKey:'currentPlaylist', value: song})));
+        const songsChecked = listSong.filter(song => song.checkedSongList === true);
+        const songsReversed = songsChecked.reverse();
+        songsReversed.forEach(song => dispatch(pushObjectToState({stateKey:'currentPlaylist', value: song})));
         dispatch(showMessageBoxForDuration(`${songsChecked.length}곡을 재생목록에 추가했습니다.`));
-        songsChecked.forEach(song => dispatch(setSongCheckedInSongList({receipt_no, rownum: song.rownum, checked: false})))
+        songsChecked.forEach(song => dispatch(setSongCheckedInSongList({receipt_no, rownum: song.rownum, checkedSongList: false})))
         return
     }
     if(listSong !== undefined){
-        listSong.forEach(song => dispatch(pushObjectToState({stateKey:'currentPlaylist', value: song})));
+        const songReversed = listSong.reverse();
+        songReversed.forEach(song => dispatch(pushObjectToState({stateKey:'currentPlaylist', value: song})));
         dispatch(showMessageBoxForDuration(`${listSong.length}곡을 재생목록에 추가했습니다.`));
         listSong.forEach(song => dispatch(setSongCheckedInSongList({receipt_no, rownum: song.rownum, checked: false})))
         return
@@ -189,8 +191,9 @@ export const addSongsInAlbumToCurrentPlaylist = ({receipt_no, rownum, allChecked
     console.log('###', jsonfied)
     const {info, list_song} = jsonfied;
     const withMoreAttrListSong = addMoreAttr(list_song, info.label_no);
+    const songReversed = withMoreAttrListSong.reverse();
     dispatch(addObjectToState({stateKey:'songListInAlbum', key: receipt_no, value: withMoreAttrListSong}))
-    withMoreAttrListSong.forEach(song => dispatch(pushObjectToState({stateKey:'currentPlaylist', value: song})));
+    songReversed.forEach(song => dispatch(pushObjectToState({stateKey:'currentPlaylist', value: song})));
     dispatch(setMessageBoxText(`${withMoreAttrListSong.length}곡을 재생목록에 추가했습니다.`));
 }
 
