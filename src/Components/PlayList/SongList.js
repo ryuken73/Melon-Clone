@@ -23,7 +23,7 @@ const SongList = () => {
     return (
         <ScrollBarWithColor autoHide style={{ width:'300px', height: 'calc(100vh - 450px)' }}>
             <Container>
-                {songs.map(song => <Song key={song.id} song={song}></Song>)}
+                {songs.map((song,index) => <Song key={index} sequenceId ={index} song={song}></Song>)}
             </Container>
         </ScrollBarWithColor>
     )

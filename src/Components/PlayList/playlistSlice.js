@@ -37,8 +37,8 @@ export const playlistSlice = createSlice({
         setSongChecked: (state, action) => {
             const {type, payload} = action;
             const {id, checked} = payload;
-            state.currentPlaylist = state.currentPlaylist.map(song => {
-                if(song.id === id){
+            state.currentPlaylist = state.currentPlaylist.map((song,index) => {
+                if(id === index){
                     song.checkedPlaylist = checked;
                 }
                 return song;

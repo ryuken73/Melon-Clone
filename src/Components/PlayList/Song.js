@@ -26,10 +26,10 @@ const Song = props => {
         artist: 'Artist',
         checkedPlaylist: false
     }
-    const {song=defaultSong} = props;
+    const {song=defaultSong, sequenceId} = props;
     const {id, title, artist, checkedPlaylist, albumImageSrc, src} = song;
     // const [loadPlayer, setLoadPlayer] = React.useState(false);
-    const [removeFromPlaylist, setChecked] = useSongPlaylist(id);
+    const [removeFromPlaylist, setChecked] = useSongPlaylist(sequenceId);
     const {setPlayerSource} = useAudioPlayer();
     const onChecked = React.useCallback(() => {
         setChecked(!checkedPlaylist)
