@@ -4,6 +4,7 @@ import Box from '@mui/material/Box';
 import TextBox from 'Components/Common/TextBox'
 import ItemWithTitleNvalue from 'Components/Common/ItemWithTitleNValue';
 import useAlbumInfo from 'hooks/useAlbumInfo';
+import useSongsInAlbum from 'hooks/useSongsInAlbum';
 
 const Container = styled(Box)`
     && {
@@ -85,23 +86,17 @@ const splitRemark = remarkText => {
         return splitByOneline;
     }
 }
-const songs = [
-    'Heart',
-    'Do You Feel Sad',
-    '100%',
-    '우물',
-    '착해',
-    'MISFITS'
-]
 
 const AlbumInfoTable = props => {
     const {receipt_no} = props;
     const albumInfo = useAlbumInfo(receipt_no)
     const items = mkItems(albumInfo);
     const [remarkHeader, ...rest] = splitRemark(albumInfo.remark_ext)
-    console.log(remarkHeader, rest)
     const remark = rest.join('\r\n\r\n');
     console.log('^^ albumInfo:', albumInfo)
+    const {songsInAlbum} = useSongsInAlbum(receipt_no);
+    const songs = songsInAlbum.map(song => song.song_name);
+    console.log('^^ songsInAlbum:', songsInAlbum)
     const [openTitle, setOpenTitle] = React.useState(false);
     const openLinkText = openTitle ? '접기':'펼치기';
     const onClickOpenTitle = React.useCallback(()=>{
