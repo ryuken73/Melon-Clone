@@ -37,12 +37,15 @@ const SongItemAlbumDetail = props => {
         setHovered(false);
     },[setHovered])
     // console.log('###', cellValues)
-    const {rownum, song_name, artist, version, runtime, checkedSongList} = song;
+    const {rownum, song_name, artist, version, runtime, checkedSongList, src, albumImageSrc} = song;
     const duration = isNaN(parseInt(runtime)) ? runtime:secondsToTime(runtime)
-    const {addSongByRownum, toggleSongChecked} = useSongsInAlbum(receipt_no, rownum);
+    const {addSongByRownum, addSongByRownumNPlay, toggleSongChecked} = useSongsInAlbum(receipt_no, rownum);
     const onChecked = React.useCallback(() => {
         toggleSongChecked()
     },[toggleSongChecked])
+    const addSongNPlay = React.useCallback(() => {
+        addSongByRownumNPlay(src, albumImageSrc)
+    },[src, albumImageSrc, addSongByRownumNPlay ])
 
     return (
             <Container checked={checkedSongList} onMouseEnter={onHovered} onMouseLeave={onHoverOut}>
@@ -56,7 +59,7 @@ const SongItemAlbumDetail = props => {
                     <TextBox containerProps={{marginRight:"15px"}} text={song_name} {...rest}></TextBox>
                     {hovered && (
                         <Box flexShrink="0" width="150px" ml="auto" mr="20px">
-                            <HoverButton><PlayArrowIcon fontSize="medium"></PlayArrowIcon></HoverButton>
+                            <HoverButton onClick={addSongNPlay}><PlayArrowIcon fontSize="medium"></PlayArrowIcon></HoverButton>
                             <HoverButton><FileDownloadIcon fontSize="medium"></FileDownloadIcon></HoverButton>
                             <HoverButton onClick={addSongByRownum}><AddIcon fontSize="medium"></AddIcon></HoverButton>
                         </Box>

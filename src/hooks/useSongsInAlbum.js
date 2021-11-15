@@ -6,11 +6,13 @@ import {
   toggleAllSongsCheckedInSongList, 
   addSongsInAlbumToCurrentPlaylist 
 } from 'Components/Album/albumSlice';
+import useAudioPlayer from './useAudioPlayer';
 
 const isArrayValid = array => array !== undefined && array !== null && array.length !== 0;
 
 function useSongsInAlbum(receipt_no, rownum) {
   const songsInAlbum = useSelector((state) => state.album.songListInAlbum[receipt_no]);
+  const {setPlayerSource} = useAudioPlayer();
   const allChecked = isArrayValid(songsInAlbum) ? songsInAlbum.every(song => song.checkedSongList) : false;
   const dispatch = useDispatch();
   React.useEffect(()=>{
@@ -29,6 +31,11 @@ function useSongsInAlbum(receipt_no, rownum) {
     dispatch(addSongsInAlbumToCurrentPlaylist({receipt_no, rownum}));
   },[receipt_no, rownum, dispatch])
 
+  const addSongByRownumNPlay = React.useCallback((src, albumImageSrc) => {
+    dispatch(addSongsInAlbumToCurrentPlaylist({receipt_no, rownum}));
+    setPlayerSource(src, albumImageSrc);
+  },[receipt_no, rownum, dispatch, setPlayerSource])
+
 
   const checkedCount = isArrayValid(songsInAlbum) && songsInAlbum.reduce((acct, song) => {
   if(song.checkedSongList){
@@ -37,7 +44,15 @@ function useSongsInAlbum(receipt_no, rownum) {
     return acct;
   },0)
 
-  return {songsInAlbum: songsInAlbum || [], checkedCount, toggleSongChecked, toggleAllSongChecked, addSongByRownum, allChecked} ;
+  return {
+    songsInAlbum: songsInAlbum || [], 
+    checkedCount, 
+    toggleSongChecked, 
+    toggleAllSongChecked, 
+    addSongByRownum, 
+    addSongByRownumNPlay, 
+    allChecked
+  } ;
 }
 
 export default useSongsInAlbum;
