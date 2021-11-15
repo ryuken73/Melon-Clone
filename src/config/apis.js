@@ -182,6 +182,7 @@ export const apiMap = {
     // sch_id: "28085"
     // }
     'doGetArtistInfo': sch_id => {
+        // console.log('^^ called sch_id=', sch_id)
         const searchParam = new URLSearchParams();
         searchParam.append('sch_id', sch_id);
         return {

@@ -7,7 +7,6 @@ import ArtistDetailList from './ArtistDetailList';
 import ArtistDetailInfo from './ArtistDetailInfo';
 import AlbumList from 'Components/Album/AlbumList/AlbumList';
 import {withRouter, Switch, Route} from 'react-router-dom';
-import useArtistId from 'hooks/useArtistId';
 import useArtistInfo from 'hooks/useArtistInfo';
 
 
@@ -19,20 +18,26 @@ const Container = styled(Box)`
     margin-left: 15px;
     /* margin-right: 15px; */
 `
+const queryArtist = async ({queryKey}) => {
+  console.log('^^ fetch called:',queryKey)
+  const [_key, url, options, artist_id ] = queryKey;
+  const response = await fetch(url, options);
+  if (!response.ok) {
+    throw new Error('Network response was not ok')
+  }
+  return response.json()
+};
 
 const ArtistDetailPage = props => {
     const {history, location, match} = props;
     const {artist_name} = match.params
-    const [artist_id, setArtistId] = React.useState(null);
-    const artistId = useArtistId(artist_name);
-    React.useEffect(() => {
-        console.log('^^ uhh artistId changed')
-        setArtistId(artistId)
-    },[artistId])
-    console.log('^^ artistDetailPage id:', artistId);
-    const artistInfo = useArtistInfo(artist_id);
-    console.log('^^ artistDetailPage info:', artistInfo);
-
+    const {
+        successListArtist,
+        dataListArtist,
+        successArtistInfo,
+        dataArtistInfo
+    } = useArtistInfo(artist_name);
+    console.log('^^:', dataArtistInfo)
     return (
         <Container>
             {/* <ArtistDetailHeader artistInfo={artistInfo} ></ArtistDetailHeader> */}
