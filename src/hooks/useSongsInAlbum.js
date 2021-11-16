@@ -35,9 +35,9 @@ function useSongsInAlbum(receipt_no, rownum) {
     dispatch(addSongsInAlbumToCurrentPlaylist({receipt_no, allChecked:true}));
   },[receipt_no, dispatch])
 
-  const addSongByRownumNPlay = React.useCallback((src, albumImageSrc) => {
+  const addSongByRownumNPlay = React.useCallback((src, albumImageSrc, id) => {
     dispatch(addSongsInAlbumToCurrentPlaylist({receipt_no, rownum}));
-    setPlayerSource(src, albumImageSrc);
+    setPlayerSource(src, albumImageSrc, id);
   },[receipt_no, rownum, dispatch, setPlayerSource])
 
 

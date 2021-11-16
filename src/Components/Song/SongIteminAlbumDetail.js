@@ -37,15 +37,15 @@ const SongItemAlbumDetail = props => {
         setHovered(false);
     },[setHovered])
     // console.log('###', cellValues)
-    const {rownum, song_name, artist, version, runtime, checkedSongList, src, albumImageSrc} = song;
+    const {id, rownum, song_name, artist, version, runtime, checkedSongList, src, albumImageSrc} = song;
     const duration = isNaN(parseInt(runtime)) ? runtime:secondsToTime(runtime)
     const {addSongByRownum, addSongByRownumNPlay, toggleSongChecked} = useSongsInAlbum(receipt_no, rownum);
     const onChecked = React.useCallback(() => {
         toggleSongChecked()
     },[toggleSongChecked])
     const addSongNPlay = React.useCallback(() => {
-        addSongByRownumNPlay(src, albumImageSrc)
-    },[src, albumImageSrc, addSongByRownumNPlay ])
+        addSongByRownumNPlay(src, albumImageSrc, id)
+    },[src, albumImageSrc, id, addSongByRownumNPlay ])
 
     return (
             <Container checked={checkedSongList} onMouseEnter={onHovered} onMouseLeave={onHoverOut}>
