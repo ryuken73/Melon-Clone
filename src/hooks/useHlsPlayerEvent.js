@@ -1,10 +1,11 @@
 import React from 'react';
 import {secondsToTime} from 'lib/util';
 import {useSelector, useDispatch} from 'react-redux';
-import {setCurrentPlaying} from 'Components/PlayList/playlistSlice';
+import {setCurrentPlayingByIndex} from 'Components/PlayList/playlistSlice';
 
 export default function useEventEmitter(playerRef, event) {
     const currentId = useSelector(state => state.audioPlayer.currentId);
+    const currentIndex = useSelector(state => state.audioPlayer.currentIndex);
     const dispatch = useDispatch();
     const [isPlayinng, setIsPlaying] = React.useState(false);
     const [duration, setDuration] = React.useState("00:00");
@@ -31,7 +32,7 @@ export default function useEventEmitter(playerRef, event) {
         }
         if(event.type === 'playing'){
             console.log('** audio now playing')
-            dispatch(setCurrentPlaying({id: currentId}));
+            dispatch(setCurrentPlayingByIndex({targetIndex: currentIndex, playing: true}));
         }
         if(event.type === 'timeupdate'){
             const currentTime = parseInt(playerRef.current.currentTime);

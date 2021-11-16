@@ -36,7 +36,7 @@ const Song = props => {
         setChecked(!checkedPlaylist)
     },[checkedPlaylist, setChecked])
     const onDoubleClick = React.useCallback(() => {
-        setPlayerSource(src, albumImageSrc, id);
+        setPlayerSource(src, albumImageSrc, sequenceId);
     },[src, albumImageSrc, id, setPlayerSource])
 
     return (

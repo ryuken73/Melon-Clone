@@ -48,16 +48,19 @@ export const playlistSlice = createSlice({
                 return song;
             })
         },
-        setCurrentPlaying: (state, action) => {
+        setCurrentPlayingByIndex: (state, action) => {
             const {type, payload} = action;
-            const {id} = payload;
-            state.currentPlaylist.forEach(song => {
-                if(song.id === id) {
-                    song.currentPlaying = true;
-                    return
-                }
-                song.currentPlaying = false;
-            })
+            const {targetIndex, playing} = payload;
+            if(playing === true) {
+                state.currentPlaylist.forEach((song, index) => {
+                    if(index === targetIndex){
+                        song.currentPlaying = true;
+                        return
+                    }
+                    song.currentPlaying = false;
+                })
+            }
+            if(playing === false) state.currentPlaylist.forEach(song => song.currentPlaying = false);
         },
         toggleAllChecked: (state, action) => {
             if(state.currentPlaylist.every(song => song.checkedPlaylist)){
@@ -74,7 +77,7 @@ export const {
     removeFromCurrentList, 
     setSongChecked, 
     removeChecked,
-    setCurrentPlaying,
+    setCurrentPlayingByIndex,
     toggleAllChecked,
 } = playlistSlice.actions;
 
