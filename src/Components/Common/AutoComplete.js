@@ -87,7 +87,9 @@ const UseAutocomplete = () => {
     getInputProps,
     getListboxProps,
     getOptionProps,
+    getTagProps,
     groupedOptions,
+    value
   } = useAutocomplete({
     id: 'use-autocomplete-demo',
     options: options,
@@ -95,10 +97,11 @@ const UseAutocomplete = () => {
     filterOptions: options => options,
     getOptionLabel: (option) => `${option.artistName}: ${option.songName}`,
   });
+  console.log('^^:', value)
 
   const inputValue = getInputProps().value;
   const uriEncoded = encodeURIComponent(inputValue);
-  const debounced = useDebounce(uriEncoded);
+  const debounced = useDebounce(uriEncoded, 100);
   // const { isLoading, isError, data, error } = useQuery(['autocomplete', uriEncoded], querySuggests);
   const { isLoading, isError, data, error } = useQuerySuggest(debounced);
 
@@ -116,10 +119,16 @@ const UseAutocomplete = () => {
     return parts;
   },[inputValue]);
 
+  const handleKeyDown = event => {
+    if(event.charCode === 13 && event.target.value.trim()){
+      console.log('^^^:',event.target.value)
+    }
+  }
+
   return (
     <div>
       <div {...getRootProps()}>
-        <Input {...getInputProps()} />
+        <Input onKeyPress={handleKeyDown} {...getInputProps()} />
       </div>
       {groupedOptions.length > 0 ? (
         <Listbox {...getListboxProps()}>
