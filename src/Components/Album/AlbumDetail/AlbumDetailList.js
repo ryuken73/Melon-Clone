@@ -31,7 +31,17 @@ const ButtonContainer = styled(Box)`
 const AlbumDetailList = props => {
     const {match} = props;
     const {receipt_no} = match.params;
-    const {songsInAlbum} = useSongsInAlbum(receipt_no);
+    const {
+        songsInAlbum, 
+        toggleAllSongChecked, 
+        addAllSongsInAlbum,
+        playFirstSongInAlbum
+    } = useSongsInAlbum(receipt_no);
+
+    const addAllSongNPlay = React.useCallback(() => {
+        addAllSongsInAlbum();
+        playFirstSongInAlbum();
+    },[addAllSongsInAlbum, playFirstSongInAlbum])
 
     return (
         <Container>
@@ -41,12 +51,14 @@ const AlbumDetailList = props => {
                     iconComponent={<CheckIcon fontSize="small"></CheckIcon>} 
                     border="1px solid rgba(255, 255, 255, .5)"
                     hoverBorder="1px solid rgba(255, 255, 255, 0.8)"
+                    onClick={toggleAllSongChecked}
                 ></ButtonIcon>
                 <ButtonIcon 
                     text="전체재생" 
                     iconComponent={<PlayArrowIcon fontSize="small"></PlayArrowIcon>} 
                     border="1px solid rgba(255, 255, 255, .5)"
                     hoverBorder="1px solid rgba(255, 255, 255, 0.8)"
+                    onClick={addAllSongNPlay}
                 ></ButtonIcon>
             </ButtonContainer>
             <SongListInAlbumDetail

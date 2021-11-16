@@ -168,14 +168,15 @@ export const addSongsInAlbumToCurrentPlaylist = ({receipt_no, rownum, allChecked
     }
     if(allChecked){
         const songsChecked = listSong.filter(song => song.checkedSongList === true);
-        const songsReversed = songsChecked.reverse();
+        const songsReversed = [...songsChecked].reverse();
         songsReversed.forEach(song => dispatch(pushObjectToState({stateKey:'currentPlaylist', value: song})));
         dispatch(showMessageBoxForDuration(`${songsChecked.length}곡을 재생목록에 추가했습니다.`));
         songsChecked.forEach(song => dispatch(setSongCheckedInSongList({receipt_no, rownum: song.rownum, checkedSongList: false})))
         return
     }
     if(listSong !== undefined){
-        const songReversed = listSong.reverse();
+        console.log('&&&:', listSong)
+        const songReversed = [...listSong].reverse();
         songReversed.forEach(song => dispatch(pushObjectToState({stateKey:'currentPlaylist', value: song})));
         dispatch(showMessageBoxForDuration(`${listSong.length}곡을 재생목록에 추가했습니다.`));
         listSong.forEach(song => dispatch(setSongCheckedInSongList({receipt_no, rownum: song.rownum, checked: false})))
@@ -191,7 +192,7 @@ export const addSongsInAlbumToCurrentPlaylist = ({receipt_no, rownum, allChecked
     console.log('###', jsonfied)
     const {info, list_song} = jsonfied;
     const withMoreAttrListSong = addMoreAttr(list_song, info.label_no);
-    const songReversed = withMoreAttrListSong.reverse();
+    const songReversed = [...withMoreAttrListSong].reverse();
     dispatch(addObjectToState({stateKey:'songListInAlbum', key: receipt_no, value: withMoreAttrListSong}))
     songReversed.forEach(song => dispatch(pushObjectToState({stateKey:'currentPlaylist', value: song})));
     dispatch(setMessageBoxText(`${withMoreAttrListSong.length}곡을 재생목록에 추가했습니다.`));
