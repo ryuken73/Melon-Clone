@@ -12,7 +12,9 @@ const isArrayValid = array => array !== undefined && array !== null && array.len
 
 function useSongsInAlbum(receipt_no, rownum) {
   const songsInAlbum = useSelector((state) => state.album.songListInAlbum[receipt_no]);
-  const firstSong = songsInAlbum[0];
+  const firstSong = React.useMemo(() => {
+    return songsInAlbum && songsInAlbum.length > 0 ? songsInAlbum[0] : {};
+  },[songsInAlbum]);
   const {setPlayerSource} = useAudioPlayer();
   const allChecked = isArrayValid(songsInAlbum) ? songsInAlbum.every(song => song.checkedSongList) : false;
   const dispatch = useDispatch();
