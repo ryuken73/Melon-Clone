@@ -34,6 +34,10 @@ export default function useEventEmitter(playerRef, event) {
             console.log('** audio now playing')
             dispatch(setCurrentPlayingByIndex({targetIndex: currentIndex, playing: true}));
         }
+        if(event.type === 'pause'){
+            console.log('** audio now paused')
+            dispatch(setCurrentPlayingByIndex({targetIndex: currentIndex, playing: false}));
+        }
         if(event.type === 'timeupdate'){
             const currentTime = parseInt(playerRef.current.currentTime);
             setCurrentTime(secondsToTime(currentTime))
