@@ -19,6 +19,13 @@ const Container = styled(Box)`
         }
     }
 `
+const Artist = styled(Box)`
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    width: 150px;
+`
 
 const Song = props => {
     const defaultSong = {
@@ -42,9 +49,11 @@ const Song = props => {
     return (
         <Container>
             <SmallCheckBox checked={checkedPlaylist} setChecked={onChecked} />
-            {currentPlaying && <PlayingIcon></PlayingIcon>}
-            <TextBox text={title} onDoubleClick={onDoubleClick} margin="0px 15px 0px 0px" width="150px"></TextBox>
-            <TextBox text={artist} width="90px"></TextBox>
+            <Artist>
+                {currentPlaying && <PlayingIcon></PlayingIcon>}
+                <TextBox text={title} onDoubleClick={onDoubleClick} color={currentPlaying && 'gold'} margin="0px 15px 0px 0px" width="125px"></TextBox>
+            </Artist>
+            <TextBox text={artist} color={currentPlaying && 'gold'} width="90px"></TextBox>
         </Container>
     )
 }
