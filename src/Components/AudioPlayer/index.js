@@ -24,10 +24,12 @@ const Image = styled(Box)`
 const Title = styled(Box)`
     margin-top: 10px;
     align-self: center;
+    max-width: 200px;
 `;
 const Artist = styled(Box)`
     align-self: center;
     margin-top: 5px;
+    max-width: 200px;
 `;
 const Progress = styled(Box)`
     margin-left: 20px;
@@ -49,10 +51,14 @@ const durationToSeconds = duration => {
 }
 
 const AudioPlayer = props => {
-    const {src:hlsSrc, image:imageSrc} = useAudioPlayer();
+    const {src:hlsSrc, image:imageSrc, song={}} = useAudioPlayer();
     const [playerRef, manifestLoaded, event] = useHlsAudioPlayer(hlsSrc);
     const [isPlaying, duration, currentTime, progress] = useHlsPlayerEvent(playerRef, event);
     // console.log('!! audio player:', playerRef.current, duration, event)
+    const {
+        song_name="곡명",
+        artist="아티스트"
+    } = song;
     const handleMoveProgressSlider = React.useCallback(progressPercent => {
         const player = playerRef.current;
         const {duration} = player;
@@ -68,10 +74,10 @@ const AudioPlayer = props => {
                 <ImageBox src={imageSrc} width="150px" height="150px"></ImageBox>
             </Image>
             <Title>
-                <TextBox textalign="center" fontSize="13px" text="곡명" color={colors.textMain}></TextBox>
+                <TextBox textalign="center" fontSize="13px" text={song_name} color={colors.textMain}></TextBox>
             </Title>
             <Artist>
-                <TextBox textalign="center" text="아티스트"></TextBox>
+                <TextBox textalign="center" text={artist}></TextBox>
             </Artist>
             <Progress>
                 <SliderBar value={progress} onChange={handleMoveProgressSlider} />
