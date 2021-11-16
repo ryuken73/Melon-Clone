@@ -14,7 +14,7 @@ const Container = styled(Box)`
     display: flex;
     flex-direction: column;
     flex-grow: 0;
-    height: 350px;
+    height: 320px;
     /* background: #14181e; */
     background: ${colors.player};
 `
