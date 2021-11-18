@@ -8,6 +8,7 @@ const Span = styled.span`
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+    width: 100%;
 `
 
 const SpanBox = props => {

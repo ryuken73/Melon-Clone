@@ -16,16 +16,16 @@ const Container = styled(Box)`
 function SearchResultPage() {
     return (
         <Container>
-            <SearchResultBar></SearchResultBar>
+            {/* <SearchResultBar></SearchResultBar> */}
             <Switch>
                 <Route path="/searchResult/all/:keyword" render={routerProps => <SearchResultAll {...routerProps}></SearchResultAll>}></Route>
                 <Route path="/searchResult/songs/:keyword" render={routerProps => <SearchResultSongs {...routerProps}></SearchResultSongs>}></Route>
                 <Route path="/searchResult/albums/:keyword" render={routerProps => <SearchResultAlbums {...routerProps}></SearchResultAlbums>}></Route>
                 <Route path="/searchResult/artists/:keyword" render={routerProps => <SearchResultArtists {...routerProps}></SearchResultArtists>}></Route>
             </Switch>
-            <SearchResultSongs></SearchResultSongs>
+            {/* <SearchResultSongs></SearchResultSongs>
             <SearchResultAlbums></SearchResultAlbums>
-            <SearchResultArtists></SearchResultArtists>
+            <SearchResultArtists></SearchResultArtists> */}
         </Container>
     )
 }

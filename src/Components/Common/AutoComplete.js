@@ -9,6 +9,9 @@ import SpanBox from './SpanBox';
 import {useQuery} from 'react-query';
 import useDebounce from 'hooks/useDebounce';
 import useQuerySuggest from 'hooks/useQuerySuggest';
+import {setCurrent} from './autoCompleteSlice';
+import {useDispatch} from 'react-redux';
+import {Switch, Route, withRouter} from 'react-router-dom';
 
 const Input = styled.input`
   width: 300px;
@@ -79,7 +82,8 @@ const querySuggests = async ({queryKey}) => {
   return response.json()
 };
 
-const UseAutocomplete = () => {
+const UseAutocomplete = props => {
+  const {history} = props;
   const [options, setOptions] = React.useState([]);
   const {
     getRootProps,
@@ -87,7 +91,6 @@ const UseAutocomplete = () => {
     getInputProps,
     getListboxProps,
     getOptionProps,
-    getTagProps,
     groupedOptions,
     value
   } = useAutocomplete({
@@ -95,15 +98,15 @@ const UseAutocomplete = () => {
     options: options,
     limit: 10,
     filterOptions: options => options,
-    getOptionLabel: (option) => `${option.artistName}: ${option.songName}`,
+    getOptionLabel: (option) => `${option.artistName} ${option.songName}`,
   });
-  console.log('^^:', value)
 
   const inputValue = getInputProps().value;
   const uriEncoded = encodeURIComponent(inputValue);
   const debounced = useDebounce(uriEncoded, 100);
   // const { isLoading, isError, data, error } = useQuery(['autocomplete', uriEncoded], querySuggests);
   const { isLoading, isError, data, error } = useQuerySuggest(debounced);
+  const dispatch = useDispatch()
 
   React.useEffect(()=>{
     if(isLoading !== true && isError !== true && data?.result !== undefined && data?.result !== null){
@@ -113,27 +116,46 @@ const UseAutocomplete = () => {
     data?.result === null && setOptions([]);
   },[data])
 
+  React.useEffect(() => {
+    console.log('^^ value changed:', value)
+    const {artistName, songName} = value !== null ? value: {artistName:null, songName:null};
+    dispatch(setCurrent({
+     artistName,
+     songName,
+     inputValue 
+    }))
+    value !== null && history.push(`/searchResult/all/${inputValue}`);
+  },[value, dispatch, history])
+
   const getHighlightParts = React.useCallback(option => {
     const matches = match(`${option.artistName}: ${option.songName}`, inputValue);
     const parts = parse(`${option.artistName}: ${option.songName}`, matches);
     return parts;
   },[inputValue]);
 
-  const handleKeyDown = event => {
+  const handleKeyDown = React.useCallback(event => {
     if(event.charCode === 13 && event.target.value.trim()){
-      console.log('^^^:',event.target.value)
+      console.log('^^^ enter key pressed: ',event.target.value)
+      dispatch(setCurrent({
+        artistName: '',
+        songName: '',
+        inputValue: event.target.value
+      }))
+      history.push(`/searchResult/all/${event.target.value}`);
     }
-  }
+  },[dispatch, history])
 
   return (
     <div>
       <div {...getRootProps()}>
-        <Input onKeyPress={handleKeyDown} {...getInputProps()} />
+        <Input onKeyPressCapture={handleKeyDown} {...getInputProps()} />
       </div>
       {groupedOptions.length > 0 ? (
         <Listbox {...getListboxProps()}>
           {groupedOptions.map((option, index) => (
-            <StyledList {...getOptionProps({option, index})}>
+            <StyledList 
+              {...getOptionProps({option, index})} 
+             >
               {getHighlightParts(option).map((part, index) => (
                 <SpanBox 
                     key={index} 
@@ -152,4 +174,4 @@ const UseAutocomplete = () => {
   );
 }
 
-export default React.memo(UseAutocomplete);
+export default React.memo(withRouter(UseAutocomplete));

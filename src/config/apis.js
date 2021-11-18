@@ -1,3 +1,9 @@
+import CONSTANTS from 'config/constants';
+const {
+    SEARCH_PAGE_NUM,
+    SEARCH_PAGE_SIZE
+} = CONSTANTS;
+
 export const baseUrl = {
     'musicbank': 'http://musicbank.sbs.co.kr'
 }
@@ -95,7 +101,7 @@ export const apiMap = {
             'digital_yn'
         ]
     },
-    'searchMusicAll': ({page_num, page_sizes, scn, query, orderby, bool=true})  => {
+    'searchMusicAll': ({page_num=SEARCH_PAGE_NUM, page_sizes=SEARCH_PAGE_SIZE, scn, query, orderby, bool=true})  => {
         const searchParam = new URLSearchParams();
         searchParam.append('page_num', page_num);
         searchParam.append('page_sizes', page_sizes);

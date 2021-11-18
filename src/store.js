@@ -4,6 +4,7 @@ import appReducer from 'appSlice'
 import albumReducer from 'Components/Album/albumSlice'
 import playlistSlice from 'Components/PlayList/playlistSlice'
 import audioPlayerSlice from 'Components/AudioPlayer/audioPlayerSlice'
+import autoCompleteSlice from 'Components/Common/autoCompleteSlice'
 
 const logger = createLogger();
 
@@ -12,7 +13,8 @@ export const store = configureStore({
         app: appReducer,
         album: albumReducer,
         playlist: playlistSlice,
-        audioPlayer: audioPlayerSlice
+        audioPlayer: audioPlayerSlice,
+        autoComplete: autoCompleteSlice
     },
     middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(logger),
     devTools: process.env.NODE_ENV !== 'production'
