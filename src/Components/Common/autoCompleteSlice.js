@@ -1,9 +1,9 @@
 import {createSlice} from "@reduxjs/toolkit";
 
 const initialState = {
-    artistName:'',
-    songName:'',
-    inputValue:''
+    artistName:null,
+    songName:null,
+    inputValue:null
 }
 
 export const autoCompleteSlice = createSlice({
