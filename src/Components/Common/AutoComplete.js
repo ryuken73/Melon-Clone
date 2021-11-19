@@ -9,7 +9,7 @@ import SpanBox from './SpanBox';
 import {useQuery} from 'react-query';
 import useDebounce from 'hooks/useDebounce';
 import useQuerySuggest from 'hooks/useQuerySuggest';
-import {setCurrent} from './autoCompleteSlice';
+import {setCurrent, setCurrentByInputValue} from './autoCompleteSlice';
 import {useDispatch} from 'react-redux';
 import {Switch, Route, withRouter} from 'react-router-dom';
 
@@ -118,7 +118,7 @@ const UseAutocomplete = props => {
 
   React.useEffect(() => {
     console.log('^^ value changed:', value)
-    const {artistName, songName} = value !== null ? value: {artistName:null, songName:null};
+    const {artistName, songName} = value !== null ? value: {artistName:'', songName:''};
     dispatch(setCurrent({
      artistName,
      songName,
@@ -136,7 +136,7 @@ const UseAutocomplete = props => {
   const handleKeyDown = React.useCallback(event => {
     if(event.charCode === 13 && event.target.value.trim()){
       console.log('^^^ enter key pressed: ',event.target.value)
-      dispatch(setCurrent({
+      dispatch(setCurrentByInputValue({
         artistName: '',
         songName: '',
         inputValue: event.target.value

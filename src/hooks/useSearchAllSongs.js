@@ -20,15 +20,16 @@ const queryAll = async ({queryKey}) => {
 const useSearchAllSongs = keyword => {
 
   const {artistName, songName, inputValue} = useSelector(state => state.autoComplete)
-  console.log('^^ in useSearchAllSongs:', artistName, songName, inputValue);
-  // const now = new Date();
-  // const currentTime = getString(now, {sep:''});
+  const needExactSearch = artistName !== '' || songName !== '';
+  console.log('^^ in useSearchAllSongs: need exact Search');
+  const now = new Date();
+  const currentTime = getString(now, {sep:''}).substr(0,12);
 
-  // const songParams = {
-  //   scn: 'song', 
-  //   query: `(song_name_str='${songName}' and artist_str='${artistName})' and open_time=${currentTime} and status='Y'`,
-  //   orderby: 'order by release_year desc, song_name_str asc'
-  // }
+  const params = {
+    scn: 'song', 
+    query: `(song_name_str = '${songName}' and artist_str = '${artistName}') and open_time<='${currentTime}' and status='Y'`,
+    orderby: 'order by release_year desc,song_name_str asc'
+  }
   // const artistParams = {
   //   scn: 'artist', 
   //   query: `artist_str='${artistName}'`,
@@ -45,17 +46,17 @@ const useSearchAllSongs = keyword => {
   //   orderby: 'order by song_name_str asc'
   // }
 
-  // const {url: urlSong, fetchOptions: fetchOptionsSong} = apiMap.searchMusicAll({...songParams});
+  const {url, fetchOptions} = apiMap.searchMusicAll({...params});
   // const {url: urlAlbum, fetchOptions: fetchOptionsAlbum} = apiMap.searchMusicAll({...albumParams});
   // const {url: urlArtist, fetchOptions: fetchOptionsArtist} = apiMap.searchMusicAll({...artistParams});
   // const {url: urlLyrics, fetchOptions: fetchOptionsLyrics} = apiMap.searchMusicAll({...lyricsParams});
 
-  // const songResults = useQuery(['searchMusicAll', urlSong, fetchOptionsSong, artistName, songName], queryAll, {enabled:false});
+  const exactSearchResult = useQuery(['searchMusicAll', url, fetchOptions, artistName, songName], queryAll, {enabled:needExactSearch});
   // const albumResults =  useQuery(['searchMusicAll', urlAlbum, fetchOptionsAlbum, artistName, songName], queryAll, {enabled:false});
   // const artistResults =  useQuery(['searchMusicAll', urlArtist, fetchOptionsArtist, artistName, songName], queryAll, {enabled:false});
   // const lyricsResults =  useQuery(['searchMusicAll', urlLyrics, fetchOptionsLyrics, artistName, songName], queryAll, {enabled:false});
 
-  // return [songResults, albumResults, artistResults, lyricsResults]
+  return exactSearchResult;
 } 
 
 export default useSearchAllSongs;
