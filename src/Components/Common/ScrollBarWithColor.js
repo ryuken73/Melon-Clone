@@ -49,7 +49,7 @@ function useDebounce(value, delay) {
   }
 
 const ScrollBarWithColor = props => {
-    const {getMoreItem=()=>{}, moveScrollToTop=false, pathname} = props;
+    const {getMoreItem=()=>{}, moveScrollToTop=false, category} = props;
     const [t, setT] = React.useState(0);
     const [notMoveScroll, setNotMoveScroll] = React.useState(false);
     const scrollbar = React.useRef(null);
@@ -64,7 +64,7 @@ const ScrollBarWithColor = props => {
             console.log('scroll to top:', scrollbar.current)
             moveScrollToTop && scrollbar.current.scrollTop();
         }
-    },[moveScrollToTop, pathname, props.children]) 
+    },[moveScrollToTop, category, props.children]) 
 
 
     const RenderTrack = ({ style, ...props }) => {

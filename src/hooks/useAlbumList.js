@@ -15,35 +15,35 @@ const getDateTimeString = () => {
   return getString(now, {sep:''}).substring(0,8);
 }
 
-function useAlbumList(pathname, fetchRequired, replaceRequired) {
-  const albums = useSelector((state) => state.album.fetched[pathname]);
+function useAlbumList(category, fetchRequired, replaceRequired) {
+  const albums = useSelector((state) => state.album.fetched[category]);
   const dispatch = useDispatch();
-  const genreNum = genre[pathname];
-  const additionalQuery = pathname === 'all' ? '' : `and top_genre=${genreNum}`;
+  const genreNum = genre[category];
+  const additionalQuery = category === 'all' ? '' : `and top_genre=${genreNum}`;
 
   React.useEffect(()=>{
-    // const additionalQuery = pathname === 'all' ? '' : `and top_genre=${genre[pathname]}`;
+    // const additionalQuery = category === 'all' ? '' : `and top_genre=${genre[pathname]}`;
     const options = {
-      pathname, 
+      pathname: category, 
       query: {
         'query':`status='Y' and open_dt <= '${getDateTimeString()}' ${additionalQuery}`
       }
     };
-    console.log('fetch in useAlbumList:', pathname, additionalQuery, fetchRequired, replaceRequired);
+    console.log('fetch in useAlbumList:', category, additionalQuery, fetchRequired, replaceRequired);
     if(fetchRequired){
       dispatch(fetchAlbums({...options, replace: replaceRequired}));
     }
-  },[pathname, additionalQuery, fetchRequired, replaceRequired,  dispatch])
+  },[category, additionalQuery, fetchRequired, replaceRequired,  dispatch])
 
   const getMoreItem = React.useCallback(()=>{
     console.log('getMoreItem.....')
-    // const additionalQuery = pathname === 'all' ? '' : `and top_genre=${genre[pathname]}`;
+    // const additionalQuery = category === 'all' ? '' : `and top_genre=${genre[pathname]}`;
     const options = {
-      pathname, 
+      category, 
       query: {'query':`status='Y' and open_dt <= '${getDateTimeString()}' ${additionalQuery}`}
     };
     dispatch(fetchAlbums({...options, replace: false}));
-  },[pathname, additionalQuery, dispatch])
+  },[category, additionalQuery, dispatch])
 
   return [albums, getMoreItem]
 }

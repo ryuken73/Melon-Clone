@@ -18,19 +18,19 @@ const FETCH_COUNT=12;
 const AlbumList = props => {
     const {history} = props;
     const {match} = props;
-    const {pathname} = match.params;
+    const {category} = match.params;
     const replaceRequired = history.action === 'PUSH' || history.location.state === undefined;
     const fetchRequired = history.action === 'PUSH';
-    console.log('re-render albumlist:', pathname, fetchRequired, replaceRequired)
+    console.log('re-render albumlist:', category, fetchRequired, replaceRequired)
     React.useEffect(() => {console.log('re-mount AlbumList')},[])
-    const [albums, getMoreItem] = useAlbumList(pathname, fetchRequired, replaceRequired);
+    const [albums, getMoreItem] = useAlbumList(category, fetchRequired, replaceRequired);
     console.log('%% result: ', albums)
 
     return (
         <ScrollBarWithColor 
             moveScrollToTop={replaceRequired} 
             getMoreItem={getMoreItem} 
-            pathname={pathname}
+            category={category}
             autoHide 
             style={{ width:'100%', height: 'calc(100vh - 100px)' }}
         >

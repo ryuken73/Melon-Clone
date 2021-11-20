@@ -68,7 +68,7 @@ const AlbumListPage = props => {
                     ))}
                 </SubContainer>
                 <Switch>
-                    <Route path="/albumList/:pathname?" render={(routerProps)=> <AlbumList {...routerProps} />}>
+                    <Route path="/albumList/:category?" render={(routerProps)=> <AlbumList {...routerProps} />}>
                     </Route>
                 </Switch>
             </CommonPageHeader>
