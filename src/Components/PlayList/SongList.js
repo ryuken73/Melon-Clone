@@ -13,7 +13,7 @@ const Container = styled(Box)`
 `
 
 const SongList = () => {
-    const [currentPlaylist, checkedCount, removeFromCurrentPlaylist, toggleCurrentPlayList] = useCurrentPlaylist();
+    const {currentPlaylist} = useCurrentPlaylist();
     const songs = currentPlaylist.length > 0 ? currentPlaylist.map(song => {
         console.log('#### song', song)
         return {title: song.song_name, ...song}

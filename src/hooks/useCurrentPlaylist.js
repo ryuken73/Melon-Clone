@@ -21,7 +21,7 @@ function useCurrentPlaylist() {
     }
     return acct;
   },0)
-  return [currentPlaylist, checkedCount, removeFromCurrentPlaylist, toggleCurrentPlayList, allChecked]
+  return {currentPlaylist, checkedCount, removeFromCurrentPlaylist, toggleCurrentPlayList, allChecked}
 }
 
 export default useCurrentPlaylist;

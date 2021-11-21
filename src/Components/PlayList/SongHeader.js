@@ -21,13 +21,7 @@ const Container = styled(Box)`
 const SongHeader = props => {
 
     // const [checked, setChecked] = React.useState(false);
-    const  [
-        currentPlaylist, 
-        checkedCount, 
-        removeFromCurrentPlaylist, 
-        toggleCurrentPlayList, 
-        allChecked
-    ] = useCurrentPlaylist();
+    const  { toggleCurrentPlayList, allChecked } = useCurrentPlaylist();
     
     const onClickSetChecked = React.useCallback(()=>{
         // console.log('toggle:', checked)

@@ -17,7 +17,7 @@ const ButtonContainer = styled(Box)`
         flex: 1;
 `
 const Helper = props => {
-    const [currentPlaylist, checkedCount, removeFromCurrentPlaylist] = useCurrentPlaylist();
+    const {currentPlaylist, checkedCount, removeFromCurrentPlaylist} = useCurrentPlaylist();
     console.log('####: checkedCount;', currentPlaylist, checkedCount)
     const hidden = checkedCount === 0;
     const text = `선택한 ${checkedCount} 곡을`;
