@@ -30,12 +30,13 @@ const Artist = styled(Box)`
 const Song = props => {
     const defaultSong = {
         id: 1,
-        title: '제목',
+        song_name: '제목',
         artist: 'Artist',
         checkedPlaylist: false
     }
     const {song=defaultSong, sequenceId} = props;
-    const {id, title, artist, checkedPlaylist, albumImageSrc, src, currentPlaying} = song;
+    const {id, song_name, artist, checkedPlaylist, albumImageSrc, src, currentPlaying} = song;
+    console.log('^^^^:', id, song_name, artist, checkedPlaylist, currentPlaying)
     // const [loadPlayer, setLoadPlayer] = React.useState(false);
     const [removeFromPlaylist, setChecked] = useSongPlaylist(sequenceId);
     const {setPlayerSource} = useAudioPlayer();
@@ -44,14 +45,14 @@ const Song = props => {
     },[checkedPlaylist, setChecked])
     const onDoubleClick = React.useCallback(() => {
         setPlayerSource(src, albumImageSrc, sequenceId);
-    },[src, albumImageSrc, id, setPlayerSource])
+    },[src, albumImageSrc, sequenceId, setPlayerSource])
 
     return (
         <Container>
             <SmallCheckBox checked={checkedPlaylist} setChecked={onChecked} />
             <Artist>
                 {currentPlaying && <PlayingIcon></PlayingIcon>}
-                <TextBox text={title} onDoubleClick={onDoubleClick} color={currentPlaying && 'gold'} margin="0px 15px 0px 0px" width="125px"></TextBox>
+                <TextBox text={song_name} onDoubleClick={onDoubleClick} color={currentPlaying && 'gold'} margin="0px 15px 0px 0px" width="125px"></TextBox>
             </Artist>
             <TextBox text={artist} color={currentPlaying && 'gold'} width="90px"></TextBox>
         </Container>

@@ -14,16 +14,16 @@ const Container = styled(Box)`
 
 const SongList = () => {
     const {currentPlaylist} = useCurrentPlaylist();
-    const songs = currentPlaylist.length > 0 ? currentPlaylist.map(song => {
-        console.log('#### song', song)
-        return {title: song.song_name, ...song}
-    }) : [];
+    // const songs = currentPlaylist.length > 0 ? currentPlaylist.map(song => {
+    //     console.log('#### song', song)
+    //     return {title: song.song_name, ...song}
+    // }) : [];
 
-    console.log('###songs:', songs)
+    console.log('###songs:', currentPlaylist)
     return (
         <ScrollBarWithColor autoHide style={{ width:'300px', height: 'calc(100vh - 450px)' }}>
             <Container>
-                {songs.map((song,index) => <Song key={index} sequenceId ={index} song={song}></Song>)}
+                {currentPlaylist.map((song,index) => <Song key={index} sequenceId ={index} song={song}></Song>)}
             </Container>
         </ScrollBarWithColor>
     )

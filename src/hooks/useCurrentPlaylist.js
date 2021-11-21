@@ -9,15 +9,12 @@ function useCurrentPlaylist() {
   const {setPlayerSource} = useAudioPlayer();
   const dispatch = useDispatch();
 
-  const addSongToCurrentPlaylist = song => {
+  const addSongToCurrentPlaylist = (song, playAfeterAdd) => {
     // values in state should be serializable: use song.parsed
-    dispatch(pushObjectToState({stateKey:'currentPlaylist', value: song.parsed}))
-  }
-
-  const addSongToCurrentPlaylistNPlay = song => {
-    // values in state should be serializable: use song.parsed
-    dispatch(pushObjectToState({stateKey:'currentPlaylist', value: song.parsed}));
-    setPlayerSource(song.src, song.albumImageSrc, 0);
+    const songParsed = song.parsed;
+    const songWithChecked = {...songParsed, checkedPlaylist: false, currentPlaying: false};
+    dispatch(pushObjectToState({stateKey:'currentPlaylist', value: songWithChecked}))
+    playAfeterAdd && setPlayerSource(song.src, song.albumImageSrc, 0);
   }
 
   const removeFromCurrentPlaylist = () => {
@@ -39,7 +36,6 @@ function useCurrentPlaylist() {
     currentPlaylist, 
     checkedCount, 
     addSongToCurrentPlaylist, 
-    addSongToCurrentPlaylistNPlay, 
     removeFromCurrentPlaylist, 
     toggleCurrentPlayList, 
     allChecked

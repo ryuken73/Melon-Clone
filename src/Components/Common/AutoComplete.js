@@ -97,6 +97,7 @@ const UseAutocomplete = props => {
     id: 'use-autocomplete-demo',
     options: options,
     limit: 10,
+    clearOnBlur: false,
     filterOptions: options => options,
     getOptionLabel: (option) => `${option.artistName} ${option.songName}`,
   });
@@ -136,6 +137,7 @@ const UseAutocomplete = props => {
   const handleKeyDown = React.useCallback(event => {
     if(event.charCode === 13 && event.target.value.trim()){
       console.log('^^^ enter key pressed: ',event.target.value)
+      window.dispatchEvent(new KeyboardEvent('keydown', {'code':'a'}))
       dispatch(setCurrentByInputValue({
         artistName: '',
         songName: '',
