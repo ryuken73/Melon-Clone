@@ -23,7 +23,7 @@ const DEFAULT_FETCH_OPTIONS = {
     }
 }
 
-const headers = {
+export const headers = {
     song: [
         'receipt_no',    
         'reg_no',        
