@@ -29,6 +29,23 @@ class Song {
         const label = label_no.substr(0,3);
         return `${CONSTANTS.BASE_STREAM_URL}${attach_path}/${label}/${label_no}/${attach_name}.mp3/playlist.m3u8`
     }
+    get parsed() {
+        return {
+            id: this.id,
+            albumImageSrc: this.albumImageSrc,
+            receipt_no: this.receipt_no,
+            label_no: this.label_no,
+            runtime: this.runtime,
+            song_name: this.song_name,
+            artist: this.artist,
+            album_name: this.album_name,
+            top_genre: this.top_genre,
+            album_type: this.album_type,
+            version: this.version,
+            duration: this.duration,
+            src: this.src
+        }
+    }
 }
 
 
