@@ -111,7 +111,7 @@ const UseAutocomplete = props => {
   const dispatch = useDispatch()
 
   React.useEffect(()=>{
-    console.log('^^ result of useQuerySuggest:', isLoading, isError, data)
+    console.log('^^ result of useQuerySuggest: showOptions=',showOptions, isLoading, isError, data)
     if(showOptions && isLoading !== true && isError !== true && data?.result !== undefined && data?.result !== null){
       setOptions(data.result.slice(0,100));
       return
@@ -151,7 +151,7 @@ const UseAutocomplete = props => {
       setOptions([]);
       history.push(`/searchResult/all/${event.target.value}`);
     }
-  },[dispatch, history])
+  },[dispatch, setShowOptions, history])
 
   return (
     <div>
