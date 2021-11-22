@@ -30,8 +30,8 @@ const PATHS = {
     '가사': '/searchResult/lyrics'
 }
 
-const findPathKeyByUrl = url => {
-    const index = Object.values(PATHS).findIndex(path => path === url);
+const findPathKeyByCategory = category => {
+    const index = Object.values(PATHS).findIndex(path => path.endsWith(category));
     return Object.keys(PATHS)[index] || '통합검색';
 }
 
@@ -40,14 +40,15 @@ function SearchResultBar(props) {
     const {category, keyword} = match.params;
     const [activeTab, setActiveTab] = React.useState('통합검색');
     React.useEffect(()=>{
-        setActiveTab(category);
+        const tabname = findPathKeyByCategory(category)
+        setActiveTab(tabname);
     },[category])
 
     const handleClick = React.useCallback(event => {
         const tabName = event.target.innerText;
-        setActiveTab(tabName);
+        // setActiveTab(tabName);
         history.push(`${PATHS[tabName]}/${keyword}`, {tabName});
-    },[history, keyword, setActiveTab])
+    },[history, keyword])
 
     return (
         <Container>
