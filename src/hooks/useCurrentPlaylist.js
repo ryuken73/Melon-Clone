@@ -10,8 +10,8 @@ function useCurrentPlaylist() {
   const dispatch = useDispatch();
 
   const addSongToCurrentPlaylist = (song, playAfeterAdd) => {
-    // values in state should be serializable: use song.parsed
-    const songParsed = song.parsedWithoutBTag;
+    // to add to state, song should be converted to serializable(to song.parsedWithoutBTag)
+    const songParsed = song.parsedWithoutBTag || song;
     const songWithChecked = {...songParsed, checkedPlaylist: false, currentPlaying: false};
 
     dispatch(pushObjectToState({stateKey:'currentPlaylist', value: songWithChecked}))
