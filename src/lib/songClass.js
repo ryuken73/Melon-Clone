@@ -46,6 +46,14 @@ class Song {
             src: this.src
         }
     }
+    get parsedWithoutBTag() {
+        return {
+            ...this.parsed,
+            song_name: this.song_name.replace('<b>','').replace('</b>',''),
+            album_name: this.album_name.replace('<b>','').replace('</b>',''),
+            artist: this.artist.replace('<b>','').replace('</b>',''),
+        }
+    }
 }
 
 

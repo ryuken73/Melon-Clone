@@ -11,8 +11,9 @@ function useCurrentPlaylist() {
 
   const addSongToCurrentPlaylist = (song, playAfeterAdd) => {
     // values in state should be serializable: use song.parsed
-    const songParsed = song.parsed;
+    const songParsed = song.parsedWithoutBTag;
     const songWithChecked = {...songParsed, checkedPlaylist: false, currentPlaying: false};
+
     dispatch(pushObjectToState({stateKey:'currentPlaylist', value: songWithChecked}))
     playAfeterAdd && setPlayerSource(song.src, song.albumImageSrc, 0);
   }
