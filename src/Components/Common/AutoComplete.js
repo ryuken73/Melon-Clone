@@ -118,9 +118,9 @@ const UseAutocomplete = props => {
   },[data])
 
   React.useEffect(() => {
-    console.log('^^ value changed:', value)
+    console.log('^^ value changed:', value, inputValue)
     const {artistName, songName} = value !== null ? value: {artistName:'', songName:''};
-    dispatch(setCurrent({
+    value !== null && dispatch(setCurrent({
      artistName,
      songName,
      inputValue 
