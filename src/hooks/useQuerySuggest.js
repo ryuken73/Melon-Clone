@@ -20,7 +20,13 @@ const useQuerySuggest = patternUriEncoded => {
     const result = useQuery(['autocomplete', url, fetchOptions, patternUriEncoded], querySuggests, {
         enabled: !!patternUriEncoded
     });    
-    return result;
+    const resultWithEmpty = !!patternUriEncoded ? result : Promise.resolve({
+      isLoading: false,
+      isError: false,
+      data: null,
+      error: null
+    })
+    return resultWithEmpty;
 } 
 
 export default useQuerySuggest;
