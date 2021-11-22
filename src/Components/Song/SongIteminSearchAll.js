@@ -14,6 +14,7 @@ import {secondsToTime} from 'lib/util'
 import LinkArtist from 'Components/Links/LinkArtist';
 import useSongsInAlbum from 'hooks/useSongsInAlbum';
 import useCurrentPlaylist from 'hooks/useCurrentPlaylist';
+import useSongHelper from 'hooks/useSongHelper';
 
 const Container = styled(Box)`
     && {
@@ -30,9 +31,11 @@ const Container = styled(Box)`
 `
 
 const SongIteminSearchAll = props => {
-    const {song, checked=false, rownum, toggleChecked=()=>{}, ...rest} = props;
+    // const {song, checked=false, rownum, toggleChecked=()=>{}, ...rest} = props;
+    const {song, rownum, ...rest} = props;
     const [hovered, setHovered] = React.useState(false);
     const {addSongToCurrentPlaylist} = useCurrentPlaylist();
+    const {checked, addChecked, delChecked} = useSongHelper(song.id);
     // console.log('&&&&&:', allChecked, addSongToCurrentPlaylist)
     const onHovered = React.useCallback(()=>{
         setHovered(true);
@@ -46,8 +49,12 @@ const SongIteminSearchAll = props => {
     // const {addSongByRownum, addSongByRownumNPlay, toggleSongChecked} = useSongsInAlbum(receipt_no, rownum);
 
     const onChecked = React.useCallback(() => {
-        toggleChecked(rownum)
-    },[toggleChecked, rownum])
+        if(checked){
+            delChecked(song);
+        } else {
+            addChecked(song)
+        }
+    },[addChecked, delChecked, song, checked])
 
     const addSongNPlay = React.useCallback(() => {
         addSongToCurrentPlaylist(song, true);

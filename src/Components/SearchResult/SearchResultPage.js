@@ -9,6 +9,7 @@ import SearchResultSongs from './SearchResultSongs';
 import SearchResultAlbums from './SearchResultAlbums';
 import SearchResultArtists from './SearchResultArtists';
 import SearchResultLyrics from './SearchResultArtists';
+import SongHelper from 'Components/SongHelper';
 
 const Container = styled(Box)`
     display: flex;
@@ -42,14 +43,12 @@ function SearchResultPage(props) {
     return (
         <Container>
             <SearchResultBar></SearchResultBar>
-                <SubContainer>
-                    <Switch>
-                        <Route path='/searchResult/:category/:keyword' render={routerProps => <ResultSummary {...routerProps} category={category}></ResultSummary>}></Route>
-                    </Switch>
-                </SubContainer>
-            {/* <SearchResultSongs></SearchResultSongs>
-            <SearchResultAlbums></SearchResultAlbums>
-            <SearchResultArtists></SearchResultArtists> */}
+            <SubContainer>
+                <Switch>
+                    <Route path='/searchResult/:category/:keyword' render={routerProps => <ResultSummary {...routerProps} category={category}></ResultSummary>}></Route>
+                </Switch>
+            </SubContainer>
+            <SongHelper></SongHelper>
         </Container>
     )
 }
