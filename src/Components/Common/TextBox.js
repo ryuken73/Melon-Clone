@@ -34,17 +34,30 @@ const TextBox = props => {
     const {
         onClick=()=>{},
         text="Text",
+        preserveHtmlTag=false,
         containerProps={},
         ...restProps
     } = props;
     return (
         <Container {...containerProps}>
-            <Text
-                onClick={onClick}
-                {...restProps}
-            >
-                {text}
-            </Text>
+            {preserveHtmlTag && (
+                <Text
+                    onClick={onClick}
+                    dangerouslySetInnerHTML={{
+                        __html: text
+                    }}
+                    {...restProps}
+                >
+                </Text>
+            )}
+            {!preserveHtmlTag && (
+                <Text
+                    onClick={onClick}
+                    {...restProps}
+                >
+                    {text}
+                </Text>
+            )}
         </Container>
     )
 }

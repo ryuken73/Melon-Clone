@@ -20,7 +20,7 @@ const LinkArtist = props => {
         history.push(`/artist/${artist}/songList`)
     },[history, hasArtistId])
     return (
-        <TextBox text={artist} onClick={onClick}></TextBox>
+        <TextBox preserveHtmlTag text={artist} onClick={onClick}></TextBox>
     )
 }
 

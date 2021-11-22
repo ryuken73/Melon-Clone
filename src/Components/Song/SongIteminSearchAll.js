@@ -41,7 +41,7 @@ const SongIteminSearchAll = props => {
         setHovered(false);
     },[setHovered])
     // console.log('###', cellValues)
-    const {id, song_name, artist, version, duration, runtime, src, albumImageSrc} = song;
+    const {id, song_name, song_name_bold, artist, artist_bold, version, duration, runtime, src, albumImageSrc} = song;
     console.log(id, song_name, artist, version, duration, runtime, src, albumImageSrc)
     // const {addSongByRownum, addSongByRownumNPlay, toggleSongChecked} = useSongsInAlbum(receipt_no, rownum);
 
@@ -67,7 +67,7 @@ const SongIteminSearchAll = props => {
                 </Box>
                 <Box flex="5" display="flex" flexDirection="row" alignItems="center">
                     {/* 곡명 */}
-                    <TextBox containerProps={{marginRight:"15px"}} text={song_name} {...rest}></TextBox>
+                    <TextBox preserveHtmlTag containerProps={{marginRight:"15px"}} text={song_name_bold} {...rest}></TextBox>
                     {hovered && (
                         <Box flexShrink="0" width="150px" ml="auto" mr="20px">
                             <HoverButton onClick={addSongNPlay}><PlayArrowIcon fontSize="medium"></PlayArrowIcon></HoverButton>
@@ -78,7 +78,7 @@ const SongIteminSearchAll = props => {
                 </Box>
                 <Box width="20%">
                     {/* 아티스트 */}
-                    <LinkArtist artist={artist} {...rest} color="darkgrey"></LinkArtist>
+                    <LinkArtist artist={artist_bold} preserveHtmlTag {...rest} color="darkgrey"></LinkArtist>
                 </Box>
                 <Box width="15%" display="flex" flexDirection="row" alignItems="center">
                     {/* 버전 */}

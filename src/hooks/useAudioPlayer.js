@@ -7,7 +7,8 @@ function useAudioPlayer() {
   const image = useSelector((state) => state.audioPlayer.currentAlbumImage);
   const songIndex = useSelector((state) => state.audioPlayer.currentIndex);
   const currentPlaylist = useSelector(state => state.playlist.currentPlaylist);
-  const song = currentPlaylist[songIndex];
+  // const song = currentPlaylist[songIndex];
+  const song = currentPlaylist.find(song => song.currentPlaying);
   const dispatch = useDispatch();
   const setPlayerSource = React.useCallback((src, image, index) => {
     dispatch(setCurrent({src, image, index}))
