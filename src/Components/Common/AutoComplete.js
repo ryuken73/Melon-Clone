@@ -85,6 +85,7 @@ const querySuggests = async ({queryKey}) => {
 const UseAutocomplete = props => {
   const {history} = props;
   const [options, setOptions] = React.useState([]);
+  const [showOptions, setShowOptions] = React.useState(true);
   const {
     getRootProps,
     getInputLabelProps,
@@ -111,13 +112,13 @@ const UseAutocomplete = props => {
 
   React.useEffect(()=>{
     console.log('^^ result of useQuerySuggest:', isLoading, isError, data)
-    if(isLoading !== true && isError !== true && data?.result !== undefined && data?.result !== null){
+    if(showOptions && isLoading !== true && isError !== true && data?.result !== undefined && data?.result !== null){
       setOptions(data.result.slice(0,100));
       return
     }
     data?.result === null && setOptions([]);
     !isLoading && data === undefined && setOptions([]);
-  },[data, isLoading, isError])
+  },[data, isLoading, isError, showOptions])
 
   React.useEffect(() => {
     console.log('^^ value changed:', value, inputValue)
@@ -137,7 +138,9 @@ const UseAutocomplete = props => {
   },[inputValue]);
 
   const handleKeyDown = React.useCallback(event => {
+    setShowOptions(true);
     if(event.charCode === 13 && event.target.value.trim()){
+      setShowOptions(false);
       console.log('^^^ enter key pressed: ',event.target.value)
       window.dispatchEvent(new KeyboardEvent('keydown', {'code':'a'}))
       dispatch(setCurrentByInputValue({
@@ -145,6 +148,7 @@ const UseAutocomplete = props => {
         songName: '',
         inputValue: event.target.value
       }))
+      setOptions([]);
       history.push(`/searchResult/all/${event.target.value}`);
     }
   },[dispatch, history])
