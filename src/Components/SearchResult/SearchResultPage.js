@@ -8,6 +8,7 @@ import SearchResultAll from './SearchResultAll';
 import SearchResultSongs from './SearchResultSongs';
 import SearchResultAlbums from './SearchResultAlbums';
 import SearchResultArtists from './SearchResultArtists';
+import SearchResultLyrics from './SearchResultArtists';
 
 const Container = styled(Box)`
     display: flex;
@@ -33,6 +34,9 @@ function SearchResultPage(props) {
         }
         if(category === 'artists'){
             return <SearchResultArtists></SearchResultArtists>
+        }
+        if(category === 'lyrics'){
+            return <SearchResultLyrics></SearchResultLyrics>
         }
     }
     return (
