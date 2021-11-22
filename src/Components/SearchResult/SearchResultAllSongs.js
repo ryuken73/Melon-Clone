@@ -29,6 +29,7 @@ function SearchResultAllSongs(props) {
     const result = useSearchAllSongs(keyword);
     const songs = React.useMemo(() => createSong(result.data),[result.data]);
     const searchCount = result.isSuccess ? result.data.total : '...';
+    const showAllResults = React.useCallback(() => {}, []);
     console.log('&&: in search all song:', result.data, songs)
     return (
         <Container>
@@ -39,7 +40,7 @@ function SearchResultAllSongs(props) {
                         color="white" 
                         opacity="0.7" 
                         opacityOnHover="0.7" 
-                        cursor="auto"
+                        onClick={showAllResults}
                         text={`곡(${searchCount}) >`}>
                     </TextBox>
                 </SubContainer>

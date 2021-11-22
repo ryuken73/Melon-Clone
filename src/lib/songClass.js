@@ -3,7 +3,10 @@ import { secondsToTime } from './util';
 import {headers, responseToObject} from 'config/apis';
 const {BASE_API_URL, BASE_STREAM_URL} = CONSTANTS;
 const replaceBold = str => {
-    return str.replace('<b>','<span style=color:yellow;>').replace('</b>','</span>')
+    return str.replace(/<b>/g,'<span style=color:yellow;>').replace(/<\/b>/g,'</span>')
+}
+const removeBold = str => {
+    return str.replace(/<b>/g,'').replace(/<\/b>/g,'')
 }
 
 class Song {
@@ -55,9 +58,9 @@ class Song {
     get parsedWithoutBTag() {
         return {
             ...this.parsed,
-            song_name: this.song_name.replace('<b>','').replace('</b>',''),
-            album_name: this.album_name.replace('<b>','').replace('</b>',''),
-            artist: this.artist.replace('<b>','').replace('</b>',''),
+            song_name: removeBold(this.song_name),
+            album_name: removeBold(this.album_name),
+            artist: removeBold(this.artist)
         }
     }
 }
