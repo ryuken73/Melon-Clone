@@ -6,6 +6,7 @@ import createSong from 'lib/songClass';
 import CommonPageHeader from 'Components/Common/CommonPageHeader';
 import SongListInSearchAll from 'Components/Song/SongListInSearchAll';
 import TextBox from 'Components/Common/TextBox';
+import queryString from 'query-string';
 import {Switch, Route, withRouter} from 'react-router-dom';
 
 const Container = styled(Box)`
@@ -24,9 +25,10 @@ const SubContainer = styled(Box)`
 `
 
 function SearchResultAllSongs(props) {
-    const {history, match } = props;
-    const {keyword} = match.params;
-    const result = useSearchAllSongs(keyword);
+    const {history, match, location } = props;
+    const query = queryString.parse(location.search)
+    const {keyword, exactSearch, artistName, songName} = query;
+    const result = useSearchAllSongs({keyword, exactSearch, artistName, songName});
     const songs = React.useMemo(() => createSong(result.data),[result.data]);
     const searchCount = result.isSuccess ? result.data.total : '...';
     const showAllResults = React.useCallback(() => {}, []);

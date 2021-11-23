@@ -9,7 +9,7 @@ import SpanBox from './SpanBox';
 import {useQuery} from 'react-query';
 import useDebounce from 'hooks/useDebounce';
 import useQuerySuggest from 'hooks/useQuerySuggest';
-import {setCurrent, setCurrentByInputValue} from './autoCompleteSlice';
+// import {setCurrent, setCurrentByInputValue} from './autoCompleteSlice';
 import {useDispatch} from 'react-redux';
 import {Switch, Route, withRouter} from 'react-router-dom';
 
@@ -121,14 +121,9 @@ const UseAutocomplete = props => {
   },[data, isLoading, isError, showOptions])
 
   React.useEffect(() => {
-    console.log('^^ value changed:', value, inputValue)
+    console.log('^^ value changed:', value)
     const {artistName, songName} = value !== null ? value: {artistName:'', songName:''};
-    value !== null && dispatch(setCurrent({
-     artistName,
-     songName,
-     inputValue 
-    }))
-    value !== null && history.push(`/searchResult/all/${inputValue}`);
+    value !== null && history.push(`/searchResult/all?exactSearch=yes&artistName=${artistName}&songName=${songName}&keyword=${inputValue}`);
   },[value, dispatch, history])
 
   const getHighlightParts = React.useCallback(option => {
@@ -142,16 +137,10 @@ const UseAutocomplete = props => {
     if(event.charCode === 13 && event.target.value.trim()){
       setShowOptions(false);
       console.log('^^^ enter key pressed: ',event.target.value)
-      window.dispatchEvent(new KeyboardEvent('keydown', {'code':'a'}))
-      dispatch(setCurrentByInputValue({
-        artistName: '',
-        songName: '',
-        inputValue: event.target.value
-      }))
       setOptions([]);
-      history.push(`/searchResult/all/${event.target.value}`);
+      history.push(`/searchResult/all?exactSearch=no&keyword=${event.target.value}`);
     }
-  },[dispatch, setShowOptions, history])
+  },[setShowOptions, history])
 
   return (
     <div>

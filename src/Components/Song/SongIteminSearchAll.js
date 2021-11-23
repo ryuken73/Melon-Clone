@@ -45,7 +45,7 @@ const SongIteminSearchAll = props => {
     },[setHovered])
     // console.log('###', cellValues)
     const {id, song_name, song_name_bold, artist, artist_bold, version, duration, runtime, src, albumImageSrc} = song;
-    console.log(id, song_name, artist, version, duration, runtime, src, albumImageSrc)
+    // console.log(id, song_name, artist, version, duration, runtime, src, albumImageSrc)
     // const {addSongByRownum, addSongByRownumNPlay, toggleSongChecked} = useSongsInAlbum(receipt_no, rownum);
 
     const onChecked = React.useCallback(() => {

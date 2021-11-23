@@ -45,7 +45,7 @@ function SearchResultPage(props) {
             <SearchResultBar></SearchResultBar>
             <SubContainer>
                 <Switch>
-                    <Route path='/searchResult/:category/:keyword' render={routerProps => <ResultSummary {...routerProps} category={category}></ResultSummary>}></Route>
+                    <Route path='/searchResult/:category' render={routerProps => <ResultSummary {...routerProps} category={category}></ResultSummary>}></Route>
                 </Switch>
             </SubContainer>
             <SongHelper></SongHelper>
