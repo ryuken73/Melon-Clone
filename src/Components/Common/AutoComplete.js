@@ -132,7 +132,7 @@ const UseAutocomplete = props => {
     return parts;
   },[inputValue]);
 
-  const handleKeyDown = React.useCallback(event => {
+  const handleKeyPressed = React.useCallback(event => {
     setShowOptions(true);
     if(event.charCode === 13 && event.target.value.trim()){
       setShowOptions(false);
@@ -142,10 +142,14 @@ const UseAutocomplete = props => {
     }
   },[setShowOptions, history])
 
+  const handleKeyDown = React.useCallback(event => {
+    setShowOptions(true);
+  },[])
+
   return (
     <div>
       <div {...getRootProps()}>
-        <Input onKeyPressCapture={handleKeyDown} {...getInputProps()} />
+        <Input onKeyDownCapture={handleKeyDown} onKeyPressCapture={handleKeyPressed} {...getInputProps()} />
       </div>
       {groupedOptions.length > 0 ? (
         <Listbox {...getListboxProps()}>
