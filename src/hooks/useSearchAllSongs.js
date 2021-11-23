@@ -19,6 +19,7 @@ const queryAll = async ({queryKey}) => {
 
 const useSearchAllSongs = keyword => {
 
+  console.log('&&:', keyword)
   const {artistName, songName, inputValue} = useSelector(state => state.autoComplete)
   const needExactSearch = artistName !== '' || songName !== '';
   console.log('^^ in useSearchAllSongs: need exact Search');
