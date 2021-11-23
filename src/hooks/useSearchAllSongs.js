@@ -61,8 +61,8 @@ const useSearchAllSongs = options => {
   // const {url: urlArtist, fetchOptions: fetchOptionsArtist} = apiMap.searchMusicAll({...artistParams});
   // const {url: urlLyrics, fetchOptions: fetchOptionsLyrics} = apiMap.searchMusicAll({...lyricsParams});
 
-  const exactSearchResult = useQuery(['searchMusicAll', urlExact, fetchOptionsExact, artistName, songName], queryAll, {enabled:needExactSearch});
-  const searchResult = useQuery(['searchMusicAll', url, fetchOptions, keyword], queryAll, {enabled:!needExactSearch});
+  const exactSearchResult = useQuery(['searchMusicAll', urlExact, fetchOptionsExact, artistName, songName, 'song'], queryAll, {enabled:needExactSearch});
+  const searchResult = useQuery(['searchMusicAll', url, fetchOptions, keyword, 'song'], queryAll, {enabled:!needExactSearch});
   // const albumResults =  useQuery(['searchMusicAll', urlAlbum, fetchOptionsAlbum, artistName, songName], queryAll, {enabled:false});
   // const artistResults =  useQuery(['searchMusicAll', urlArtist, fetchOptionsArtist, artistName, songName], queryAll, {enabled:false});
   // const lyricsResults =  useQuery(['searchMusicAll', urlLyrics, fetchOptionsLyrics, artistName, songName], queryAll, {enabled:false});
