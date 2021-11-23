@@ -13,6 +13,7 @@ const Container = styled(Box)`
     justify-content: flex-start;
     align-items: center;
     background: transparent;
+    margin-bottom: 15px;
 `
 const views = [
     {id: 'portal', url:'/'},
