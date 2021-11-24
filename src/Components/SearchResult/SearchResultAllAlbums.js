@@ -2,9 +2,9 @@ import React from 'react';
 import Box from '@mui/material/Box';
 import styled from 'styled-components';
 import useSearchAllAlbums from 'hooks/useSearchAllAlbums';
-import createSong from 'lib/songClass';
+import createAlbum from 'lib/albumClass';
 import CommonPageHeader from 'Components/Common/CommonPageHeader';
-import SongListInSearchAll from 'Components/Song/SongListInSearchAll';
+import AlbumListNoScrollBar from 'Components/Album/AlbumList/AlbumListNoScrollBar';
 import TextBox from 'Components/Common/TextBox';
 import queryString from 'query-string';
 import {Switch, Route, withRouter} from 'react-router-dom';
@@ -24,15 +24,15 @@ const SubContainer = styled(Box)`
     margin-bottom: 10px;
 `
 
-function SearchResultAllSongs(props) {
+function SearchResultAllAlbums(props) {
     const {history, match, location } = props;
     const query = queryString.parse(location.search)
     const {keyword, exactSearch, artistName, songName} = query;
     const result = useSearchAllAlbums({keyword, exactSearch, artistName, songName});
-    const songs = React.useMemo(() => createSong(result.data),[result.data]);
+    const albums = React.useMemo(() => createAlbum(result.data),[result.data]);
     const searchCount = result.isSuccess ? result.data.total : '...';
     const showAllResults = React.useCallback(() => {}, []);
-    console.log('&&: in search all song:', result.data, songs)
+    console.log('&&: in search all song:', result.data, albums)
     return (
         <Container>
             <CommonPageHeader>
@@ -43,13 +43,13 @@ function SearchResultAllSongs(props) {
                         opacity="0.7" 
                         opacityOnHover="0.7" 
                         onClick={showAllResults}
-                        text={`곡(${searchCount}) >`}>
+                        text={`앨범(${searchCount}) >`}>
                     </TextBox>
                 </SubContainer>
             </CommonPageHeader>
-            <SongListInSearchAll songs={songs}></SongListInSearchAll>
+            <AlbumListNoScrollBar albums={albums}></AlbumListNoScrollBar>
         </Container>
     )
 }
 
-export default React.memo(withRouter(SearchResultAllSongs));
+export default React.memo(withRouter(SearchResultAllAlbums));

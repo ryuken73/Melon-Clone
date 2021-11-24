@@ -2,6 +2,7 @@ import CONSTANTS from 'config/constants';
 import { secondsToTime } from './util';
 import {headers, responseToObject} from 'config/apis';
 const {BASE_API_URL, BASE_STREAM_URL} = CONSTANTS;
+
 const replaceBold = str => {
     return str.replace(/<b>/g,'<span style=color:yellow;>').replace(/<\/b>/g,'</span>')
 }

@@ -22,6 +22,7 @@ const AlbumBox = props => {
         nameArtist="김광석", 
         imagePath="/images/no_image_black.jpg", 
         resizeOnHover=true,
+        preserveHtmlTag=false,
         history
     } = props;
     const handleClickAlbum = React.useCallback(()=> {
@@ -44,6 +45,7 @@ const AlbumBox = props => {
                 opacity="0.7" 
                 opacityOnHover="0.9"
                 text={nameAlbum}
+                preserveHtmlTag={preserveHtmlTag}
                 onClick={handleClickAlbum}
             >
             </TextBox>
@@ -52,6 +54,7 @@ const AlbumBox = props => {
                 color="white" 
                 opacity="0.5" 
                 opacityOnHover="0.6" 
+                preserveHtmlTag={preserveHtmlTag}
                 text={nameArtist}>
             </TextBox>
         </Container>
