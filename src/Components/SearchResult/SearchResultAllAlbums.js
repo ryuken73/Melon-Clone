@@ -14,6 +14,7 @@ const Container = styled(Box)`
     flex-direction: column;
     justify-content: flex-start;
     background: transparent;
+    margin-top: 30px;
 `
 const SubContainer = styled(Box)`
     display: flex;
@@ -35,18 +36,20 @@ function SearchResultAllAlbums(props) {
     console.log('&&: in search all song:', result.data, albums)
     return (
         <Container>
-            <CommonPageHeader>
-                <SubContainer>
-                    <TextBox 
-                        fontSize="20px" 
-                        color="white" 
-                        opacity="0.7" 
-                        opacityOnHover="0.7" 
-                        onClick={showAllResults}
-                        text={`앨범(${searchCount}) >`}>
-                    </TextBox>
-                </SubContainer>
-            </CommonPageHeader>
+            {result.isSuccess && (
+                <CommonPageHeader>
+                    <SubContainer>
+                        <TextBox 
+                            fontSize="20px" 
+                            color="white" 
+                            opacity="0.7" 
+                            opacityOnHover="0.7" 
+                            onClick={showAllResults}
+                            text={`앨범(${searchCount}) >`}>
+                        </TextBox>
+                    </SubContainer>
+                </CommonPageHeader>
+            )}
             <AlbumListNoScrollBar albums={albums}></AlbumListNoScrollBar>
         </Container>
     )

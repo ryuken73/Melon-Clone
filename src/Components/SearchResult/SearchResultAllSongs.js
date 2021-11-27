@@ -35,18 +35,20 @@ function SearchResultAllSongs(props) {
     console.log('&&: in search all song:', result.data, songs)
     return (
         <Container>
-            <CommonPageHeader>
-                <SubContainer>
-                    <TextBox 
-                        fontSize="20px" 
-                        color="white" 
-                        opacity="0.7" 
-                        opacityOnHover="0.7" 
-                        onClick={showAllResults}
-                        text={`곡(${searchCount}) >`}>
-                    </TextBox>
-                </SubContainer>
-            </CommonPageHeader>
+            {result.isSuccess && (
+                <CommonPageHeader>
+                    <SubContainer>
+                        <TextBox 
+                            fontSize="20px" 
+                            color="white" 
+                            opacity="0.7" 
+                            opacityOnHover="0.7" 
+                            onClick={showAllResults}
+                            text={`곡(${searchCount}) >`}>
+                        </TextBox>
+                    </SubContainer>
+                </CommonPageHeader>
+            )}
             <SongListInSearchAll songs={songs}></SongListInSearchAll>
         </Container>
     )
