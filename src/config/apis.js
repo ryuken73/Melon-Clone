@@ -73,7 +73,41 @@ export const headers = {
         'new_flag',
         'brd_time',
         'digital_yn'
+    ],
+    artist: [
+        'key',
+        'artist',
+        'artist_type',
+        'genre',
+        'debut_song',
+        'title_song',
+        'belong',
+        'member',
+        'attach_name',
+        'attach_size',
+        'attach_path',
+        'genre_nm',
+        'nm_idx',
+        'nm_hex',
+        'nm_asc'
+    ],
+    lyrics: [
+        'receipt_no',
+        'reg_no',
+        'status',
+        'open_dt',
+        'track_no',
+        'attach_name',
+        'attach_path',
+        'label_no',
+        'runtime',
+        'song_name',
+        'dlbr_rslt',
+        'dlbr_rslt_nm',
+        'lyrics',
+        'lyricist'
     ]
+
 }
 
 export const apiMap = {
