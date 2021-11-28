@@ -22,12 +22,14 @@ const useSearchAllArtists = options => {
   const needExactSearch = exactSearch === 'yes';
 
   const paramsExact = {
+    page_sizes: 3,
     scn: 'artist', 
     query: `artist_str = '${artistName}'`,
     orderby: ''
   }
 
   const params = {
+    page_sizes: 3,
     scn: 'artist', 
     query: `art_idx = '${keyword}' allwordthruindexsyn`,
     orderby: ''

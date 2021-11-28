@@ -3,6 +3,7 @@ import ScrollBarWithColor from 'Components/Common/ScrollBarWithColor';
 import SearchResultAllSongs from './SearchResultAllSongs';
 import SearchResultAllAlbums from './SearchResultAllAlbums';
 import SearchResultAllArtists from './SearchResultAllArtists';
+import SearchResultAllLyrics from './SearchResultAllLyrics';
 import {Switch, Route, withRouter} from 'react-router-dom';
 
 function SearchResultAll(props) {
@@ -16,6 +17,7 @@ function SearchResultAll(props) {
             <SearchResultAllSongs></SearchResultAllSongs>
             <SearchResultAllAlbums></SearchResultAllAlbums>
             <SearchResultAllArtists></SearchResultAllArtists>
+            <SearchResultAllLyrics></SearchResultAllLyrics>
         </ScrollBarWithColor>
     )
 }

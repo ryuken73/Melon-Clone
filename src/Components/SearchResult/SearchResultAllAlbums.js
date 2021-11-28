@@ -42,8 +42,8 @@ function SearchResultAllAlbums(props) {
                         <TextBox 
                             fontSize="20px" 
                             color="white" 
-                            opacity="0.7" 
-                            opacityOnHover="0.7" 
+                            opacity={searchCount === 0 ? "0.2":"0.7"}
+                            opacityOnHover={searchCount === 0 ? "0.2":"0.7"}
                             onClick={showAllResults}
                             text={`앨범(${searchCount}) >`}>
                         </TextBox>

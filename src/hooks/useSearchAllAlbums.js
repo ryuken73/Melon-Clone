@@ -26,12 +26,14 @@ const useSearchAllAlbums = options => {
   const currentTime = getString(now, {sep:''}).substr(0,12);
 
   const paramsExact = {
+    page_sizes: 5,
     scn: 'album', 
     query: `(song_name_str like '*${songName}*' and artist_str = '${artistName}') and open_time<='${currentTime}' and status='Y'`,
     orderby: 'order by release_year desc,song_name_str asc'
   }
 
   const params = {
+    page_sizes: 5,
     scn: 'album', 
     query: `(album_idx = '${keyword}' allwordthruindexsyn or release_year='${keyword}' or arrang_type_nm='${keyword}' 
              or label_no='${keyword}'and status='Y') and open_time<='${currentTime}' and status='Y'`,

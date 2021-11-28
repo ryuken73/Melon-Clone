@@ -8,6 +8,7 @@ const ColoredDivider = styled.hr`
     border-color: ${props => props.color};
     opacity: ${props => props.opacity || 0.5};
     margin: ${props => props.margin || "8px"};
+    margin-top: ${props => props.mt || "0px"};
     border-style: inset;
 `
 

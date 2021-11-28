@@ -70,7 +70,7 @@ const SongIteminSearchAll = props => {
                 <Box flex="1">
                     {/* Small Album Image */}
                     {/* <TextBox text={rownum} {...rest} cursor="auto"></TextBox> */}
-                    <ImageBox src={albumImageSrc} width="30px" height="30px"></ImageBox>
+                    <ImageBox src={albumImageSrc} width="40px" height="40px"></ImageBox>
                 </Box>
                 <Box flex="5" display="flex" flexDirection="row" alignItems="center">
                     {/* 곡명 */}

@@ -31,7 +31,7 @@ const SongListInSearchAll = props => {
         <Container>
             {/* <ScrollBarWithColor autoHide style={{ width:'100%', height: 'calc(100vh - 370px)' }}> */}
                 {songs.map((song, index) => (
-                    <Box key={song.rownum}>
+                    <Box key={song.rownum} px="10px">
                         <SongIteminSearchAll
                             rownum={index}
                             fontSize="14px"
