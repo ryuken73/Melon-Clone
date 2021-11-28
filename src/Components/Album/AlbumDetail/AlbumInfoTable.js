@@ -77,7 +77,7 @@ const mkItems = albumInfo => {
     ]
 }
 
-const splitRemark = remarkText => {
+const splitRemark = (remarkText='') => {
     const splited = remarkText.split('\r\n\r\n');
     if(splited.length > 2){
         return splited;
@@ -90,10 +90,10 @@ const splitRemark = remarkText => {
 const AlbumInfoTable = props => {
     const {receipt_no} = props;
     const albumInfo = useAlbumInfo(receipt_no)
+    console.log('^^ albumInfo:', albumInfo)
     const items = mkItems(albumInfo);
     const [remarkHeader, ...rest] = splitRemark(albumInfo.remark_ext)
     const remark = rest.join('\r\n\r\n');
-    console.log('^^ albumInfo:', albumInfo)
     const {songsInAlbum} = useSongsInAlbum(receipt_no);
     const songs = songsInAlbum.map(song => song.song_name);
     console.log('^^ songsInAlbum:', songsInAlbum)
