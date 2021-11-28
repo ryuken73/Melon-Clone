@@ -7,6 +7,7 @@ import TextBox from 'Components/Common/TextBox';
 const Container = styled(Box)`
     display: flex;
     flex-direction: column;
+    width: 150px;
     margin: 10px;
 `
 
