@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import CommonPageHeader from 'Components/Common/CommonPageHeader';
 import TextBox from 'Components/Common/TextBox';
 import TextBoxHighlight from 'Components/Common/TextBoxHighlight';
+import queryString from 'query-string';
 import {Switch, Route, withRouter} from 'react-router-dom';
 
 const Container = styled(Box)`
@@ -36,18 +37,24 @@ const findPathKeyByCategory = category => {
 }
 
 function SearchResultBar(props) {
-    const {history, match} = props;
-    const {category, keyword} = match.params;
+    const {history, match, location} = props;
+    const {category} = match.params;
+    const query = queryString.parse(location.search);
+    const {keyword, exactSearch, artistName, songName} = query;
     const [activeTab, setActiveTab] = React.useState('통합검색');
     React.useEffect(()=>{
         const tabname = findPathKeyByCategory(category)
         setActiveTab(tabname);
     },[category])
+    console.log('&&&&:', category, keyword)
+    const qs = exactSearch === 'yes' ?
+               `exactSearch=${exactSearch}&keyword=${keyword}&artistName=${artistName}&songName=${songName}`:
+               `exactSearch=${exactSearch}&keyword=${keyword}`
 
     const handleClick = React.useCallback(event => {
         const tabName = event.target.innerText;
         // setActiveTab(tabName);
-        history.push(`${PATHS[tabName]}/${keyword}`, {tabName});
+        history.push(`${PATHS[tabName]}?${qs}`, {tabName, qs});
     },[history, keyword])
 
     return (
