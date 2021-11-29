@@ -21,7 +21,7 @@ const SongList = () => {
 
     console.log('###songs:', currentPlaylist)
     return (
-        <ScrollBarWithColor autoHide style={{ width:'300px', height: 'calc(100vh - 450px)' }}>
+        <ScrollBarWithColor autoHide style={{ width:'300px', height: 'calc(100vh - 440px)' }}>
             <Container>
                 {currentPlaylist.map((song,index) => <Song key={index} sequenceId ={index} song={song}></Song>)}
             </Container>
