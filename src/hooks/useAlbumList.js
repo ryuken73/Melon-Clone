@@ -24,7 +24,7 @@ function useAlbumList(category, fetchRequired, replaceRequired) {
   React.useEffect(()=>{
     // const additionalQuery = category === 'all' ? '' : `and top_genre=${genre[pathname]}`;
     const options = {
-      pathname: category, 
+      category, 
       query: {
         'query':`status='Y' and open_dt <= '${getDateTimeString()}' ${additionalQuery}`
       }
@@ -36,7 +36,7 @@ function useAlbumList(category, fetchRequired, replaceRequired) {
   },[category, additionalQuery, fetchRequired, replaceRequired,  dispatch])
 
   const getMoreItem = React.useCallback(()=>{
-    console.log('getMoreItem.....')
+    console.log('getMoreItem.....:', category)
     // const additionalQuery = category === 'all' ? '' : `and top_genre=${genre[pathname]}`;
     const options = {
       category, 

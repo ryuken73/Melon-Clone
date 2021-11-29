@@ -99,7 +99,7 @@ const DEFAULT_FETCH_OPTIONS = {
     }
 }
 
-export const fetchAlbums = ({pathname='all', query, replace=false}) => async (dispatch, getState) => {
+export const fetchAlbums = ({category='all', query, replace=false}) => async (dispatch, getState) => {
     const API_NAME = 'searchAlbum';
     const api = apiMap[API_NAME];
     const {uri, headers:responseHeaders} = api;
@@ -114,7 +114,7 @@ export const fetchAlbums = ({pathname='all', query, replace=false}) => async (di
     const searchParam = new URLSearchParams();
     const mergedQuery = {...DEFAULT_FETCH_QUERY, ...query};
     const state = getState();
-    const albumsInState = state.album.fetched[pathname];
+    const albumsInState = state.album.fetched[category];
     console.log(albumsInState, replace)
     mergedQuery.page_num = replace ? 1 : Math.ceil(albumsInState.length/mergedQuery.page_sizes) + 1;
     Object.keys(mergedQuery).forEach(queryKey => {
@@ -131,9 +131,9 @@ export const fetchAlbums = ({pathname='all', query, replace=false}) => async (di
         return {...album, eval_imagePath: albumImageSrc}
     })
     if(replace){
-        dispatch(replaceAlbums({category:pathname, albums:imagePathAttachedAlbums}));
+        dispatch(replaceAlbums({category, albums:imagePathAttachedAlbums}));
     } else {
-        dispatch(pushFetchedAlbums({category:pathname, albums:imagePathAttachedAlbums}));
+        dispatch(pushFetchedAlbums({category, albums:imagePathAttachedAlbums}));
     }
 }
 
