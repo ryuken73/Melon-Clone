@@ -6,7 +6,7 @@ import {useSelector, useDispatch} from 'react-redux';
 
 const queryAll = async ({queryKey}) => {
   console.log('fetch called:',queryKey)
-  const [_key, url, options, artistName, songName ] = queryKey;
+  const [_key, url, options, artistName, songName, keyword ] = queryKey;
   if(artistName === null && songName === null){
     return Promise.resolve(null);
   }
@@ -20,7 +20,8 @@ const queryAll = async ({queryKey}) => {
 const useSearchAllSongs = options => {
 
   const {keyword, artistName, songName, exactSearch} = options;
-  console.log('&&:', keyword)
+  const {page_sizes, page_num} = options;
+  console.log('&&:', keyword, page_sizes, page_num)
   const needExactSearch = exactSearch === 'yes';
   console.log('^^ in useSearchAllSongs: exact Search ?:', needExactSearch);
   const now = new Date();
@@ -39,11 +40,14 @@ const useSearchAllSongs = options => {
     orderby: 'order by release_year desc,song_name_str asc'
   }
 
+  if(page_sizes !== null) params.page_sizes = page_sizes;
+  if(page_num !== null) params.page_num = page_num;
+
   const {url: urlExact, fetchOptions: fetchOptionsExact} = apiMap.searchMusicAll({...paramsExact});
   const {url, fetchOptions} = apiMap.searchMusicAll({...params});
 
   const exactSearchResult = useQuery(['searchMusicAll', urlExact, fetchOptionsExact, artistName, songName, 'song'], queryAll, {enabled:needExactSearch});
-  const searchResult = useQuery(['searchMusicAll', url, fetchOptions, keyword, 'song'], queryAll, {enabled:!needExactSearch});
+  const searchResult = useQuery(['searchMusicAll', url, fetchOptions, keyword, 'song', page_sizes, page_num], queryAll, {enabled:!needExactSearch});
 
   const result = needExactSearch ? exactSearchResult : searchResult;
 

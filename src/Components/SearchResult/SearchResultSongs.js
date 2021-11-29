@@ -1,9 +1,14 @@
-import React from 'react'
+import React from 'react';
+import SearchResultAllSongs from './SearchResultAllSongs';
 
-export default function SearchResultSongs() {
+function SearchResultSongs() {
     return (
-        <div>
-           searchResultSongs 
-        </div>
+        <SearchResultAllSongs
+            page_sizes={20}
+            page_num={1}
+        >
+        </SearchResultAllSongs>
     )
 }
+
+export default React.memo(SearchResultSongs);
