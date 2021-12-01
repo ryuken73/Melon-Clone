@@ -17,7 +17,7 @@ const SongListInSearchAll = props => {
     return (
         <Container>
             {songs.map((song, index) => (
-                <Box key={song.rownum} px="10px">
+                <Box key={song.id} px="10px">
                     <SongIteminSearchAll
                         rownum={index}
                         fontSize="14px"

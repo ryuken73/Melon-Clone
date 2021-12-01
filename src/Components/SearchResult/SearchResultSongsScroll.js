@@ -37,7 +37,7 @@ function SearchResultSongsScroll(props) {
     const songs = React.useMemo(() => {
         const merged = pages.reduce((apiResult, acc) => {
             const songs = apiResult.fdata;
-            return {...apiResult, fdata:[...acc.fdata, ...songs]}
+            return {...apiResult, fdata:[...songs, ...acc.fdata]}
         },{fdata:[]})
         return createSong(merged)
     },[pages]);
@@ -49,9 +49,9 @@ function SearchResultSongsScroll(props) {
     const replaceRequired = false;
     return (
         <Container>
-            {/* <SongItemHeaderInSongsScroll
+            <SongItemHeaderInSongsScroll
                 songs={songs}
-            ></SongItemHeaderInSongsScroll> */}
+            ></SongItemHeaderInSongsScroll>
             <ScrollBarWithColor
                 moveScrollToTop={replaceRequired} 
                 getMoreItem={getMoreItem} 
