@@ -22,7 +22,6 @@ function SearchResultSongsScroll(props) {
     const {page_sizes=null, page_num=null} = props;
     const query = queryString.parse(location.search)
     const {keyword, exactSearch, artistName, songName} = query;
-    // const result = useSearchSongsScroll({keyword, exactSearch, artistName, songName, page_sizes, page_num});
     const {
         data,
         error,
@@ -42,8 +41,6 @@ function SearchResultSongsScroll(props) {
         },{fdata:[]})
         return createSong(merged)
     },[pages]);
-    const searchCount = isSuccess ? data.pages[0].total : '...';
-    const showAllResults = React.useCallback(() => {}, []);
     console.log('&&: in search all song:', data, songs)
     const category="";
     const getMoreItem = React.useCallback(() => {
@@ -52,7 +49,9 @@ function SearchResultSongsScroll(props) {
     const replaceRequired = false;
     return (
         <Container>
-            <SongItemHeaderInSongsScroll></SongItemHeaderInSongsScroll>
+            {/* <SongItemHeaderInSongsScroll
+                songs={songs}
+            ></SongItemHeaderInSongsScroll> */}
             <ScrollBarWithColor
                 moveScrollToTop={replaceRequired} 
                 getMoreItem={getMoreItem} 

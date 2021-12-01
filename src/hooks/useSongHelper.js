@@ -15,7 +15,18 @@ function useSongHelper(id) {
   const clearChecked = React.useCallback(song => {
     dispatch(clearCheckedList())
   },[dispatch])
-  return {checkedSongList, addChecked, delChecked, clearChecked, checked}
+  const toggleAllSongChecked = React.useCallback(songs => {
+    console.log('****:',songs);
+    if(checkedSongList.length > 0){
+      // clear all checked
+      dispatch(clearCheckedList())
+    } else {
+      songs.forEach(song => {
+        dispatch(addCheckedList({song: song.parsedWithoutBTag}))
+      })
+    }
+  },[checkedSongList, dispatch])
+  return {checkedSongList, addChecked, delChecked, clearChecked, checked, toggleAllSongChecked}
 }
 
 export default useSongHelper;

@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import SmallCheckBox from '../Common/CheckBox';
 import TextBox from '../Common/TextBox';
 import LinkArtist from 'Components/Links/LinkArtist';
-import useSongsInAlbum from 'hooks/useSongsInAlbum';
+import useSongHelper from 'hooks/useSongHelper';
 
 const Container = styled(Box)`
     && {
@@ -18,15 +18,17 @@ const Container = styled(Box)`
     }
 `
 
-const SongItemHeaderInAlbumDetail = props => {
-    const {receipt_no, headers=[], ...rest} = props;
+const SongItemHeaderInSongScroll = props => {
+    const {songs, ...rest} = props;
     // console.log('### in SongItemHeaderInAlbumDetail: ', receipt_no)
-    // const {toggleAllSongChecked, allChecked=false} = useSongsInAlbum(receipt_no);
-    const toggleAllSongChecked = () => {};
+    const {toggleAllSongChecked} = useSongHelper();
+    const toggleAllChecked = React.useCallback(checked => {
+        toggleAllSongChecked(songs);
+    },[songs, toggleAllSongChecked])
     const allChecked = false;
     return (
             <Container>
-                <SmallCheckBox checked={allChecked} setChecked={toggleAllSongChecked} />
+                <SmallCheckBox checked={allChecked} setChecked={toggleAllChecked} />
                 <Box flex="1"></Box>
                 <Box flex="5" display="flex" flexDirection="row" alignItems="center">
                     {/* 곡명 */}
@@ -48,4 +50,4 @@ const SongItemHeaderInAlbumDetail = props => {
     )
 }
 
-export default React.memo(SongItemHeaderInAlbumDetail)
+export default React.memo(SongItemHeaderInSongScroll)
