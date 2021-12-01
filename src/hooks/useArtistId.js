@@ -14,7 +14,8 @@ const queryArtist = async ({queryKey}) => {
 const useArtistId = artist_name => {
   const {url, fetchOptions} = apiMap.doListArtist(artist_name);
   const result = useQuery(['doListArtist', url, fetchOptions, artist_name], queryArtist, {
-    enabled: !!artist_name && !!url
+    enabled: !!artist_name && !!url,
+    staleTime: Infinity
   });    
   return result;
 }
