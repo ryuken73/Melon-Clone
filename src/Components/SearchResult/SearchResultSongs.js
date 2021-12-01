@@ -1,13 +1,13 @@
 import React from 'react';
-import SearchResultAllSongs from './SearchResultAllSongs';
+import SearchResultSongsScroll from './SearchResultSongsScroll';
 
 function SearchResultSongs() {
     return (
-        <SearchResultAllSongs
+        <SearchResultSongsScroll
             page_sizes={20}
             page_num={1}
         >
-        </SearchResultAllSongs>
+        </SearchResultSongsScroll>
     )
 }
 
