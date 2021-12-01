@@ -1,3 +1,4 @@
+import * as React from 'react';
 import {useSelector, useDispatch} from 'react-redux';
 import {pushObjectToState, removeChecked, toggleAllChecked} from 'Components/PlayList/playlistSlice';
 import useAudioPlayer from './useAudioPlayer';
@@ -26,12 +27,14 @@ function useCurrentPlaylist() {
     dispatch(toggleAllChecked());
   }
   
-  const checkedCount = currentPlaylist.reduce((acct, song) => {
-    if(song.checkedPlaylist){
-      return acct + 1;
-    }
-    return acct;
-  },0)
+  const checkedCount = React.useMemo(() => {
+    return currentPlaylist.reduce((acct, song) => {
+      if(song.checkedPlaylist){
+        return acct + 1;
+      }
+      return acct;
+    },0)
+  },[currentPlaylist])
 
   return {
     currentPlaylist, 

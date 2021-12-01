@@ -1,6 +1,6 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import {addCheckedList, delCheckedList, clearCheckedList} from 'Components/SongHelper/songHelperSlice';
+import {addCheckedList, delCheckedList, clearCheckedList, setCheckedList} from 'Components/SongHelper/songHelperSlice';
 
 function useSongHelper(id) {
   const dispatch = useDispatch();
@@ -21,9 +21,10 @@ function useSongHelper(id) {
       // clear all checked
       dispatch(clearCheckedList())
     } else {
-      songs.forEach(song => {
-        dispatch(addCheckedList({song: song.parsedWithoutBTag}))
-      })
+      dispatch(setCheckedList({songs:songs.map(song => song.parsedWithoutBTag)}));
+      // songs.forEach(song => {
+      //   dispatch(addCheckedList({song: song.parsedWithoutBTag}))
+      // })
     }
   },[checkedSongList, dispatch])
   return {checkedSongList, addChecked, delChecked, clearChecked, checked, toggleAllSongChecked}
