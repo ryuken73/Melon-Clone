@@ -10,7 +10,7 @@ const LinkArtist = props => {
     const {isSuccess, data} = useArtistId(artist);
     React.useEffect(() => {
         data?.list?.length > 0 && setHasArtistId(true);
-    },data)
+    },[data])
     const onClick = React.useCallback(event=>{
         if(!hasArtistId){
             alert('artist not found');
