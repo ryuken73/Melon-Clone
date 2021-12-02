@@ -15,6 +15,7 @@ import LinkArtist from 'Components/Links/LinkArtist';
 import useSongsInAlbum from 'hooks/useSongsInAlbum';
 import useCurrentPlaylist from 'hooks/useCurrentPlaylist';
 import useSongHelper from 'hooks/useSongHelper';
+import useDebounce from 'hooks/useDebounce';
 
 const Container = styled(Box)`
     && {
@@ -43,6 +44,7 @@ const SongIteminSearchAll = props => {
     const onHoverOut = React.useCallback(()=>{
         setHovered(false);
     },[setHovered])
+    const deboucedHovered = useDebounce(hovered, 100);
     // console.log('###', cellValues)
     const {id, song_name, song_name_bold, artist, artist_bold, version, duration, runtime, src, albumImageSrc} = song;
     // console.log(id, song_name, artist, version, duration, runtime, src, albumImageSrc)
@@ -65,7 +67,7 @@ const SongIteminSearchAll = props => {
     },[song, addSongToCurrentPlaylist]);
 
     return (
-            <Container checked={checked} onMouseEnter={onHovered} onMouseLeave={onHoverOut}>
+            <Container checked={checked} hovered={deboucedHovered} onMouseEnter={onHovered} onMouseLeave={onHoverOut}>
                 <SmallCheckBox checked={checked} setChecked={onChecked} />
                 <Box flex="1">
                     {/* Small Album Image */}
@@ -75,7 +77,7 @@ const SongIteminSearchAll = props => {
                 <Box flex="5" display="flex" flexDirection="row" alignItems="center">
                     {/* 곡명 */}
                     <TextBox preserveHtmlTag containerProps={{marginRight:"15px"}} text={song_name_bold} {...rest}></TextBox>
-                    {hovered && (
+                    {deboucedHovered && (
                         <Box flexShrink="0" width="150px" ml="auto" mr="20px">
                             <HoverButton onClick={addSongNPlay}><PlayArrowIcon fontSize="medium"></PlayArrowIcon></HoverButton>
                             <HoverButton><FileDownloadIcon fontSize="medium"></FileDownloadIcon></HoverButton>
@@ -94,7 +96,7 @@ const SongIteminSearchAll = props => {
                 <Box width="15%" display="flex" flexDirection="row" alignItems="center">
                     {/* 재생시간 */}
                     <TextBox text={duration} {...rest} cursor="auto" color="darkgrey"></TextBox>
-                    {hovered && (
+                    {deboucedHovered && (
                         <Box ml="auto">
                             <HoverButton><MoreVertIcon fontSize="small"></MoreVertIcon></HoverButton>
                         </Box>
