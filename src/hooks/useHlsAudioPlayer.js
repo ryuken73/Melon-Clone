@@ -37,6 +37,7 @@ export default function useHlsAudioPlayer(hlsSource) {
             console.error('hlsSource is null. just return')
             return;
         }
+        // remove previous Audio and Hls instance 
         if(audioElementRef.current !== null){
              mediaEvents.forEach(eventType => {
                 audioElementRef.current.removeEventListener(eventType, setEvent)
@@ -47,6 +48,8 @@ export default function useHlsAudioPlayer(hlsSource) {
         if(hlsRef.current !== null){
             hlsRef.current.destroy();
         }
+        //
+        // create new Audio and Hls instance, then load source.
         if(Hls.isSupported()){
             console.log('!! create audio Element')
             audioElementRef.current = new Audio();
@@ -71,12 +74,6 @@ export default function useHlsAudioPlayer(hlsSource) {
             })
         })
     },[hlsSource]);
-    // React.useEffect(()=>{
-    //     if(hls !== null){
-    //         console.log('!! loadSource:', hlsSource)
-    //         hls.loadSource(hlsSource);
-    //     }
-    // },[hls, hlsSource]);
 
     return [audioElementRef, manifestLoaded, event];
 }
