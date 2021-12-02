@@ -6,7 +6,13 @@ import reportWebVitals from './reportWebVitals';
 import {store} from './store';
 import {Provider} from 'react-redux';
 import {QueryClientProvider, QueryClient} from 'react-query';
-const queryClient = new QueryClient();
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      refetchOnWindowFocus: false
+    }
+  }
+});
 
 ReactDOM.render(
   <Provider store={store}>
