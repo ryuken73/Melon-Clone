@@ -11,6 +11,8 @@ import SongView from 'Views/SongView';
 import ArtistView from 'Views/ArtistView';
 import PortalView from 'Components/Portal/PortalPage';
 import NotFoundView from 'Views/NotFoundView';
+import PlayerSkin from 'Components/AudioPlayer/Skin';
+import Player from 'Components/AudioPlayer/Player';
 import AudioPlayer from 'Components/AudioPlayer';
 import PlayList from 'Components/PlayList';
 import CenterHeader from './CenterHeader';
@@ -28,6 +30,7 @@ const RightPane = styled(Box)`
   display: flex;
   flex-direction: column;
   width: 300px;
+  min-width: 300px;
   background:black;
   flex-grow: 0;
   flex-shrink: 0;
@@ -66,9 +69,12 @@ function App() {
         </Switch>
       </CenterPane>
       <RightPane>
-        <RightPaneHeader></RightPaneHeader>
-        <AudioPlayer></AudioPlayer>
+        <PlayerSkin></PlayerSkin>
+        <Player></Player>
         <PlayList></PlayList>
+        {/* <RightPaneHeader></RightPaneHeader>
+        <AudioPlayer></AudioPlayer>
+        <PlayList></PlayList> */}
       </RightPane> 
       <MessageBox></MessageBox>
     </div>
