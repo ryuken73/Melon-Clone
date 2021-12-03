@@ -12,6 +12,7 @@ import useQuerySuggest from 'hooks/useQuerySuggest';
 // import {setCurrent, setCurrentByInputValue} from './autoCompleteSlice';
 import {useDispatch} from 'react-redux';
 import {Switch, Route, withRouter} from 'react-router-dom';
+import {useHotkeys} from 'react-hotkeys-hook';
 
 const Input = styled.input`
   width: 300px;
@@ -106,6 +107,8 @@ const UseAutocomplete = props => {
   const inputValue = getInputProps().value;
   const uriEncoded = encodeURIComponent(inputValue);
   const debounced = useDebounce(uriEncoded, 100);
+  const inputRef = getInputProps().ref;
+  useHotkeys('ctrl+q',() => inputRef.current.focus(), [inputRef.current]);
   // const { isLoading, isError, data, error } = useQuery(['autocomplete', uriEncoded], querySuggests);
   const { isLoading, isError, data, error } = useQuerySuggest(debounced);
   const dispatch = useDispatch()
