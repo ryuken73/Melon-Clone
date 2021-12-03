@@ -18,6 +18,9 @@ import VerticalSlider from '../Common/SliderVertical';
 import Popover from '@mui/material/Popover';
 import HoverButton from '../Common/ButtonHover';
 import colors from 'config/colors';
+import usePlayer from 'hooks/usePlayer';
+import usePlayerState from 'hooks/usePlayerState';
+import usePlayerEvent from 'hooks/usePlayerEvent';
 
 const Container = styled(Box)`
     display: flex;
@@ -48,16 +51,15 @@ const ControlContainer = styled(Box)`
 `
 
 function Player(props) {
+    const {src: hlsSource} = usePlayerState();
+    const [playerRef, manifestLoaded=false, duration="00:00"] = usePlayer(hlsSource);
+    const [
+        isPlaying=false, 
+        progress="0", 
+        currentTime="00:00", 
+    ] = usePlayerEvent(manifestLoaded, playerRef);
 
-    const {
-        playerRef=null, 
-        canPlay=false, 
-        isPlaying=false,
-        progress="0",
-        currentTime="00:00",
-        duration="00:00",
-        // playerStopped=true
-    } = props;
+    const canPlay = manifestLoaded;
 
     const {
         onClickRepeat=()=>{},

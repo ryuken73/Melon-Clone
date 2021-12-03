@@ -1,7 +1,7 @@
 import * as React from 'react';
 import {useSelector, useDispatch} from 'react-redux';
 import {pushObjectToState, removeChecked, toggleAllChecked} from 'Components/PlayList/playlistSlice';
-import useAudioPlayer from './useAudioPlayer';
+import usePlayerState from './usePlayerState';
 
 function useCurrentPlaylist() {
   const currentPlaylist = useSelector((state) => state.playlist.currentPlaylist);
@@ -9,7 +9,7 @@ function useCurrentPlaylist() {
     return currentPlaylist.length === 0 ? false : currentPlaylist.every(song => song.checkedPlaylist)
   },[currentPlaylist])
   console.log('#### useCurrentPlaylist:', allChecked);
-  const {setPlayerSource} = useAudioPlayer();
+  const {setPlayerSource} = usePlayerState();
   const dispatch = useDispatch();
 
   const addSongToCurrentPlaylist = React.useCallback((song, playAfeterAdd) => {

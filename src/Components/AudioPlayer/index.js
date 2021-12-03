@@ -8,7 +8,8 @@ import PlayerControls from './PlayerControls';
 import colors from 'config/colors';
 import useHlsAudioPlayer from 'hooks/useHlsAudioPlayer';
 import useHlsPlayerEvent from 'hooks/useHlsPlayerEvent';
-import useAudioPlayer from 'hooks/useAudioPlayer';
+// import useAudioPlayer from 'hooks/useAudioPlayer';
+import usePlayerState from 'hooks/usePlayerState';
 
 const Container = styled(Box)`
     display: flex;
@@ -51,7 +52,7 @@ const durationToSeconds = duration => {
 }
 
 const AudioPlayer = props => {
-    const {src:hlsSrc, image:imageSrc, song={}} = useAudioPlayer();
+    const {src:hlsSrc, image:imageSrc, song={}} = usePlayerState();
     const [playerRef, manifestLoaded, event] = useHlsAudioPlayer(hlsSrc);
     const [isPlaying, duration, currentTime, progress] = useHlsPlayerEvent(playerRef, event);
     // console.log('!! audio player:', playerRef.current, duration, event)

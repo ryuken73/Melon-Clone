@@ -6,7 +6,7 @@ import SmallCheckBox from '../Common/CheckBox';
 import PlayingIcon from 'Components/Common/PlayingIcon';
 import colors from '../../config/colors';
 import useSongPlaylist from 'hooks/useSongPlaylist';
-import useAudioPlayer from 'hooks/useAudioPlayer';
+import usePlayerState from 'hooks/usePlayerState';
 
 const Mount = keyframes`
     from {
@@ -54,7 +54,7 @@ const Song = props => {
     console.log('^^^^:', id, song_name, artist, checkedPlaylist, currentPlaying)
     // const [loadPlayer, setLoadPlayer] = React.useState(false);
     const [removeFromPlaylist, setChecked] = useSongPlaylist(sequenceId);
-    const {setPlayerSource} = useAudioPlayer();
+    const {setPlayerSource} = usePlayerState();
     const onChecked = React.useCallback(() => {
         setChecked(!checkedPlaylist)
     },[checkedPlaylist, setChecked])

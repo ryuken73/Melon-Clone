@@ -13,11 +13,11 @@ export const audioPlayerSlice = createSlice({
     reducers: {
         setCurrent: (state, action) => {
             const {type, payload} = action;
-            const {src, image, id, index} = payload
+            const {src, image, index, id} = payload
             state.currentSrc = src;
             state.currentAlbumImage = image;
-            state.currentId = id;
             state.currentIndex = index;
+            state.currentId = id;
         },
     }
 })

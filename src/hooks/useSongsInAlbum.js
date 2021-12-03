@@ -6,7 +6,7 @@ import {
   toggleAllSongsCheckedInSongList, 
   addSongsInAlbumToCurrentPlaylist 
 } from 'Components/Album/albumSlice';
-import useAudioPlayer from './useAudioPlayer';
+import usePlayerState from './usePlayerState';
 
 const isArrayValid = array => array !== undefined && array !== null && array.length !== 0;
 
@@ -15,7 +15,7 @@ function useSongsInAlbum(receipt_no, rownum) {
   const firstSong = React.useMemo(() => {
     return songsInAlbum && songsInAlbum.length > 0 ? songsInAlbum[0] : {};
   },[songsInAlbum]);
-  const {setPlayerSource} = useAudioPlayer();
+  const {setPlayerSource} = usePlayerState();
   const allChecked = isArrayValid(songsInAlbum) ? songsInAlbum.every(song => song.checkedSongList) : false;
   const dispatch = useDispatch();
   React.useEffect(()=>{

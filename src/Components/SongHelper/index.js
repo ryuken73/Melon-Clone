@@ -10,7 +10,6 @@ import AddIcon from '@mui/icons-material/Add';
 import useCurrentPlaylist from 'hooks/useCurrentPlaylist';
 import colors from 'config/colors';
 import useSongHelper from '../../hooks/useSongHelper';
-import useAudioPlayer from 'hooks/useAudioPlayer';
 
 const ButtonContainer = styled(Box)`
     display: flex;
