@@ -62,16 +62,14 @@ function Player(props) {
         isPlaying=false, 
         progress="0", 
         currentTime="00:00", 
-        onClickPlay=()=>{}
+        onClickPlay=()=>{},
+        onClickReplay10=()=>{},
     } = usePlayerEvent(manifestLoaded, playerRef);
 
     const canPlay = manifestLoaded;
 
     const {
         onClickRepeat=()=>{},
-        onClickReplay10=()=>{},
-        // onClickSkipPrevious=()=>{},
-        // onClickSkipNext=()=>{},
         onClickForward10=()=>{},
         onClickVolumeUp=()=>{},
     } = props;  

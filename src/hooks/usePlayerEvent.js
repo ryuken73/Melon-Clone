@@ -25,7 +25,6 @@ export default function usePlayerEvent(manifestLoaded, playerRef) {
     },[dispatch, currentIndex])
 
     const handleTimeupdate = React.useCallback(()=>{
-        // console.log('$$$$ :', player)
         const currentTime = secondsToTime(parseInt(player.currentTime));
         setCurrentTime(currentTime)
         const progress = ((player.currentTime/player.duration) * 100).toFixed(0);
@@ -39,6 +38,11 @@ export default function usePlayerEvent(manifestLoaded, playerRef) {
         }
         player.play();
     },[player, isPlaying])
+
+    const onClickReplay10 = React.useCallback(()=>{
+        const {currentTime} = player;
+        console.log(currentTime)
+    },[player])
 
     React.useEffect(() => {
         if(manifestLoaded === false) return [];
@@ -59,5 +63,5 @@ export default function usePlayerEvent(manifestLoaded, playerRef) {
 
     },[manifestLoaded, player, handlePlaying, handlePause, handleTimeupdate])
 
-    return {isPlaying, progress, currentTime, duration, onClickPlay}
+    return {isPlaying, progress, currentTime, duration, onClickPlay, onClickReplay10}
 }
