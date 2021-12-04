@@ -21,6 +21,7 @@ import colors from 'config/colors';
 import usePlayer from 'hooks/usePlayer';
 import usePlayerState from 'hooks/usePlayerState';
 import usePlayerEvent from 'hooks/usePlayerEvent';
+import useCurrentPlaylist from 'hooks/useCurrentPlaylist';
 
 const Container = styled(Box)`
     display: flex;
@@ -54,6 +55,10 @@ function Player(props) {
     const {src: hlsSource} = usePlayerState();
     const [playerRef, manifestLoaded=false, duration="00:00"] = usePlayer(hlsSource);
     const {
+        playNextSong=()=>{},
+        playPrevSong=()=>{},
+    } = useCurrentPlaylist();
+    const {
         isPlaying=false, 
         progress="0", 
         currentTime="00:00", 
@@ -65,8 +70,8 @@ function Player(props) {
     const {
         onClickRepeat=()=>{},
         onClickReplay10=()=>{},
-        onClickSkipPrevious=()=>{},
-        onClickSkipNext=()=>{},
+        // onClickSkipPrevious=()=>{},
+        // onClickSkipNext=()=>{},
         onClickForward10=()=>{},
         onClickVolumeUp=()=>{},
     } = props;  
@@ -90,6 +95,15 @@ function Player(props) {
         console.log(duration, timeToGo)
         player.currentTime = timeToGo;
     },[playerRef])
+
+    const onClickSkipNext = React.useCallback(() => {
+        playNextSong()
+    },[playNextSong]);
+    
+    const onClickSkipPrevious = React.useCallback(() => {
+        playPrevSong()
+    },[playPrevSong]);
+
 
     const anchorElRef = React.useRef(null);
 

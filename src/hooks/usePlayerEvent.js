@@ -25,7 +25,7 @@ export default function usePlayerEvent(manifestLoaded, playerRef) {
     },[dispatch, currentIndex])
 
     const handleTimeupdate = React.useCallback(()=>{
-        console.log('$$$$ :', player)
+        // console.log('$$$$ :', player)
         const currentTime = secondsToTime(parseInt(player.currentTime));
         setCurrentTime(currentTime)
         const progress = ((player.currentTime/player.duration) * 100).toFixed(0);

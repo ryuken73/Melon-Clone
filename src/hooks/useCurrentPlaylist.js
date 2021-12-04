@@ -8,8 +8,8 @@ function useCurrentPlaylist() {
   const allChecked = React.useMemo(() => {
     return currentPlaylist.length === 0 ? false : currentPlaylist.every(song => song.checkedPlaylist)
   },[currentPlaylist])
-  console.log('#### useCurrentPlaylist:', allChecked);
-  const {setPlayerSource} = usePlayerState();
+  // console.log('#### useCurrentPlaylist:', allChecked);
+  const {src:currentSrc, setPlayerSource} = usePlayerState();
   const dispatch = useDispatch();
 
   const addSongToCurrentPlaylist = React.useCallback((song, playAfeterAdd) => {
@@ -29,6 +29,20 @@ function useCurrentPlaylist() {
   const toggleCurrentPlayList = React.useCallback(() => {
     dispatch(toggleAllChecked());
   },[dispatch]);
+
+  const playNextSong = React.useCallback(() => {
+    const currentSongIndex = currentPlaylist.findIndex(song => song.src === currentSrc);
+    const nextSongIndex = currentSongIndex === currentPlaylist.length -1 ? 0 : currentSongIndex + 1;
+    const nextSong = currentPlaylist[nextSongIndex]
+    setPlayerSource(nextSong.src, nextSong.albumImageSrc, nextSongIndex);
+  },[currentSrc, currentPlaylist, setPlayerSource])
+
+  const playPrevSong = React.useCallback(() => {
+    const currentSongIndex = currentPlaylist.findIndex(song => song.src === currentSrc);
+    const prevSongIndex = currentSongIndex === 0 ? currentPlaylist.length -1 : currentSongIndex - 1;
+    const prevSong = currentPlaylist[prevSongIndex]
+    setPlayerSource(prevSong.src, prevSong.albumImageSrc, prevSongIndex);
+  },[currentSrc, currentPlaylist, setPlayerSource])
   
   const checkedCount = React.useMemo(() => {
     return currentPlaylist.reduce((acct, song) => {
@@ -45,6 +59,8 @@ function useCurrentPlaylist() {
     addSongToCurrentPlaylist, 
     removeFromCurrentPlaylist, 
     toggleCurrentPlayList, 
+    playNextSong,
+    playPrevSong,
     allChecked
   }
 }
