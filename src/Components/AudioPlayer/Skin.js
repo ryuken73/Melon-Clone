@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import ImageBox from 'Components/Common/ImageBox';
 import TextBox from 'Components/Common/TextBox';
 import colors from 'config/colors';
+import usePlayerState from 'hooks/usePlayerState';
 
 const Container = styled(Box)`
     display: flex;
@@ -28,16 +29,16 @@ const Artist = styled(Box)`
 `;
 
 function Skin(props) {
-    const {song={}} = props;
+    const {song={}} = usePlayerState();
     const {
-        imageSrc='',
+        albumImageSrc='',
         song_name="곡명",
         artist="아티스트"
     } = song;
     return (
         <Container>
             <Image>
-                <ImageBox src={imageSrc} width="150px" height="150px"></ImageBox>
+                <ImageBox src={albumImageSrc} width="150px" height="150px"></ImageBox>
             </Image>
             <Title>
                 <TextBox textalign="center" fontSize="13px" text={song_name} color={colors.textMain}></TextBox>
