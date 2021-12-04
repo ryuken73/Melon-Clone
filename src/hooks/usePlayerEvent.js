@@ -40,26 +40,12 @@ export default function usePlayerEvent(manifestLoaded, playerRef) {
         player.play();
     },[player, isPlaying])
 
-    const handleMoveProgressSlider = React.useCallback(progressPercent => {
-        console.log('$$$$ :', player)
-        const {duration} = manifestLoaded ? player:{} ;
-        if(duration === undefined || duration === null) return;
-        const timeToGo = (duration * progressPercent/100);
-        console.log(duration, timeToGo)
-        player.currentTime = timeToGo;
-    },[playerRef.current, manifestLoaded])
-
     React.useEffect(() => {
         if(manifestLoaded === false) return [];
         if(player === null || player === undefined) {
             setIsPlaying(false);
             return [];
         }
-        // if(player.currentTime > 0 && !player.paused && !player.ended){
-        //     setIsPlaying(true);
-        // } else {
-        //     setIsPlaying(false);
-        // }
         console.log('attach player event handlers');
         player.addEventListener('playing', handlePlaying)
         player.addEventListener('pause', handlePause)
@@ -73,5 +59,5 @@ export default function usePlayerEvent(manifestLoaded, playerRef) {
 
     },[manifestLoaded, player, handlePlaying, handlePause, handleTimeupdate])
 
-    return {isPlaying, progress, currentTime, duration, onClickPlay, handleMoveProgressSlider}
+    return {isPlaying, progress, currentTime, duration, onClickPlay}
 }

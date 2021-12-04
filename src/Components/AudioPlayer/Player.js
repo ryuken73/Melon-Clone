@@ -57,8 +57,7 @@ function Player(props) {
         isPlaying=false, 
         progress="0", 
         currentTime="00:00", 
-        onClickPlay=()=>{},
-        handleMoveProgressSlider=()=>{}
+        onClickPlay=()=>{}
     } = usePlayerEvent(manifestLoaded, playerRef);
 
     const canPlay = manifestLoaded;
@@ -70,8 +69,6 @@ function Player(props) {
         onClickSkipNext=()=>{},
         onClickForward10=()=>{},
         onClickVolumeUp=()=>{},
-        // onClickPlay=()=>{},
-        // handleMoveProgressSlider=()=>{}
     } = props;  
 
     const [volumeIconActive, setVolumeIconActive] = React.useState(false);
@@ -84,6 +81,15 @@ function Player(props) {
     const handleCloseVolumeSlider = React.useCallback(() => {
         setVolumeIconActive(false);
     },[])
+
+    const handleMoveProgressSlider = React.useCallback( progressPercent => {
+        const player = playerRef.current;
+        const {duration} = player;
+        if(duration === undefined || duration === null) return;
+        const timeToGo = (duration * progressPercent/100);
+        console.log(duration, timeToGo)
+        player.currentTime = timeToGo;
+    },[playerRef])
 
     const anchorElRef = React.useRef(null);
 
