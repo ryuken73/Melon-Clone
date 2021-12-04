@@ -67,14 +67,14 @@ const StyledSlider = styled(SliderUnstyled)(
 );
 
 const UnstyledSlider = props => { 
-  const {value, onChange=()=>{}} = props;
+  const {value="0", onChange=()=>{}} = props;
   const handleChange = React.useCallback((event, value) => {
     console.log(value);
     onChange(value);
   },[])
   return (
     <Box>
-      <StyledSlider defaultValue={0} value={value} onChange={handleChange}/>
+      <StyledSlider defaultValue={"0"} value={value} onChange={handleChange}/>
     </Box>
   );
 }
