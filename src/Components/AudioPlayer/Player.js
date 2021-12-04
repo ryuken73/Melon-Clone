@@ -53,11 +53,13 @@ const ControlContainer = styled(Box)`
 function Player(props) {
     const {src: hlsSource} = usePlayerState();
     const [playerRef, manifestLoaded=false, duration="00:00"] = usePlayer(hlsSource);
-    const [
+    const {
         isPlaying=false, 
         progress="0", 
         currentTime="00:00", 
-    ] = usePlayerEvent(manifestLoaded, playerRef);
+        onClickPlay=()=>{},
+        handleMoveProgressSlider=()=>{}
+    } = usePlayerEvent(manifestLoaded, playerRef);
 
     const canPlay = manifestLoaded;
 
@@ -68,8 +70,8 @@ function Player(props) {
         onClickSkipNext=()=>{},
         onClickForward10=()=>{},
         onClickVolumeUp=()=>{},
-        onClickPlay=()=>{},
-        handleMoveProgressSlider=()=>{}
+        // onClickPlay=()=>{},
+        // handleMoveProgressSlider=()=>{}
     } = props;  
 
     const [volumeIconActive, setVolumeIconActive] = React.useState(false);
