@@ -64,13 +64,13 @@ function Player(props) {
         currentTime="00:00", 
         onClickPlay=()=>{},
         onClickReplay10=()=>{},
+        onClickForward10=()=>{},
     } = usePlayerEvent(manifestLoaded, playerRef);
 
     const canPlay = manifestLoaded;
 
     const {
         onClickRepeat=()=>{},
-        onClickForward10=()=>{},
         onClickVolumeUp=()=>{},
     } = props;  
 

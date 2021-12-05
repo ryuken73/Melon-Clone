@@ -41,8 +41,23 @@ export default function usePlayerEvent(manifestLoaded, playerRef) {
 
     const onClickReplay10 = React.useCallback(()=>{
         const {currentTime} = player;
-        console.log(currentTime)
-    },[player])
+        const replayTime = currentTime - 10 > 0 ? currentTime - 10 : 0;
+        playerRef.current.currentTime = replayTime;
+        const replayTimeToSeconds = secondsToTime(replayTime);
+        setCurrentTime(replayTimeToSeconds)
+        const progress = ((replayTime/player.duration) * 100).toFixed(0);
+        setProgress(progress)
+    },[player, playerRef])
+
+    const onClickForward10 = React.useCallback(()=>{
+        const {currentTime} = player;
+        const forwardTime = currentTime + 10 < player.duration ? currentTime + 10 : duration;
+        playerRef.current.currentTime = forwardTime;
+        const forwardTimeToSeconds = secondsToTime(forwardTime);
+        setCurrentTime(forwardTimeToSeconds)
+        const progress = ((forwardTime/player.duration) * 100).toFixed(0);
+        setProgress(progress)
+    },[player, playerRef, duration])
 
     React.useEffect(() => {
         if(manifestLoaded === false) return [];
@@ -63,5 +78,13 @@ export default function usePlayerEvent(manifestLoaded, playerRef) {
 
     },[manifestLoaded, player, handlePlaying, handlePause, handleTimeupdate])
 
-    return {isPlaying, progress, currentTime, duration, onClickPlay, onClickReplay10}
+    return {
+        isPlaying, 
+        progress, 
+        currentTime, 
+        duration, 
+        onClickPlay, 
+        onClickReplay10,
+        onClickForward10
+    }
 }
