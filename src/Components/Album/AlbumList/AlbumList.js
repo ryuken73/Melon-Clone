@@ -8,7 +8,7 @@ import useAlbumList from 'hooks/useAlbumList';
 
 const Container = styled(Box)`
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
     height: ${prop => prop.height || "auto"};
     width: ${prop => prop.height || "auto"};
     margin-right: 10px;
