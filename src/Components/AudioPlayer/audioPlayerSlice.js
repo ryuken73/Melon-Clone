@@ -4,7 +4,8 @@ const initialState = {
     currentId: null,
     currentIndex: null,
     currentSrc: '',
-    currentAlbumImage: ''
+    currentAlbumImage: '',
+    volume: 0.5
 }
 
 export const audioPlayerSlice = createSlice({
@@ -19,11 +20,17 @@ export const audioPlayerSlice = createSlice({
             state.currentIndex = index;
             state.currentId = id;
         },
+        setVolume: (state, action) => {
+            const {type, payload} = action;
+            const {volume} = payload
+            state.volume = volume;
+        }
     }
 })
 
 export const {
-    setCurrent
+    setCurrent,
+    setVolume
 } = audioPlayerSlice.actions;
 
 export default audioPlayerSlice.reducer;

@@ -2,10 +2,12 @@ import React from 'react';
 import {secondsToTime} from 'lib/util';
 import {useSelector, useDispatch} from 'react-redux';
 import {setCurrentPlayingByIndex} from 'Components/PlayList/playlistSlice';
+import {setVolume} from 'Components/AudioPlayer/audioPlayerSlice'
 
 export default function usePlayerEvent(manifestLoaded, playerRef) {
     const dispatch = useDispatch();
     const currentIndex = useSelector(state => state.audioPlayer.currentIndex);
+    const volume = useSelector(state => state.audioPlayer.volume);
     const [isPlaying, setIsPlaying] = React.useState(false);
     const [duration, setDuration] = React.useState("00:00");
     const [currentTime, setCurrentTime] = React.useState("00:00");
@@ -16,7 +18,8 @@ export default function usePlayerEvent(manifestLoaded, playerRef) {
         console.log('in usePlayerEvent: handlePlaying')
         setIsPlaying(true);
         dispatch(setCurrentPlayingByIndex({targetIndex: currentIndex, playing: true}));
-    },[dispatch, currentIndex])
+        if(player !== null) player.volume = volume;
+    },[dispatch, player, volume, currentIndex])
 
     const handlePause = React.useCallback(()=>{
         console.log('in usePlayerEvent: handlePause')
@@ -30,6 +33,11 @@ export default function usePlayerEvent(manifestLoaded, playerRef) {
         const progress = ((player.currentTime/player.duration) * 100).toFixed(0);
         setProgress(progress)
     },[player])
+
+    const handleVolumeControl = React.useCallback(volume=>{
+        dispatch(setVolume({volume}))
+        if(player !== null) player.volume = volume;
+    },[dispatch, player])
 
     const onClickPlay = React.useCallback(() => {
         if(isPlaying) {
@@ -83,8 +91,10 @@ export default function usePlayerEvent(manifestLoaded, playerRef) {
         progress, 
         currentTime, 
         duration, 
+        volume,
         onClickPlay, 
         onClickReplay10,
-        onClickForward10
+        onClickForward10,
+        handleVolumeControl
     }
 }

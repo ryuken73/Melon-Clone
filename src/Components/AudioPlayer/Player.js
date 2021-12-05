@@ -14,7 +14,7 @@ import VolumeOffIcon from '@mui/icons-material/VolumeOff';
 import IconButton from '@mui/material/IconButton';
 import TextBox from 'Components/Common/TextBox';
 import SliderBar from 'Components/Common/SliderBar';
-import VerticalSlider from '../Common/SliderVertical';
+import VerticalSlider from './VerticalSlider';
 import Popover from '@mui/material/Popover';
 import HoverButton from '../Common/ButtonHover';
 import colors from 'config/colors';
@@ -145,7 +145,7 @@ function Player(props) {
                         style: {display:'flex', backgroundColor:'grey',overflow:'clip', padding:'5px 0px 5px 0px', justifyContent:'center'}
                     }}
                 >
-                    <VerticalSlider></VerticalSlider>
+                    <VerticalSlider manifestLoaded={manifestLoaded} playerRef={playerRef}></VerticalSlider>
                 </Popover>
             </ControlContainer>
         </Container>
