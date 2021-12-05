@@ -20,28 +20,20 @@ const ButtonContainer = styled(Box)`
 `
 const Helper = () => {
     const {checkedSongList, clearChecked} = useSongHelper();
-    const {addSongToCurrentPlaylist} = useCurrentPlaylist();
+    const {addSongsToCurrentPlaylist} = useCurrentPlaylist();
     const checkedCount = checkedSongList.length;
     const hidden = checkedCount === 0 || checkedCount === false;
     const text = `선택한 ${checkedCount} 곡을`;
 
     const handleAddCurrentPlaylist = React.useCallback(() => {
-        checkedSongList.forEach(song => {
-            addSongToCurrentPlaylist(song)
-        });
+        addSongsToCurrentPlaylist(checkedSongList);
         clearChecked();
-    },[checkedSongList, clearChecked, addSongToCurrentPlaylist])
+    },[checkedSongList, clearChecked, addSongsToCurrentPlaylist])
 
     const handleAddCurrentPlaylistNPlay = React.useCallback(() => {
-        checkedSongList.forEach((song,index) => {
-            if(index === checkedSongList.length - 1){
-                addSongToCurrentPlaylist(song, true);
-                return
-            }
-            addSongToCurrentPlaylist(song)
-        });
+        addSongsToCurrentPlaylist(checkedSongList, true)
         clearChecked();
-    },[checkedSongList, clearChecked, addSongToCurrentPlaylist])
+    },[checkedSongList, clearChecked, addSongsToCurrentPlaylist])
 
     return (
         <SnackBar hidden={hidden} containerProps={{width:'300px', height:'40px', bgcolor:colors.light3CenterPane}}>

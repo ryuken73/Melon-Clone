@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {useSelector, useDispatch} from 'react-redux';
-import {pushObjectToState, removeChecked, toggleAllChecked} from 'Components/PlayList/playlistSlice';
+import {pushObjectToState, pushSongsToCurrentlist, removeChecked, toggleAllChecked} from 'Components/PlayList/playlistSlice';
 import usePlayerState from './usePlayerState';
 
 function useCurrentPlaylist() {
@@ -19,6 +19,23 @@ function useCurrentPlaylist() {
     const songWithChecked = {...songParsed, checkedPlaylist: false, currentPlaying: false};
     dispatch(pushObjectToState({stateKey:'currentPlaylist', value: songWithChecked}))
     playAfeterAdd && setPlayerSource(song.src, song.albumImageSrc, 0);
+  },[dispatch, setPlayerSource])
+
+  const addSongsToCurrentPlaylist = React.useCallback((songs, playAfterAdd) => {
+    console.log('### add songs batch: ', songs);
+    const songsParsed = songs.map(song => {
+      const songWithoutBTag = song.parsedWithoutBTag || song;
+      return {
+        ...songWithoutBTag  ,
+        checkedPlaylist: false,
+        currentPlaying: false
+      }   
+    });
+    dispatch(pushSongsToCurrentlist({songsParsed}));
+    if(playAfterAdd){
+      const songToPlay = songs[songs.length - 1];
+      setPlayerSource(songToPlay.src, songToPlay.albumImageSrc, 0);
+    }
   },[dispatch, setPlayerSource])
 
   const removeFromCurrentPlaylist = React.useCallback(() => {
@@ -57,6 +74,7 @@ function useCurrentPlaylist() {
     currentPlaylist, 
     checkedCount, 
     addSongToCurrentPlaylist, 
+    addSongsToCurrentPlaylist,
     removeFromCurrentPlaylist, 
     toggleCurrentPlayList, 
     playNextSong,

@@ -21,6 +21,12 @@ export const playlistSlice = createSlice({
                 state[stateKey].push(value);  
             }
         },
+        pushSongsToCurrentlist: (state, action) => {
+            console.log(action);
+            const {type, payload} = action;
+            const {songsParsed} = payload;
+            state.currentPlaylist = [...songsParsed, ...state.currentPlaylist];
+        },
         removeChecked: (state,action) => {
             const {type, payload} = action;
             state.currentPlaylist = state.currentPlaylist.filter(song => {
@@ -74,6 +80,7 @@ export const playlistSlice = createSlice({
 
 export const {
     pushObjectToState, 
+    pushSongsToCurrentlist,
     removeFromCurrentList, 
     setSongChecked, 
     removeChecked,
