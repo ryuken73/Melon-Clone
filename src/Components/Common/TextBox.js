@@ -18,7 +18,7 @@ const Container = styled(Box)`
 const Text = styled(Box)`
     font-size: ${props => props.fontSize || "12px"};
     color: ${props => props.color || "darkgrey"};
-    font-weight: ${props => props.fontWeight || "bold"};
+    font-weight: ${props => props.fontWeight || 400};
     opacity: ${props => props.opacity || "0.8"};
     cursor: ${props => props.cursor || "pointer"};
     overflow: hidden;
