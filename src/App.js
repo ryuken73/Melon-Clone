@@ -24,7 +24,7 @@ const LeftPane = styled(Box)`
   width: 150px;
   flex-grow:0;
   flex-shrink:0;
-  background:black;
+  background:${colors.player};
 `
 const RightPane = styled(Box)`
   display: flex;

@@ -9,6 +9,75 @@
       name="description"
       content="Web site created using create-react-app"
     />
+    <script type="text/javascript" src="/js/component/dext5upload_new/js/dext5upload.js"></script>
+    <style>
+      #DEXT_fiVe_UP_ly_content { height:auto !important; }
+    </style>
+    <script type="text/javascript">
+    // 컴포넌트 로드 완료시 자동 호출되는 콜백 함수
+      function DEXT5UPLOAD_OnCreationComplete(uploadID) {
+        if (BrowserDetect.browser != "IE") {
+          var node = document.createElement("div");
+          document.getElementById("DEXT_fiVe_UP_ly_content").appendChild(node);
+          document.getElementById("DEXT_fiVe_UP_ly_wrapper").style.height = "273px";
+          node.style.margin = 10+"px";
+        } else {
+          DEXT5UPLOAD.Hidden(uploadID);	
+        }
+      }
+      
+      function DEXT5UPLOAD_OnError(uploadID, code, message, uploadedFileListObj) {
+        //console.log(uploadID, code, message, uploadedFileListObj); 
+        errorFlag = true;
+          alert("다운로드에 실패하였습니다.저장 위치를 확인해 주세요.");
+      }
+      
+      function DEXT5UPLOAD_AfterDownload(uploadID, strDownloadPath, nViewOrSave) {
+        //console.log("DEXT5UPLOAD_AfterDownload",new Date());
+        //console.log("after download " + uploadID, strDownloadPath, nViewOrSave);
+        //cancel();
+          if(!errorFlag) {
+              //window.close();
+          } 
+      }
+      
+      function DEXT5UPLOAD_BeforeFileDownload(uploadID, nWebFile, strItemKey, strItemOrgName, strItemUrlOrPath, largeFiles, isLastEvent) {
+      
+        //console.log("다운로드 경로");
+      //console.log("DEXT5UPLOAD_BeforeFileDownload",new Date());
+        //console.log(uploadID, nWebFile, strItemKey, strItemOrgName, strItemUrlOrPath, largeFiles, isLastEvent);
+        
+      console.log(strItemUrlOrPath);
+      
+      //var eachDownloadRecord = downloadParamDict[strItemKey];
+          //fncDownHistory(eachDownloadRecord, musicGubun);
+          
+          // 설정 > 다운로드와 캡처 > 다운로드 위치 
+          return true;
+      }
+
+      function DEXT5UPLOAD_FinishDownloaded(uploadID, nDownloadItemCount) {
+        if (!errorFlag) {
+          // 전체 다운로드 시
+          //fncDownHistory(downloadParam, musicGubun);
+          alert("다운로드가 완료 되었습니다.");
+          window.close();
+        }
+      }
+      
+      function cancel() {
+          DEXT5UPLOAD.Cancel("chrome_downloader");
+      }
+
+      function doStartDownload_chrome_show(){
+    	 document.getElementById('downloadPanel').style.display = 'none';
+      }
+      
+      function DEXT5UPLOAD_onLanguageDefinition(uploadID, objLang) {
+        //objLang.message_all_remove = "다운로드 초기 셋팅을 해야 합니다."; //20211020 전형진담당
+          //objLang.message_upload_cancel = "전송 취소 시 뜨는 문구 변경";
+      }
+    </script>
     <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
     <!--
       manifest.json provides metadata used when your web app is installed on a
@@ -39,5 +108,24 @@
       To begin the development, run `npm start` or `yarn start`.
       To create a production bundle, use `npm run build` or `yarn build`.
     -->
+    <div id="dext_component" style="display:none;"></div>
+	        
+    <div style="width:500px;height:200px; display:none; position:absolute; top:150px; left:270px;" id="downloadPanel" >
+          <script type="text/javascript">
+            //DEXT5UPLOAD.config.InitXml = "dext5upload.config.xml";
+            DEXT5UPLOAD.config.Mode = 'view'; // edit, view
+            DEXT5UPLOAD.config.Height = '380px';
+            DEXT5UPLOAD.config.ButtonBarView = 'download,download_all';
+            DEXT5UPLOAD.config.FolderTransfer = '1';
+              DEXT5UPLOAD.config.FolderDetailHeader = '1';
+              DEXT5UPLOAD.config.UseAfterDownloadEvent = '1';
+              DEXT5UPLOAD.config.DownloadMulti = '1';
+              
+            var uploader2 = new Dext5Upload("chrome_downloader");
+          </script>
+          <style>
+            #dext5uploader_holder_chrome_downloader { width:100% !important; }
+          </style>
+    </div>
   </body>
 </html>
