@@ -7,9 +7,11 @@
     DEXT5UPLOAD.config.UseAfterDownloadEvent = '1';
     DEXT5UPLOAD.config.DownloadMulti = '1';
 
+    // 아래가 UI 그리는 function이다.
     var uploader2 = new Dext5Upload("chrome_downloader");
 
 2. main download function : doStartDownload();
+
 3. DEXT5 기본 UI
 	<div style="width:500px;height:200px; display:none; position:absolute; top:150px; left:270px;" id="downloadPanel" >
 		<div style="text-align:right; background:#dfe7f2;color:#000;padding:10px;border-top:1px solid #000"><span style="font-weight:bold;display:block"><a href="javascript:closepop();">닫기</a></span></div>
@@ -31,3 +33,23 @@
         	#dext5uploader_holder_chrome_downloader { width:100% !important; }
         </style>
 	</div>
+
+4. download UI activatation
+    아래 api 호출 시 activate됨
+    window.DEXT5UPLOAD.AddUploadedFile('100', 'ryu.txt', '/ryu.txt', 1024, '', "chrome_downloader");
+    1 : receipt_no,
+    2 : filename (download할 파일명)
+    3 : download url
+    4 : file size
+    5 : 'chrome_download' (dext5upload 이름)
+    window.DEXT5UPLOAD.AddUploadedFile('100', 'ryu.txt', '/ryu.txt', 1024, '', "chrome_downloader");
+    window.DEXT5UPLOAD.AddUploadedFile('100', 'ryu.txt', '/ryu.txt', 1024, '', "chrome_downloader");
+    ....
+    ....
+    window.DEXT5UPLOAD.DownloadAllFile("chrome_downloader");
+
+5. filename :
+   wav 인 경우
+   effect 인 경우
+   송출용 wav 인 경우
+   송출용  Effect인 경우. 
