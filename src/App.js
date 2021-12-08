@@ -19,7 +19,8 @@ import CenterHeader from './CenterHeader';
 import VerticalMenu from './VerticalMenu';
 import colors from 'config/colors' ;
 import MessageBox from './MessageBox';
- 
+import Backdrop from 'Components/Common/BackDrop';
+
 const LeftPane = styled(Box)`
   width: 150px;
   flex-grow:0;
@@ -77,6 +78,7 @@ function App() {
         <PlayList></PlayList> */}
       </RightPane> 
       <MessageBox></MessageBox>
+      <Backdrop></Backdrop>
     </div>
   );
 }
