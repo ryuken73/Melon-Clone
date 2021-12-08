@@ -16,6 +16,7 @@ import useSongsInAlbum from 'hooks/useSongsInAlbum';
 import useCurrentPlaylist from 'hooks/useCurrentPlaylist';
 import useSongHelper from 'hooks/useSongHelper';
 import useDebounce from 'hooks/useDebounce';
+import useDownloadSong from 'hooks/useDownloadSong';
 
 const Container = styled(Box)`
     && {
@@ -32,23 +33,23 @@ const Container = styled(Box)`
 `
 
 const SongIteminSearchAll = props => {
-    // const {song, checked=false, rownum, toggleChecked=()=>{}, ...rest} = props;
     const {song, rownum, ...rest} = props;
     const [hovered, setHovered] = React.useState(false);
     const {addSongToCurrentPlaylist} = useCurrentPlaylist();
     const {checked, addChecked, delChecked} = useSongHelper(song.id);
-    // console.log('&&&&&:', allChecked, addSongToCurrentPlaylist)
+    const downloadFile = useDownloadSong([song]);
+
     const onHovered = React.useCallback(()=>{
         setHovered(true);
     },[setHovered])
+
     const onHoverOut = React.useCallback(()=>{
         setHovered(false);
     },[setHovered])
+
     const deboucedHovered = useDebounce(hovered, 100);
-    // console.log('###', cellValues)
+
     const {id, song_name, song_name_bold, artist, artist_bold, version, duration, runtime, src, albumImageSrc} = song;
-    // console.log(id, song_name, artist, version, duration, runtime, src, albumImageSrc)
-    // const {addSongByRownum, addSongByRownumNPlay, toggleSongChecked} = useSongsInAlbum(receipt_no, rownum);
 
     const onChecked = React.useCallback(() => {
         if(checked){
@@ -66,6 +67,10 @@ const SongIteminSearchAll = props => {
         addSongToCurrentPlaylist(song);
     },[song, addSongToCurrentPlaylist]);
 
+    const downloadSong = React.useCallback(() => {
+        downloadFile([song])
+    },[downloadFile, song])
+
     return (
             <Container checked={checked} hovered={deboucedHovered} onMouseEnter={onHovered} onMouseLeave={onHoverOut}>
                 <SmallCheckBox checked={checked} setChecked={onChecked} />
@@ -80,7 +85,7 @@ const SongIteminSearchAll = props => {
                     {deboucedHovered && (
                         <Box flexShrink="0" width="150px" ml="auto" mr="20px">
                             <HoverButton onClick={addSongNPlay}><PlayArrowIcon fontSize="medium"></PlayArrowIcon></HoverButton>
-                            <HoverButton><FileDownloadIcon fontSize="medium"></FileDownloadIcon></HoverButton>
+                            <HoverButton onClick={downloadSong}><FileDownloadIcon fontSize="medium"></FileDownloadIcon></HoverButton>
                             <HoverButton onClick={addSong}><AddIcon fontSize="medium"></AddIcon></HoverButton>
                         </Box>
                     )}

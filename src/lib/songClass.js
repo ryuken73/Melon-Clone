@@ -1,5 +1,5 @@
 import CONSTANTS from 'config/constants';
-import { secondsToTime } from './util';
+import { secondsToTime, replaceIllegalCharacters, getTimeString } from './util';
 import {headers, responseToObject} from 'config/apis';
 const {BASE_API_URL, BASE_STREAM_URL} = CONSTANTS;
 
@@ -17,7 +17,10 @@ class Song {
     get id() { return `${this.nativeProps.receipt_no}:${this.nativeProps.reg_no}`}
     set albumImgSrc(src) { this._albumImgSrc = src }
     get albumImageSrc() { return this._albumImgSrc }
+    get attach_path() { return this.nativeProps.attach_path }
+    get attach_name() { return this.nativeProps.attach_name }
     get receipt_no() { return this.nativeProps.receipt_no}
+    get reg_no() { return this.nativeProps.reg_no}
     get label_no() { return this.nativeProps.label_no}
     get runtime() { return this.nativeProps.runtime}
     get song_name() { return this.nativeProps.song_name}
@@ -39,12 +42,47 @@ class Song {
         const label = label_no.substr(0,3);
         return `${CONSTANTS.BASE_STREAM_URL}${attach_path}/${label}/${label_no}/${attach_name}.mp3/playlist.m3u8`
     }
+    get download_url() {
+        const {
+            attach_path,
+            attach_name,
+            label_no,
+        } = this.nativeProps
+        const label = label_no.substr(0,3);
+        const pathmap = {
+            "Audio_WAVE1"       : "onair_wave1",
+            "Audio_WAVE2"       : "onair_wave2",
+            "Audio_WAVE3"       : "onair_wave3",
+            "music/onair_wave1" : "onair_wave1",
+            "music/onair_wave2" : "onair_wave2",
+            "music/onair_wave3" : "onair_wave3"
+        }
+        return `${CONSTANTS.DOWNLOAD_URL}/${pathmap[attach_path]}/${label}/${label_no}/${attach_name}.wav`
+    }
+    get saveTo() {
+        const {song_name} = this.nativeProps;
+        const date = new Date();
+        return `${replaceIllegalCharacters(song_name)}_${getTimeString(date)}.wav`
+    }
+    get getFileSizeParams() {
+        const {
+            attach_path,
+            attach_name,
+            receipt_no,
+            reg_no,
+            label_no
+        } = this.nativeProps
+        return  `${attach_name};${attach_path};${receipt_no};${reg_no};${label_no}---`
+    }
     get parsed() {
         return {
             id: this.id,
             albumImageSrc: this.albumImageSrc,
+            attach_path: this.attach_path,
+            attach_name: this.attach_name,
             receipt_no: this.receipt_no,
             label_no: this.label_no,
+            reg_no: this.reg_no,
             runtime: this.runtime,
             song_name: this.song_name,
             artist: this.artist,
@@ -53,7 +91,10 @@ class Song {
             album_type: this.album_type,
             version: this.version,
             duration: this.duration,
-            src: this.src
+            src: this.src,
+            download_url: this.download_url,
+            saveTo: this.saveTo,
+            getFileSizeParams: this.getFileSizeParams
         }
     }
     get parsedWithoutBTag() {

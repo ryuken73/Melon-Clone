@@ -9,7 +9,8 @@ import FileDownloadIcon from '@mui/icons-material/FileDownload';
 import AddIcon from '@mui/icons-material/Add';
 import useCurrentPlaylist from 'hooks/useCurrentPlaylist';
 import colors from 'config/colors';
-import useSongHelper from '../../hooks/useSongHelper';
+import useSongHelper from 'hooks/useSongHelper';
+import useDownloadSong from 'hooks/useDownloadSong';
 
 const ButtonContainer = styled(Box)`
     display: flex;
@@ -20,6 +21,7 @@ const ButtonContainer = styled(Box)`
 `
 const Helper = () => {
     const {checkedSongList, clearChecked} = useSongHelper();
+    const downloadFile = useDownloadSong(checkedSongList);
     const {addSongsToCurrentPlaylist} = useCurrentPlaylist();
     const checkedCount = checkedSongList.length;
     const hidden = checkedCount === 0 || checkedCount === false;
@@ -35,6 +37,10 @@ const Helper = () => {
         clearChecked();
     },[checkedSongList, clearChecked, addSongsToCurrentPlaylist])
 
+    const handleDownloadFile = React.useCallback(() => {
+        downloadFile(checkedSongList)
+    },[downloadFile, checkedSongList])
+
     return (
         <SnackBar hidden={hidden} containerProps={{width:'300px', height:'40px', bgcolor:colors.light3CenterPane}}>
             <Box flex="1" justifyContent="center">
@@ -42,7 +48,7 @@ const Helper = () => {
             </Box>
             <ButtonContainer>
                 <HoverButton onClick={handleAddCurrentPlaylistNPlay}><PlayArrowIcon fontSize="medium"></PlayArrowIcon></HoverButton>
-                <HoverButton><FileDownloadIcon fontSize="medium"></FileDownloadIcon></HoverButton>
+                <HoverButton onClick={handleDownloadFile}><FileDownloadIcon fontSize="medium"></FileDownloadIcon></HoverButton>
                 <HoverButton onClick={handleAddCurrentPlaylist}><AddIcon fontSize="medium"></AddIcon></HoverButton>
             </ButtonContainer>     
         </SnackBar>

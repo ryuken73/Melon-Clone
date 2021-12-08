@@ -34,6 +34,10 @@ export const getString = (date, separator={}) => {
     return `${dateString}${sep}${timeString}`;
 }
 
+export const getTimeString = date => {
+    return getString(date).split('.')[1];
+}
+
 export const secondsToTime = seconds => {
     if(typeof(seconds) !== 'number' || seconds === Infinity){
         return '00:00'
@@ -47,4 +51,8 @@ export const debounce = (callback, timeout) => {
         clearTimeout(id)
 		return (id = setTimeout(() => callback(...args), timeout))
 	}
+}
+
+export const replaceIllegalCharacters = (str, target="-") => {
+    return str.replace(/[/\\?%*:|"<>]/g, target);
 }

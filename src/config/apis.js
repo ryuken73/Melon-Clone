@@ -234,6 +234,36 @@ export const apiMap = {
             }
         }
     },
+    // doFileSize
+    // returns {
+    // dataMap: {}
+    // gubun: 'M'
+    // params: "4MB029515_Track01;Audio_WAVE1;2021110386;001;4MB029515---"
+    // song_list: [
+    //     {
+    //         file_path: "Audio_WAVE1"
+    //         label_no: "4MB029515"
+    //         receipt_no: "2021110386"
+    //         reg_no: "001"
+    //         size: 0
+    //         track_no: "4MB029515_Track01"
+    //         wavsize: 28873466
+    //     }
+    // ]
+    //}
+    'doFileSize': (params, gubun='M') => {
+        const postBody = new URLSearchParams();
+        postBody.append('params', params);
+        return {
+            url: `/mbs/help_file/doFileSize.mb?gubun=${gubun}`,
+            fetchOptions: {
+                method: 'POST',
+                body: postBody,
+                ...DEFAULT_FETCH_OPTIONS
+            }
+        }
+
+    },
     'querySuggest': searchKeyword => {
         return {
             url: `http://10.11.31.51:3010/searchSong/withWorkers/${searchKeyword}?userId=null&supportThreeWords=true&count=100`,
