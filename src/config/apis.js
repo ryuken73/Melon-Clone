@@ -186,7 +186,21 @@ export const apiMap = {
             "modr"
         ]
     },
+    // doListAlbum.mb
+    // returns album info like collect_dt, remark..
+    'doListAlbum.mb': receipt_no => {
+        const searchParam = new URLSearchParams();
+        searchParam.append('receipt_no', receipt_no);
+        return {
+            url: '/mbs/searchMusic/doListAlbum.mb',
+            fetchOptions: {
+                method: 'POST',
+                body: searchParam,
+                ...DEFAULT_FETCH_OPTIONS
+            }
+        }
 
+    },
     // doListArtist
     // returns {"sch_artist":"하은","list":[{"id":30034,"artist":"하은"}],"dataMap":{}}
     'doListArtist': sch_artist => {

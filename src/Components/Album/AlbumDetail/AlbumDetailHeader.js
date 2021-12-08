@@ -4,6 +4,8 @@ import styled from 'styled-components';
 import ImageBox from 'Components/Common/ImageBox';
 import TextBox from 'Components/Common/TextBox';
 import useAlbumInfo from 'hooks/useAlbumInfo';
+import useQueryAlbumInfo from 'hooks/useQueryAlbumInfo';
+import createAlbumInfo from 'lib/albumInfoClass';
 
 const Container = styled(Box)`
     display: flex;
@@ -40,7 +42,8 @@ const AlbumDetailInfo = props => {
 
 const AlbumDetailHeader = props => {
     const {receipt_no=1} = props;
-    const albumInfo = useAlbumInfo(receipt_no);
+    const result = useQueryAlbumInfo(receipt_no);
+    const albumInfo = React.useMemo(() => createAlbumInfo(result.data),[result.data]);
     const {eval_imagePath = '/images/no-image.png'} = albumInfo;
     console.log('^^ header albumInfo:', albumInfo)
     return (
