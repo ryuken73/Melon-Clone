@@ -32,19 +32,10 @@ const CenterHeader = props => {
         history.push(path.join(event.target.id, historyPushedCount.toString()));
     },[history, historyPushedCount])
 
-    const download = React.useCallback(() => {
-    	window.DEXT5UPLOAD.DeleteSelectedFile("chrome_downloader");
-        window.doStartDownload_chrome_show();
-        window.DEXT5UPLOAD.AddUploadedFile('100', 'ryu.txt', '/ryu.txt', 1024, '', "chrome_downloader");
-        window.DEXT5UPLOAD.SetSelectItem('-1', '1', 'chrome_downloader');
-        window.DEXT5UPLOAD.DownloadAllFile("chrome_downloader");
-    },[])
-
     return (
         <Container>
             <CenterHeaderNav historyPushedCount={historyPushedCount} setHistoryPushedCount={setHistoryPushedCount}></CenterHeaderNav>
             <AutoComplete></AutoComplete>
-            <Button onClick={download}>download</Button>
             {/* {views.map(view => (
                 <Box key={view.id} mx="2px">
                     <ButtonSmall id={view.url} background="grey" onClick={handleClickButton}>{view.id}</ButtonSmall>

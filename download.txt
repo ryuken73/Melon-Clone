@@ -52,4 +52,6 @@
    wav 인 경우
    effect 인 경우
    송출용 wav 인 경우
-   송출용  Effect인 경우. 
+   송출용  Effect인 경우.        album.attach_path, 
+   http://10.11.31.51:8554/music/onair_wave1/4MB/4MB029515/4MB029515_Track01.wav
+   Killing Me
