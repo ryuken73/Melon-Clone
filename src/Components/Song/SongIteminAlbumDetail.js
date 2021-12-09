@@ -9,9 +9,13 @@ import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 import AddIcon from '@mui/icons-material/Add';
 import HoverButton from '../Common/ButtonHover';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
-import {secondsToTime} from 'lib/util'
+// import {secondsToTime} from 'lib/util'
 import LinkArtist from 'Components/Links/LinkArtist';
-import useSongsInAlbum from 'hooks/useSongsInAlbum';
+// import useSongsInAlbum from 'hooks/useSongsInAlbum';
+import useCurrentPlaylist from 'hooks/useCurrentPlaylist';
+import useSongHelper from 'hooks/useSongHelper';
+import useDebounce from 'hooks/useDebounce';
+import useDownloadSong from 'hooks/useDownloadSong';
 
 const Container = styled(Box)`
     && {
@@ -29,27 +33,51 @@ const Container = styled(Box)`
 
 const SongItemAlbumDetail = props => {
     const {song, receipt_no, ...rest} = props;
+    console.log('*****:', song)
     const [hovered, setHovered] = React.useState(false);
+    const {addSongToCurrentPlaylist} = useCurrentPlaylist();
+    const {checked, addChecked, delChecked} = useSongHelper(song.id);
+    const downloadFile = useDownloadSong([song]);
+    
     const onHovered = React.useCallback(()=>{
         setHovered(true);
     },[setHovered])
+
     const onHoverOut = React.useCallback(()=>{
         setHovered(false);
     },[setHovered])
-    // console.log('###', cellValues)
-    const {id, rownum, song_name, artist, version, runtime, checkedSongList, src, albumImageSrc} = song;
-    const duration = isNaN(parseInt(runtime)) ? runtime:secondsToTime(runtime)
-    const {addSongByRownum, addSongByRownumNPlay, toggleSongChecked} = useSongsInAlbum(receipt_no, rownum);
+
+    const deboucedHovered = useDebounce(hovered, 100);
+
+    const {rownum, id, song_name, song_name_bold, artist, artist_bold, version, duration, runtime, src, albumImageSrc} = song;
+    // const {id, rownum, song_name, artist, version, runtime, checkedSongList, src, albumImageSrc} = song;
+    // const duration = isNaN(parseInt(runtime)) ? runtime:secondsToTime(runtime)
+
+    // const {addSongByRownum, addSongByRownumNPlay, toggleSongChecked} = useSongsInAlbum(receipt_no, rownum);
     const onChecked = React.useCallback(() => {
-        toggleSongChecked()
-    },[toggleSongChecked])
+        if(checked){
+            delChecked(song);
+        } else {
+            addChecked(song)
+        }
+    },[addChecked, delChecked, song, checked])
+
     const addSongNPlay = React.useCallback(() => {
-        addSongByRownumNPlay(src, albumImageSrc, id)
-    },[src, albumImageSrc, id, addSongByRownumNPlay ])
+        addSongToCurrentPlaylist(song, true);
+    },[song, addSongToCurrentPlaylist]);
+
+    const addSong = React.useCallback(() => {
+        addSongToCurrentPlaylist(song);
+    },[song, addSongToCurrentPlaylist]);
+
+    const downloadSong = React.useCallback(() => {
+        downloadFile([song])
+    },[downloadFile, song])
+
 
     return (
-            <Container checked={checkedSongList} onMouseEnter={onHovered} onMouseLeave={onHoverOut}>
-                <SmallCheckBox checked={checkedSongList} setChecked={onChecked} />
+            <Container checked={checked} onMouseEnter={onHovered} onMouseLeave={onHoverOut}>
+                <SmallCheckBox checked={checked} setChecked={onChecked} />
                 <Box flex="1">
                     {/* 순번 */}
                     <TextBox text={rownum} {...rest} cursor="auto"></TextBox>
@@ -60,8 +88,8 @@ const SongItemAlbumDetail = props => {
                     {hovered && (
                         <Box flexShrink="0" width="150px" ml="auto" mr="20px">
                             <HoverButton onClick={addSongNPlay}><PlayArrowIcon fontSize="medium"></PlayArrowIcon></HoverButton>
-                            <HoverButton><FileDownloadIcon fontSize="medium"></FileDownloadIcon></HoverButton>
-                            <HoverButton onClick={addSongByRownum}><AddIcon fontSize="medium"></AddIcon></HoverButton>
+                            <HoverButton onClick={downloadSong}><FileDownloadIcon fontSize="medium"></FileDownloadIcon></HoverButton>
+                            <HoverButton onClick={addSong}><AddIcon fontSize="medium"></AddIcon></HoverButton>
                         </Box>
                     )}
                 </Box>

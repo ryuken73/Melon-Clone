@@ -1,5 +1,5 @@
 import CONSTANTS from 'config/constants';
-import { secondsToTime } from './util';
+import { secondsToTime, replaceIllegalCharacters, getTimeString } from './util';
 
 const replaceBold = str => {
     return str.replace(/<b>/g,'<span style=color:yellow;>').replace(/<\/b>/g,'</span>')
@@ -9,8 +9,8 @@ const removeBold = str => {
 }
 
 class SongInAlbum {
-    constructor(props){
-        this.nativeProps = {...props};
+    constructor(props, label_no){
+        this.nativeProps = {...props, label_no};
     }
     get album_id() { return this.nativeProps.album_id }
     get album_place() { return this.nativeProps.album_place }
@@ -25,6 +25,8 @@ class SongInAlbum {
     get dlbr_rslt2() { return this.nativeProps.dlbr_rslt2 }
     get down_limit_id() { return this.nativeProps.down_limit_id }
     get encode_yn() { return this.nativeProps.encode_yn }
+    get id() { return `${this.nativeProps.receipt_no}:${this.nativeProps.reg_no}`}
+    get label_no() { return this.nativeProps.label_no }
     get lyrics_chk() { return this.nativeProps.lyrics_chk }
     get modr() { return this.nativeProps.modr }
     get prgs_type() { return this.nativeProps.prgs_type }
@@ -44,18 +46,68 @@ class SongInAlbum {
         return {
             album_id: this.album_id,
             album_place: this.album_place,
+            albumImageSrc: this.albumImageSrc,
             artist: this.artist,
             artist_type: this.artist_type,
             attach_name: this.attach_name,
             attach_path: this.attach_path,
+            download_url: this.download_url,
+            getFileSizeParams: this.getFileSizeParams,
+            id: this.id,
             receipt_no: this.receipt_no,
             reg_no: this.reg_no,
             runtime: this.runtime,
+            saveTo: this.saveTo,
             song_name: this.song_name,
+            src: this.src,
             top_genre: this.top_genre,
             version: this.version,
             duration: this.duration,
         }
+    } 
+    get albumImageSrc() {
+        return `${CONSTANTS.BASE_API_URL}/Video/small_image/${this.label_no}.JPG`
+    }
+    get src() {
+        const {
+            attach_path,
+            attach_name,
+            label_no,
+        } = this.nativeProps
+        const label = label_no.substr(0,3);
+        return `${CONSTANTS.BASE_STREAM_URL}${attach_path}/${label}/${label_no}/${attach_name}.mp3/playlist.m3u8`
+    }
+    get download_url() {
+        const {
+            attach_path,
+            attach_name,
+            label_no,
+        } = this.nativeProps
+        const label = label_no.substr(0,3);
+        const pathmap = {
+            "Audio_WAVE1"       : "onair_wave1",
+            "Audio_WAVE2"       : "onair_wave2",
+            "Audio_WAVE3"       : "onair_wave3",
+            "music/onair_wave1" : "onair_wave1",
+            "music/onair_wave2" : "onair_wave2",
+            "music/onair_wave3" : "onair_wave3"
+        }
+        return `${CONSTANTS.DOWNLOAD_URL}/${pathmap[attach_path]}/${label}/${label_no}/${attach_name}.wav`
+    }
+    get saveTo() {
+        const {song_name} = this.nativeProps;
+        const date = new Date();
+        return `${replaceIllegalCharacters(song_name)}_${getTimeString(date)}.wav`
+    }
+    get getFileSizeParams() {
+        const {
+            attach_path,
+            attach_name,
+            receipt_no,
+            reg_no,
+            label_no
+        } = this.nativeProps
+        return  `${attach_name};${attach_path};${receipt_no};${reg_no};${label_no}---`
     }
     get parsedWithoutBTag() {
         return {
@@ -67,9 +119,9 @@ class SongInAlbum {
 }
 
 
-const createSongInAlbum = (songInList) => {
+const createSongInAlbum = (songInList, label_no) => {
     console.log('&&: createSongInAlbum :', songInList)
-    const song = new SongInAlbum(songInList);
+    const song = new SongInAlbum(songInList, label_no);
     return song 
 }
 

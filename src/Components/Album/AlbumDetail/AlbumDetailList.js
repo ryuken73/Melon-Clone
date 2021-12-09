@@ -8,6 +8,9 @@ import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 import SongListInAlbumDetail from 'Components/Song/SongListInAlbumDetail';
 import useSongsInAlbum from 'hooks/useSongsInAlbum';
 import Helper from './Helper';
+import SongHelper from 'Components/SongHelper';
+import useQueryAlbumInfo from 'hooks/useQueryAlbumInfo';
+import createAlbumInfo from 'lib/albumInfoClass';
 
 const Container = styled(Box)`
     display: flex;
@@ -31,8 +34,11 @@ const ButtonContainer = styled(Box)`
 const AlbumDetailList = props => {
     const {match} = props;
     const {receipt_no} = match.params;
+    const result = useQueryAlbumInfo(receipt_no);
+    const albumInfo = React.useMemo(() => createAlbumInfo(result.data),[result.data]);
+    const songsInAlbum = albumInfo.list_song;
     const {
-        songsInAlbum, 
+        // songsInAlbum, 
         toggleAllSongChecked, 
         addAllSongsInAlbum,
         playFirstSongInAlbum
@@ -65,7 +71,8 @@ const AlbumDetailList = props => {
                 songs={songsInAlbum}
                 receipt_no={receipt_no}
             ></SongListInAlbumDetail>
-            <Helper receipt_no={receipt_no}></Helper>
+            {/* <Helper receipt_no={receipt_no}></Helper> */}
+            <SongHelper></SongHelper>
         </Container>
     )
 }

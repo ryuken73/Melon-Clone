@@ -62,7 +62,7 @@ const createAlbumInfo = (apiResult, baseApiUrl=BASE_API_URL, baseStreamUrl=BASE_
     const info = apiResult?.info? apiResult.info: {};
     const list_song = apiResult?.list_song? apiResult.list_song: [];
     info.list_song  = list_song.map(song => {
-        return createSongInAlbum(song);
+        return createSongInAlbum(song, info.label_no);
     })
     const albumInfo = new AlbumInfo(info)
     return albumInfo;
