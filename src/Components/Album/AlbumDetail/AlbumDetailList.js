@@ -6,10 +6,10 @@ import ButtonIcon from 'Components/Common/ButtonIcon';
 import CheckIcon from '@mui/icons-material/Check';
 import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 import SongListInAlbumDetail from 'Components/Song/SongListInAlbumDetail';
-import useSongsInAlbum from 'hooks/useSongsInAlbum';
-import Helper from './Helper';
 import SongHelper from 'Components/SongHelper';
 import useQueryAlbumInfo from 'hooks/useQueryAlbumInfo';
+import useCurrentPlaylist from 'hooks/useCurrentPlaylist';
+import useSongHelper from 'hooks/useSongHelper';
 import createAlbumInfo from 'lib/albumInfoClass';
 
 const Container = styled(Box)`
@@ -37,17 +37,17 @@ const AlbumDetailList = props => {
     const result = useQueryAlbumInfo(receipt_no);
     const albumInfo = React.useMemo(() => createAlbumInfo(result.data),[result.data]);
     const songsInAlbum = albumInfo.list_song;
-    const {
-        // songsInAlbum, 
-        toggleAllSongChecked, 
-        addAllSongsInAlbum,
-        playFirstSongInAlbum
-    } = useSongsInAlbum(receipt_no);
+    const {addSongsToCurrentPlaylist} = useCurrentPlaylist();
+    const {clearChecked, toggleAllSongChecked} = useSongHelper();
+
+    const toggleAllChecked = React.useCallback(()=>{
+        toggleAllSongChecked(songsInAlbum);
+    },[toggleAllSongChecked, songsInAlbum])
 
     const addAllSongNPlay = React.useCallback(() => {
-        addAllSongsInAlbum();
-        playFirstSongInAlbum();
-    },[addAllSongsInAlbum, playFirstSongInAlbum])
+        addSongsToCurrentPlaylist(songsInAlbum, true);
+        clearChecked();
+    },[addSongsToCurrentPlaylist, songsInAlbum, clearChecked])
 
     return (
         <Container>
@@ -57,7 +57,7 @@ const AlbumDetailList = props => {
                     iconComponent={<CheckIcon fontSize="small"></CheckIcon>} 
                     border="1px solid rgba(255, 255, 255, .5)"
                     hoverBorder="1px solid rgba(255, 255, 255, 0.8)"
-                    onClick={toggleAllSongChecked}
+                    onClick={toggleAllChecked}
                 ></ButtonIcon>
                 <ButtonIcon 
                     text="전체재생" 
