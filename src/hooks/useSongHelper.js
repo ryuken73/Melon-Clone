@@ -4,7 +4,7 @@ import {addCheckedList, delCheckedList, clearCheckedList, setCheckedList} from '
 
 function useSongHelper(id) {
   const dispatch = useDispatch();
-  const checkedSongList = useSelector(state => state.songHelper.checkedSongList)
+  const checkedSongList = useSelector(state => state.songHelper.checkedSongList);
   const checked = useSelector(state => state.songHelper.checkedSongList.some(checkedSong => checkedSong.id === id));
   const addChecked = React.useCallback(song => {
     dispatch(addCheckedList({song: song.parsedWithoutBTag}))
@@ -27,7 +27,12 @@ function useSongHelper(id) {
       // })
     }
   },[checkedSongList, dispatch])
-  return {checkedSongList, addChecked, delChecked, clearChecked, checked, toggleAllSongChecked}
+  const isAllChecked = React.useCallback(songs => {
+    const allChecked = checkedSongList.length === songs.length;
+    return allChecked;
+  },[checkedSongList]);
+
+  return {checkedSongList, addChecked, delChecked, clearChecked, checked, toggleAllSongChecked, isAllChecked}
 }
 
 export default useSongHelper;

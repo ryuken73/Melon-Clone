@@ -21,11 +21,13 @@ const Container = styled(Box)`
 const SongItemHeaderInSongScroll = props => {
     const {songs, ...rest} = props;
     // console.log('### in SongItemHeaderInAlbumDetail: ', receipt_no)
-    const {toggleAllSongChecked} = useSongHelper();
+    const {toggleAllSongChecked, isAllChecked} = useSongHelper();
     const toggleAllChecked = React.useCallback(checked => {
         toggleAllSongChecked(songs);
     },[songs, toggleAllSongChecked])
-    const allChecked = false;
+    const allChecked = React.useMemo(() => {
+        return isAllChecked(songs)
+    },[isAllChecked, songs]);
     return (
             <Container>
                 <SmallCheckBox checked={allChecked} setChecked={toggleAllChecked} />
