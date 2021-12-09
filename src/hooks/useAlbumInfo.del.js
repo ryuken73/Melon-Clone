@@ -1,3 +1,5 @@
+// Don't use this. use useQueryAlbumInfo hook!
+
 import {useSelector} from 'react-redux';
 
 function useAlbumInfo(receipt_no) {

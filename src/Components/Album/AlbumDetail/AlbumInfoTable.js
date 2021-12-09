@@ -3,8 +3,10 @@ import styled from 'styled-components';
 import Box from '@mui/material/Box';
 import TextBox from 'Components/Common/TextBox'
 import ItemWithTitleNvalue from 'Components/Common/ItemWithTitleNValue';
-import useAlbumInfo from 'hooks/useAlbumInfo';
-import useSongsInAlbum from 'hooks/useSongsInAlbum';
+// import useAlbumInfo from 'hooks/useAlbumInfo';
+// import useSongsInAlbum from 'hooks/useSongsInAlbum';
+import useQueryAlbumInfo from 'hooks/useQueryAlbumInfo';
+import createAlbumInfo from 'lib/albumInfoClass';
 
 const Container = styled(Box)`
     && {
@@ -89,12 +91,13 @@ const splitRemark = (remarkText='') => {
 
 const AlbumInfoTable = props => {
     const {receipt_no} = props;
-    const albumInfo = useAlbumInfo(receipt_no)
+    const result = useQueryAlbumInfo(receipt_no);
+    const albumInfo = React.useMemo(() => createAlbumInfo(result.data),[result.data]);
     console.log('^^ albumInfo:', albumInfo)
     const items = mkItems(albumInfo);
     const [remarkHeader, ...rest] = splitRemark(albumInfo.remark_ext)
     const remark = rest.join('\r\n\r\n');
-    const {songsInAlbum} = useSongsInAlbum(receipt_no);
+    const songsInAlbum = albumInfo.list_song;
     const songs = songsInAlbum.map(song => song.song_name);
     console.log('^^ songsInAlbum:', songsInAlbum)
     const [openTitle, setOpenTitle] = React.useState(false);
