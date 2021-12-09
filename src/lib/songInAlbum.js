@@ -33,7 +33,7 @@ class SongInAlbum {
     get receipt_no() { return this.nativeProps.receipt_no}
     get reg_no() { return this.nativeProps.reg_no}
     get release_year() { return this.nativeProps.release_year}
-    get row_num() { return this.nativeProps.row_num}
+    get rownum() { return this.nativeProps.rownum}
     get runtime() { return this.nativeProps.runtime}
     get size() { return this.nativeProps.size}
     get song_name() { return this.nativeProps.song_name}
@@ -56,6 +56,7 @@ class SongInAlbum {
             id: this.id,
             receipt_no: this.receipt_no,
             reg_no: this.reg_no,
+            rownum: this.rownum,
             runtime: this.runtime,
             saveTo: this.saveTo,
             song_name: this.song_name,
