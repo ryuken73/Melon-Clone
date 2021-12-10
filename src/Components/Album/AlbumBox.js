@@ -23,7 +23,8 @@ const AlbumBox = props => {
         imagePath="/images/no_image_black.jpg", 
         resizeOnHover=true,
         preserveHtmlTag=false,
-        history
+        history,
+        lazyLoading=true
     } = props;
     const handleClickAlbum = React.useCallback(()=> {
         history.push(`/album/${receipt_no}/songList`, {receipt_no})
@@ -37,6 +38,7 @@ const AlbumBox = props => {
                 src={imagePath} 
                 onClick={handleClickAlbum}
                 resizeOnHover={resizeOnHover}
+                lazyLoading={lazyLoading}
             ></ImageBoxWithHoverIcon>
             <Box marginTop="5px"></Box>
             <TextBox 

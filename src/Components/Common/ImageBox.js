@@ -44,11 +44,25 @@ const ImageBox = props => {
         width="500",
         height="500",
         isResizeOnHover=false,
-        isHoverInnerElement=false
+        isHoverInnerElement=false,
+        lazyLoading=true
     } = props;
     const imgRef = React.useRef(null);
     const observerRef = React.useRef();
     const [isLoaded, setIsLoaded] = React.useState(false);
+
+    const imageSrc = React.useMemo(() => {
+        if(lazyLoading && isLoaded){
+            return src;
+        }
+        if(lazyLoading && !isLoaded){
+            return '/images/no-image.png'
+        }
+        if(!lazyLoading){
+            return src
+        }
+
+    },[lazyLoading, isLoaded, src])
 
     const onIntersection = (entries, io)=>{
         entries.forEach(entry => {
@@ -78,7 +92,7 @@ const ImageBox = props => {
                 ref={imgRef}
                 alt={alt}
                 title={title}
-                src={isLoaded ? src : '/images/loading-album.png'}
+                src={imageSrc}
                 onClick={onClick}
                 width={width}
                 height={height}
