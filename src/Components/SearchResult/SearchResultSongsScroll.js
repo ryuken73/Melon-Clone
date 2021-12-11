@@ -47,6 +47,7 @@ function SearchResultSongsScroll(props) {
         fetchNextPage();
     },[fetchNextPage]);
     const replaceRequired = false;
+    const rootForObservation = React.useRef();
     return (
         <Container>
             <SongItemHeaderInSongsScroll
@@ -58,8 +59,9 @@ function SearchResultSongsScroll(props) {
                 category={category}
                 autoHide 
                 style={{ width:'100%', height: 'calc(100vh - 220px)' }}
+                ref={rootForObservation}
             >
-                <SongListInSearchAll songs={songs}></SongListInSearchAll>
+                <SongListInSearchAll rootRef={rootForObservation} songs={songs}></SongListInSearchAll>
             </ScrollBarWithColor>
             {isFetching && (
                 <Box m="10px">

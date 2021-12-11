@@ -7,6 +7,7 @@ import {withRouter} from 'react-router-dom';
 import useAlbumList from 'hooks/useAlbumList';
 import useQueryAlbumScroll from 'hooks/useQueryAlbumScroll';
 import createAlbum from 'lib/albumClass';
+import RenderIfVisible from 'react-render-if-visible';
 
 const Container = styled(Box)`
     display: grid;
@@ -36,7 +37,7 @@ const AlbumList = props => {
         isFetchingNextPage,
         status,
         isSuccess
-    } = useQueryAlbumScroll({category, page_sizes:15, page_num:1});
+    } = useQueryAlbumScroll({category, page_sizes:31, page_num:1});
     console.log('%% result: ', data)
     const pages = React.useMemo(() => data ? data.pages:[], [data]);
     const albums = React.useMemo(() => {
@@ -62,6 +63,7 @@ const AlbumList = props => {
         >
             <Container>
                 {albums.map((album,index) => (  
+                    // <RenderIfVisible defaultHeight={270}>
                     <AlbumBox 
                         key={album.receipt_no}
                         receipt_no={album.receipt_no}
@@ -69,7 +71,9 @@ const AlbumList = props => {
                         nameArtist={album.artist}
                         imagePath={album.eval_imagePath}
                         history={history}
+                        lazyLoaing={true}
                     ></AlbumBox>
+                    // </RenderIfVisible>
                 ))}
             </Container>
         </ScrollBarWithColor>

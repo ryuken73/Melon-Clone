@@ -3,6 +3,7 @@ import Box from '@mui/material/Box';
 import styled from 'styled-components';
 import SongIteminSearchAll from './SongIteminSearchAll';
 import Divider from '../Common/Divider';
+import RenderIfVisible from 'react-render-if-visible';
 
 const Container = styled(Box)`
     && {
@@ -12,11 +13,13 @@ const Container = styled(Box)`
 `
 
 const SongListInSearchAll = props => {
-    const {songs} = props;
+    const {songs, rootRef} = props;
+    const root = React.useMemo(() => {return rootRef ? rootRef.current : null}, [rootRef])
     const {mr="15px"} = props;
     return (
         <Container>
             {songs.map((song, index) => (
+                <RenderIfVisible root={root} defaultHeight={55} visibleOffset={500}>
                 <Box key={song.id} px="10px">
                     <SongIteminSearchAll
                         rownum={index}
@@ -27,6 +30,7 @@ const SongListInSearchAll = props => {
                     ></SongIteminSearchAll>
                     <Divider opacity="0.2" margin="0px" mr={mr}></Divider>
                 </Box>
+                </RenderIfVisible>
             ))}
         </Container>
     )
