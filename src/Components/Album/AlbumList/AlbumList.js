@@ -5,7 +5,7 @@ import AlbumBox from '../AlbumBox';
 import ScrollBarWithColor from 'Components/Common/ScrollBarWithColor';
 import {withRouter} from 'react-router-dom';
 import useAlbumList from 'hooks/useAlbumList';
-import useQueryAlbumScroll from 'hooks/useQueryAlbumScroll';
+import useQueryAlbumByCategoryScroll from 'hooks/useQueryAlbumByCategoryScroll';
 import createAlbum from 'lib/albumClass';
 import RenderIfVisible from 'react-render-if-visible';
 
@@ -37,7 +37,7 @@ const AlbumList = props => {
         isFetchingNextPage,
         status,
         isSuccess
-    } = useQueryAlbumScroll({category, page_sizes:31, page_num:1});
+    } = useQueryAlbumByCategoryScroll({category, page_sizes:31, page_num:1});
     console.log('%% result: ', data)
     const pages = React.useMemo(() => data ? data.pages:[], [data]);
     const albums = React.useMemo(() => {
