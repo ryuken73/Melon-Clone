@@ -34,6 +34,7 @@ function SearchResultSongsScroll(props) {
     } = useSearchSongsScroll({keyword, exactSearch, artistName, songName, page_sizes, page_num});
     console.log('@@@@:', data);
     const pages = React.useMemo(() => data ? data.pages:[], [data]);
+    const total = React.useMemo(() => data ? data.pages[0].total:'', [data]);
     const songs = React.useMemo(() => {
         const merged = pages.reduce((apiResult, acc) => {
             const songs = apiResult.fdata;
@@ -52,6 +53,7 @@ function SearchResultSongsScroll(props) {
         <Container>
             <SongItemHeaderInSongsScroll
                 songs={songs}
+                total={total}
             ></SongItemHeaderInSongsScroll>
             <ScrollBarWithColor
                 moveScrollToTop={replaceRequired} 

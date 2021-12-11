@@ -44,7 +44,7 @@ const queryAll = async ({queryKey, pageParam=1}) => {
   return result;
 };
 
-const useQueryAlbumScroll = options => {
+const useQueryAlbumByCategoryScroll = options => {
   const {category, page_sizes, page_num} = options;
   console.log('&&:', category, page_sizes, page_num)
 
@@ -56,4 +56,4 @@ const useQueryAlbumScroll = options => {
   return searchResult;
 } 
 
-export default useQueryAlbumScroll;
+export default useQueryAlbumByCategoryScroll;

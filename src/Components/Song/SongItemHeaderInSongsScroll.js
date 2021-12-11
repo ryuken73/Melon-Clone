@@ -19,7 +19,7 @@ const Container = styled(Box)`
 `
 
 const SongItemHeaderInSongScroll = props => {
-    const {songs, ...rest} = props;
+    const {songs, total, ...rest} = props;
     // console.log('### in SongItemHeaderInAlbumDetail: ', receipt_no)
     const {toggleAllSongChecked, isAllChecked} = useSongHelper();
     const toggleAllChecked = React.useCallback(checked => {
@@ -31,7 +31,9 @@ const SongItemHeaderInSongScroll = props => {
     return (
             <Container>
                 <SmallCheckBox checked={allChecked} setChecked={toggleAllChecked} />
-                <Box flex="1"></Box>
+                <Box flex="1" display="flex" justifyContent="center">
+                    <TextBox text={`(${songs.length}/${total})`} {...rest} cursor="auto" color="darkgrey"></TextBox>
+                </Box>
                 <Box flex="5" display="flex" flexDirection="row" alignItems="center">
                     {/* 곡명 */}
                     <TextBox containerProps={{marginRight:"15px"}} text="곡명" {...rest}></TextBox>

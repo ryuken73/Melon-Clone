@@ -71,12 +71,15 @@ const SongIteminSearchAll = props => {
         downloadFile([song])
     },[downloadFile, song])
 
+    const songIndex = React.useMemo(() => rownum+1, [rownum]);
+
     return (
             <Container checked={checked} hovered={deboucedHovered} onMouseEnter={onHovered} onMouseLeave={onHoverOut}>
                 <SmallCheckBox checked={checked} setChecked={onChecked} />
-                <Box flex="1">
+                <Box flex="1" display="flex" justifyContent="center" alignItems="center">
                     {/* Small Album Image */}
                     {/* <TextBox text={rownum} {...rest} cursor="auto"></TextBox> */}
+                    <TextBox text={songIndex} {...rest} fontSize="10px" marginRight="10px" cursor="auto" color="darkgrey"></TextBox>
                     <ImageBox src={albumImageSrc} width="40px" height="40px"></ImageBox>
                 </Box>
                 <Box flex="5" display="flex" flexDirection="row" alignItems="center">
