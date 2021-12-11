@@ -3,9 +3,12 @@ import Backdrop from '@mui/material/Backdrop';
 import CircularProgress from '@mui/material/CircularProgress';
 import {useIsFetching} from 'react-query';
 
+const keysNoLoading = ['autocomplete', 'doListArtist'];
+
 export default function SimpleBackdrop() {
     const [open, setOpen] = React.useState(false);
-    const isFetching = useIsFetching({predicate: query => query.queryKey[0] !== 'autocomplete'});
+    // const isFetching = useIsFetching({predicate: query => query.queryKey[0] !== 'autocomplete'});
+    const isFetching = useIsFetching({predicate: query => !keysNoLoading.includes(query.queryKey[0])});
     React.useEffect(() => {
         if(isFetching){
             setOpen(true);
