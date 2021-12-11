@@ -27,6 +27,13 @@ class Song {
     get song_name_bold() { return replaceBold(this.nativeProps.song_name) }
     get artist() { return this.nativeProps.artist}
     get artist_bold() { return replaceBold(this.nativeProps.artist) }
+    get artist_matched() { 
+        const matched = this.nativeProps.artist.match(/<b>(.*)<\/b>/);
+        if(matched !== null){
+            return matched[1];
+        }
+        return this.nativeProps.artist;
+    }
     get album_name() { return this.nativeProps.album_name}
     get album_name_bold() { return replaceBold(this.nativeProps.album_name) }
     get top_genre() { return this.nativeProps.top_genre}

@@ -49,7 +49,7 @@ const SongIteminSearchAll = props => {
 
     const deboucedHovered = useDebounce(hovered, 100);
 
-    const {id, song_name, song_name_bold, artist, artist_bold, version, duration, runtime, src, albumImageSrc} = song;
+    const {id, song_name, song_name_bold, artist, artist_bold, artist_matched, version, duration, runtime, src, albumImageSrc} = song;
 
     const onChecked = React.useCallback(() => {
         if(checked){
@@ -95,7 +95,7 @@ const SongIteminSearchAll = props => {
                 </Box>
                 <Box width="20%">
                     {/* 아티스트 */}
-                    <LinkArtist artist={artist_bold} preserveHtmlTag {...rest} color="darkgrey"></LinkArtist>
+                    <LinkArtist artist={artist_bold} matched={artist_matched} preserveHtmlTag {...rest} color="darkgrey"></LinkArtist>
                 </Box>
                 <Box width="15%" display="flex" flexDirection="row" alignItems="center">
                     {/* 버전 */}

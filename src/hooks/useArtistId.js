@@ -1,6 +1,17 @@
 import * as React from 'react';
 import {apiMap} from 'config/apis';
-import {useQuery} from 'react-query';
+import {useQuery, useQueries} from 'react-query';
+
+const removeExtraCharsFromArtist = artist => {
+  const extraChars = ['(', ')', 'Feat.', 'FEAT.', '&'];
+  let removed = artist;
+  extraChars.forEach(char => {
+    removed = removed.replace(char, '');
+  })
+  return removed;
+
+
+}
 
 const queryArtist = async ({queryKey}) => {
   const [_key, url, options ] = queryKey;
@@ -11,12 +22,27 @@ const queryArtist = async ({queryKey}) => {
   return response.json()
 };
 
-const useArtistId = artist_name => {
-  const {url, fetchOptions} = apiMap.doListArtist(artist_name);
-  const result = useQuery(['doListArtist', url, fetchOptions, artist_name], queryArtist, {
-    enabled: !!artist_name && !!url,
-    staleTime: Infinity
-  });    
-  return result;
+const useArtistId = (artistsArray, matched) => {
+  const results = useQueries(artistsArray.map(artist => {
+    if(artist.includes('<span') && artist.includes('</span>')){
+      const {url, fetchOptions} = apiMap.doListArtist(matched);
+      return {
+        queryKey: ['doListArtist', url, fetchOptions, matched],
+        queryFn: queryArtist,
+        enabled: false,
+        staleTime: Infinity
+      }
+    } else {
+      const artistNormalized = removeExtraCharsFromArtist(artist)
+      const {url, fetchOptions} = apiMap.doListArtist(artistNormalized);
+      return {
+        queryKey: ['doListArtist', url, fetchOptions, artistNormalized],
+        queryFn: queryArtist,
+        enabled: false,
+        staleTime: Infinity
+      }
+    }
+  }))
+  return results;
 }
 export default useArtistId;
