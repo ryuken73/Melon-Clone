@@ -56,7 +56,7 @@ const ImageBox = props => {
             return src;
         }
         if(lazyLoading && !isLoaded){
-            return '/images/no-image.png'
+            return '/images/loading-album.png'
         }
         if(!lazyLoading){
             return src
