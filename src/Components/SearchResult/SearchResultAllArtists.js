@@ -7,6 +7,7 @@ import ArtistListInSearchAll from 'Components/Artist/ArtistListInSearchAll';
 import SearchResultAllHeader from 'Components/SearchResult/SearchResultAllHeader';
 import queryString from 'query-string';
 import {Switch, Route, withRouter} from 'react-router-dom';
+import { qsToNavigateInSearchResult } from 'lib/util';
 
 const Container = styled(Box)`
     display: flex;
@@ -22,8 +23,11 @@ function SearchResultAllArtists(props) {
     const result = useSearchAllArtists({keyword, exactSearch, artistName, songName});
     const artists = React.useMemo(() => createArtist(result.data),[result.data]);
     const searchCount = result.isSuccess ? result.data.total : '...';
-    const showAllResults = React.useCallback(() => {}, []);
-    console.log('&&: in search all song:', result.data, artists)
+    const qs = qsToNavigateInSearchResult(query);
+    const showAllResults = React.useCallback(() => {
+        history.push(`/searchResult/artists?${qs}`, {tabName:'artists', qs})
+    }, [history, qs]);
+    console.log('&&: in search all artists:', result.data, artists)
     return (
         <Container>
             {result.isSuccess && (

@@ -3,12 +3,11 @@ import Box from '@mui/material/Box';
 import styled from 'styled-components';
 import {Switch, Route, withRouter} from 'react-router-dom';
 import SearchResultBar from './SearchResultBar';
-import SearchResultTabPage from './SearchResultTabPage';
 import SearchResultAll from './SearchResultAll';
 import SearchResultSongs from './SearchResultSongs';
 import SearchResultAlbums from './SearchResultAlbums';
 import SearchResultArtists from './SearchResultArtists';
-import SearchResultLyrics from './SearchResultArtists';
+import SearchResultLyrics from './SearchResultLyrics';
 import SongHelper from 'Components/SongHelper';
 
 const Container = styled(Box)`

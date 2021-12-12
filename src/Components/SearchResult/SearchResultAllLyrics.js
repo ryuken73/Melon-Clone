@@ -7,6 +7,7 @@ import LyricsListInSearchAll from 'Components/Lyrics/LyricsListInSearchAll';
 import SearchResultAllHeader from 'Components/SearchResult/SearchResultAllHeader';
 import queryString from 'query-string';
 import {Switch, Route, withRouter} from 'react-router-dom';
+import { qsToNavigateInSearchResult } from 'lib/util';
 
 const Container = styled(Box)`
     display: flex;
@@ -23,7 +24,10 @@ function SearchResultAllLyrics(props) {
     const result = useSearchAllLyrics({keyword, exactSearch, artistName, songName});
     const lyrices = React.useMemo(() => createLyrics(result.data),[result.data]);
     const searchCount = result.isSuccess ? result.data.total : '...';
-    const showAllResults = React.useCallback(() => {}, []);
+    const qs = qsToNavigateInSearchResult(query);
+    const showAllResults = React.useCallback(() => {
+        history.push(`/searchResult/lyrics?${qs}`, {tabName:'lyrics', qs})
+    }, [history, qs]);
     console.log('&&: in search all lyrics:', result.data, lyrices)
     return (
         <Container>

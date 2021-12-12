@@ -56,3 +56,11 @@ export const debounce = (callback, timeout) => {
 export const replaceIllegalCharacters = (str, target="-") => {
     return str.replace(/[/\\?%*:|"<>]/g, target);
 }
+
+export const qsToNavigateInSearchResult = query => {
+    const {keyword, exactSearch, artistName, songName} = query;
+    const qs = exactSearch === 'yes' ?
+            `exactSearch=${exactSearch}&keyword=${keyword}&artistName=${artistName}&songName=${songName}`:
+            `exactSearch=${exactSearch}&keyword=${keyword}`
+    return qs;
+}

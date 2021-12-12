@@ -28,7 +28,7 @@ function SearchResultAllHeader(props) {
                     fontSize="20px" 
                     color="white" 
                     opacity={searchCount === 0 ? "0.2":"0.7"}
-                    opacityOnHover={searchCount === 0 ? "0.2":"0.7"}
+                    opacityOnHover={searchCount === 0 ? "0.2":"0.9"}
                     onClick={showAllResults}
                     text={`${categoryMap[category]}(${searchCount}) >`}>
                 </TextBox>

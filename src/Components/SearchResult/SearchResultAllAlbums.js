@@ -7,6 +7,7 @@ import AlbumListNoScrollBar from 'Components/Album/AlbumList/AlbumListNoScrollBa
 import SearchResultAllHeader from 'Components/SearchResult/SearchResultAllHeader';
 import queryString from 'query-string';
 import {Switch, Route, withRouter} from 'react-router-dom';
+import { qsToNavigateInSearchResult } from 'lib/util';
 
 const Container = styled(Box)`
     display: flex;
@@ -22,8 +23,11 @@ function SearchResultAllAlbums(props) {
     const result = useSearchAllAlbums({keyword, exactSearch, artistName, songName});
     const albums = React.useMemo(() => createAlbum(result.data),[result.data]);
     const searchCount = result.isSuccess ? result.data.total : '...';
-    const showAllResults = React.useCallback(() => {}, []);
-    console.log('&&: in search all song:', result.data, albums)
+    const qs = qsToNavigateInSearchResult(query);
+    const showAllResults = React.useCallback(() => {
+        history.push(`/searchResult/albums?${qs}`, {tabName:'albums', qs})
+    }, [history, qs]);
+    console.log('&&: in search all albums:', result.data, albums)
     return (
         <Container>
             {result.isSuccess && (
