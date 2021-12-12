@@ -10,6 +10,7 @@ import SongItemHeaderInSongsScroll from 'Components/Song/SongItemHeaderInSongsSc
 import ScrollBarWithColor from 'Components/Common/ScrollBarWithColor';
 import queryString from 'query-string';
 import {Switch, Route, withRouter} from 'react-router-dom';
+import useInfiniteData from 'hooks/useInfiniteData';
 
 const Container = styled(Box)`
     display: flex;
@@ -33,20 +34,9 @@ function SearchResultSongsScroll(props) {
         isSuccess
     } = useSearchSongsScroll({keyword, exactSearch, artistName, songName, page_sizes, page_num});
     console.log('@@@@:', data);
-    const pages = React.useMemo(() => data ? data.pages:[], [data]);
-    const total = React.useMemo(() => data ? data.pages[0].total:'', [data]);
-    const songs = React.useMemo(() => {
-        const merged = pages.reduce((apiResult, acc) => {
-            const songs = apiResult.fdata;
-            return {...apiResult, fdata:[...songs, ...acc.fdata]}
-        },{fdata:[]})
-        return createSong(merged)
-    },[pages]);
+    const [songs, total] = useInfiniteData(data, 'songs');
     console.log('&&: in search all song:', data, songs)
     const category="";
-    const getMoreItem = React.useCallback(() => {
-        fetchNextPage();
-    },[fetchNextPage]);
     const replaceRequired = false;
     const rootForObservation = React.useRef();
     return (
@@ -57,7 +47,7 @@ function SearchResultSongsScroll(props) {
             ></SongItemHeaderInSongsScroll>
             <ScrollBarWithColor
                 moveScrollToTop={replaceRequired} 
-                getMoreItem={getMoreItem} 
+                getMoreItem={fetchNextPage} 
                 category={category}
                 autoHide 
                 style={{ width:'100%', height: 'calc(100vh - 220px)' }}

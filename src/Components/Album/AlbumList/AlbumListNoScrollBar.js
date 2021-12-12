@@ -2,9 +2,9 @@ import React from 'react'
 import Box from '@mui/material/Box';
 import styled from 'styled-components';
 import AlbumBox from '../AlbumBox';
-import ScrollBarWithColor from 'Components/Common/ScrollBarWithColor';
+// import ScrollBarWithColor from 'Components/Common/ScrollBarWithColor';
 import {withRouter} from 'react-router-dom';
-import useAlbumList from 'hooks/useAlbumList';
+// import useAlbumList from 'hooks/useAlbumList';
 
 const Container = styled(Box)`
     display: grid;
