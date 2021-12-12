@@ -8,6 +8,13 @@ export const baseUrl = {
     'musicbank': 'http://musicbank.sbs.co.kr'
 }
 
+export const genre = {
+  'kpop': 4,
+  'pop': 58,
+  'classic': 144,
+  'etc': 0
+}
+
 export const responseToObject = (fdata, headers) => {
     return fdata.map(responses => {
         return responses.reduce((acc, response, index) => {

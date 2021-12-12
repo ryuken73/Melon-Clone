@@ -38,6 +38,11 @@ export const getTimeString = date => {
     return getString(date).split('.')[1];
 }
 
+export const getDateTimeString = () => {
+  const now = new Date();
+  return getString(now, {sep:''}).substring(0,8);
+}
+
 export const secondsToTime = seconds => {
     if(typeof(seconds) !== 'number' || seconds === Infinity){
         return '00:00'

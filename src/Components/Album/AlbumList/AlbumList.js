@@ -5,10 +5,13 @@ import AlbumBox from '../AlbumBox';
 import ScrollBarWithColor from 'Components/Common/ScrollBarWithColor';
 import {withRouter} from 'react-router-dom';
 // import useAlbumList from 'hooks/useAlbumList';
-import useQueryAlbumByCategoryScroll from 'hooks/useQueryAlbumByCategoryScroll';
+// import useQueryAlbumByCategoryScroll from 'hooks/useQueryAlbumByCategoryScroll';
 // import createAlbum from 'lib/albumClass';
 import RenderIfVisible from 'react-render-if-visible';
+import useSearchMusicAllInfinite from 'hooks/useSearchMusicAllInfinite';
 import useInfiniteData from 'hooks/useInfiniteData';
+import {genre} from 'config/apis';
+import { getDateTimeString } from 'lib/util';
 
 const Container = styled(Box)`
     display: grid;
@@ -25,6 +28,14 @@ const AlbumList = props => {
     const {category} = match.params;
     const replaceRequired = false;
     React.useEffect(() => {console.log('re-mount AlbumList')},[])
+    const genreNum = genre[category];
+    const additionalQuery = category === 'all' ? '' : `and top_genre=${genreNum}`;
+    const params = {
+        scn: 'album', 
+        query: `status='Y' and open_dt <= '${getDateTimeString()}' ${additionalQuery}`,
+        orderby: 'order by open_dt desc',
+        bool: true
+    }
     const {
         data,
         error,
@@ -34,7 +45,7 @@ const AlbumList = props => {
         isFetchingNextPage,
         status,
         isSuccess
-    } = useQueryAlbumByCategoryScroll({category, page_sizes:31, page_num:1});
+    } = useSearchMusicAllInfinite({params, page_sizes:31, page_num:1});
     console.log('%% result: ', data)
     const [albums, total] = useInfiniteData(data, 'albums');
 
