@@ -71,17 +71,17 @@ const StyledList = styled(Box)`
   }
 `;
 
-const querySuggests = async ({queryKey}) => {
-  const [_key, uriEncoded ] = queryKey;
-  if(uriEncoded.length < 2){
-    return Promise.resolve({result:null, count:0})
-  }
-  const response = await fetch(`http://10.11.31.51:3010/searchSong/withWorkers/${uriEncoded}?userId=null&supportThreeWords=true&count=100`);
-  if (!response.ok) {
-    throw new Error('Network response was not ok')
-  }
-  return response.json()
-};
+// const querySuggests = async ({queryKey}) => {
+//   const [_key, uriEncoded ] = queryKey;
+//   if(uriEncoded.length < 2){
+//     return Promise.resolve({result:null, count:0})
+//   }
+//   const response = await fetch(`http://10.11.31.51:3010/searchSong/withWorkers/${uriEncoded}?userId=null&supportThreeWords=true&count=100`);
+//   if (!response.ok) {
+//     throw new Error('Network response was not ok')
+//   }
+//   return response.json()
+// };
 
 const UseAutocomplete = props => {
   const {history} = props;
@@ -99,9 +99,17 @@ const UseAutocomplete = props => {
     id: 'use-autocomplete-demo',
     options: options,
     limit: 10,
-    clearOnBlur: false,
+    freeSolo: true,
+    autoSelect: false,
+    clearOnBlur: true,
+    selectOnFocus: true,
     filterOptions: options => options,
-    getOptionLabel: (option) => `${option.artistName} ${option.songName}`,
+    getOptionLabel: (option) => {
+      if(typeof(option) === 'object'){
+        return `${option.artistName} ${option.songName}`
+      }
+      return option;
+    }
   });
 
   const inputValue = getInputProps().value;
