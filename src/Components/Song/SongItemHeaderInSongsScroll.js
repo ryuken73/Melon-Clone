@@ -5,6 +5,7 @@ import SmallCheckBox from '../Common/CheckBox';
 import TextBox from '../Common/TextBox';
 import LinkArtist from 'Components/Links/LinkArtist';
 import useSongHelper from 'hooks/useSongHelper';
+import AnimatedNumber from 'Components/Common/AnimatedNumber';
 
 const Container = styled(Box)`
     && {
@@ -16,6 +17,12 @@ const Container = styled(Box)`
         padding-right: 10px;
         padding-left: 10px;
     }
+`
+
+const NumberContainer = styled(Box)`
+    font-size: 10px;
+    cursor: auto;
+    color: darkgrey;
 `
 
 const SongItemHeaderInSongScroll = props => {
@@ -32,7 +39,13 @@ const SongItemHeaderInSongScroll = props => {
             <Container>
                 <SmallCheckBox checked={allChecked} setChecked={toggleAllChecked} />
                 <Box flex="1" display="flex" justifyContent="center">
-                    <TextBox text={`(${songs.length}/${total})`} {...rest} cursor="auto" color="darkgrey"></TextBox>
+                    <NumberContainer>
+                        <AnimatedNumber from={0} to={songs.length || 0}></AnimatedNumber>
+                    </NumberContainer>
+                    <TextBox text={`/`} {...rest} cursor="auto" color="darkgrey"></TextBox>
+                    <NumberContainer>
+                        <AnimatedNumber from={0} to={total || 0}></AnimatedNumber>
+                    </NumberContainer>
                 </Box>
                 <Box flex="5" display="flex" flexDirection="row" alignItems="center">
                     {/* 곡명 */}
