@@ -3,14 +3,21 @@ import Box from '@mui/material/Box';
 import styled from 'styled-components';
 import TextBox from 'Components/Common/TextBox';
 import CommonPageHeader from 'Components/Common/CommonPageHeader';
+import AnimatedNumber from 'Components/Common/AnimatedNumber';
 
 const SubContainer = styled(Box)`
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
+    justify-content: flex-start;
     align-items: baseline;
     width: 350px;
     margin-bottom: 10px;
+    cursor: pointer;
+`
+
+const NumberContainer = styled(Box)`
+    font-size: 20px;
+    opacity: ${props => props.searchCount === 0 ? "0.2": "0.7"};
 `
 const categoryMap = {
     'album': '앨범',
@@ -23,14 +30,24 @@ function SearchResultAllHeader(props) {
     const {category, searchCount, showAllResults} = props;
     return (
         <CommonPageHeader>
-            <SubContainer>
+            <SubContainer onClick={showAllResults}>
                 <TextBox 
                     fontSize="20px" 
                     color="white" 
                     opacity={searchCount === 0 ? "0.2":"0.7"}
                     opacityOnHover={searchCount === 0 ? "0.2":"0.9"}
-                    onClick={showAllResults}
-                    text={`${categoryMap[category]}(${searchCount}) >`}>
+                    
+                    text={`${categoryMap[category]}(`}>
+                </TextBox>
+                <NumberContainer searchCount={searchCount}>
+                    <AnimatedNumber from={0} to={searchCount}></AnimatedNumber>
+                </NumberContainer>
+                <TextBox 
+                    fontSize="20px" 
+                    color="white" 
+                    opacity={searchCount === 0 ? "0.2":"0.7"}
+                    opacityOnHover={searchCount === 0 ? "0.2":"0.9"}
+                    text={`) >`}>
                 </TextBox>
             </SubContainer>
         </CommonPageHeader>
