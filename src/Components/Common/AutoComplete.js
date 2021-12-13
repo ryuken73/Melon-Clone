@@ -1,6 +1,6 @@
 import * as React from 'react';
 import Box from '@mui/material/Box';
-import { useAutocomplete } from '@mui/core/AutocompleteUnstyled';
+import {useAutocomplete} from '@mui/core/AutocompleteUnstyled';
 import styled from 'styled-components';
 import parse from 'autosuggest-highlight/parse';
 import match from 'autosuggest-highlight/match';
@@ -9,9 +9,10 @@ import SpanBox from './SpanBox';
 import {useQuery} from 'react-query';
 import useDebounce from 'hooks/useDebounce';
 import useQuerySuggest from 'hooks/useQuerySuggest';
+import useLocalStorage from 'hooks/useLocalStorage';
 // import {setCurrent, setCurrentByInputValue} from './autoCompleteSlice';
 import {useDispatch} from 'react-redux';
-import {Switch, Route, withRouter} from 'react-router-dom';
+import {withRouter} from 'react-router-dom';
 import {useHotkeys} from 'react-hotkeys-hook';
 
 const Input = styled.input`
@@ -71,18 +72,6 @@ const StyledList = styled(Box)`
   }
 `;
 
-// const querySuggests = async ({queryKey}) => {
-//   const [_key, uriEncoded ] = queryKey;
-//   if(uriEncoded.length < 2){
-//     return Promise.resolve({result:null, count:0})
-//   }
-//   const response = await fetch(`http://10.11.31.51:3010/searchSong/withWorkers/${uriEncoded}?userId=null&supportThreeWords=true&count=100`);
-//   if (!response.ok) {
-//     throw new Error('Network response was not ok')
-//   }
-//   return response.json()
-// };
-
 const UseAutocomplete = props => {
   const {history} = props;
   const [options, setOptions] = React.useState([]);
@@ -112,6 +101,7 @@ const UseAutocomplete = props => {
     }
   });
 
+  const [prevSearch, setPrevSearch] = useLocalStorage('prevSearch', {artistName:'', songName:''})
   const inputValue = getInputProps().value;
   const uriEncoded = encodeURIComponent(inputValue);
   const debounced = useDebounce(uriEncoded, 100);
@@ -134,6 +124,7 @@ const UseAutocomplete = props => {
   React.useEffect(() => {
     console.log('^^ value changed:', value)
     const {artistName, songName} = value !== null ? value: {artistName:'', songName:''};
+    setPrevSearch({artistName, songName})
     value !== null && history.push(`/searchResult/all?exactSearch=yes&artistName=${artistName}&songName=${songName}&keyword=${inputValue}`);
   },[value, dispatch, history])
 
@@ -148,10 +139,15 @@ const UseAutocomplete = props => {
     if(event.charCode === 13 && event.target.value.trim()){
       setShowOptions(false);
       console.log('^^^ enter key pressed: ',event.target.value)
+      const {artistName, songName} = prevSearch;
+      if(event.target.value === `${artistName} ${songName}`){
+        history.push(`/searchResult/all?exactSearch=yes&artistName=${artistName}&songName=${songName}&keyword=${inputValue}`);
+        return;
+      }
       setOptions([]);
       history.push(`/searchResult/all?exactSearch=no&keyword=${event.target.value}`);
     }
-  },[setShowOptions, history])
+  },[setShowOptions, history, prevSearch, inputValue])
 
   const handleKeyDown = React.useCallback(event => {
     setShowOptions(true);
