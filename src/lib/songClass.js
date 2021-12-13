@@ -110,12 +110,9 @@ class Song {
 
 
 const createSong = (apiResult, baseApiUrl=BASE_API_URL, baseStreamUrl=BASE_STREAM_URL) => {
-    console.log('&&: createSong :', apiResult)
-    console.log('&&: createSong :', apiResult?.fdata)
     const fdata = apiResult?.fdata? apiResult.fdata : [];
     const songPropsArray = responseToObject(fdata, headers.song);
     const songs = songPropsArray.map(songProps => {
-        console.log('&&: ', songProps); 
         const song = new Song(songProps);
         song._albumImgSrc = songProps && `${baseApiUrl}/Video/small_image/${songProps.label_no}.JPG`;
         return song

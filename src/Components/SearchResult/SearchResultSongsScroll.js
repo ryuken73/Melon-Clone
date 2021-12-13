@@ -12,6 +12,7 @@ import ScrollBarWithColor from 'Components/Common/ScrollBarWithColor';
 import queryString from 'query-string';
 import {Switch, Route, withRouter} from 'react-router-dom';
 import useInfiniteData from 'hooks/useInfiniteData';
+// import useSearchSongsScroll from 'hooks/useSearchSongsScroll';
 import useSearchMusicAllInfinite from 'hooks/useSearchMusicAllInfinite';
 
 const Container = styled(Box)`
@@ -25,20 +26,29 @@ function SearchResultSongsScroll(props) {
     const {page_sizes=null, page_num=null} = props;
     const query = queryString.parse(location.search)
     const {keyword, exactSearch, artistName, songName} = query;
-    const now = new Date();
-    const currentTime = getString(now, {sep:''}).substr(0,12);
+    // const currentTime = getString(now, {sep:''}).substr(0,12);
+    const getCurrentTimeFunc = React.useCallback(() => {
+        const now = new Date();
+        return getString(now, {sep:''}).substr(0,12);
+    },[])
     const needExactSearch = React.useMemo(() => exactSearch === 'yes',[exactSearch])
-    const params = needExactSearch ? {
-        scn: 'song', 
-        query: `(song_name_str = '${songName}' and artist_str = '${artistName}') and open_time<='${currentTime}' and status='Y'`,
-        orderby: 'order by release_year desc,song_name_str asc'
-    }:
-    {
-        scn: 'song', 
-        query: `(song_idx = '${keyword}' allwordthruindexsyn or release_year='${keyword}' or label_no='${keyword}'and status='Y'
-                or song_name_str like '*${keyword}*' or artist_str like '*${keyword}*') and open_time<='${currentTime}' and status='Y'`,
-        orderby: 'order by release_year desc,song_name_str asc'
-    };
+    const params = React.useCallback(() => {
+        const currentTime = getCurrentTimeFunc();
+        return needExactSearch ? {
+            scn: 'song', 
+            query: `(song_name_str = '${songName}' and artist_str = '${artistName}') and open_time<='${currentTime}' and status='Y'`,
+            orderby: 'order by release_year desc,song_name_str asc'
+        }:
+        {
+            scn: 'song', 
+            query: `(song_idx = '${keyword}' allwordthruindexsyn or release_year='${keyword}' or label_no='${keyword}'and status='Y'
+                    or song_name_str like '*${keyword}*' or artist_str like '*${keyword}*') and open_time<='${currentTime}' and status='Y'`,
+            orderby: 'order by release_year desc,song_name_str asc'
+        };
+    },[getCurrentTimeFunc, needExactSearch, songName, artistName, keyword ]);
+    const uniqKeys = React.useMemo(() => {
+        return {keyword, artistName, songName, lastKey:'song'}
+    },[keyword, artistName, songName])
     const {
         data,
         error,
@@ -49,7 +59,7 @@ function SearchResultSongsScroll(props) {
         status,
         isSuccess
     // } = useSearchSongsScroll({keyword, exactSearch, artistName, songName, page_sizes, page_num});
-    } = useSearchMusicAllInfinite({params, page_sizes, page_num});
+    } = useSearchMusicAllInfinite({params, page_sizes, page_num, uniqKeys});
     console.log('@@@@:', data);
     const [songs, total] = useInfiniteData(data, 'songs');
     console.log('&&: in search all song:', data, songs)

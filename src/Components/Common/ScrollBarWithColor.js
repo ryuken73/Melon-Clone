@@ -76,12 +76,13 @@ const ScrollBarWithColor = props => {
     }
 
     const handleAboutToReachBottom = React.useCallback(() => {
-        // console.log('reach to bottom')
+        console.log('^^^^^^^^^ reach to bottom')
         setNotMoveScroll(true)
         getMoreItem();
     },[getMoreItem])
 
     const debouncedValue = useDebounce(t, CONSTANTS.GET_MORE_WAIT_SEC_DEBOUNCE);
+
     React.useEffect(() => {
         if (debouncedValue > 1) handleAboutToReachBottom();
     },[debouncedValue, handleAboutToReachBottom])    

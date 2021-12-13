@@ -3,18 +3,10 @@ import {apiMap} from 'config/apis';
 import {useInfiniteQuery} from 'react-query';
 
 const searchMusicAll = async ({queryKey, pageParam=1}) => {
-  console.log('fetch called:',queryKey)
-  const [_key, params, page_num, page_sizes ] = queryKey;
+  console.log('fetch called:',queryKey, pageParam)
+  const [_key, paramsKey, page_num, page_sizes ] = queryKey;
 
-  // const genreNum = genre[category];
-  // const additionalQuery = category === 'all' ? '' : `and top_genre=${genreNum}`;
-
-  // const params = {
-  //   scn: 'album', 
-  //   query: `status='Y' and open_dt <= '${getDateTimeString()}' ${additionalQuery}`,
-  //   orderby: 'order by open_dt desc',
-  //   bool: true
-  // }
+  const params = typeof(paramsKey) === 'function' ? paramsKey() : paramsKey;
 
   if(page_sizes !== null) params.page_sizes = page_sizes;
   params.page_num = pageParam;
@@ -33,10 +25,10 @@ const searchMusicAll = async ({queryKey, pageParam=1}) => {
 };
 
 const useSearchMusicAllInfinite = options => {
-  const {params, page_sizes, page_num, lastKey="lastKey"} = options;
+  const {params, page_sizes, page_num, uniqKeys} = options;
   console.log('&&:', params, page_sizes, page_num)
 
-  const searchResult = useInfiniteQuery(['searchMusicAll', params, page_num, page_sizes, lastKey ], searchMusicAll, {
+  const searchResult = useInfiniteQuery(['searchMusicAll', params, page_num, page_sizes, uniqKeys], searchMusicAll, {
     getNextPageParam: (lastPage, pages) => {console.log(lastPage, pages); return lastPage.next_page_num},
     staleTime: Infinity
   });
