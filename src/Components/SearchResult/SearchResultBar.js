@@ -46,7 +46,7 @@ function SearchResultBar(props) {
         const tabname = findPathKeyByCategory(category)
         setActiveTab(tabname);
     },[category])
-    console.log('&&&&:', category, keyword)
+    console.log('&&&&:', category, keyword, exactSearch)
     const qs = exactSearch === 'yes' ?
                `exactSearch=${exactSearch}&keyword=${keyword}&artistName=${artistName}&songName=${songName}`:
                `exactSearch=${exactSearch}&keyword=${keyword}`
@@ -55,7 +55,7 @@ function SearchResultBar(props) {
         const tabName = event.target.innerText;
         // setActiveTab(tabName);
         history.push(`${PATHS[tabName]}?${qs}`, {tabName, qs});
-    },[history, keyword])
+    },[history, qs])
 
     return (
         <Container>
