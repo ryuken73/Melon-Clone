@@ -1,13 +1,7 @@
 import {headers, responseToObject} from 'config/apis';
 import CONSTANTS from 'config/constants';
+import {replaceBold} from 'lib/util';
 const {BASE_API_URL, BASE_STREAM_URL} = CONSTANTS;
-
-const replaceBold = str => {
-    return str.replace(/<b>/g,'<span style=color:yellow;>').replace(/<\/b>/g,'</span>')
-}
-const removeBold = str => {
-    return str.replace(/<b>/g,'').replace(/<\/b>/g,'')
-}
 
 class Artist {
     constructor(props){

@@ -69,3 +69,22 @@ export const qsToNavigateInSearchResult = query => {
             `exactSearch=${exactSearch}&keyword=${keyword}`
     return qs;
 }
+
+export const replaceBold = str => {
+    try {
+        const replaced =  str.replace(/<b>/g,'<span style=color:yellow;>').replace(/<\/b>/g,'</span>')
+        return replaced;
+    } catch (error) {
+        console.error(str, error)
+        return str;
+    }
+}
+export const removeBold = str => {
+    try {
+        const removed = str.replace(/<b>/g,'').replace(/<\/b>/g,'');
+        return removed;
+    } catch (error) {
+        console.error(str, error)
+        return str;
+    }
+}

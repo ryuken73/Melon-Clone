@@ -1,12 +1,6 @@
 import CONSTANTS from 'config/constants';
 import { secondsToTime, replaceIllegalCharacters, getTimeString } from './util';
-
-const replaceBold = str => {
-    return str.replace(/<b>/g,'<span style=color:yellow;>').replace(/<\/b>/g,'</span>')
-}
-const removeBold = str => {
-    return str.replace(/<b>/g,'').replace(/<\/b>/g,'')
-}
+import {replaceBold, removeBold} from 'lib/util';
 
 class SongInAlbum {
     constructor(props, label_no){
