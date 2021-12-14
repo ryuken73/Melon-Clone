@@ -30,14 +30,19 @@ class Artist {
 }
 
 
-const createArtist = (apiResult, baseApiUrl=BASE_API_URL, baseStreamUrl=BASE_STREAM_URL) => {
+export const createArtists = (apiResult, baseApiUrl=BASE_API_URL, baseStreamUrl=BASE_STREAM_URL) => {
     const fdata = apiResult?.fdata? apiResult.fdata: [];
     const artistPropsArray = responseToObject(fdata, headers.artist)
-    const artist = artistPropsArray.map(artistProps => {
+    const artists = artistPropsArray.map(artistProps => {
         const artist = new Artist(artistProps);
         return artist;
     })
-    return artist;
+    return artists;
 }
 
-export default createArtist;
+// make artist instance by doGet.mb results
+export const createArtist = apiResult => {
+    const info = apiResult?.info ? apiResult.info: {};
+    const artist = new Artist(info);
+    return artist;
+}
