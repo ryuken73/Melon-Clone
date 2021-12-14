@@ -16,21 +16,36 @@ const SongListInSearchAll = props => {
     const {songs, rootRef} = props;
     const root = React.useMemo(() => {return rootRef ? rootRef.current : null}, [rootRef])
     const {mr="15px"} = props;
+    const {renderIfVisible=true} = props;
     return (
         <Container>
             {songs.map((song, index) => (
-                <RenderIfVisible root={root} defaultHeight={55} visibleOffset={500}>
-                <Box key={song.id} px="10px">
-                    <SongIteminSearchAll
-                        rownum={index}
-                        fontSize="14px"
-                        color="white"
-                        song={song}
-                        width="100%"
-                    ></SongIteminSearchAll>
-                    <Divider opacity="0.2" margin="0px" mr={mr}></Divider>
-                </Box>
-                </RenderIfVisible>
+                renderIfVisible ? (
+                    <RenderIfVisible root={root} defaultHeight={55} visibleOffset={500}>
+                        <Box key={song.id} px="10px">
+                            <SongIteminSearchAll
+                                rownum={index}
+                                fontSize="14px"
+                                color="white"
+                                song={song}
+                                width="100%"
+                            ></SongIteminSearchAll>
+                            <Divider opacity="0.2" margin="0px" mr={mr}></Divider>
+                        </Box>
+                    </RenderIfVisible>
+
+                ):(
+                    <Box key={song.id} px="10px">
+                        <SongIteminSearchAll
+                            rownum={index}
+                            fontSize="14px"
+                            color="white"
+                            song={song}
+                            width="100%"
+                        ></SongIteminSearchAll>
+                        <Divider opacity="0.2" margin="0px" mr={mr}></Divider>
+                    </Box>
+                )
             ))}
         </Container>
     )
