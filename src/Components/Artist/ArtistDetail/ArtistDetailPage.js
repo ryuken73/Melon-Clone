@@ -3,11 +3,11 @@ import Box from '@mui/material/Box';
 import styled from 'styled-components';
 import ArtistDetailHeader from './ArtistDetailHeader';
 import ArtistDetailTab from './ArtistDetailTab';
-import ArtistDetailList from './ArtistDetailList';
-import ArtistDetailInfo from './ArtistDetailInfo';
+// import ArtistDetailList from './ArtistDetailList';
+import ArtistDetailSongList from './ArtistDetailSongList';
 import AlbumList from 'Components/Album/AlbumList/AlbumList';
 import {withRouter, Switch, Route} from 'react-router-dom';
-import useArtistInfo from 'hooks/useArtistInfo';
+import queryString from 'query-string';
 
 
 const Container = styled(Box)`
@@ -30,22 +30,17 @@ const queryArtist = async ({queryKey}) => {
 
 const ArtistDetailPage = props => {
     const {history, location, match} = props;
-    const {artist_name} = match.params
-    const {
-        successListArtist,
-        dataListArtist,
-        successArtistInfo,
-        dataArtistInfo
-    } = useArtistInfo(artist_name);
-    console.log('^^:', dataArtistInfo)
+    const {category} = match.params
+    const query = queryString.parse(location.search)
+    const {sch_id} = query;
     return (
         <Container>
-            {/* <ArtistDetailHeader artistInfo={artistInfo} ></ArtistDetailHeader> */}
-            {/* <ArtistDetailTab history={history} location={location} match={match}></ArtistDetailTab> */}
+            <ArtistDetailHeader sch_id={sch_id} ></ArtistDetailHeader>
+            <ArtistDetailTab></ArtistDetailTab>
             <Switch>
-                <Route path="/artist/:artist_name/songList" render={(renderProps) => <ArtistDetailList {...renderProps}></ArtistDetailList> }></Route>
-                {/* <Route path="/artist/:receipt_no/albumList" render={(renderProps) => <ArtistDetailInfo {...renderProps}></ArtistDetailInfo> }></Route> */}
-                {/* <Route path="/artist/:artist_name/:pathname" render={(renderProps) => <AlbumList {...renderProps}></AlbumList> }></Route> */}
+                <Route path="/artist/:artist_name/songList" render={(renderProps) => <ArtistDetailSongList {...renderProps}></ArtistDetailSongList> }></Route>
+                {/* <Route path="/artist/:artist_name/albumList" render={(renderProps) => <ArtistDetailList {...renderProps}></ArtistDetailList> }></Route> */}
+                {/* <Route path="/artist/:artist_name/detailInfo" render={(renderProps) => <ArtistDetailList {...renderProps}></ArtistDetailList> }></Route> */}
             </Switch>
         </Container>
     )

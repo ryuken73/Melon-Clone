@@ -285,6 +285,19 @@ export const apiMap = {
         }
 
     },
+    // get artist info by sch_id
+    // 'doGet.mb': (params) => {
+    //     const postBody = new URLSearchParams();
+    //     postBody.append('params', params);
+    //     return {
+    //         url: `/mbs/regist300e/doGet.mb`,
+    //         fetchOptions: {
+    //             method: 'POST',
+    //             body: postBody,
+    //             ...DEFAULT_FETCH_OPTIONS
+    //         }
+    //     }
+    // },
     'querySuggest': searchKeyword => {
         return {
             url: `http://10.11.31.51:3010/searchSong/withWorkers/${searchKeyword}?userId=null&supportThreeWords=true&count=100`,

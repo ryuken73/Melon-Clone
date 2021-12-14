@@ -14,9 +14,11 @@ const LinkArtist = props => {
         const queryArtistId = queryArtistIdBatch[parseInt(event.currentTarget.id)];
         queryArtistId.refetch()
         .then(result => {
-            // console.log(result)
+            console.log(result)
             if(result.isSuccess && result.data.list.length > 0){
-                history.push(`/artist/${result.data.list[0].id}/songList`)
+                const sch_artist = result.data.list[0].artist;
+                const sch_id = result.data.list[0].id;
+                history.push(`/artist/${sch_artist}/songList?sch_id=${sch_id}`)
             } else {
                 alert('artist not found');
                 return;

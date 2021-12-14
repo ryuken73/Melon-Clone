@@ -64,7 +64,7 @@ function App() {
           <Route path="/albumList" render={(routerProps)=><AlbumListPage {...routerProps} />} />
           <Route path="/album/:receipt_no" render={(routerProps)=><AlbumDetailPage {...routerProps} />} />
           <Route path="/song/:id" render={(routerProps)=><SongView {...routerProps} />} />
-          <Route path="/artist/:artist_name" render={(routerProps)=><ArtistDetailPage {...routerProps} />} />
+          <Route path="/artist/:artist_name/:category" render={(routerProps)=><ArtistDetailPage {...routerProps} />} />
           <Route path="/searchResult/:category" render={(routerProps)=><SearchResultPage {...routerProps} />} />
           <Route render={()=><withRouterNotFoundView />} />
         </Switch>
