@@ -4,6 +4,8 @@ import styled from 'styled-components';
 import ImageBox from 'Components/Common/ImageBox';
 import TextBox from 'Components/Common/TextBox';
 import ItemWithTitleNValue from 'Components/Common/ItemWithTitleNValue';
+import useArtistDoGet from 'hooks/useArtistDoGet';
+import {createArtist} from 'lib/artistClass';
 
 const Container = styled(Box)`
     display: flex;
@@ -39,12 +41,14 @@ const ArtistDetailInfo = props => {
 }
 
 const ArtistDetailHeader = props => {
-    const {artistInfo} = props;
-    const {image_path} = artistInfo;
+    const {sch_id} = props;
+    const result = useArtistDoGet(sch_id);
+    const artist = React.useMemo(() => createArtist(result.data), [result.data])
+    console.log(artist)
     return (
         <Container>
-            <ImageBox width="150px" height="150px" src={image_path}></ImageBox>
-            <ArtistDetailInfo artistInfo={artistInfo}></ArtistDetailInfo>
+            <ImageBox width="150px" height="150px" src={artist.eval_imagePath}></ImageBox>
+            <ArtistDetailInfo artistInfo={artist}></ArtistDetailInfo>
         </Container>
     )
 }
