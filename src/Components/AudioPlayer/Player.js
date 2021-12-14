@@ -87,7 +87,7 @@ function Player(props) {
 
     const handleMoveProgressSlider = React.useCallback( progressPercent => {
         const player = playerRef.current;
-        const {duration} = player;
+        const duration = player?.duration;
         if(duration === undefined || duration === null) return;
         const timeToGo = (duration * progressPercent/100);
         console.log(duration, timeToGo)
