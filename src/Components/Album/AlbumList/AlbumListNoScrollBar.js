@@ -13,8 +13,6 @@ const Container = styled(Box)`
     width: ${prop => prop.height || "auto"};
     margin-right: 10px;
 `
-const FETCH_COUNT=12;
-
 const AlbumList = props => {
     const {albums} = props;
     const {history} = props;

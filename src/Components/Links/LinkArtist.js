@@ -28,7 +28,7 @@ const LinkArtist = props => {
     return (
         <Box display="flex" alignItems="center">
             {artistsArray.map((artist, index) => (
-                <Box display="flex">
+                <Box key={index} display="flex">
                     <TextBox id={index} preserveHtmlTag text={artist} onClick={onClick}></TextBox>
                     {artistsArray.length > 1 && 
                      index !== artistsArray.length -1 && 

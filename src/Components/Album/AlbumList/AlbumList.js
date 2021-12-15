@@ -7,7 +7,7 @@ import {withRouter} from 'react-router-dom';
 // import useAlbumList from 'hooks/useAlbumList';
 // import useQueryAlbumByCategoryScroll from 'hooks/useQueryAlbumByCategoryScroll';
 // import createAlbum from 'lib/albumClass';
-import RenderIfVisible from 'react-render-if-visible';
+// import RenderIfVisible from 'react-render-if-visible';
 import useSearchMusicAllInfinite from 'hooks/useSearchMusicAllInfinite';
 import useInfiniteData from 'hooks/useInfiniteData';
 import {genre} from 'config/apis';
@@ -20,7 +20,7 @@ const Container = styled(Box)`
     width: ${prop => prop.height || "auto"};
     margin-right: 10px;
 `
-const FETCH_COUNT=12;
+// const FETCH_COUNT=12;
 
 const AlbumList = props => {
     const {history} = props;
@@ -38,15 +38,15 @@ const AlbumList = props => {
     }
     const {
         data,
-        error,
+        // error,
         fetchNextPage,
-        hasNextPage,
-        isFetching,
-        isFetchingNextPage,
-        status,
-        isSuccess
+        // hasNextPage,
+        // isFetching,
+        // isFetchingNextPage,
+        // status,
+        // isSuccess
     } = useSearchMusicAllInfinite({params, page_sizes:31, page_num:1});
-    const [albums, total] = useInfiniteData(data, 'albums');
+    const [albums] = useInfiniteData(data, 'albums');
     console.log('%% result: ', data, albums)
 
     return (

@@ -1,7 +1,6 @@
 import React from 'react'
 import Box from '@mui/material/Box';
 import styled from 'styled-components';
-import TextBox from 'Components/Common/TextBox';
 import TextBoxHighlight from 'Components/Common/TextBoxHighlight';
 import Divider from 'Components/Common/Divider';
 
@@ -28,10 +27,10 @@ const AlbumDetailTab = props => {
     const {receipt_no} = match.params;
     const onClickTab = React.useCallback(()=>{
         history.push(`/album/${receipt_no}/songList`);
-    },[history.location])
+    },[history, receipt_no])
     const onClickAlbumInfo = React.useCallback(()=>{
         history.push(`/album/${receipt_no}/albumInfo`);
-    },[history.location])
+    },[history, receipt_no])
     return (
         <Container>
             <SubContainer width="150px">

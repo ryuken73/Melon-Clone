@@ -37,31 +37,31 @@ export const albumSlice = createSlice({
     reducers: {
         pushFetchedAlbums: (state, action) => {
             console.log(action)
-            const {type, payload} = action;
+            const {payload} = action;
             const {category, albums} = payload
             state.fetched[category] = [...state.fetched[category], ...albums];
         },
         replaceAlbums: (state, action) => {
             console.log(action)
-            const {type, payload} = action;
+            const {payload} = action;
             const {category, albums} = payload
             state.fetched[category] = albums;
         },
         addObjectToState: (state, action) => {
             console.log(action);
-            const {type, payload} = action;
+            const {payload} = action;
             const {stateKey, key, value} = payload
             state[stateKey][key] = value;  
         },
         setSongCheckedInSongList: (state, action) => {
-            const {type, payload} = action;
+            const {payload} = action;
             const {receipt_no, rownum, checked} = payload;
             const song = state.songListInAlbum[receipt_no].find(song => song.rownum === rownum);
             song.checkedSongList = checked;
 
         },
         toggleAllSongsCheckedInPlaylist: (state, action) => {
-            const {type, payload} = action;
+            const {payload} = action;
             const {receipt_no} = payload;
             const songList = state.songListInAlbum[receipt_no];
             if(songList.every(song => song.checkedPlaylist)){
@@ -71,13 +71,13 @@ export const albumSlice = createSlice({
             songList.forEach(song => song.checkedPlaylist = true);
         },
         toggleSongCheckedInSongList: (state, action) => {
-            const {type, payload} = action;
+            const {payload} = action;
             const {receipt_no, rownum} = payload;
             const song = state.songListInAlbum[receipt_no].find(song => song.rownum === rownum);
             song.checkedSongList = !song.checkedSongList;
         },
         toggleAllSongsCheckedInSongList: (state, action) => {
-            const {type, payload} = action;
+            const {payload} = action;
             const {receipt_no} = payload;
             const songList = state.songListInAlbum[receipt_no];
             if(songList.every(song => song.checkedSongList)){
@@ -140,7 +140,7 @@ export const fetchAlbums = ({category='all', query, replace=false}) => async (di
 export const doListAlbum = ({receipt_no}) => async (dispatch, getState) => {
     const API_NAME = 'doListAlbum';
     const api = apiMap[API_NAME];
-    const {uri, headers: responseHeaders} = api;
+    const {uri} = api;
     const searchParam = new URLSearchParams();
     searchParam.append('receipt_no', receipt_no);
     const response = await fetch(uri, {...DEFAULT_FETCH_OPTIONS, body: searchParam});
@@ -184,7 +184,7 @@ export const addSongsInAlbumToCurrentPlaylist = ({receipt_no, rownum, allChecked
     }
     const API_NAME = 'doListAlbum';
     const api = apiMap[API_NAME];
-    const {uri, headers: responseHeaders} = api;
+    const {uri} = api;
     const searchParam = new URLSearchParams();
     searchParam.append('receipt_no', receipt_no);
     const response = await fetch(uri, {...DEFAULT_FETCH_OPTIONS, body: searchParam});

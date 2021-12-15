@@ -30,7 +30,7 @@ const AlbumBox = props => {
     } = props;
     const handleClickAlbum = React.useCallback(()=> {
         history.push(`/album/${receipt_no}/songList`, {receipt_no})
-    },[history.location])
+    },[history, receipt_no])
     // console.log('re-render albumbox:', nameAlbum)
     return (
         <Container>

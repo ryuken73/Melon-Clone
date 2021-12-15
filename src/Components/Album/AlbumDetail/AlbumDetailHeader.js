@@ -26,7 +26,6 @@ const AlbumDetailInfo = props => {
     const {
         album_name = '',
         album_type = '',
-        title_song = '',
         producer = '',
         artist = '',
     } = albumInfo;

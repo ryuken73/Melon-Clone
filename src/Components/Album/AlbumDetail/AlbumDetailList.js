@@ -1,7 +1,6 @@
 import React from 'react'
 import Box from '@mui/material/Box';
 import styled from 'styled-components';
-import colors from 'config/colors';
 import ButtonIcon from 'Components/Common/ButtonIcon';
 import CheckIcon from '@mui/icons-material/Check';
 import PlayArrowIcon from '@mui/icons-material/PlayArrow';

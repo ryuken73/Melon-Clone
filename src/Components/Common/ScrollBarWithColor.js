@@ -108,6 +108,7 @@ const ScrollBarWithColor = props => {
             onUpdate={handleUpdate}
             renderThumbVertical={RenderThumb}
             ref={scrollbar}
+            autoHide={false}
         >
             {/* {props.children} */}
         </Scrollbars>

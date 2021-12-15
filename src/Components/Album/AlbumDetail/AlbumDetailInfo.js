@@ -12,7 +12,7 @@ const Container = styled(Box)`
 `
 
 const AlbumDetailInfo = props => {
-    const {history, location, match} = props;
+    const {match} = props;
     const {receipt_no} = match.params;
     return (
         <Container>

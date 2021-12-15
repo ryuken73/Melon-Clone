@@ -2,18 +2,15 @@ import './App.css';
 import React from 'react';
 import Box from '@mui/material/Box';
 import styled from 'styled-components';
-import {Switch, Route, withRouter} from 'react-router-dom';
+import {Switch, Route} from 'react-router-dom';
 import AlbumListPage from 'Components/Album/AlbumList/AlbumListPage';
 import AlbumDetailPage from 'Components/Album/AlbumDetail/AlbumDetailPage';
 import ArtistDetailPage from 'Components/Artist/ArtistDetail/ArtistDetailPage';
 import SearchResultPage from 'Components/SearchResult/SearchResultPage';
 import SongView from 'Views/SongView';
-import ArtistView from 'Views/ArtistView';
 import PortalView from 'Components/Portal/PortalPage';
-import NotFoundView from 'Views/NotFoundView';
 import PlayerSkin from 'Components/AudioPlayer/Skin';
 import Player from 'Components/AudioPlayer/Player';
-import AudioPlayer from 'Components/AudioPlayer';
 import PlayList from 'Components/PlayList';
 import CenterHeader from './CenterHeader';
 import VerticalMenu from './VerticalMenu';
@@ -35,10 +32,6 @@ const RightPane = styled(Box)`
   background:black;
   flex-grow: 0;
   flex-shrink: 0;
-`
-const RightPaneHeader = styled(Box)`
-  background: ${colors.player};
-  min-height: 30px;
 `
 const CenterPane = styled(Box)`
   flex-grow:1;
@@ -73,9 +66,6 @@ function App() {
         <PlayerSkin></PlayerSkin>
         <Player></Player>
         <PlayList></PlayList>
-        {/* <RightPaneHeader></RightPaneHeader>
-        <AudioPlayer></AudioPlayer>
-        <PlayList></PlayList> */}
       </RightPane> 
       <MessageBox></MessageBox>
       <Backdrop></Backdrop>
