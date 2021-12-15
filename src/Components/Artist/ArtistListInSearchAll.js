@@ -5,10 +5,10 @@ import ArtistIteminSearchAll from 'Components/Artist/ArtistIteminSearchAll' ;
 
 const Container = styled(Box)`
     display: flex;
-    flex-direction: row;
-    justify-content: flex-start;
+    flex-wrap: wrap;    
     height: ${prop => prop.height || "auto"};
     width: ${prop => prop.height || "auto"};
+    margin-right: 10px;
 `
 
 function ArtistListInSearchAll(props) {

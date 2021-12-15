@@ -14,13 +14,14 @@ const Container = styled(Box)`
     flex-direction: column;
     justify-content: flex-start;
     background: transparent;
-    margin-top: 30px;
+    margin-top: ${props => props.showHeader ? '30px':'10px'};
 `
 function SearchResultAllArtists(props) {
-    const {history, match, location } = props;
+    const {history, location} = props;
+    const {page_sizes=5, showHeader=true} = props;
     const query = queryString.parse(location.search)
     const {keyword, exactSearch, artistName, songName} = query;
-    const result = useSearchAllArtists({keyword, exactSearch, artistName, songName});
+    const result = useSearchAllArtists({keyword, exactSearch, artistName, songName, page_sizes});
     const artists = React.useMemo(() => createArtists(result.data),[result.data]);
     const searchCount = result.isSuccess ? result.data.total : '...';
     const qs = qsToNavigateInSearchResult(query);
@@ -29,8 +30,8 @@ function SearchResultAllArtists(props) {
     }, [history, qs]);
     console.log('&&: in search all artists:', result.data, artists)
     return (
-        <Container>
-            {result.isSuccess && (
+        <Container showHeader={showHeader}>
+            {result.isSuccess && showHeader && (
                 <SearchResultAllHeader
                     category="artist"
                     searchCount={searchCount}

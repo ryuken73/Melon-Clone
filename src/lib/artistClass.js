@@ -10,6 +10,13 @@ class Artist {
     get key() { return this.nativeProps.key}
     get artist() { return this.nativeProps.artist}
     get artist_bold() { return replaceBold(this.nativeProps.artist)}
+    get artist_matched() { 
+        const matched = this.nativeProps.artist.match(/<b>(.*)<\/b>/);
+        if(matched !== null){
+            return matched[1];
+        }
+        return this.nativeProps.artist;
+    }
     get artist_type() { return this.nativeProps.artist_type}
     get genre() { return this.nativeProps.genre}
     get debut_song() { return this.nativeProps.debut_song}

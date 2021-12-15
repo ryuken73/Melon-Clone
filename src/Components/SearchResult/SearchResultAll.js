@@ -4,11 +4,8 @@ import SearchResultAllSongs from './SearchResultAllSongs';
 import SearchResultAllAlbums from './SearchResultAllAlbums';
 import SearchResultAllArtists from './SearchResultAllArtists';
 import SearchResultAllLyrics from './SearchResultAllLyrics';
-import {Switch, Route, withRouter} from 'react-router-dom';
 
 function SearchResultAll(props) {
-    const {history, match } = props;
-    const {keyword} = match.params;
     return (
         <ScrollBarWithColor 
             autoHide 
@@ -16,10 +13,10 @@ function SearchResultAll(props) {
         >
             <SearchResultAllSongs></SearchResultAllSongs>
             <SearchResultAllAlbums></SearchResultAllAlbums>
-            <SearchResultAllArtists></SearchResultAllArtists>
+            <SearchResultAllArtists page_sizes={5}></SearchResultAllArtists>
             <SearchResultAllLyrics></SearchResultAllLyrics>
         </ScrollBarWithColor>
     )
 }
 
-export default React.memo(withRouter(SearchResultAll));
+export default React.memo(SearchResultAll);

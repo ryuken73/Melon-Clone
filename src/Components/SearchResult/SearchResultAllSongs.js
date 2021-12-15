@@ -38,7 +38,7 @@ function SearchResultAllSongs(props) {
                     showAllResults={showAllResults}
                 ></SearchResultAllHeader>
             )}
-           <SongListInSearchAll songs={songs}></SongListInSearchAll>
+           <SongListInSearchAll renderIfVisible={false} songs={songs}></SongListInSearchAll>
         </Container>
     )
 }

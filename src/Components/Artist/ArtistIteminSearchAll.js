@@ -3,6 +3,7 @@ import Box from '@mui/material/Box';
 import styled from 'styled-components';
 import ImageBox from 'Components/Common/ImageBox';
 import TextBox from 'Components/Common/TextBox';
+import LinkArtist from 'Components/Links/LinkArtist';
 
 const Container = styled(Box)`
     display: flex;
@@ -13,21 +14,19 @@ const Container = styled(Box)`
 
 function ArtistIteminSearchAll(props) {
     const {artist} = props;
-    const {artist_bold, artist_type} = artist;
+    const {artist_bold, artist_matched, artist_type} = artist;
     const image_path = artist.eval_imagePath;
     return (
         <Container>
             <ImageBox width="150px" height="150px" src={image_path}></ImageBox>            
             <Box height="10px"></Box>
-            <TextBox 
-                fontSize="14px" 
-                color="white" 
-                opacity="0.7" 
-                opacityOnHover="0.9"
+            <LinkArtist 
+                artist={artist_bold}
+                matched={artist_matched} 
                 preserveHtmlTag 
-                text={artist_bold}
-            ></TextBox>
-            <TextBox preserveHtmlTag text={artist_type}></TextBox>
+                color="darkgrey"
+            ></LinkArtist>
+            <TextBox preserveHtmlTag text={artist_type} cursor="auto"></TextBox>
         </Container>
     )
 }
