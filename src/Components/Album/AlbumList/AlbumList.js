@@ -46,8 +46,8 @@ const AlbumList = props => {
         status,
         isSuccess
     } = useSearchMusicAllInfinite({params, page_sizes:31, page_num:1});
-    console.log('%% result: ', data)
     const [albums, total] = useInfiniteData(data, 'albums');
+    console.log('%% result: ', data, albums)
 
     return (
         <ScrollBarWithColor 
@@ -64,7 +64,8 @@ const AlbumList = props => {
                         key={album.receipt_no}
                         receipt_no={album.receipt_no}
                         nameAlbum={album.album_name} 
-                        nameArtist={album.artist}
+                        nameArtist={album.artist_bold}
+                        matched={album.artist_matched}
                         imagePath={album.eval_imagePath}
                         history={history}
                         lazyLoaing={true}

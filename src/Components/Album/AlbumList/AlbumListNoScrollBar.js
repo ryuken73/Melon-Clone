@@ -27,6 +27,7 @@ const AlbumList = props => {
                     receipt_no={album.receipt_no}
                     nameAlbum={album.album_name_bold} 
                     nameArtist={album.artist_bold}
+                    matched={album.artist_matched}
                     imagePath={album.eval_imagePath}
                     history={history}
                     preserveHtmlTag={true}

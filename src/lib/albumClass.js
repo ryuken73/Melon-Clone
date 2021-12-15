@@ -23,6 +23,13 @@ class Album {
     get arrang_type_nm() { return this.nativeProps.arrang_type_nm}
     get artist() { return this.nativeProps.artist}
     get artist_bold() { return replaceBold(this.nativeProps.artist)}
+    get artist_matched() { 
+        const matched = this.nativeProps.artist.match(/<b>(.*)<\/b>/);
+        if(matched !== null){
+            return matched[1];
+        }
+        return this.nativeProps.artist;
+    }
     get reg_dt() { return this.nativeProps.reg_dt}
     get new_flag() { return this.nativeProps.new_flag}
     get brd_time() { return this.nativeProps.brd_time}

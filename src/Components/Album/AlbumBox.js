@@ -3,6 +3,7 @@ import Box from '@mui/material/Box';
 import styled from 'styled-components';
 import ImageBoxWithHoverIcon from '../Common/ImageBoxWithHoverIcon';
 import TextBox from '../Common/TextBox';
+import LinkArtist from 'Components/Links/LinkArtist';
 
 const Container = styled(Box)`
     display: flex;
@@ -20,6 +21,7 @@ const AlbumBox = props => {
         receipt_no=0,
         nameAlbum="잊어야 한다는", 
         nameArtist="김광석", 
+        matched,
         imagePath="/images/no_image_black.jpg", 
         resizeOnHover=true,
         preserveHtmlTag=false,
@@ -51,14 +53,20 @@ const AlbumBox = props => {
                 onClick={handleClickAlbum}
             >
             </TextBox>
-            <TextBox 
+            <LinkArtist 
+                artist={nameArtist} 
+                matched={matched} 
+                preserveHtmlTag 
+                color="darkgrey"
+            ></LinkArtist>
+            {/* <TextBox 
                 fontSize="12px" 
                 color="white" 
                 opacity="0.5" 
                 opacityOnHover="0.6" 
                 preserveHtmlTag={preserveHtmlTag}
                 text={nameArtist}>
-            </TextBox>
+            </TextBox> */}
         </Container>
     )
 }

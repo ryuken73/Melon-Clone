@@ -50,9 +50,9 @@ function SearchResultAlbums(props) {
         isSuccess
     // } = useSearchSongsScroll({keyword, exactSearch, artistName, songName, page_sizes, page_num});
     } = useSearchMusicAllInfinite({params, page_sizes, page_num});
-    console.log('@@@@:', data);
     const [albums, total] = useInfiniteData(data, 'albums');
     const replaceRequired = false;
+    console.log('@@@@:', data, albums);
 
     return (
         <ScrollBarWithColor 
@@ -68,7 +68,8 @@ function SearchResultAlbums(props) {
                         key={album.receipt_no}
                         receipt_no={album.receipt_no}
                         nameAlbum={album.album_name_bold} 
-                        nameArtist={album.artist_name_bold}
+                        nameArtist={album.artist_bold}
+                        matched={album.artist_matched}
                         imagePath={album.eval_imagePath}
                         history={history}
                         lazyLoaing={true}
