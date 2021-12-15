@@ -3,7 +3,10 @@ import Box from '@mui/material/Box';
 import styled from 'styled-components';
 import colors from 'config/colors';
 import ButtonIcon from 'Components/Common/ButtonIcon';
+import ButtonSmall from 'Components/Common/ButtonSmall';
 import TextBox from 'Components/Common/TextBox';
+import ArrowDownward from '@mui/icons-material/ArrowDownward';
+import ArrowUpward from '@mui/icons-material/ArrowUpward';
 import CheckIcon from '@mui/icons-material/Check';
 import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 import SongListInAlbumDetail from 'Components/Song/SongListInAlbumDetail';
@@ -28,7 +31,7 @@ const Container = styled(Box)`
 const ButtonContainer = styled(Box)`
     display: flex;
     flex-direction: row;
-    justify-content: flex-end;
+    justify-content: flex-start;
     height: ${prop => prop.height || "auto"};
     width: ${prop => prop.height || "auto"};
     .MuiSvgIcon-root {
@@ -46,15 +49,19 @@ const SongContainer = styled(Box)`
 const ArtistDetailSongList = props => {
     const {match} = props;
     const {artist_name, category} = match.params;
+    const [orderRecent, setOrderRecent] = React.useState(true);
+    const [orderAlpha, setOrderAlpha] = React.useState(true);
+    const [orderBy, setOrderBy] = React.useState('order by album_name_str asc');
 
     const params = React.useMemo(() => {
         return {
             scn: 'song',
             query: `artist = '${artist_name}' allwordthruindexsyn and status='Y'`,
-            orderby: 'order by song_name_str asc',
+            orderby: orderBy,
             bool: true
         }
-    },[artist_name])
+    },[artist_name, orderRecent, orderBy])
+
     const uniqKeys = React.useMemo(() => {
         return {
             artist_name,
@@ -81,6 +88,22 @@ const ArtistDetailSongList = props => {
     const {addSongsToCurrentPlaylist} = useCurrentPlaylist();
     const {clearChecked, toggleAllSongChecked} = useSongHelper();
 
+    const toggleOrderRecent = React.useCallback(()=>{
+        setOrderRecent(orderRecent => {
+            const newOrderRecent = !orderRecent;
+            setOrderBy(`order by release_year ${newOrderRecent ? 'asc':'desc'} , song_name_str ${orderAlpha ? 'asc':'desc'}`)
+            return newOrderRecent;
+        });
+    },[setOrderRecent, setOrderBy, orderRecent, orderAlpha]);
+
+    const toggleOrderAlpha = React.useCallback(()=>{
+        setOrderAlpha(orderAlpha => {
+            const newOrderAlpha = !orderAlpha
+            setOrderBy(`order by song_name_str ${newOrderAlpha ? 'asc':'desc'}, release_year ${orderRecent ? 'asc':'desc'}`)
+            return newOrderAlpha
+        });
+    },[setOrderAlpha, setOrderBy, orderRecent, orderAlpha]);
+
     const toggleAllChecked = React.useCallback(()=>{
         toggleAllSongChecked(songs);
     },[toggleAllSongChecked, songs])
@@ -90,25 +113,45 @@ const ArtistDetailSongList = props => {
         clearChecked();
     },[addSongsToCurrentPlaylist, songs, clearChecked])
 
+    const ArrowOrderRecent = orderRecent ? ArrowDownward : ArrowUpward;
+    const ArrowOrderAlpha = orderAlpha ? ArrowDownward : ArrowUpward;
+
     const replaceRequired = false;
     const rootForObservation = React.useRef();
     return (
         <Container>
             <ButtonContainer>
-                <ButtonIcon 
-                    text="전체선택" 
-                    iconComponent={<CheckIcon fontSize="small"></CheckIcon>} 
+                <ButtonIcon
+                    text="최신순"
+                    iconComponent={<ArrowOrderRecent fontSize="small"></ArrowOrderRecent>}
                     border="1px solid rgba(255, 255, 255, .5)"
                     hoverBorder="1px solid rgba(255, 255, 255, 0.8)"
-                    onClick={toggleAllChecked}
+                    onClick={toggleOrderRecent}
                 ></ButtonIcon>
-                <ButtonIcon 
-                    text="전체재생" 
-                    iconComponent={<PlayArrowIcon fontSize="small"></PlayArrowIcon>} 
+                <ButtonIcon
+                    text="가나다순"
+                    iconComponent={<ArrowOrderAlpha fontSize="small"></ArrowOrderAlpha>}
                     border="1px solid rgba(255, 255, 255, .5)"
                     hoverBorder="1px solid rgba(255, 255, 255, 0.8)"
-                    onClick={addAllSongNPlay}
+                    onClick={toggleOrderAlpha}
                 ></ButtonIcon>
+                <Box ml="auto">
+                    <ButtonIcon 
+                        text="전체선택" 
+                        iconComponent={<CheckIcon fontSize="small"></CheckIcon>} 
+                        border="1px solid rgba(255, 255, 255, .5)"
+                        hoverBorder="1px solid rgba(255, 255, 255, 0.8)"
+                        onClick={toggleAllChecked}
+                        ml="auto"
+                    ></ButtonIcon>
+                </Box>
+                 <ButtonIcon 
+                        text="전체재생" 
+                        iconComponent={<PlayArrowIcon fontSize="small"></PlayArrowIcon>} 
+                        border="1px solid rgba(255, 255, 255, .5)"
+                        hoverBorder="1px solid rgba(255, 255, 255, 0.8)"
+                        onClick={addAllSongNPlay}
+                    ></ButtonIcon>
             </ButtonContainer>
             <SongContainer>
                 <SongItemHeaderInSongsScroll

@@ -10,17 +10,25 @@ const Container = styled(Box)`
     margin-left: 10px;
 `
 
+const StyledButtonSmall = styled(ButtonSmall)`
+    span {
+        svg.MuiSvgIcon-root {
+            font-size: 12px;
+        }
+    }
+`
+
 const ButtonIcon = props => {
     const {iconComponent=<DeleteIcon></DeleteIcon>, text="Click"}=props;
     return (
         <Container>
             <Stack direction="row">
-                <ButtonSmall
+                <StyledButtonSmall
                     startIcon={iconComponent}
                     {...props}
                 >
                    <TextBox fontSize="11px" text={text}></TextBox>
-                </ButtonSmall>
+                </StyledButtonSmall>
             </Stack>
         </Container>
     )

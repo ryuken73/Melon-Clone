@@ -14,6 +14,7 @@ class Song {
     get attach_path() { return this.nativeProps.attach_path }
     get attach_name() { return this.nativeProps.attach_name }
     get receipt_no() { return this.nativeProps.receipt_no}
+    get release_year() { return this.nativeProps.release_year}
     get reg_no() { return this.nativeProps.reg_no}
     get label_no() { return this.nativeProps.label_no}
     get runtime() { return this.nativeProps.runtime}

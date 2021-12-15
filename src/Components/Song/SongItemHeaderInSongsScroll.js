@@ -47,9 +47,13 @@ const SongItemHeaderInSongScroll = props => {
                         <AnimatedNumber from={0} to={total || 0}></AnimatedNumber>
                     </NumberContainer>
                 </Box>
-                <Box flex="5" display="flex" flexDirection="row" alignItems="center">
+                <Box flex="4" display="flex" flexDirection="row" alignItems="center">
                     {/* 곡명 */}
                     <TextBox containerProps={{marginRight:"15px"}} text="곡명" {...rest}></TextBox>
+                </Box>
+                <Box width="10%" display="flex" flexDirection="row" alignItems="center">
+                    {/* 발매일 */}
+                    <TextBox containerProps={{marginRight:"15px"}} text="발매일" {...rest}></TextBox>
                 </Box>
                 <Box width="20%">
                     {/* 아티스트 */}

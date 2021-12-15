@@ -49,7 +49,7 @@ const SongIteminSearchAll = props => {
 
     const deboucedHovered = useDebounce(hovered, 100);
 
-    const {id, song_name, song_name_bold, artist, artist_bold, artist_matched, version, duration, runtime, src, albumImageSrc} = song;
+    const {id, song_name, song_name_bold, artist, artist_bold, artist_matched, release_year, version, duration, runtime, src, albumImageSrc} = song;
 
     const onChecked = React.useCallback(() => {
         if(checked){
@@ -82,7 +82,7 @@ const SongIteminSearchAll = props => {
                     <TextBox text={songIndex} {...rest} fontSize="10px" marginRight="10px" cursor="auto" color="darkgrey"></TextBox>
                     <ImageBox src={albumImageSrc} width="40px" height="40px"></ImageBox>
                 </Box>
-                <Box flex="5" display="flex" flexDirection="row" alignItems="center">
+                <Box flex="4" display="flex" flexDirection="row" alignItems="center">
                     {/* 곡명 */}
                     <TextBox preserveHtmlTag containerProps={{marginRight:"15px"}} text={song_name_bold} {...rest}></TextBox>
                     {deboucedHovered && (
@@ -92,6 +92,10 @@ const SongIteminSearchAll = props => {
                             <HoverButton onClick={addSong}><AddIcon fontSize="medium"></AddIcon></HoverButton>
                         </Box>
                     )}
+                </Box>
+                <Box width="10%">
+                    {/* 발매일 */}
+                    <TextBox text={`${release_year}년`} {...rest} cursor="auto" color="darkgrey"></TextBox>
                 </Box>
                 <Box width="20%">
                     {/* 아티스트 */}
