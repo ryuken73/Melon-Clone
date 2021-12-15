@@ -9,9 +9,12 @@ import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 import SongListInAlbumDetail from 'Components/Song/SongListInAlbumDetail';
 import SongListInSearchAll from 'Components/Song/SongListInSearchAll';
 import SongItemHeaderInSongsScroll from 'Components/Song/SongItemHeaderInSongsScroll';
+import SongHelper from 'Components/SongHelper';
 import ScrollBarWithColor from 'Components/Common/ScrollBarWithColor';
 import useInfiniteData from 'hooks/useInfiniteData';
 import useSearchMusicAllInfinite from 'hooks/useSearchMusicAllInfinite';
+import useCurrentPlaylist from 'hooks/useCurrentPlaylist';
+import useSongHelper from 'hooks/useSongHelper';
 // import useSongsInAlbum from 'hooks/useSongsInAlbum';
 
 const Container = styled(Box)`
@@ -74,6 +77,19 @@ const ArtistDetailSongList = props => {
     console.log('@@@@:', data);
     const [songs, total] = useInfiniteData(data, 'songs');
     console.log('&&: in artist detail all song:', data, songs);
+
+    const {addSongsToCurrentPlaylist} = useCurrentPlaylist();
+    const {clearChecked, toggleAllSongChecked} = useSongHelper();
+
+    const toggleAllChecked = React.useCallback(()=>{
+        toggleAllSongChecked(songs);
+    },[toggleAllSongChecked, songs])
+
+    const addAllSongNPlay = React.useCallback(() => {
+        addSongsToCurrentPlaylist(songs, true);
+        clearChecked();
+    },[addSongsToCurrentPlaylist, songs, clearChecked])
+
     const replaceRequired = false;
     const rootForObservation = React.useRef();
     return (
@@ -84,12 +100,14 @@ const ArtistDetailSongList = props => {
                     iconComponent={<CheckIcon fontSize="small"></CheckIcon>} 
                     border="1px solid rgba(255, 255, 255, .5)"
                     hoverBorder="1px solid rgba(255, 255, 255, 0.8)"
+                    onClick={toggleAllChecked}
                 ></ButtonIcon>
                 <ButtonIcon 
                     text="전체재생" 
                     iconComponent={<PlayArrowIcon fontSize="small"></PlayArrowIcon>} 
                     border="1px solid rgba(255, 255, 255, .5)"
                     hoverBorder="1px solid rgba(255, 255, 255, 0.8)"
+                    onClick={addAllSongNPlay}
                 ></ButtonIcon>
             </ButtonContainer>
             <SongContainer>
@@ -98,6 +116,7 @@ const ArtistDetailSongList = props => {
                     total={total}
                 ></SongItemHeaderInSongsScroll>
                 <ScrollBarWithColor
+
                     moveScrollToTop={replaceRequired} 
                     getMoreItem={fetchNextPage} 
                     category={category}
@@ -113,6 +132,7 @@ const ArtistDetailSongList = props => {
                     </Box>
                 )}
             </SongContainer>
+            <SongHelper></SongHelper>
         </Container>
     )
 }
