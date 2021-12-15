@@ -20,7 +20,7 @@ const LinkArtist = props => {
                 const sch_id = result.data.list[0].id;
                 history.push(`/artist/${sch_artist}/songList?sch_id=${sch_id}`)
             } else {
-                alert('artist not found');
+                alert('등록된 아티스트가 없습니다.');
                 return;
             }
         })
