@@ -1,7 +1,6 @@
 import React from 'react'
 import Box from '@mui/material/Box';
 import styled from 'styled-components';
-import TextBox from 'Components/Common/TextBox';
 import TextBoxHighlight from 'Components/Common/TextBoxHighlight';
 import Divider from 'Components/Common/Divider';
 import queryString from 'query-string';
@@ -27,7 +26,7 @@ const SubContainer = styled(Box)`
 const ArtistDetailTab = props => {
     const {history, location, match} = props;
     const {pathname} = location;
-    const {artist_name, category} = match.params;
+    const {artist_name} = match.params;
     const query = queryString.parse(location.search)
     const {sch_id} = query;
 
@@ -39,16 +38,11 @@ const ArtistDetailTab = props => {
         history.push(`/artist/${artist_name}/albumList?sch_id=${sch_id}`);
     },[history, artist_name, sch_id])
     
-    const onClickDetailInfo = React.useCallback(()=>{
-        history.push(`/artist/${artist_name}/detailInfo?sch_id=${sch_id}`);
-    },[history, artist_name, sch_id])
-
     return (
         <Container>
-            <SubContainer width="150px">
+            <SubContainer width="80px">
                 <TextBoxHighlight active={pathname.includes('songList')} onClick={onClickSongList} fontSize="15px" text="곡"></TextBoxHighlight>
                 <TextBoxHighlight active={pathname.includes('albumList')} onClick={onClickAlbumList} fontSize="15px" text="앨범"></TextBoxHighlight>
-                <TextBoxHighlight active={pathname.includes('detailInfo')} onClick={onClickDetailInfo} fontSize="15px" text="상세정보"></TextBoxHighlight>
             </SubContainer>
             <Divider margin="0px"></Divider>
         </Container>
