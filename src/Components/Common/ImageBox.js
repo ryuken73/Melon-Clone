@@ -74,13 +74,14 @@ const ImageBox = props => {
     }
 
     React.useEffect(()=>{
+        if(lazyLoading === false) return;
         if(!observerRef.current){
             observerRef.current = new IntersectionObserver(onIntersection, {
                 threshold: 0
             })
         }
         imgRef.current && observerRef.current.observe(imgRef.current);
-    },[])
+    },[lazyLoading])
 
 
     const onError = React.useCallback(event => {

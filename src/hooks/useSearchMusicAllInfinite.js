@@ -26,7 +26,7 @@ const searchMusicAll = async ({queryKey, pageParam=1}) => {
 
 const useSearchMusicAllInfinite = options => {
   const {params, page_sizes, page_num, uniqKeys} = options;
-  console.log('&&:', params, page_sizes, page_num)
+  // console.log('&&:', params, page_sizes, page_num)
 
   const searchResult = useInfiniteQuery(['searchMusicAll', params, page_num, page_sizes, uniqKeys], searchMusicAll, {
     getNextPageParam: (lastPage, pages) => {console.log(lastPage, pages); return lastPage.next_page_num},

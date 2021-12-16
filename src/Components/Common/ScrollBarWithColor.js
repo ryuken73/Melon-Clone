@@ -48,14 +48,27 @@ function useDebounce(value, delay) {
     return debouncedValue;
   }
 
-const ScrollBarWithColor = props => {
+const ScrollBarWithColor = (props, ref) => {
     const {getMoreItem=()=>{}, moveScrollToTop=false, category} = props;
+    const {setScrollRefTime} = props;
     const [t, setT] = React.useState(0);
     const [notMoveScroll, setNotMoveScroll] = React.useState(false);
     const scrollbar = React.useRef(null);
+    const [parentRef, setParentRef] = React.useState(ref);
 
     React.useEffect(()=>{
+        // console.log('^^^ in scroll effect!')
         if(scrollbar === null) return;
+        if(parentRef){
+            // console.log('^^^^', parentRef)
+            if(parentRef.current !== scrollbar.current.view) {
+                // console.log('^^^^', parentRef)
+                setParentRef(ref => {
+                    ref.current = scrollbar.current.view; 
+                    setScrollRefTime(Date.now())
+                })
+            }
+        }
         if(notMoveScroll) {
             setNotMoveScroll(false);
             return;
@@ -64,7 +77,7 @@ const ScrollBarWithColor = props => {
             console.log('scroll to top:', scrollbar.current)
             moveScrollToTop && scrollbar.current.scrollTop();
         }
-    },[moveScrollToTop, category, props.children]) 
+    },[moveScrollToTop, parentRef, setScrollRefTime, scrollbar, notMoveScroll, category, props.children]) 
 
 
     const RenderTrack = ({ style, ...props }) => {
@@ -98,7 +111,6 @@ const ScrollBarWithColor = props => {
         // if (t > 1) handleAboutToReachBottom();
     },[handleAboutToReachBottom])
 
-
     return (
         <Scrollbars
             // renderTrackVertical={RenderTrack}
@@ -115,4 +127,4 @@ const ScrollBarWithColor = props => {
     )
 }
 
-export default React.memo(ScrollBarWithColor)
+export default React.memo(React.forwardRef(ScrollBarWithColor))

@@ -80,7 +80,7 @@ const SongIteminSearchAll = props => {
                     {/* Small Album Image */}
                     {/* <TextBox text={rownum} {...rest} cursor="auto"></TextBox> */}
                     <TextBox text={songIndex} {...rest} fontSize="10px" marginRight="10px" cursor="auto" color="darkgrey"></TextBox>
-                    <ImageBox src={albumImageSrc} width="40px" height="40px"></ImageBox>
+                    <ImageBox lazyLoading={false} src={albumImageSrc} width="40px" height="40px"></ImageBox>
                 </Box>
                 <Box flex="4" display="flex" flexDirection="row" alignItems="center">
                     {/* 곡명 */}
@@ -107,7 +107,7 @@ const SongIteminSearchAll = props => {
                 </Box>
                 <Box width="15%" display="flex" flexDirection="row" alignItems="center">
                     {/* 재생시간 */}
-                    <TextBox text={duration} {...rest} cursor="auto" color="darkgrey"></TextBox>
+                    <TextBox text={duration} {...rest} cursor="auto" color="darkgrey"></TextBox> 
                     {deboucedHovered && (
                         <Box ml="auto">
                             <HoverButton><MoreVertIcon fontSize="small"></MoreVertIcon></HoverButton>

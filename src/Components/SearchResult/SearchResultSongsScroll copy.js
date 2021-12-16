@@ -1,18 +1,19 @@
 import React from 'react';
 import Box from '@mui/material/Box';
+// import Button from '@mui/material/Button';
 import styled from 'styled-components';
+// import useSearchSongsScroll from 'hooks/useSearchSongsScroll';
+// import createSong from 'lib/songClass';
 import { getString } from 'lib/util';
 import TextBox from 'Components/Common/TextBox';
 import SongListInSearchAll from 'Components/Song/SongListInSearchAll';
 import SongItemHeaderInSongsScroll from 'Components/Song/SongItemHeaderInSongsScroll';
 import ScrollBarWithColor from 'Components/Common/ScrollBarWithColor';
 import queryString from 'query-string';
-import {withRouter} from 'react-router-dom';
+import {Switch, Route, withRouter} from 'react-router-dom';
 import useInfiniteData from 'hooks/useInfiniteData';
+// import useSearchSongsScroll from 'hooks/useSearchSongsScroll';
 import useSearchMusicAllInfinite from 'hooks/useSearchMusicAllInfinite';
-import { useVirtual } from "react-virtual";
-import SongIteminSearchAll from 'Components/Song/SongIteminSearchAll';
-import Divider from '@mui/material/Divider';
 
 const Container = styled(Box)`
     display: flex;
@@ -21,11 +22,11 @@ const Container = styled(Box)`
     background: transparent;
 `
 function SearchResultSongsScroll(props) {
-    const {location } = props;
+    const {history, match, location } = props;
     const {page_sizes=null, page_num=null} = props;
     const query = queryString.parse(location.search)
     const {keyword, exactSearch, artistName, songName} = query;
-    const [scrollRefTime, setScrollRefTime] = React.useState(Date.now());
+    // const currentTime = getString(now, {sep:''}).substr(0,12);
     const getCurrentTimeFunc = React.useCallback(() => {
         const now = new Date();
         return getString(now, {sep:''}).substr(0,12);
@@ -59,20 +60,12 @@ function SearchResultSongsScroll(props) {
         isSuccess
     // } = useSearchSongsScroll({keyword, exactSearch, artistName, songName, page_sizes, page_num});
     } = useSearchMusicAllInfinite({params, page_sizes, page_num, uniqKeys});
-    // console.log('@@@@:', data);
-    // console.log('^^^^ re-render songScroll');
+    console.log('@@@@:', data);
     const [songs, total] = useInfiniteData(data, 'songs');
-    // console.log('&&: in search all song:', data, songs)
+    console.log('&&: in search all song:', data, songs)
     const category="";
     const replaceRequired = false;
-    const parentRef = React.useRef();
-    const rowVirtualizer = useVirtual({
-        size: songs.length,
-        overscan: 1,
-        parentRef,
-        estimateSize: React.useCallback(() => 57, [])
-    });
-    // console.log('^^^^', parentRef.current, rowVirtualizer.totalSize)
+    const rootForObservation = React.useRef();
     return (
         <Container>
             <SongItemHeaderInSongsScroll
@@ -85,48 +78,9 @@ function SearchResultSongsScroll(props) {
                 category={category}
                 autoHide 
                 style={{ width:'100%', height: 'calc(100vh - 220px)' }}
-                ref={parentRef}
-                setScrollRefTime={setScrollRefTime}
+                ref={rootForObservation}
             >
-            {/* <div ref={parentRef} style={{height: "100vh", overflow:"auto"}}> */}
-                <div
-                    style={{
-                    height: `${rowVirtualizer.totalSize}px`,
-                    width: "100%",
-                    position: "relative"
-                    }}
-                >
-                    {rowVirtualizer.virtualItems.map(virtualRow => {
-                        const song = songs[virtualRow.index];
-                        console.log(`${song.id}::${virtualRow.index}`)
-                        return (
-                            <div
-                                key={virtualRow.index}
-                                style={{
-                                    position: "absolute",
-                                    top: 0,
-                                    left: 0,
-                                    width: "100%",
-                                    height: `${virtualRow.size}px`,
-                                    transform: `translateY(${virtualRow.start}px)`
-                                }}
-                            >
-                                <Box key={song.id} px="10px">
-                                    <SongIteminSearchAll
-                                        rownum={virtualRow.index}
-                                        fontSize="14px"
-                                        color="white"
-                                        song={song}
-                                        width="100%"
-                                    ></SongIteminSearchAll>
-                                    <Divider opacity="0.2" margin="0px" mr={"15px"}></Divider>
-                                </Box>
-                            </div>
-                        );                        
-                    })}
-                    {/* <SongListInSearchAll renderIfVisible={false} rootRef={rootForObservation} songs={songs}></SongListInSearchAll> */}
-                </div>
-            {/* </div> */}
+                <SongListInSearchAll rootRef={rootForObservation} songs={songs}></SongListInSearchAll>
             </ScrollBarWithColor>
             {isFetching && (
                 <Box m="10px">
