@@ -1,17 +1,12 @@
 import React from 'react';
 import Box from '@mui/material/Box';
-// import Button from '@mui/material/Button';
 import styled from 'styled-components';
-// import useSearchSongsScroll from 'hooks/useSearchSongsScroll';
-// import createSong from 'lib/songClass';
 import { getString } from 'lib/util';
 import TextBox from 'Components/Common/TextBox';
-import SongListInSearchAll from 'Components/Song/SongListInSearchAll';
-import SongItemHeaderInSongsScroll from 'Components/Song/SongItemHeaderInSongsScroll';
 import AlbumList from 'Components/Album/AlbumList/AlbumList';
 import ScrollBarWithColor from 'Components/Common/ScrollBarWithColor';
 import queryString from 'query-string';
-import {Switch, Route, withRouter} from 'react-router-dom';
+import {withRouter} from 'react-router-dom';
 import useInfiniteData from 'hooks/useInfiniteData';
 import useSearchMusicAllInfinite from 'hooks/useSearchMusicAllInfinite';
 
@@ -24,6 +19,7 @@ const Container = styled(Box)`
 function SearchResultAlbumsScroll(props) {
     const {history, match, location } = props;
     const {page_sizes=null, page_num=null} = props;
+
     const query = queryString.parse(location.search)
     const {keyword, exactSearch, artistName, songName} = query;
     const now = new Date();
