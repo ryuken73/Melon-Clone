@@ -37,7 +37,7 @@ const THRESHOLD = CONSTANTS.IMAGE_LAZY_SHOW_THRESHOLD
 
 const ImageBox = props => {
     const {
-        src='/images/no_image_black.jpg',
+        src='/images/loading-album.png',
         onClick=()=>{},
         alt="image",
         title="related image",
@@ -84,7 +84,7 @@ const ImageBox = props => {
 
 
     const onError = React.useCallback(event => {
-        event.target.src='/images/no-image.png';
+        event.target.src='/images/loading-album.png';
     },[])
     return (
         <Container>
