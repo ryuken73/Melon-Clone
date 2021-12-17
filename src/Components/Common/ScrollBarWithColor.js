@@ -50,7 +50,7 @@ function useDebounce(value, delay) {
 
 const ScrollBarWithColor = (props, ref) => {
     const {getMoreItem=()=>{}, moveScrollToTop=false, category} = props;
-    const {setScrollRefTime} = props;
+    const {setScrollRefTime=()=>{}} = props;
     const [t, setT] = React.useState(0);
     const [notMoveScroll, setNotMoveScroll] = React.useState(false);
     const scrollbar = React.useRef(null);
