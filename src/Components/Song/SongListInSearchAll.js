@@ -14,14 +14,15 @@ const Container = styled(Box)`
 
 const SongListInSearchAll = props => {
     const {songs, rootRef} = props;
-    const root = React.useMemo(() => {return rootRef ? rootRef.current : null}, [rootRef])
+    // const root = React.useMemo(() => {console.log('rootRef changed'); return rootRef ? rootRef.current : null}, [rootRef])
+    console.log('^^:',rootRef)
     const {mr="15px"} = props;
     const {renderIfVisible=true} = props;
     return (
         <Container>
             {songs.map((song, index) => (
                 renderIfVisible ? (
-                    <RenderIfVisible root={root} defaultHeight={55} visibleOffset={500}>
+                    <RenderIfVisible root={rootRef ? rootRef.current:null} defaultHeight={55} visibleOffset={1500}>
                         <Box key={song.id} px="10px">
                             <SongIteminSearchAll
                                 rownum={index}

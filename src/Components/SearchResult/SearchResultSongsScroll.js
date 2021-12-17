@@ -6,6 +6,7 @@ import TextBox from 'Components/Common/TextBox';
 import SongItemHeaderInSongsScroll from 'Components/Song/SongItemHeaderInSongsScroll';
 import ScrollBarWithColor from 'Components/Common/ScrollBarWithColor';
 import ScrollBarVirtual from 'Components/Common/ScrollBarVirtual'; 
+import ScrollBarRenderIfShow from 'Components/Common/ScrollBarRenderIfShow'; 
 import queryString from 'query-string';
 import {withRouter} from 'react-router-dom';
 import useInfiniteData from 'hooks/useInfiniteData';
@@ -22,7 +23,6 @@ function SearchResultSongsScroll(props) {
     const {page_sizes=null, page_num=null} = props;
     const query = queryString.parse(location.search)
     const {keyword, exactSearch, artistName, songName} = query;
-    const [scrollRefTime, setScrollRefTime] = React.useState(Date.now());
     const getCurrentTimeFunc = React.useCallback(() => {
         const now = new Date();
         return getString(now, {sep:''}).substr(0,12);
@@ -63,15 +63,19 @@ function SearchResultSongsScroll(props) {
                 songs={songs}
                 total={total}
             ></SongItemHeaderInSongsScroll>
-            <ScrollBarVirtual
+            {/* <ScrollBarVirtual
                 songs={songs}
-                scrollRefTime={scrollRefTime}
                 fetchNextPage={fetchNextPage}
-                setScrollRefTime={setScrollRefTime}
                 rowHeight={57}
                 heightMinus="220px"
             >
-            </ScrollBarVirtual>
+            </ScrollBarVirtual> */}
+            <ScrollBarRenderIfShow
+                songs={songs}
+                fetchNextPage={fetchNextPage}
+                heightMinus="220px"
+            >
+            </ScrollBarRenderIfShow>
             {isFetching && (
                 <Box m="10px">
                     <TextBox fontSize="14px" text={`Getting More Data..`}></TextBox>

@@ -14,18 +14,17 @@ const Container = styled(Box)`
 `
 function ScrollBarVirtual(props) {
     const {songs, fetchNextPage, rowHeight=60, heightMinus="220px"} = props;
-    const {scrollRefTime, setScrollRefTime} = props;
+    const [scrollRefTime, setScrollRefTime] = React.useState(Date.now());
     const category="";
     const replaceRequired = false;
     const parentRef = React.useRef();
     const rowVirtualizer = useVirtual({
         size: songs.length,
-        overscan: 1,
+        overscan: 10,
         parentRef,
         estimateSize: React.useCallback(() => rowHeight, [rowHeight])
     });
     return (
-        <Container>
         <ScrollBarWithColor
             moveScrollToTop={replaceRequired} 
             getMoreItem={fetchNextPage} 
@@ -35,7 +34,6 @@ function ScrollBarVirtual(props) {
             ref={parentRef}
             setScrollRefTime={setScrollRefTime}
         >
-        {/* <div ref={parentRef} style={{height: "100vh", overflow:"auto"}}> */}
             <div
                 style={{
                 height: `${rowVirtualizer.totalSize}px`,
@@ -73,9 +71,7 @@ function ScrollBarVirtual(props) {
                 })}
                 {/* <SongListInSearchAll renderIfVisible={false} rootRef={rootForObservation} songs={songs}></SongListInSearchAll> */}
             </div>
-        {/* </div> */}
         </ScrollBarWithColor>
-        </Container>
     )
 }
 
