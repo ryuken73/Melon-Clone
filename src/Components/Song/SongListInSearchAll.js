@@ -13,9 +13,9 @@ const Container = styled(Box)`
 `
 
 const SongListInSearchAll = props => {
-    const {songs, rootRef} = props;
+    const {songs, rootRef, scrollRefTime} = props;
     // const root = React.useMemo(() => {console.log('rootRef changed'); return rootRef ? rootRef.current : null}, [rootRef])
-    console.log('^^:',rootRef)
+    console.log('^^:',rootRef, scrollRefTime)
     const {mr="15px"} = props;
     const {renderIfVisible=true} = props;
     return (
@@ -26,7 +26,7 @@ const SongListInSearchAll = props => {
                         <Box key={song.id} px="10px">
                             <SongIteminSearchAll
                                 rownum={index}
-                                fontSize="14px"
+                                fontSize="13px"
                                 color="white"
                                 song={song}
                                 width="100%"
@@ -53,3 +53,4 @@ const SongListInSearchAll = props => {
 }
 
 export default React.memo(SongListInSearchAll)
+// export default SongListInSearchAll
