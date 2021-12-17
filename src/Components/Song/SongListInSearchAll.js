@@ -22,8 +22,8 @@ const SongListInSearchAll = props => {
         <Container>
             {songs.map((song, index) => (
                 renderIfVisible ? (
-                    <RenderIfVisible root={rootRef ? rootRef.current:null} defaultHeight={55} visibleOffset={1500}>
-                        <Box key={song.id} px="10px">
+                    <RenderIfVisible key={song.id} root={rootRef ? rootRef.current:null} defaultHeight={55} visibleOffset={1500}>
+                        <Box px="10px">
                             <SongIteminSearchAll
                                 rownum={index}
                                 fontSize="13px"
