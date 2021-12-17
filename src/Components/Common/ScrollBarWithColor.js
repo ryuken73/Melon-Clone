@@ -60,9 +60,9 @@ const ScrollBarWithColor = (props, ref) => {
         // console.log('^^^ in scroll effect!')
         if(scrollbar === null) return;
         if(parentRef){
-            // console.log('^^^^', parentRef)
+            // console.log('^^^^', parentRef, scrollbar)
             if(parentRef.current !== scrollbar.current.view) {
-                // console.log('^^^^', parentRef)
+                // console.log(' set ^^^^', parentRef, scrollbar)
                 setParentRef(ref => {
                     ref.current = scrollbar.current.view; 
                     setScrollRefTime(Date.now())
@@ -120,7 +120,6 @@ const ScrollBarWithColor = (props, ref) => {
             onUpdate={handleUpdate}
             renderThumbVertical={RenderThumb}
             ref={scrollbar}
-            autoHide={false}
         >
             {/* {props.children} */}
         </Scrollbars>

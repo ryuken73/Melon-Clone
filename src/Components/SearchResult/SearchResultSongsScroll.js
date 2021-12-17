@@ -3,16 +3,13 @@ import Box from '@mui/material/Box';
 import styled from 'styled-components';
 import { getString } from 'lib/util';
 import TextBox from 'Components/Common/TextBox';
-import SongListInSearchAll from 'Components/Song/SongListInSearchAll';
 import SongItemHeaderInSongsScroll from 'Components/Song/SongItemHeaderInSongsScroll';
 import ScrollBarWithColor from 'Components/Common/ScrollBarWithColor';
+import ScrollBarVirtual from 'Components/Common/ScrollBarVirtual'; 
 import queryString from 'query-string';
 import {withRouter} from 'react-router-dom';
 import useInfiniteData from 'hooks/useInfiniteData';
 import useSearchMusicAllInfinite from 'hooks/useSearchMusicAllInfinite';
-import { useVirtual } from "react-virtual";
-import SongIteminSearchAll from 'Components/Song/SongIteminSearchAll';
-import Divider from '@mui/material/Divider';
 
 const Container = styled(Box)`
     display: flex;
@@ -59,75 +56,22 @@ function SearchResultSongsScroll(props) {
         isSuccess
     // } = useSearchSongsScroll({keyword, exactSearch, artistName, songName, page_sizes, page_num});
     } = useSearchMusicAllInfinite({params, page_sizes, page_num, uniqKeys});
-    // console.log('@@@@:', data);
-    // console.log('^^^^ re-render songScroll');
     const [songs, total] = useInfiniteData(data, 'songs');
-    // console.log('&&: in search all song:', data, songs)
-    const category="";
-    const replaceRequired = false;
-    const parentRef = React.useRef();
-    const rowVirtualizer = useVirtual({
-        size: songs.length,
-        overscan: 1,
-        parentRef,
-        estimateSize: React.useCallback(() => 57, [])
-    });
-    // console.log('^^^^', parentRef.current, rowVirtualizer.totalSize)
     return (
         <Container>
             <SongItemHeaderInSongsScroll
                 songs={songs}
                 total={total}
             ></SongItemHeaderInSongsScroll>
-            <ScrollBarWithColor
-                moveScrollToTop={replaceRequired} 
-                getMoreItem={fetchNextPage} 
-                category={category}
-                autoHide 
-                style={{ width:'100%', height: 'calc(100vh - 220px)' }}
-                ref={parentRef}
+            <ScrollBarVirtual
+                songs={songs}
+                scrollRefTime={scrollRefTime}
+                fetchNextPage={fetchNextPage}
                 setScrollRefTime={setScrollRefTime}
+                rowHeight={57}
+                heightMinus="220px"
             >
-            {/* <div ref={parentRef} style={{height: "100vh", overflow:"auto"}}> */}
-                <div
-                    style={{
-                    height: `${rowVirtualizer.totalSize}px`,
-                    width: "100%",
-                    position: "relative"
-                    }}
-                >
-                    {rowVirtualizer.virtualItems.map(virtualRow => {
-                        const song = songs[virtualRow.index];
-                        console.log(`${song.id}::${virtualRow.index}`)
-                        return (
-                            <div
-                                key={virtualRow.index}
-                                style={{
-                                    position: "absolute",
-                                    top: 0,
-                                    left: 0,
-                                    width: "100%",
-                                    height: `${virtualRow.size}px`,
-                                    transform: `translateY(${virtualRow.start}px)`
-                                }}
-                            >
-                                <Box key={song.id} px="10px">
-                                    <SongIteminSearchAll
-                                        rownum={virtualRow.index}
-                                        fontSize="14px"
-                                        color="white"
-                                        song={song}
-                                        width="100%"
-                                    ></SongIteminSearchAll>
-                                    <Divider opacity="0.2" margin="0px" mr={"15px"}></Divider>
-                                </Box>
-                            </div>
-                        );                        
-                    })}
-                    {/* <SongListInSearchAll renderIfVisible={false} rootRef={rootForObservation} songs={songs}></SongListInSearchAll> */}
-                </div>
-            {/* </div> */}
-            </ScrollBarWithColor>
+            </ScrollBarVirtual>
             {isFetching && (
                 <Box m="10px">
                     <TextBox fontSize="14px" text={`Getting More Data..`}></TextBox>

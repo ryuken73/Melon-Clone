@@ -167,7 +167,7 @@ const ArtistDetailSongList = props => {
                     style={{ width:'100%', height: 'calc(100vh - 410px)' }}
                     ref={rootForObservation}
                 >
-                    <SongListInSearchAll renderIfVisible={false} rootRef={rootForObservation} songs={songs}></SongListInSearchAll>
+                    <SongListInSearchAll renderIfVisible={true} rootRef={rootForObservation} songs={songs}></SongListInSearchAll>
                 </ScrollBarWithColor>
                 {isFetching && (
                     <Box m="10px">
