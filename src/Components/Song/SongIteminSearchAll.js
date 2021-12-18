@@ -78,15 +78,14 @@ const SongIteminSearchAll = props => {
                 <SmallCheckBox checked={checked} setChecked={onChecked} />
                 <Box flex="1" mr="5px" flexShrink="0" display="flex" justifyContent="center" alignItems="center">
                     {/* Small Album Image */}
-                    {/* <TextBox text={rownum} {...rest} cursor="auto"></TextBox> */}
                     <TextBox text={songIndex} {...rest} fontSize="10px" marginRight="10px" cursor="auto" color="darkgrey"></TextBox>
                     <ImageBox lazyLoading={false} src={albumImageSrc} width="35px" height="35px"></ImageBox>
                 </Box>
                 <Box flex="4" display="flex" flexDirection="row" alignItems="center">
                     {/* 곡명 */}
-                    <TextBox preserveHtmlTag containerProps={{marginRight:"15px"}} text={song_name_bold} {...rest} color="darkgrey"></TextBox>
+                    <TextBox preserveHtmlTag containerProps={{marginRight:"16px"}} text={song_name_bold} {...rest} color="darkgrey"></TextBox>
                     {deboucedHovered && (
-                        <Box flexShrink="0" width="150px" ml="auto" mr="20px">
+                        <Box flexShrink="1" minWidth="150px" ml="auto" mr="20px">
                             <HoverButton onClick={addSongNPlay}><PlayArrowIcon fontSize="medium"></PlayArrowIcon></HoverButton>
                             <HoverButton onClick={downloadSong}><FileDownloadIcon fontSize="medium"></FileDownloadIcon></HoverButton>
                             <HoverButton onClick={addSong}><AddIcon fontSize="medium"></AddIcon></HoverButton>
