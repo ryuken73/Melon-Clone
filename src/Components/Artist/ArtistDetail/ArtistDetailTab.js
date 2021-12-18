@@ -31,11 +31,13 @@ const ArtistDetailTab = props => {
     const {sch_id} = query;
 
     const onClickSongList = React.useCallback(()=>{
-        history.push(`/artist/${artist_name}/songList?sch_id=${sch_id}`);
+        const encodedArtist = encodeURIComponent(artist_name);
+        history.push(`/artist/${encodedArtist}/songList?sch_id=${sch_id}`);
     },[history, artist_name, sch_id])
 
     const onClickAlbumList = React.useCallback(()=>{
-        history.push(`/artist/${artist_name}/albumList?sch_id=${sch_id}`);
+        const encodedArtist = encodeURIComponent(artist_name);
+        history.push(`/artist/${encodedArtist}/albumList?sch_id=${sch_id}`);
     },[history, artist_name, sch_id])
     
     return (

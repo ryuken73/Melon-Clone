@@ -64,9 +64,13 @@ export const replaceIllegalCharacters = (str, target="-") => {
 
 export const qsToNavigateInSearchResult = query => {
     const {keyword, exactSearch, artistName, songName} = query;
+    const encodedKeyword = encodeURIComponent(keyword);
+    const encodedArtist = encodeURIComponent(artistName);
+    const encodedSong = encodeURIComponent(songName);
+    
     const qs = exactSearch === 'yes' ?
-            `exactSearch=${exactSearch}&keyword=${keyword}&artistName=${artistName}&songName=${songName}`:
-            `exactSearch=${exactSearch}&keyword=${keyword}`
+            `exactSearch=${exactSearch}&keyword=${encodedKeyword}&artistName=${encodedArtist}&songName=${encodedSong}`:
+            `exactSearch=${exactSearch}&keyword=${encodedKeyword}`
     return qs;
 }
 

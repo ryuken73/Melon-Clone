@@ -125,7 +125,11 @@ const UseAutocomplete = props => {
     console.log('^^ value changed:', value)
     const {artistName, songName} = value !== null ? value: {artistName:'', songName:''};
     setPrevSearch({artistName, songName})
-    value !== null && history.push(`/searchResult/all?exactSearch=yes&artistName=${artistName}&songName=${songName}&keyword=${inputValue}`);
+    const encodedArtist = encodeURIComponent(artistName);
+    const encodedSong = encodeURIComponent(songName);
+    const encodedInputValue = encodeURIComponent(inputValue);
+    // value !== null && history.push(`/searchResult/all?exactSearch=yes&artistName=${artistName}&songName=${songName}&keyword=${inputValue}`);
+    value !== null && history.push(`/searchResult/all?exactSearch=yes&artistName=${encodedArtist} &songName=${encodedSong}&keyword=${encodedInputValue}`);
   },[value, dispatch, history])
 
   const getHighlightParts = React.useCallback(option => {
@@ -141,11 +145,14 @@ const UseAutocomplete = props => {
       console.log('^^^ enter key pressed: ',event.target.value)
       const {artistName, songName} = prevSearch;
       if(event.target.value === `${artistName} ${songName}`){
-        history.push(`/searchResult/all?exactSearch=yes&artistName=${artistName}&songName=${songName}&keyword=${inputValue}`);
+        const encodedArtist = encodeURIComponent(artistName);
+        const encodedSong = encodeURIComponent(songName);
+        const encodedInputValue = encodeURIComponent(inputValue);
+        history.push(`/searchResult/all?exactSearch=yes&artistName=${encodedArtist}&songName=${encodedSong}&keyword=${encodedInputValue}`);
         return;
       }
       setOptions([]);
-      history.push(`/searchResult/all?exactSearch=no&keyword=${event.target.value}`);
+      history.push(`/searchResult/all?exactSearch=no&keyword=${encodeURIComponent(event.target.value)}`);
     }
   },[setShowOptions, history, prevSearch, inputValue])
 

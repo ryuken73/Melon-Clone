@@ -5,6 +5,7 @@ import CommonPageHeader from 'Components/Common/CommonPageHeader';
 import TextBox from 'Components/Common/TextBox';
 import TextBoxHighlight from 'Components/Common/TextBoxHighlight';
 import queryString from 'query-string';
+import {qsToNavigateInSearchResult} from 'lib/util';
 import {Switch, Route, withRouter} from 'react-router-dom';
 
 const Container = styled(Box)`
@@ -47,9 +48,7 @@ function SearchResultBar(props) {
         setActiveTab(tabname);
     },[category])
     console.log('&&&&:', category, keyword, exactSearch)
-    const qs = exactSearch === 'yes' ?
-               `exactSearch=${exactSearch}&keyword=${keyword}&artistName=${artistName}&songName=${songName}`:
-               `exactSearch=${exactSearch}&keyword=${keyword}`
+    const qs = qsToNavigateInSearchResult(query)
 
     const handleClick = React.useCallback(event => {
         const tabName = event.target.innerText;

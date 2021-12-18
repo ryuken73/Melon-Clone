@@ -18,7 +18,8 @@ const LinkArtist = props => {
             if(result.isSuccess && result.data.list.length > 0){
                 const sch_artist = result.data.list[0].artist;
                 const sch_id = result.data.list[0].id;
-                history.push(`/artist/${sch_artist}/songList?sch_id=${sch_id}`)
+                const encodedArtist = encodeURIComponent(sch_artist);
+                history.push(`/artist/${encodedArtist}/songList?sch_id=${sch_id}`)
             } else {
                 alert('등록된 아티스트가 없습니다.');
                 return;
