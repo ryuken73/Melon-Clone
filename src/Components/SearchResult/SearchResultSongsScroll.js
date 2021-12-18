@@ -63,19 +63,19 @@ function SearchResultSongsScroll(props) {
                 songs={songs}
                 total={total}
             ></SongItemHeaderInSongsScroll>
-            {/* <ScrollBarVirtual
+            <ScrollBarVirtual
                 songs={songs}
                 fetchNextPage={fetchNextPage}
                 rowHeight={57}
                 heightMinus="220px"
             >
-            </ScrollBarVirtual> */}
-            <ScrollBarRenderIfShow
+            </ScrollBarVirtual>
+            {/* <ScrollBarRenderIfShow
                 songs={songs}
                 fetchNextPage={fetchNextPage}
                 heightMinus="220px"
             >
-            </ScrollBarRenderIfShow>
+            </ScrollBarRenderIfShow> */}
             {isFetching && (
                 <Box m="10px">
                     <TextBox fontSize="14px" text={`Getting More Data..`}></TextBox>
