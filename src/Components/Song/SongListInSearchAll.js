@@ -3,7 +3,8 @@ import Box from '@mui/material/Box';
 import styled from 'styled-components';
 import SongIteminSearchAll from './SongIteminSearchAll';
 import Divider from '../Common/Divider';
-import RenderIfVisible from 'react-render-if-visible';
+import RenderIfVisible from 'Components/Common/RenderIfVisible'
+// import RenderIfVisible from 'react-render-if-visible';
 
 const Container = styled(Box)`
     && {
