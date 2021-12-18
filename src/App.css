@@ -14,3 +14,11 @@
   min-width: 0;
   min-height: 0;
 }
+
+.slick-dots li.slick-active button:before {
+    color: white !important;
+}
+
+.slick-dots li button:before {
+    color: white !important;
+}
