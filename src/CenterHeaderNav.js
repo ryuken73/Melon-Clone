@@ -5,6 +5,7 @@ import {withRouter} from 'react-router-dom';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import HoverButton from './Components/Common/ButtonHover';
+import useSongHelper from 'hooks/useSongHelper';
 
 const Container = styled(Box)`
     display: flex;
@@ -16,9 +17,11 @@ const Container = styled(Box)`
 const CenterHeaderNav = props => {
     const {history, historyPushedCount, setHistoryPushedCount} = props;
     const [currentHistoryIndex, setCurrentHistoryIndex] = React.useState(0);
+    const {clearChecked} = useSongHelper();
 
     React.useEffect(() => {
         console.log('history changed', history)
+        clearChecked();
         if(history.action === 'PUSH'){
             setHistoryPushedCount(count => {
                 setCurrentHistoryIndex(index => {
