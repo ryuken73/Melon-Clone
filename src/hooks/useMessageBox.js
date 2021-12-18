@@ -1,12 +1,12 @@
-import { useEffect } from 'react';
+import { useCallback } from 'react';
 import { useDispatch } from 'react-redux';
 import { showMessageBoxForDuration } from 'appSlice';
 
 
-function useMessageBox(text='') {
+function useMessageBox() {
   const dispatch = useDispatch();
 
-  const showMessageBox = useEffect((text, duration) => {
+  const showMessageBox = useCallback((text, duration) => {
       dispatch(showMessageBoxForDuration(text, duration))
   },[dispatch])
 

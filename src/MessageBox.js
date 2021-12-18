@@ -8,7 +8,7 @@ const MessageBox = props => {
     const isMessageBoxHidden = useSelector(state => state.app.isMessageBoxHidden);
     const messageBoxText = useSelector(state => state.app.messageBoxText);
     return (
-        <SnackBar hidden={isMessageBoxHidden} containerProps={{bgcolor:'black', width:'50%'}}>
+        <SnackBar hidden={isMessageBoxHidden} containerProps={{width:'min-content'}}>
             <TextBox 
                 containerProps={{margin: '10px'}}
                 text={messageBoxText}

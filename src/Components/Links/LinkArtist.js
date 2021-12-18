@@ -3,10 +3,12 @@ import TextBox from 'Components/Common/TextBox';
 import Box from '@mui/material/Box';
 import {withRouter} from 'react-router-dom';
 import useArtistId from 'hooks/useArtistId';
+import useMessageBox from 'hooks/useMessageBox';
 
 const LinkArtist = props => {
     const {artist='', matched} = props;
     const {history} = props;
+    const [showMessageBox] = useMessageBox();
     const artistsWithOneSeparator = artist.replace('&', ',');
     const artistsArray = artistsWithOneSeparator.split(',');
     const queryArtistIdBatch = useArtistId(artistsArray, matched);
@@ -21,11 +23,12 @@ const LinkArtist = props => {
                 const encodedArtist = encodeURIComponent(sch_artist);
                 history.push(`/artist/${encodedArtist}/songList?sch_id=${sch_id}`)
             } else {
-                alert('등록된 아티스트가 없습니다.');
+                // alert('등록된 아티스트가 없습니다.');
+                showMessageBox('등록된 아티스트가 없습니다.', 1000)
                 return;
             }
         })
-    },[queryArtistIdBatch, history])
+    },[queryArtistIdBatch, history, showMessageBox])
     return (
         <Box display="flex" alignItems="center">
             {artistsArray.map((artist, index) => (
