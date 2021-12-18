@@ -12,8 +12,10 @@ const colors = {
     // 'player': '#07022a',
     'player': '#030024',
     'playerLight1': '#1d1e2a',
-    'playerLight2': '#1f242c',
-    'playerLight3': '#252b34',
+    // 'playerLight2': '#1f242c',
+    'playerLight2': '#02132c',
+    'playerLight3': '#041836',
+    // 'playerLight3': '#252b34',
     99: 'black',
 }
 
