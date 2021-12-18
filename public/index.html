@@ -56,14 +56,14 @@
           return true;
       }
 
-      function DEXT5UPLOAD_FinishDownloaded(uploadID, nDownloadItemCount) {
-        if (!errorFlag) {
-          // 전체 다운로드 시
-          //fncDownHistory(downloadParam, musicGubun);
-          alert("다운로드가 완료 되었습니다.");
-          window.close();
-        }
-      }
+      // function DEXT5UPLOAD_FinishDownloaded(uploadID, nDownloadItemCount) {
+      //   if (!errorFlag) {
+      //     // 전체 다운로드 시
+      //     //fncDownHistory(downloadParam, musicGubun);
+      //     alert("다운로드가 완료 되었습니다.");
+      //     window.close();
+      //   }
+      // }
       
       function cancel() {
           DEXT5UPLOAD.Cancel("chrome_downloader");
@@ -117,9 +117,9 @@
             DEXT5UPLOAD.config.Height = '380px';
             DEXT5UPLOAD.config.ButtonBarView = 'download,download_all';
             DEXT5UPLOAD.config.FolderTransfer = '1';
-              DEXT5UPLOAD.config.FolderDetailHeader = '1';
-              DEXT5UPLOAD.config.UseAfterDownloadEvent = '1';
-              DEXT5UPLOAD.config.DownloadMulti = '1';
+            DEXT5UPLOAD.config.FolderDetailHeader = '1';
+            DEXT5UPLOAD.config.UseAfterDownloadEvent = '1';
+            DEXT5UPLOAD.config.DownloadMulti = '1';
               
             var uploader2 = new Dext5Upload("chrome_downloader");
           </script>

@@ -1,9 +1,16 @@
 import * as React from 'react';
+import useSongHelper from 'hooks/useSongHelper';
 import useDoFileSizeSongList from 'hooks/useDoFileSizeSongList';
 
 const GUBUN='M';
 const useDownloadSong = (songsToDownload) => {
+    const {clearChecked} = useSongHelper();
     const doGetFileSizeBatch = useDoFileSizeSongList(songsToDownload, GUBUN);
+    React.useEffect(() => {
+        window.DEXT5UPLOAD_FinishDownloaded = (uploadID, nDownloadItemCount) => {
+            clearChecked();
+        }
+    },[])
     const downloadFile = React.useCallback((checkedSongList) => {
     	window.DEXT5UPLOAD.DeleteSelectedFile("chrome_downloader");
         window.doStartDownload_chrome_show();
