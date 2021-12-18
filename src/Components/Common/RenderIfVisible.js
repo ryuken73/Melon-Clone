@@ -1,4 +1,6 @@
-Object.defineProperty(exports, '__esModule', { value: true });
+import useDebounced from 'hooks/useDebounce';
+
+// Object.defineProperty(exports, '__esModule', { value: true });
 
 function _interopDefault (ex) { return (ex && (typeof ex === 'object') && 'default' in ex) ? ex['default'] : ex; }
 
@@ -11,21 +13,28 @@ var RenderIfVisible = function (_a) {
     var _e = React.useState(isServer), isVisible = _e[0], setIsVisible = _e[1];
     var placeholderHeight = React.useRef(defaultHeight);
     var intersectionRef = React.useRef(null);
+    const [intersected, setIntersected] = React.useState(false);
     // Set visibility with intersection observer
+    const intersectingDebounced = useDebounced(intersected, 0);
+    React.useEffect(() => {
+        if (typeof window !== undefined && window.requestIdleCallback) {
+            window.requestIdleCallback(function () { 
+                console.log('**setIsVisible idleCallback:', intersectingDebounced)
+                // return setIsVisible(entries[0].isIntersecting); 
+                return setIsVisible(intersectingDebounced);
+            }, {
+                timeout: 500
+            });
+        }
+        else {
+            // setIsVisible(entries[0].isIntersecting);
+            setIsVisible(intersectingDebounced)
+        }
+    },[intersectingDebounced, setIsVisible])
     React.useEffect(function () {
         if (intersectionRef.current) {
             var observer_1 = new IntersectionObserver(function (entries) {
-                if (typeof window !== undefined && window.requestIdleCallback) {
-                    window.requestIdleCallback(function () { 
-                        console.log('**setIsVisible idleCallback:', entries[0].isIntersecting)
-                        return setIsVisible(entries[0].isIntersecting); 
-                    }, {
-                        timeout: 100
-                    });
-                }
-                else {
-                    setIsVisible(entries[0].isIntersecting);
-                }
+                setIntersected(entries[0].isIntersecting);
             }, { root: root, rootMargin: visibleOffset + "px 0px " + visibleOffset + "px 0px" });
             observer_1.observe(intersectionRef.current);
             return function () {
@@ -45,5 +54,6 @@ var RenderIfVisible = function (_a) {
     return (React__default.createElement("div", { ref: intersectionRef }, isVisible ? (React__default.createElement(React__default.Fragment, null, children)) : (React__default.createElement("div", { style: { height: placeholderHeight.current } }))));
 };
 
-exports.default = RenderIfVisible;
+// exports.default = RenderIfVisible;
+export default RenderIfVisible;
 //# sourceMappingURL=index.js.map
