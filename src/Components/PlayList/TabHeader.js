@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import ButtonSmall from '../Common/ButtonSmall';
 import TextBox from '../Common/TextBox';
 import colors from 'config/colors';
+import useCurrentPlaylist from 'hooks/useCurrentPlaylist';
 
 const Container = styled(Box)`
     display: flex;
@@ -24,6 +25,7 @@ const TabHeader = props => {
         activeTabId='song', 
         setActiveTabId=()=>{}
      } = props;
+     const {currentPlaylist} = useCurrentPlaylist();
 
     const onClickTabHaderButton = React.useCallback(event => {
         setActiveTabId(event.currentTarget.id);
@@ -38,7 +40,7 @@ const TabHeader = props => {
                         hoverBackground={colors.highCenterPane}
                         fontSize='11px'
                     >
-                        <TextBox text="곡"></TextBox>
+                        <TextBox text={`곡 ${currentPlaylist.length}`}></TextBox>
                     </ButtonSmall>
                     <ButtonSmall 
                         id='playlist' 
