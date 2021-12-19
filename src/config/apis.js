@@ -113,6 +113,26 @@ export const headers = {
         'dlbr_rslt_nm',
         'lyrics',
         'lyricist'
+    ],
+    archive: [
+        'media_id',
+        'chan_cd',
+        'pgm_nm',
+        'pgm_cd',
+        'episode',
+        'brd_dd',
+        'brd_time',
+        'sch_gb',
+        'dj',
+        'artist',
+        'prgs_type',
+        'duration',
+        'attach_name',
+        'search_summary',
+        'attach_path',
+        'file_size',
+        'bora_archive_yn',
+        'bora_archive_open_yn'
     ]
 
 }
@@ -303,6 +323,20 @@ export const apiMap = {
             url: `http://10.11.31.51:3010/searchSong/withWorkers/${searchKeyword}?userId=null&supportThreeWords=true&count=100`,
             fetchOptions: {
                 method: 'GET'
+            }
+        }
+    },
+    'doProgramList': (b_ipp, b_page, channel) => {
+        const postBody = new URLSearchParams();
+        postBody.append('b_ipp', b_ipp);
+        postBody.append('b_page', b_page);
+        postBody.append('channel', channel);
+        return {
+            url: `/mbs/searchRadio/doProgramList.mb`,
+            fetchOptions: {
+                method: 'POST',
+                body: postBody,
+                ...DEFAULT_FETCH_OPTIONS
             }
         }
     }
