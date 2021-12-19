@@ -42,7 +42,7 @@ const Helper = () => {
     },[downloadFile, checkedSongList])
 
     return (
-        <SnackBar hidden={hidden} containerProps={{width:'300px', height:'40px', bgcolor:colors.light3CenterPane}}>
+        <SnackBar hidden={hidden} containerProps={{width:'300px', height:'40px', opacity:'0.9', bgcolor:colors.playerLight4}}>
             <Box flex="1" justifyContent="center">
                 <TextBox fontSize="15px" textAlign="center" color="white" text={text}></TextBox>
             </Box>

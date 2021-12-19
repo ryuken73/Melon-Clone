@@ -8,7 +8,7 @@ import useMessageBox from 'hooks/useMessageBox';
 const LinkArtist = props => {
     const {artist='', matched} = props;
     const {history} = props;
-    const [showMessageBox] = useMessageBox();
+    const {showMessageBox} = useMessageBox();
     const artistsWithOneSeparator = artist.replace('&', ',');
     const artistsArray = artistsWithOneSeparator.split(',');
     const queryArtistIdBatch = useArtistId(artistsArray, matched);

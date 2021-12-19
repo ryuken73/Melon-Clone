@@ -2,8 +2,10 @@ import * as React from 'react';
 import {useSelector, useDispatch} from 'react-redux';
 import {pushObjectToState, pushSongsToCurrentlist, removeChecked, toggleAllChecked} from 'Components/PlayList/playlistSlice';
 import usePlayerState from './usePlayerState';
+import useMessageBox from './useMessageBox';
 
 function useCurrentPlaylist() {
+  const {showMessageBox} = useMessageBox();
   const currentPlaylist = useSelector((state) => state.playlist.currentPlaylist);
   const allChecked = React.useMemo(() => {
     return currentPlaylist.length === 0 ? false : currentPlaylist.every(song => song.checkedPlaylist)
@@ -34,6 +36,8 @@ function useCurrentPlaylist() {
       }   
     });
     dispatch(pushSongsToCurrentlist({songsParsed}));
+    const message = `${songs.length}곡을 재생목록에 담았습니다.`
+    showMessageBox(message, 1500);
     if(playAfterAdd){
       const songToPlay = songs[songs.length - 1];
       setPlayerSource(songToPlay.src, songToPlay.albumImageSrc, 0);

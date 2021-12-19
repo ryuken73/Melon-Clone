@@ -94,7 +94,7 @@ const ArtistDetailSongList = props => {
             setOrderBy(`order by release_year ${newOrderRecent ? 'asc':'desc'} , song_name_str ${orderAlpha ? 'asc':'desc'}`)
             return newOrderRecent;
         });
-    },[setOrderRecent, setOrderBy, orderRecent, orderAlpha]);
+    },[setOrderRecent, setOrderBy, orderAlpha]);
 
     const toggleOrderAlpha = React.useCallback(()=>{
         setOrderAlpha(orderAlpha => {
@@ -102,7 +102,7 @@ const ArtistDetailSongList = props => {
             setOrderBy(`order by song_name_str ${newOrderAlpha ? 'asc':'desc'}, release_year ${orderRecent ? 'asc':'desc'}`)
             return newOrderAlpha
         });
-    },[setOrderAlpha, setOrderBy, orderRecent, orderAlpha]);
+    },[setOrderAlpha, setOrderBy, orderRecent]);
 
     const toggleAllChecked = React.useCallback(()=>{
         toggleAllSongChecked(songs);

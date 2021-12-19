@@ -35,7 +35,7 @@ const Container = styled(Box)`
 const SongIteminSearchAll = props => {
     const {song, rownum, ...rest} = props;
     const [hovered, setHovered] = React.useState(false);
-    const {addSongToCurrentPlaylist} = useCurrentPlaylist();
+    const {addSongsToCurrentPlaylist} = useCurrentPlaylist();
     const {checked, addChecked, delChecked} = useSongHelper(song.id);
     const downloadFile = useDownloadSong([song]);
 
@@ -60,12 +60,12 @@ const SongIteminSearchAll = props => {
     },[addChecked, delChecked, song, checked])
 
     const addSongNPlay = React.useCallback(() => {
-        addSongToCurrentPlaylist(song, true);
-    },[song, addSongToCurrentPlaylist]);
+        addSongsToCurrentPlaylist(song, true);
+    },[song, addSongsToCurrentPlaylist]);
 
     const addSong = React.useCallback(() => {
-        addSongToCurrentPlaylist(song);
-    },[song, addSongToCurrentPlaylist]);
+        addSongsToCurrentPlaylist(song);
+    },[song, addSongsToCurrentPlaylist]);
 
     const downloadSong = React.useCallback(() => {
         downloadFile([song])

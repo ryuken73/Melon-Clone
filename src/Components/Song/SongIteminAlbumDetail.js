@@ -35,7 +35,7 @@ const SongItemAlbumDetail = props => {
     const {song, receipt_no, ...rest} = props;
     console.log('*****:', song)
     const [hovered, setHovered] = React.useState(false);
-    const {addSongToCurrentPlaylist} = useCurrentPlaylist();
+    const {addSongsToCurrentPlaylist} = useCurrentPlaylist();
     const {checked, addChecked, delChecked} = useSongHelper(song.id);
     const downloadFile = useDownloadSong([song]);
     
@@ -63,12 +63,13 @@ const SongItemAlbumDetail = props => {
     },[addChecked, delChecked, song, checked])
 
     const addSongNPlay = React.useCallback(() => {
-        addSongToCurrentPlaylist(song, true);
-    },[song, addSongToCurrentPlaylist]);
+        addSongsToCurrentPlaylist(song, true);
+
+    },[song, addSongsToCurrentPlaylist]);
 
     const addSong = React.useCallback(() => {
-        addSongToCurrentPlaylist(song);
-    },[song, addSongToCurrentPlaylist]);
+        addSongsToCurrentPlaylist(song);
+    },[song, addSongsToCurrentPlaylist]);
 
     const downloadSong = React.useCallback(() => {
         downloadFile([song])
