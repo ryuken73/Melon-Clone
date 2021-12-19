@@ -12,17 +12,19 @@ function useCurrentPlaylist() {
   const {src:currentSrc, setPlayerSource} = usePlayerState();
   const dispatch = useDispatch();
 
-  const addSongToCurrentPlaylist = React.useCallback((song, playAfeterAdd) => {
-    // to add to state, song should be converted to serializable(to song.parsedWithoutBTag)
-    console.log('### makes new addSongToCurrentPlaylist');
-    const songParsed = song.parsedWithoutBTag || song;
-    const songWithChecked = {...songParsed, checkedPlaylist: false, currentPlaying: false};
-    dispatch(pushObjectToState({stateKey:'currentPlaylist', value: songWithChecked}))
-    playAfeterAdd && setPlayerSource(song.src, song.albumImageSrc, 0);
-  },[dispatch, setPlayerSource])
+  // const addSongToCurrentPlaylist = React.useCallback((song, playAfeterAdd) => {
+  //   // to add to state, song should be converted to serializable(to song.parsedWithoutBTag)
+  //   console.log('### makes new addSongToCurrentPlaylist');
+  //   const songParsed = song.parsedWithoutBTag || song;
+  //   const songWithChecked = {...songParsed, checkedPlaylist: false, currentPlaying: false};
+  //   dispatch(pushObjectToState({stateKey:'currentPlaylist', value: songWithChecked}))
+  //   playAfeterAdd && setPlayerSource(song.src, song.albumImageSrc, 0);
+  //   return 1;
+  // },[dispatch, setPlayerSource])
 
-  const addSongsToCurrentPlaylist = React.useCallback((songs, playAfterAdd) => {
-    console.log('### add songs batch: ', songs);
+  const addSongsToCurrentPlaylist = React.useCallback((songsToAdd, playAfterAdd) => {
+    console.log('### add songs batch: ', songsToAdd);
+    const songs = Array.isArray(songsToAdd) ? songsToAdd: [songsToAdd];
     const songsParsed = songs.map(song => {
       const songWithoutBTag = song.parsedWithoutBTag || song;
       return {
@@ -36,6 +38,7 @@ function useCurrentPlaylist() {
       const songToPlay = songs[songs.length - 1];
       setPlayerSource(songToPlay.src, songToPlay.albumImageSrc, 0);
     }
+    return songs.length;
   },[dispatch, setPlayerSource])
 
   const removeFromCurrentPlaylist = React.useCallback(() => {
@@ -73,7 +76,7 @@ function useCurrentPlaylist() {
   return {
     currentPlaylist, 
     checkedCount, 
-    addSongToCurrentPlaylist, 
+    // addSongToCurrentPlaylist, 
     addSongsToCurrentPlaylist,
     removeFromCurrentPlaylist, 
     toggleCurrentPlayList, 
