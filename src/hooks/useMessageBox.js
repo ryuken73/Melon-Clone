@@ -10,7 +10,7 @@ function useMessageBox() {
       dispatch(showMessageBoxForDuration(text, duration))
   },[dispatch])
 
-  return [showMessageBox];
+  return {showMessageBox};
 }
 
 export default useMessageBox;
