@@ -17,6 +17,7 @@ const Container = styled(Box)`
         height: ${props => props.height || 'auto'};
         padding: 5px;
         background: ${props => props.bgcolor || colors.playerLight4};
+        opacity: ${props => props.opacity || 1};
         left: 0;
         right: 0;
         margin: auto;
