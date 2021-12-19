@@ -1,8 +1,28 @@
 import * as React from 'react';
 import {useSelector, useDispatch} from 'react-redux';
-import {pushObjectToState, pushSongsToCurrentlist, removeChecked, toggleAllChecked} from 'Components/PlayList/playlistSlice';
+import {pushObjectToState, pushSongsToCurrentlist, removeChecked, toggleAllChecked, hasSong} from 'Components/PlayList/playlistSlice';
 import usePlayerState from './usePlayerState';
 import useMessageBox from './useMessageBox';
+
+const checkDuplidate = (songsRequested, currentPlaylist) => {
+  console.log('### check duplicate result: req and current ', songsRequested, currentPlaylist);
+  if(currentPlaylist.length === 0) {
+    return [songsRequested, []]
+  }
+  const songsToAdd = songsRequested.reduce((acct, songToRequest) => {
+    if(currentPlaylist.find(currentSong => currentSong.id === songToRequest.id) === undefined){
+      return [...acct, songToRequest]
+    }
+    return [...acct]
+  },[])
+  const songsDuplicated = songsRequested.reduce((acct, songToRequest) => {
+    if(currentPlaylist.find(currentSong => currentSong.id === songToRequest.id) !== undefined){
+      return [...acct, songToRequest]
+    }
+    return [...acct]
+  },[])
+  return [songsToAdd, songsDuplicated];
+}
 
 function useCurrentPlaylist() {
   const {showMessageBox} = useMessageBox();
@@ -24,10 +44,12 @@ function useCurrentPlaylist() {
   //   return 1;
   // },[dispatch, setPlayerSource])
 
-  const addSongsToCurrentPlaylist = React.useCallback((songsToAdd, playAfterAdd) => {
-    console.log('### add songs batch: ', songsToAdd);
-    const songs = Array.isArray(songsToAdd) ? songsToAdd: [songsToAdd];
-    const songsParsed = songs.map(song => {
+  const addSongsToCurrentPlaylist = React.useCallback((songs, playAfterAdd) => {
+    console.log('### add songs batch: ', songs);
+    const songsArray = Array.isArray(songs) ? songs: [songs];
+    const [songsToAdd, songsDuplicated] = checkDuplidate(songsArray, currentPlaylist);
+    console.log('### check duplicate result: ', songsToAdd, songsDuplicated);
+    const songsParsed = songsToAdd.map(song => {
       const songWithoutBTag = song.parsedWithoutBTag || song;
       return {
         ...songWithoutBTag  ,
@@ -36,14 +58,21 @@ function useCurrentPlaylist() {
       }   
     });
     dispatch(pushSongsToCurrentlist({songsParsed}));
-    const message = `${songs.length}곡을 재생목록에 담았습니다.`
+    let message;
+    if(songsToAdd.length === 0 && songsDuplicated.length !== 0){
+      message = `${songsDuplicated.length}곡이 이미 재생목록에 존재 합니다.`
+    } else if(songsToAdd.length !== 0 && songsDuplicated.length !== 0) {
+      message = `${songsToAdd.length}곡을 재생목록에 담았습니다. (${songsDuplicated.length}곡은 이미 존재합니다.)`
+    } else {
+      message = `${songsToAdd.length}곡을 재생목록에 담았습니다.`
+    } 
     showMessageBox(message, 1500);
     if(playAfterAdd){
       const songToPlay = songs[songs.length - 1];
       setPlayerSource(songToPlay.src, songToPlay.albumImageSrc, 0);
     }
     return songs.length;
-  },[dispatch, setPlayerSource])
+  },[dispatch, setPlayerSource, showMessageBox, currentPlaylist])
 
   const removeFromCurrentPlaylist = React.useCallback(() => {
     console.log('### makes new removeFromCurrentPlaylist');
