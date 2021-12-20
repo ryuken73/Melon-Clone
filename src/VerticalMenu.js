@@ -35,8 +35,8 @@ const VerticalMenu = props => {
     return (
         <Container>
                 <SubTextBox text="홈" onClick={onClickHome}></SubTextBox>
-                <SubTextBox text="팟캐스트" onClick={onClickHome}></SubTextBox>
                 <SubTextBox text="아카이브" onClick={onClickHome}></SubTextBox>
+                <SubTextBox text="팟캐스트" onClick={onClickHome}></SubTextBox>
         </Container>
     )
 }

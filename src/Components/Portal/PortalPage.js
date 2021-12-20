@@ -2,6 +2,7 @@ import React from 'react';
 import Box from '@mui/material/Box';
 import styled from 'styled-components';
 import AlbumListSwiperPage from 'Components/Portal/AlbumList/AlbumListSwiperPage';
+import ArchiveRecentPage from 'Components/Portal/Archive/ArchiveRecentPage';
 
 const Container = styled(Box)`
     display: flex;
@@ -14,7 +15,12 @@ const PortalPage = props => {
     const {match} = props;
     return (
         <Container>
-            <AlbumListSwiperPage></AlbumListSwiperPage>
+            <Box>
+                <AlbumListSwiperPage></AlbumListSwiperPage>
+            </Box>
+            <Box mt="15px">
+                <ArchiveRecentPage></ArchiveRecentPage>
+            </Box>
         </Container>
     )
 }

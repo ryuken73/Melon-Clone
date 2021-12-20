@@ -34,25 +34,15 @@ function useCurrentPlaylist() {
   const {src:currentSrc, setPlayerSource} = usePlayerState();
   const dispatch = useDispatch();
 
-  // const addSongToCurrentPlaylist = React.useCallback((song, playAfeterAdd) => {
-  //   // to add to state, song should be converted to serializable(to song.parsedWithoutBTag)
-  //   console.log('### makes new addSongToCurrentPlaylist');
-  //   const songParsed = song.parsedWithoutBTag || song;
-  //   const songWithChecked = {...songParsed, checkedPlaylist: false, currentPlaying: false};
-  //   dispatch(pushObjectToState({stateKey:'currentPlaylist', value: songWithChecked}))
-  //   playAfeterAdd && setPlayerSource(song.src, song.albumImageSrc, 0);
-  //   return 1;
-  // },[dispatch, setPlayerSource])
-
   const addSongsToCurrentPlaylist = React.useCallback((songs, playAfterAdd) => {
     console.log('### add songs batch: ', songs);
     const songsArray = Array.isArray(songs) ? songs: [songs];
     const [songsToAdd, songsDuplicated] = checkDuplidate(songsArray, currentPlaylist);
     console.log('### check duplicate result: ', songsToAdd, songsDuplicated);
     const songsParsed = songsToAdd.map(song => {
-      const songWithoutBTag = song.parsedWithoutBTag || song;
+      const songWithoutBTag = song.parsedWithoutBTag || song.parsed;
       return {
-        ...songWithoutBTag  ,
+        ...songWithoutBTag,
         checkedPlaylist: false,
         currentPlaying: false
       }   
@@ -68,10 +58,10 @@ function useCurrentPlaylist() {
     } 
     showMessageBox(message, 1500);
     if(playAfterAdd){
-      const songToPlay = songs[songs.length - 1];
+      const songToPlay = songsArray[songsArray.length - 1];
       setPlayerSource(songToPlay.src, songToPlay.albumImageSrc, 0);
     }
-    return songs.length;
+    return songsArray.length;
   },[dispatch, setPlayerSource, showMessageBox, currentPlaylist])
 
   const removeFromCurrentPlaylist = React.useCallback(() => {

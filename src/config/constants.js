@@ -1,6 +1,7 @@
 const constants = {
     "BASE_API_URL": 'http://musicbank.sbs.co.kr',
     "BASE_STREAM_URL": 'http://10.11.31.51:1935/music/_definst/mp3:',
+    "BASE_STREAM_URL_ONAIR": 'http://10.11.31.51:1935/onair/_definst/mp3:',
     "DOWNLOAD_URL": 'http://10.11.31.51:8554/music',
     "GET_MORE_WAIT_SEC_DEBOUNCE": 100,
     "ALBUM_PAGE_SIZE": 20,
