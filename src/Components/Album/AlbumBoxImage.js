@@ -2,11 +2,12 @@ import React from 'react';
 import Box from '@mui/material/Box';
 import styled from 'styled-components';
 import PlayArrowIcon from '@mui/icons-material/PlayArrow';
-import HoverButton from './ButtonHover';
-import ImageBox from './ImageBox';
-import colors from '../../config/colors';
-import {addSongsInAlbumToCurrentPlaylist} from 'Components/Album/albumSlice';
-import { useDispatch } from 'react-redux';
+import HoverButton from 'Components/Common/ButtonHover';
+import ImageBox from 'Components/Common/ImageBox';
+import colors from 'config/colors';
+import useCurrentPlaylist from 'hooks/useCurrentPlaylist';
+import useQueryAlbumInfo from 'hooks/useQueryAlbumInfo';
+import createAlbumInfo from 'lib/albumInfoClass';
 
 const Container = styled(Box)`
     height: ${prop => prop.height || "auto"};
@@ -41,8 +42,7 @@ const BoxShownOnHover = styled(Box)`
     }
 
 `
-const ImageBoxWithHoverIcon = props => {
-  const dispatch = useDispatch();
+const AlbumBoxImage = props => {
   const {
         receipt_no=0,
         src='/images/no_image_black.jpg',
@@ -52,10 +52,18 @@ const ImageBoxWithHoverIcon = props => {
         resizeOnHover=true,
     } = props;
     const [isHover, setHover] = React.useState(false);
+
+    const query = useQueryAlbumInfo(receipt_no, false);
+    const {addSongsToCurrentPlaylist} = useCurrentPlaylist();
     const onClickPlay = React.useCallback(()=>{
-        console.log('click play:', receipt_no)
-        dispatch(addSongsInAlbumToCurrentPlaylist({receipt_no}));
-    },[receipt_no], dispatch);
+        query.refetch()
+        .then(result => {
+            const albumInfo = createAlbumInfo(result.data);
+            const songsInAlbum = albumInfo.list_song;
+            addSongsToCurrentPlaylist(songsInAlbum, true); 
+        })
+    },[addSongsToCurrentPlaylist, query]);
+
     const InnerElement = () => (
         <HoverButton onClick={onClickPlay} opacitynormal='0.7' opacityhover='1'>
             <PlayArrowIcon fontSize="large" ></PlayArrowIcon>
@@ -91,4 +99,4 @@ const ImageBoxWithHoverIcon = props => {
     )
 }
 
-export default React.memo(ImageBoxWithHoverIcon);
+export default React.memo(AlbumBoxImage);

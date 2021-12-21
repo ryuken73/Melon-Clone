@@ -11,9 +11,11 @@ const queryAll = async ({queryKey}) => {
   return response.json()
 };
 
-const useQueryAlbumInfo = receipt_no => {
+const useQueryAlbumInfo = (receipt_no, enabled=true) => {
   const {url, fetchOptions} = apiMap['doListAlbum.mb'](receipt_no);
-  const searchResult = useQuery(['doListAlbum.mb', url, fetchOptions, receipt_no, 'albumInfo'], queryAll);
+  const searchResult = useQuery(['doListAlbum.mb', url, fetchOptions, receipt_no, 'albumInfo'], queryAll, {
+    enabled
+  });
   return searchResult;
 } 
 

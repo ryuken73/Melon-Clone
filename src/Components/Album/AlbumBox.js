@@ -1,7 +1,7 @@
 import React from 'react'
 import Box from '@mui/material/Box';
 import styled from 'styled-components';
-import ImageBoxWithHoverIcon from '../Common/ImageBoxWithHoverIcon';
+import AlbumBoxImage from 'Components/Album/AlbumBoxImage';
 import TextBox from '../Common/TextBox';
 import LinkArtist from 'Components/Links/LinkArtist';
 
@@ -31,17 +31,16 @@ const AlbumBox = props => {
     const handleClickAlbum = React.useCallback(()=> {
         history.push(`/album/${receipt_no}/songList`, {receipt_no})
     },[history, receipt_no])
-    // console.log('re-render albumbox:', nameAlbum)
     return (
         <Container>
-            <ImageBoxWithHoverIcon 
+            <AlbumBoxImage 
                 receipt_no={receipt_no} 
                 title={nameAlbum} 
                 src={imagePath} 
                 onClick={handleClickAlbum}
                 resizeOnHover={resizeOnHover}
                 lazyLoading={lazyLoading}
-            ></ImageBoxWithHoverIcon>
+            ></AlbumBoxImage>
             <Box marginTop="5px"></Box>
             <TextBox 
                 fontSize="14px" 
