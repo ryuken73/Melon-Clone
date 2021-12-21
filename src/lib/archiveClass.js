@@ -1,6 +1,6 @@
 import {headers, responseToObject} from 'config/apis';
 import CONSTANTS from 'config/constants';
-import {replaceBold} from 'lib/util';
+import {replaceBold, removeBold} from 'lib/util';
 const {BASE_API_URL, BASE_STREAM_URL} = CONSTANTS;
 
 class Archive {
@@ -42,6 +42,13 @@ class Archive {
             src: this.src,
             duration: this.duration,
             chan_cd_full: this.chan_cd_full
+        }
+    }
+    get parsedWithoutBTag() {
+        return {
+            ...this.parsed,
+            song_name: removeBold(this.parsed.song_name),
+            artist: removeBold(this.parsed.artist)
         }
     }
 }
