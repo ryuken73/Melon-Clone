@@ -40,7 +40,8 @@ function useCurrentPlaylist() {
     const [songsToAdd, songsDuplicated] = checkDuplidate(songsArray, currentPlaylist);
     console.log('### check duplicate result: ', songsToAdd, songsDuplicated);
     const songsParsed = songsToAdd.map(song => {
-      const songWithoutBTag = song.parsedWithoutBTag || song.parsed;
+      const songWithoutBTag = song.parsedWithoutBTag || song;
+      console.log('### songWithoutBTag: ', songWithoutBTag);
       return {
         ...songWithoutBTag,
         checkedPlaylist: false,
@@ -96,8 +97,13 @@ function useCurrentPlaylist() {
     },0)
   },[currentPlaylist])
 
+  const checkedSongList = React.useMemo(()=>{
+    return currentPlaylist.filter(song => song.checkedPlaylist);
+  },[currentPlaylist])
+
   return {
     currentPlaylist, 
+    checkedSongList,
     checkedCount, 
     // addSongToCurrentPlaylist, 
     addSongsToCurrentPlaylist,
