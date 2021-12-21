@@ -75,6 +75,9 @@ export const playlistSlice = createSlice({
             }
             state.currentPlaylist.forEach(song => song.checkedPlaylist = true);
         },
+        clearChecked: (state, action) => {
+            state.currentPlaylist.forEach(song => song.checkedPlaylist = false);
+        }
     }
 })
 
@@ -86,6 +89,7 @@ export const {
     removeChecked,
     setCurrentPlayingByIndex,
     toggleAllChecked,
+    clearChecked
 } = playlistSlice.actions;
 
 export default playlistSlice.reducer;

@@ -1,6 +1,13 @@
 import * as React from 'react';
 import {useSelector, useDispatch} from 'react-redux';
-import {pushObjectToState, pushSongsToCurrentlist, removeChecked, toggleAllChecked, hasSong} from 'Components/PlayList/playlistSlice';
+import {
+  pushObjectToState, 
+  pushSongsToCurrentlist, 
+  removeChecked, 
+  toggleAllChecked, 
+  clearChecked,
+  hasSong
+} from 'Components/PlayList/playlistSlice';
 import usePlayerState from './usePlayerState';
 import useMessageBox from './useMessageBox';
 
@@ -74,6 +81,10 @@ function useCurrentPlaylist() {
     dispatch(toggleAllChecked());
   },[dispatch]);
 
+  const clearCheckedCurrentPlayList = React.useCallback(() => {
+    dispatch(clearChecked());
+  },[dispatch]);
+
   const playNextSong = React.useCallback(() => {
     const currentSongIndex = currentPlaylist.findIndex(song => song.src === currentSrc);
     const nextSongIndex = currentSongIndex === currentPlaylist.length -1 ? 0 : currentSongIndex + 1;
@@ -109,6 +120,7 @@ function useCurrentPlaylist() {
     addSongsToCurrentPlaylist,
     removeFromCurrentPlaylist, 
     toggleCurrentPlayList, 
+    clearCheckedCurrentPlayList,
     playNextSong,
     playPrevSong,
     allChecked

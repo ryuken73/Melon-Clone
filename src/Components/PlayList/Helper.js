@@ -17,9 +17,10 @@ const ButtonContainer = styled(Box)`
         justify-content: center;
         flex: 1;
 `
+const DOWNLOAD_FROM_PLAYLIST = true;
 const Helper = props => {
     const {currentPlaylist, checkedSongList, checkedCount, removeFromCurrentPlaylist} = useCurrentPlaylist();
-    const downloadFile = useDownloadSong(checkedSongList);
+    const downloadFile = useDownloadSong(checkedSongList, DOWNLOAD_FROM_PLAYLIST);
     console.log('####: checkedCount;', currentPlaylist, checkedCount)
     const hidden = checkedCount === 0;
     const text = `선택한 ${checkedCount} 곡을`;

@@ -16,6 +16,7 @@ class Archive {
     get pgm_nm() { return this.nativeProps.pgm_nm}
     get pgm_cd() { return this.nativeProps.pgm_cd}
     get episode() { return this.nativeProps.episode || '1부'}
+    get song_name() { return `${this.nativeProps.pgm_nm} [${this.episode}]`}
     get brd_dd() { return this.nativeProps.brd_dd}
     get brd_time() { return this.nativeProps.brd_time}
     get sch_gb() { return this.nativeProps.sch_gb}
@@ -42,14 +43,13 @@ class Archive {
         return `${CONSTANTS.DOWNLOAD_URL}/${attach_path}/${attach_name}`
     }
     get saveTo() {
-        const {song_name} = this.nativeProps;
         const date = new Date();
-        return `${replaceIllegalCharacters(song_name)}_${getTimeString(date)}.wav`
+        return `${replaceIllegalCharacters(this.song_name)}_${getTimeString(date)}.wav`
     }
     get parsed() {
         return {
             id: this.id,
-            song_name: `${this.pgm_nm} [${this.episode}]`,
+            song_name: this.song_name,
             artist: this.dj,
             src: this.src,
             duration: this.duration,
