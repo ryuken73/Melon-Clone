@@ -62,10 +62,10 @@ const StyledList = styled(Box)`
   white-space: nowrap;
   border-radius: 2px;
   &.Mui-focusVisible {
-    background: ${colors.playerLight3};
+    background: ${colors.autocompleteFocus};
   }
   &:hover {
-    background: ${colors.playerLight3}
+    background: ${colors.autocompleteFocus};
   }
   &:focus-within {
     background: yellow;
@@ -180,8 +180,9 @@ const UseAutocomplete = props => {
                 <SpanBox 
                     key={index} 
                     style={{
-                        fontWeight: part.highlight ? 900 : 500,
+                        fontWeight: part.highlight ? 400 : 100,
                         color: part.highlight && "white",
+
                     }} 
                     text={part.text}
                 ></SpanBox>
