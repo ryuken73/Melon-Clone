@@ -163,7 +163,12 @@ const UseAutocomplete = props => {
   return (
     <div>
       <div {...getRootProps()}>
-        <Input onKeyDownCapture={handleKeyDown} onKeyPressCapture={handleKeyPressed} {...getInputProps()} />
+        <Input 
+          onKeyDownCapture={handleKeyDown} 
+          onKeyPressCapture={handleKeyPressed} 
+          placeholder="control + q"
+          {...getInputProps()} 
+        />
       </div>
       {groupedOptions.length > 0 ? (
         <Listbox {...getListboxProps()}>
