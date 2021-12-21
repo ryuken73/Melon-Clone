@@ -17,7 +17,7 @@ const ArchiveRecentPage = props => {
                 color="white" 
                 opacity="0.7" 
                 opacityOnHover="0.9" 
-                text="아카이브 >"
+                text="최신 아카이브 >"
                 onClick={handleOnClick}>
             </TextBox>
             <ArchiveList></ArchiveList>

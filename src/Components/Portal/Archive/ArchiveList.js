@@ -34,9 +34,9 @@ const groupBy = (key, archives) => {
 }
 
 function ArchiveList() {
-    const result = useQueryArchives();
+    const result = useQueryArchives(1, 60);
     const archives = React.useMemo(() => createArchive(result.data), [result.data]);
-    const groupedArchives = groupBy('pgm_cd', archives)
+    const groupedArchives = groupBy('pgm_cd', archives).slice(0,20)
     console.log('^^^', archives, groupedArchives)
     return (
         <Container>

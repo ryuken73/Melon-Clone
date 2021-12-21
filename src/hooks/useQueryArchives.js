@@ -29,7 +29,7 @@ const useQueryArchives = (page_num=1, page_sizes=60) => {
     page_sizes,
     scn: 'archive', 
     query: `brd_dd >= ${getDateString(-1)}`,
-    orderby: "order by brd_time desc",
+    orderby: "order by brd_dd desc, brd_time desc",
     bool: true
   }
 
