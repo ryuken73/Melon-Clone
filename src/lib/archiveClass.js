@@ -1,6 +1,6 @@
 import {headers, responseToObject} from 'config/apis';
 import CONSTANTS from 'config/constants';
-import {replaceBold, removeBold} from 'lib/util';
+import {removeBold, replaceIllegalCharacters, getTimeString} from './util';
 const {BASE_API_URL, BASE_STREAM_URL} = CONSTANTS;
 
 class Archive {
@@ -34,6 +34,18 @@ class Archive {
         } = this.nativeProps;
         return `${CONSTANTS.BASE_STREAM_URL_ONAIR}${attach_path}/${attach_name}/playlist.m3u8`
     }
+    get download_url(){
+        const {
+            attach_path,
+            attach_name
+        } = this.nativeProps
+        return `${CONSTANTS.DOWNLOAD_URL}/${attach_path}/${attach_name}`
+    }
+    get saveTo() {
+        const {song_name} = this.nativeProps;
+        const date = new Date();
+        return `${replaceIllegalCharacters(song_name)}_${getTimeString(date)}.wav`
+    }
     get parsed() {
         return {
             id: this.id,
@@ -41,7 +53,9 @@ class Archive {
             artist: this.dj,
             src: this.src,
             duration: this.duration,
-            chan_cd_full: this.chan_cd_full
+            chan_cd_full: this.chan_cd_full,
+            download_url: this.download_url,
+            saveTo: this.saveTo
         }
     }
     get parsedWithoutBTag() {

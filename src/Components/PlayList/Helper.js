@@ -26,7 +26,7 @@ const Helper = props => {
     const handleDelete = React.useCallback(() => {
         removeFromCurrentPlaylist();
     },[removeFromCurrentPlaylist])
-        const handleDownloadFile = React.useCallback(() => {
+    const handleDownloadFile = React.useCallback(() => {
         downloadFile(checkedSongList)
     },[downloadFile, checkedSongList])
     return (
