@@ -8,6 +8,7 @@ import HoverButton from 'Components/Common/ButtonHover';
 import AddIcon from '@mui/icons-material/Add';
 import DeleteIcon from '@mui/icons-material/Delete';
 import useCurrentPlaylist from 'hooks/useCurrentPlaylist';
+import useDownloadSong from 'hooks/useDownloadSong';
 
 const ButtonContainer = styled(Box)`
         display: flex;
@@ -17,20 +18,24 @@ const ButtonContainer = styled(Box)`
         flex: 1;
 `
 const Helper = props => {
-    const {currentPlaylist, checkedCount, removeFromCurrentPlaylist} = useCurrentPlaylist();
+    const {currentPlaylist, checkedSongList, checkedCount, removeFromCurrentPlaylist} = useCurrentPlaylist();
+    const downloadFile = useDownloadSong(checkedSongList);
     console.log('####: checkedCount;', currentPlaylist, checkedCount)
     const hidden = checkedCount === 0;
     const text = `선택한 ${checkedCount} 곡을`;
     const handleDelete = React.useCallback(() => {
         removeFromCurrentPlaylist();
-    },[])
+    },[removeFromCurrentPlaylist])
+        const handleDownloadFile = React.useCallback(() => {
+        downloadFile(checkedSongList)
+    },[downloadFile, checkedSongList])
     return (
         <SnackBar hidden={hidden} containerProps={{width:'200px'}}>
             <Box flex="1" justifyContent="center">
                 <TextBox textAlign="center" text={text}></TextBox>
             </Box>
             <ButtonContainer>
-                <HoverButton><FileDownloadIcon fontSize="small"></FileDownloadIcon></HoverButton>
+                <HoverButton><FileDownloadIcon onClick={handleDownloadFile} fontSize="small"></FileDownloadIcon></HoverButton>
                 <HoverButton><AddIcon fontSize="small"></AddIcon></HoverButton>
                 <HoverButton><DeleteIcon onClick={handleDelete} fontSize="small"></DeleteIcon></HoverButton>
             </ButtonContainer>     
