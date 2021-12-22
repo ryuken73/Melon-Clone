@@ -40,7 +40,7 @@ class Archive {
             attach_path,
             attach_name
         } = this.nativeProps
-        return `${CONSTANTS.DOWNLOAD_URL}/${attach_path}/${attach_name}`
+        return `${CONSTANTS.DOWNLOAD_URL_ONAIR}/${attach_path}${attach_name}`
     }
     get saveTo() {
         return `${replaceIllegalCharacters(this.song_name)}_hhmmss.wav`
@@ -54,7 +54,12 @@ class Archive {
             duration: this.duration,
             chan_cd_full: this.chan_cd_full,
             download_url: this.download_url,
-            saveTo: this.saveTo
+            saveTo: this.saveTo,
+            file_size: this.file_sizea,
+            getFileSizeParams: 'archive',
+            receipt_no: this.id,
+            wavsize: this.file_size,
+            reg_no: this.episode
         }
     }
     get parsedWithoutBTag() {

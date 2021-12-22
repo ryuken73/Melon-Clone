@@ -21,7 +21,7 @@ const useDownloadSong = (songsToDownload) => {
         Promise.all(refetchResult)
         .then(results => {
             results.forEach(result => {
-                // console.log('^^^', result)
+                // console.log('@@@:',result.data)
                 const {receipt_no, reg_no ,wavsize} = result.data.song_list[0];
                 console.log('*************', receipt_no, reg_no, wavsize, checkedSongList)
                 const songToDownload = checkedSongList.find(song => song.receipt_no === receipt_no && song.reg_no === reg_no)
