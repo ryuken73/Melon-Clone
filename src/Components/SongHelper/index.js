@@ -38,8 +38,8 @@ const Helper = () => {
     },[checkedSongList, clearChecked, addSongsToCurrentPlaylist])
 
     const handleDownloadFile = React.useCallback(() => {
-        downloadFile(checkedSongList)
-    },[downloadFile, checkedSongList])
+        downloadFile(checkedSongList, clearChecked)
+    },[downloadFile, checkedSongList, clearChecked])
 
     return (
         <SnackBar hidden={hidden} containerProps={{width:'300px', height:'40px', opacity:'0.9', bgcolor:colors.playerLight4}}>

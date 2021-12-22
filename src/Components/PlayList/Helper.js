@@ -17,10 +17,9 @@ const ButtonContainer = styled(Box)`
         justify-content: center;
         flex: 1;
 `
-const DOWNLOAD_FROM_PLAYLIST = true;
 const Helper = props => {
-    const {currentPlaylist, checkedSongList, checkedCount, removeFromCurrentPlaylist} = useCurrentPlaylist();
-    const downloadFile = useDownloadSong(checkedSongList, DOWNLOAD_FROM_PLAYLIST);
+    const {currentPlaylist, checkedSongList, checkedCount, removeFromCurrentPlaylist, clearCheckedCurrentPlayList} = useCurrentPlaylist();
+    const downloadFile = useDownloadSong(checkedSongList);
     console.log('####: checkedCount;', currentPlaylist, checkedCount)
     const hidden = checkedCount === 0;
     const text = `선택한 ${checkedCount} 곡을`;
@@ -28,8 +27,8 @@ const Helper = props => {
         removeFromCurrentPlaylist();
     },[removeFromCurrentPlaylist])
     const handleDownloadFile = React.useCallback(() => {
-        downloadFile(checkedSongList)
-    },[downloadFile, checkedSongList])
+        downloadFile(checkedSongList, clearCheckedCurrentPlayList)
+    },[downloadFile, checkedSongList, clearCheckedCurrentPlayList])
     return (
         <SnackBar hidden={hidden} containerProps={{width:'200px'}}>
             <Box flex="1" justifyContent="center">
