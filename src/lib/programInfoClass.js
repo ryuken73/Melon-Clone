@@ -30,6 +30,9 @@ class ProgramInfoClass {
     get use_yn() { return this.nativeProps.use_yn}
     get view_name() { return this.nativeProps.view_name}
     get week_yn() { return this.nativeProps.week_yn}
+    get eval_imagePath() {
+        return `${BASE_API_URL}${this.attach_path}${this.attach_name}`
+    }
 }
 
 

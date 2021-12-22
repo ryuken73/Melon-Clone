@@ -45,6 +45,8 @@ class Archive {
     get saveTo() {
         return `${replaceIllegalCharacters(this.song_name)}_hhmmss.wav`
     }
+    set albumImgSrc(src) { this._albumImgSrc = src }
+    get albumImageSrc() { return this._albumImgSrc }
     get parsed() {
         return {
             id: this.id,
@@ -59,7 +61,8 @@ class Archive {
             getFileSizeParams: 'archive',
             receipt_no: this.id,
             wavsize: this.file_size,
-            reg_no: this.episode
+            reg_no: this.episode,
+            albumImageSrc: this.albumImageSrc
         }
     }
     get parsedWithoutBTag() {

@@ -45,7 +45,8 @@ const ImageBox = props => {
         height="500",
         isResizeOnHover=false,
         isHoverInnerElement=false,
-        lazyLoading=true
+        lazyLoading=true,
+        objectFit="cover"
     } = props;
     const imgRef = React.useRef(null);
     const observerRef = React.useRef();
@@ -100,6 +101,7 @@ const ImageBox = props => {
                 onError={onError}
                 isResizeOnHover={isResizeOnHover}
                 isHoverInnerElement={isHoverInnerElement}
+                objectFit={objectFit}
                 // loading="lazy"
                 // loaded={loaded}
                 // onLoad={showImage}

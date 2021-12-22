@@ -4,12 +4,16 @@ import CommonPageHeader from 'Components/Common/CommonPageHeader';
 import {withRouter} from 'react-router-dom';
 import TextBox from 'Components/Common/TextBox'; 
 import useQueryArchives from 'hooks/useQueryArchives'
+import useQueryProgramList from 'hooks/useQueryProgramList'
 import createArchive from 'lib/archiveClass';
+import createProgramList from 'lib/programInfoClass';
 import ArchiveList from 'Components/Portal/Archive/ArchiveList';
 
-const groupBy = (key, archives) => {
+const groupBy = (key, archives, programs) => {
     return archives.reduce((acc, archive) => {
         const alreadyGroup = acc.find(alreadyArchive => alreadyArchive[key] === archive[key]);
+        const eval_imagePath = programs.find(program => program.pgm_cd === archive.pgm_cd)?.eval_imagePath;
+        archive.albumImgSrc = eval_imagePath;
         if(alreadyGroup === undefined){
             // first member
             acc.push({
@@ -18,6 +22,7 @@ const groupBy = (key, archives) => {
                 'dj': archive['dj'],
                 'last_brd_time': archive['brd_time'],
                 'chan_cd_full': archive['chan_cd_full'],
+                'eval_imagePath': eval_imagePath,
                 archiveChildren: [archive]
             })
         } else {
@@ -36,9 +41,12 @@ const ArchiveRecentPage = props => {
     },[history.location])
 
     const result = useQueryArchives(1, 60);
+    const resultsAM = useQueryProgramList('A');
+    const resultsFM = useQueryProgramList('F');
+    const programs = [...createProgramList(resultsAM.data), ...createProgramList(resultsFM.data)];
     const archives = React.useMemo(() => createArchive(result.data), [result.data]);
-    const groupedArchives = groupBy('pgm_cd', archives).slice(0,20)
-    console.log('^^^', archives, groupedArchives)
+    const groupedArchives = groupBy('pgm_cd', archives, programs).slice(0,20)
+    console.log('@@@', archives, groupedArchives)
     const {refetch} = result;
 
     const refresh = React.useCallback(()=>{

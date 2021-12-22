@@ -33,12 +33,15 @@ function Skin(props) {
     const {
         albumImageSrc='',
         song_name="곡명",
-        artist="아티스트"
+        artist="아티스트",
+        getFileSizeParams='',
     } = song;
+    const width = getFileSizeParams === 'archive' ? '150px':'150px';
+    const objectFit = getFileSizeParams === 'archive' ? 'contain':'cover';
     return (
         <Container>
             <Image>
-                <ImageBox src={albumImageSrc} width="150px" height="150px"></ImageBox>
+                <ImageBox src={albumImageSrc} objectFit={objectFit} width={width} height="150px"></ImageBox>
             </Image>
             <Title>
                 <TextBox textalign="center" fontSize="13px" text={song_name} color={colors.textMain}></TextBox>
