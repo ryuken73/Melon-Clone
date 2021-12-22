@@ -1,6 +1,6 @@
 import {headers, responseToObject} from 'config/apis';
 import CONSTANTS from 'config/constants';
-import {removeBold, replaceIllegalCharacters, getTimeString} from './util';
+import {removeBold, replaceIllegalCharacters} from './util';
 const {BASE_API_URL, BASE_STREAM_URL} = CONSTANTS;
 
 class Archive {
@@ -43,8 +43,7 @@ class Archive {
         return `${CONSTANTS.DOWNLOAD_URL}/${attach_path}/${attach_name}`
     }
     get saveTo() {
-        const date = new Date();
-        return `${replaceIllegalCharacters(this.song_name)}_${getTimeString(date)}.wav`
+        return `${replaceIllegalCharacters(this.song_name)}_hhmmss.wav`
     }
     get parsed() {
         return {

@@ -1,5 +1,5 @@
 import CONSTANTS from 'config/constants';
-import { secondsToTime, replaceIllegalCharacters, getTimeString } from './util';
+import { secondsToTime, replaceIllegalCharacters} from './util';
 import {replaceBold, removeBold} from 'lib/util';
 
 class SongInAlbum {
@@ -91,8 +91,7 @@ class SongInAlbum {
     }
     get saveTo() {
         const {song_name} = this.nativeProps;
-        const date = new Date();
-        return `${replaceIllegalCharacters(song_name)}_${getTimeString(date)}.wav`
+        return `${replaceIllegalCharacters(song_name)}_hhmmss.wav`
     }
     get getFileSizeParams() {
         const {

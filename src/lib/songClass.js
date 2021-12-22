@@ -1,5 +1,5 @@
 import CONSTANTS from 'config/constants';
-import { secondsToTime, replaceIllegalCharacters, getTimeString } from './util';
+import { secondsToTime, replaceIllegalCharacters} from './util';
 import {headers, responseToObject} from 'config/apis';
 import {replaceBold, removeBold} from 'lib/util';
 const {BASE_API_URL, BASE_STREAM_URL} = CONSTANTS;
@@ -63,8 +63,7 @@ class Song {
     }
     get saveTo() {
         const {song_name} = this.nativeProps;
-        const date = new Date();
-        return `${replaceIllegalCharacters(song_name)}_${getTimeString(date)}.wav`
+        return `${replaceIllegalCharacters(song_name)}_hhmmss.wav`
     }
     get getFileSizeParams() {
         const {
