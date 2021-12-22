@@ -5,6 +5,8 @@ import ImageBox from 'Components/Common/ImageBox';
 import LinkArtist from 'Components/Links/LinkArtist';
 import styled from 'styled-components';
 import Divider from '../Common/Divider';
+import useQueryAlbumInfo from 'hooks/useQueryAlbumInfo';
+import createAlbumInfo from 'lib/albumInfoClass';
 
 const LyricsContainer = styled(Box)`
     display: flex;
@@ -30,20 +32,23 @@ const ImageContainer = styled(Box)`
 function LyricsItemInSearchAll(props) {
     const {lyrics={}} = props;
     const {
+        receipt_no,
         eval_imagePath,
         song_name_bold,
         lyrics_bold
     } = lyrics;
+    const result = useQueryAlbumInfo(receipt_no);
+    const albumInfo = createAlbumInfo(result.data);
     return (
         <LyricsContainer>
             <Container>
                 <ImageContainer>
                     <ImageBox src={eval_imagePath} width="40px" height="40px"></ImageBox>
                     <Box width="10px"></Box>
-                    <LinkArtist preserveHtmlTag artist={song_name_bold}></LinkArtist>
+                    <TextBox preserveHtmlTag text={song_name_bold}></TextBox>
                 </ImageContainer>
                 <Box flex="2">
-                    <LinkArtist preserveHtmlTag artist="아이유"></LinkArtist>
+                    <LinkArtist preserveHtmlTag artist={albumInfo.artist}></LinkArtist>
                 </Box>
                 <Box flex="2">
                     <LinkArtist preserveHtmlTag text="앨범 제목"></LinkArtist>
