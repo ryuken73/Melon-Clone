@@ -65,11 +65,16 @@ function useCurrentPlaylist() {
       level = 'error'
     } else {
       message = `${songsToAdd.length}곡을 재생목록에 담았습니다.`
+      level = 'success'
     } 
     showMessageBox(message, 2000, level);
     if(playAfterAdd){
       const songToPlay = songsArray[songsArray.length - 1];
-      setPlayerSource(songToPlay.src, songToPlay.albumImageSrc, 0);
+      level === 'success' && setPlayerSource(songToPlay.src, songToPlay.albumImageSrc, 0);
+      if(level === 'error'){
+        const alreadySongIndex = currentPlaylist.findIndex(song => song.id === songToPlay.id)
+        setPlayerSource(songToPlay.src, songToPlay.albumImageSrc, alreadySongIndex);
+      }
     }
     return songsArray.length;
   },[dispatch, setPlayerSource, showMessageBox, currentPlaylist])
