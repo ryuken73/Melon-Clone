@@ -106,7 +106,10 @@ const UseAutocomplete = props => {
   const uriEncoded = encodeURIComponent(inputValue);
   const debounced = useDebounce(uriEncoded, 100);
   const inputRef = getInputProps().ref;
-  useHotkeys('ctrl+q',() => inputRef.current.focus(), [inputRef.current]);
+  useHotkeys('ctrl+q',() => {
+    inputRef.current.focus()
+    inputRef.current.select()
+  }, [inputRef.current]);
   // const { isLoading, isError, data, error } = useQuery(['autocomplete', uriEncoded], querySuggests);
   const { isLoading, isError, data, error } = useQuerySuggest(debounced);
   const dispatch = useDispatch()
@@ -160,12 +163,17 @@ const UseAutocomplete = props => {
     setShowOptions(true);
   },[])
 
+  const handleFocus = React.useCallback(event => {
+    event.target.select();
+  },[])
+
   return (
     <div>
       <div {...getRootProps()}>
         <Input 
           onKeyDownCapture={handleKeyDown} 
           onKeyPressCapture={handleKeyPressed} 
+          onFocus={handleFocus}
           placeholder="control + q"
           {...getInputProps()} 
         />
