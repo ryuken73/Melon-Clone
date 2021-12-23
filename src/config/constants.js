@@ -10,6 +10,7 @@ const constants = {
     "SEARCH_DEBOUNCE_MILLISECONDS": 100,
     "SEARCH_PAGE_NUM": 1,
     "SEARCH_PAGE_SIZE": 10,
-    "SEARCH_SONG_PAGE_SIZES": 50
+    "SEARCH_SONG_PAGE_SIZES": 50,
+    "SWIPE_SLIDE_TO_SHHOW": 6
 }
 export default constants;
