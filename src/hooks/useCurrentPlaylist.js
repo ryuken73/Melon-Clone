@@ -56,15 +56,17 @@ function useCurrentPlaylist() {
       }   
     });
     dispatch(pushSongsToCurrentlist({songsParsed}));
-    let message;
+    let message, level;
     if(songsToAdd.length === 0 && songsDuplicated.length !== 0){
       message = `${songsDuplicated.length}곡이 이미 재생목록에 존재 합니다.`
+      level = 'error';
     } else if(songsToAdd.length !== 0 && songsDuplicated.length !== 0) {
       message = `${songsToAdd.length}곡을 재생목록에 담았습니다. (${songsDuplicated.length}곡은 이미 존재합니다.)`
+      level = 'error'
     } else {
       message = `${songsToAdd.length}곡을 재생목록에 담았습니다.`
     } 
-    showMessageBox(message, 1500);
+    showMessageBox(message, 2000, level);
     if(playAfterAdd){
       const songToPlay = songsArray[songsArray.length - 1];
       setPlayerSource(songToPlay.src, songToPlay.albumImageSrc, 0);

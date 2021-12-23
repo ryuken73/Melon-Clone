@@ -18,6 +18,7 @@ const colors = {
     'playerLight4': '#072450',
     // 'playerLight3': '#252b34',
     'autocompleteFocus': 'purple',
+    'error': 'maroon',
     99: 'black',
 }
 

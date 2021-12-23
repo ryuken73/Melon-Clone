@@ -7,8 +7,15 @@ import colors from 'config/colors';
 const MessageBox = props => {
     const isMessageBoxHidden = useSelector(state => state.app.isMessageBoxHidden);
     const messageBoxText = useSelector(state => state.app.messageBoxText);
+    const messageBoxLevel = useSelector(state => state.app.messageBoxLevel);
     return (
-        <SnackBar hidden={isMessageBoxHidden} containerProps={{width:'min-content'}}>
+        <SnackBar 
+            hidden={isMessageBoxHidden} 
+            containerProps={{
+                width:'min-content',
+                bgcolor: messageBoxLevel === 'success' ? colors.playerLight4 : colors.error
+            }}
+        >
             <TextBox 
                 containerProps={{margin: '10px'}}
                 text={messageBoxText}
