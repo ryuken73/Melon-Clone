@@ -6,7 +6,7 @@ import usePlayerEvent from 'hooks/usePlayerEvent';
 
 const CustomSlider = styled(Slider)`
     background: transparent;
-    color: black !important;
+    color: white !important;
     padding: 0px !important;
     & .MuiSlider-thumb {
         height: 8px;
@@ -19,7 +19,7 @@ const sliderValueToVolume = value => value / 100;
 
 const VerticalSlider = props => {
   const {manifestLoaded, playerRef} = props;
-  const {volume, handleVolumeControl} = usePlayerEvent(manifestLoaded, playerRef);
+  const {muted, volume, handleVolumeControl} = usePlayerEvent(manifestLoaded, playerRef);
   function preventHorizontalKeyboardNavigation(event) {
     if (event.key === 'ArrowLeft' || event.key === 'ArrowRight') {
       event.preventDefault();
@@ -27,9 +27,12 @@ const VerticalSlider = props => {
   }
 
   const value = React.useMemo(() => {
-    console.log('^^^:', volume)
+    console.log('^^^:', volume, muted)
+    if(muted) {
+      return 0;
+    }
     return volumeToSliderValue(volume)
-  },[volume])
+  },[volume, muted])
 
   const onChangeValue = React.useCallback((event, value) => {
     console.log('^^^:', value)

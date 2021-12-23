@@ -27,7 +27,6 @@ const Container = styled(Box)`
     display: flex;
     flex-direction: column;
 `
-
 const ProgressContainer = styled(Box)`
     display: flex;
     flex-direction: column;
@@ -44,11 +43,22 @@ const Duration = styled(Box)`
     margin-left: 20px;
     display: flex;
 `;
-
 const ControlContainer = styled(Box)`
     display: flex;
     justify-content: center;
     background: black;
+`
+const CustomVolumeIcon = styled(VolumeUpIcon)`
+    margin-top: 5px;
+    cursor: pointer;
+    background: black;
+    color: grey;
+`
+const CustomVolumeOffIcon = styled(VolumeOffIcon)`
+    margin-top: 5px;
+    cursor: pointer;
+    background: black;
+    color: grey;
 `
 
 function Player(props) {
@@ -59,27 +69,27 @@ function Player(props) {
         playPrevSong=()=>{},
     } = useCurrentPlaylist();
     const {
+        muted=false,
         isPlaying=false, 
         progress="0", 
         currentTime="00:00", 
         onClickPlay=()=>{},
         onClickReplay10=()=>{},
         onClickForward10=()=>{},
+        toggleMute=()=>{}
     } = usePlayerEvent(manifestLoaded, playerRef);
 
     const canPlay = manifestLoaded;
 
     const {
         onClickRepeat=()=>{},
-        onClickVolumeUp=()=>{},
     } = props;  
 
     const [volumeIconActive, setVolumeIconActive] = React.useState(false);
 
     const onClickVolumeControl = React.useCallback(() => {
         setVolumeIconActive(true);
-        onClickVolumeUp();
-    },[onClickVolumeUp])
+    },[setVolumeIconActive])
 
     const handleCloseVolumeSlider = React.useCallback(() => {
         setVolumeIconActive(false);
@@ -101,7 +111,6 @@ function Player(props) {
     const onClickSkipPrevious = React.useCallback(() => {
         playPrevSong()
     },[playPrevSong]);
-
 
     const anchorElRef = React.useRef(null);
 
@@ -128,24 +137,45 @@ function Player(props) {
                 </HoverButton>
                 <HoverButton onClick={onClickSkipNext}><SkipNextIcon></SkipNextIcon></HoverButton>
                 <HoverButton onClick={onClickForward10}><Forward10Icon fontSize="small"></Forward10Icon></HoverButton>
-                <HoverButton onClick={onClickVolumeControl} opacitynormal={volumeIconActive ? 1 : 0.7} ref={anchorElRef}><VolumeUpIcon></VolumeUpIcon></HoverButton>
+                <HoverButton 
+                    onClick={onClickVolumeControl} 
+                    opacitynormal={volumeIconActive ? 1 : 0.7} 
+                    ref={anchorElRef}
+                >
+                    {muted ? 
+                        <VolumeOffIcon></VolumeOffIcon> :
+                        <VolumeUpIcon></VolumeUpIcon>
+                    }
+                </HoverButton>
                 <Popover
                     open={volumeIconActive}
                     anchorEl={anchorElRef.current}
                     onClose={handleCloseVolumeSlider}
                     anchorOrigin={{
-                        vertical: 'top',
-                        horizontal: 'center',
-                    }}
-                    transformOrigin={{
                         vertical: 'bottom',
                         horizontal: 'center',
                     }}
+                    transformOrigin={{
+                        vertical: 132,
+                        horizontal: 'center',
+                    }}
                     PaperProps={{
-                        style: {display:'flex', backgroundColor:'grey',overflow:'clip', padding:'5px 0px 5px 0px', justifyContent:'center'}
+                        style: {
+                            display:'flex', 
+                            backgroundColor:'black',
+                            overflow:'clip', 
+                            padding:'10px 0px 0px 0px', 
+                            justifyContent:'center'
+                        }
                     }}
                 >
-                    <VerticalSlider manifestLoaded={manifestLoaded} playerRef={playerRef}></VerticalSlider>
+                    <Box display="flex" flexDirection="column" alignItems="center">
+                        <VerticalSlider manifestLoaded={manifestLoaded} playerRef={playerRef}></VerticalSlider>
+                        {muted ? 
+                            <CustomVolumeOffIcon onClick={toggleMute}></CustomVolumeOffIcon> :
+                            <CustomVolumeIcon onClick={toggleMute}></CustomVolumeIcon>
+                        }
+                    </Box>
                 </Popover>
             </ControlContainer>
         </Container>

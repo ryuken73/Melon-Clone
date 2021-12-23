@@ -11,6 +11,8 @@ const constants = {
     "SEARCH_PAGE_NUM": 1,
     "SEARCH_PAGE_SIZE": 10,
     "SEARCH_SONG_PAGE_SIZES": 50,
-    "SWIPE_SLIDE_TO_SHHOW": 6
+    "SWIPE_SLIDE_TO_SHHOW": 6,
+    "SWIPE_SLIDE_TO_SCROLL": 5,
+    "SWIPE_SLIDE_SPEED": 500
 }
 export default constants;

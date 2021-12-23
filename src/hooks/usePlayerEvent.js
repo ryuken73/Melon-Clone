@@ -12,6 +12,7 @@ export default function usePlayerEvent(manifestLoaded, playerRef) {
     const [duration, setDuration] = React.useState("00:00");
     const [currentTime, setCurrentTime] = React.useState("00:00");
     const [progress, setProgress] = React.useState(0);
+    const [muted, setMuted] = React.useState(false);
     const player = playerRef.current;
 
     const handlePlaying = React.useCallback(()=>{
@@ -67,6 +68,19 @@ export default function usePlayerEvent(manifestLoaded, playerRef) {
         setProgress(progress)
     },[player, playerRef, duration])
 
+    const toggleMute = React.useCallback(() => {
+        setMuted(muted => {
+            const player = playerRef.current;
+            const toggled = !muted;
+            if(player) {
+                player.muted = toggled;
+                // dispatch(setVolume({volume: player.volume}))
+                return toggled;
+            }
+            return muted;
+        })
+    },[setMuted, dispatch, playerRef])
+
     React.useEffect(() => {
         if(manifestLoaded === false) return [];
         if(player === null || player === undefined) {
@@ -74,6 +88,7 @@ export default function usePlayerEvent(manifestLoaded, playerRef) {
             return [];
         }
         console.log('attach player event handlers');
+        player.muted = muted;
         player.addEventListener('playing', handlePlaying)
         player.addEventListener('pause', handlePause)
         player.addEventListener('timeupdate', handleTimeupdate)
@@ -84,9 +99,10 @@ export default function usePlayerEvent(manifestLoaded, playerRef) {
             player.removeEventListener('timeupdate', handleTimeupdate)
         })
 
-    },[manifestLoaded, player, handlePlaying, handlePause, handleTimeupdate])
+    },[manifestLoaded, player, muted, handlePlaying, handlePause, handleTimeupdate])
 
     return {
+        muted,
         isPlaying, 
         progress, 
         currentTime, 
@@ -95,6 +111,7 @@ export default function usePlayerEvent(manifestLoaded, playerRef) {
         onClickPlay, 
         onClickReplay10,
         onClickForward10,
-        handleVolumeControl
+        handleVolumeControl,
+        toggleMute
     }
 }

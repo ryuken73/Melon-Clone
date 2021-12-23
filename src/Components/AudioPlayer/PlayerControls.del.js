@@ -53,10 +53,14 @@ const PlayerControls = props => {
 
     const [volumeIconActive, setVolumeIconActive] = React.useState(false);
 
-    const onClickVolumeControl = React.useCallback(() => {
+    const onHoverVolumeControl = React.useCallback(() => {
         setVolumeIconActive(true);
         onClickVolumeUp();
     },[onClickVolumeUp])
+
+    const onClickVolumeControl = React.useCallback(() => {
+        alert('onClick')
+    },[])
 
     const handleCloseVolumeSlider = React.useCallback(() => {
         setVolumeIconActive(false);
@@ -77,7 +81,15 @@ const PlayerControls = props => {
             </HoverButton>
             <HoverButton onClick={onClickSkipNext}><SkipNextIcon></SkipNextIcon></HoverButton>
             <HoverButton onClick={onClickForward10}><Forward10Icon fontSize="small"></Forward10Icon></HoverButton>
-            <HoverButton onClick={onClickVolumeControl} opacitynormal={volumeIconActive ? 1 : 0.7} ref={anchorElRef}><VolumeUpIcon></VolumeUpIcon></HoverButton>
+            <HoverButton 
+                onClick={onClickVolumeControl} 
+                onMouseEnter={onMouseEnter} 
+                onMouseLeave={onMouseLeave} 
+                opacitynormal={volumeIconActive ? 1 : 0.7} 
+                ref={anchorElRef}
+            >
+                <VolumeUpIcon />
+            </HoverButton>
             <Popover
                 open={volumeIconActive}
                 anchorEl={anchorElRef.current}
