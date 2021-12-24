@@ -1,12 +1,9 @@
 import CONSTANTS from 'config/constants';
 const {
     SEARCH_PAGE_NUM,
-    SEARCH_PAGE_SIZE
+    SEARCH_PAGE_SIZE,
+    AUTOCOMPLETE_URL
 } = CONSTANTS;
-
-export const baseUrl = {
-    'musicbank': 'http://musicbank.sbs.co.kr'
-}
 
 export const genre = {
   'kpop': 4,
@@ -320,7 +317,7 @@ export const apiMap = {
     // },
     'querySuggest': searchKeyword => {
         return {
-            url: `http://10.11.31.51:3010/searchSong/withWorkers/${searchKeyword}?userId=null&supportThreeWords=true&count=100`,
+            url: `${AUTOCOMPLETE_URL}/searchSong/withWorkers/${searchKeyword}?userId=null&supportThreeWords=true&count=100`,
             fetchOptions: {
                 method: 'GET'
             }

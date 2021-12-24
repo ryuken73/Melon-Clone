@@ -1,6 +1,4 @@
 import {createSlice} from "@reduxjs/toolkit";
-import {baseUrl, apiMap, responseToObject} from 'config/apis';
-import CONSTANTS from 'config/constants'
 
 const initialState = {
     currentPlaylist: [],

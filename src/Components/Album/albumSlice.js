@@ -1,8 +1,12 @@
 import { createSlice } from "@reduxjs/toolkit";
-import {baseUrl, apiMap, responseToObject} from 'config/apis';
+import {apiMap, responseToObject} from 'config/apis';
 import CONSTANTS from 'config/constants'
 import {pushObjectToState} from 'Components/PlayList/playlistSlice';
 import {showMessageBoxForDuration, setMessageBoxText} from 'appSlice';
+
+const SERVER_NAME = 'musicbank';
+const PAGE_SIZE = CONSTANTS.ALBUM_PAGE_SIZE;
+const {BASE_API_URL, BASE_STREAM_URL} = CONSTANTS;
 
 const initialState = {
     fetched:{
@@ -23,7 +27,7 @@ const addMoreAttr = (list_song, label_no) => {
         return {
             ...song, 
             id: `${song.receipt_no}:${song.reg_no}`, 
-            src: `${CONSTANTS.BASE_STREAM_URL}${attach_path}/${label}/${label_no}/${attach_name}.mp3/playlist.m3u8`,
+            src: `${BASE_STREAM_URL}${attach_path}/${label}/${label_no}/${attach_name}.mp3/playlist.m3u8`,
             albumImageSrc: `${BASE_API_URL}/Video/small_image/${label_no}.JPG`,
             checkedSongList:false, 
             checkedPlaylist:false, 
@@ -89,9 +93,6 @@ export const albumSlice = createSlice({
     }
 })
 
-const SERVER_NAME = 'musicbank';
-const PAGE_SIZE = CONSTANTS.ALBUM_PAGE_SIZE;
-const {BASE_API_URL} = CONSTANTS;
 const DEFAULT_FETCH_OPTIONS = {
     method: 'POST',
     headers: {
@@ -126,7 +127,6 @@ export const fetchAlbums = ({category='all', query, replace=false}) => async (di
     const {fdata} = response;
     const albums = responseToObject(fdata, responseHeaders);
     const imagePathAttachedAlbums = albums.map(album => {
-        // return {...album, eval_imagePath: `${baseUrl[SERVER_NAME]}/Video/small_image/${album.label_no}.JPG`}
         const albumImageSrc = `${BASE_API_URL}/Video/small_image/${album.label_no}.JPG`;
         return {...album, eval_imagePath: albumImageSrc}
     })
@@ -147,7 +147,7 @@ export const doListAlbum = ({receipt_no}) => async (dispatch, getState) => {
     const jsonfied = await response.json();
     console.log('###', jsonfied)
     const {info, list_song} = jsonfied;
-    const imagePathAttachedAlbum = {...info, eval_imagePath: `${baseUrl[SERVER_NAME]}/Video/small_image/${info.label_no}.JPG`}
+    const imagePathAttachedAlbum = {...info, eval_imagePath: `${BASE_API_URL}/Video/small_image/${info.label_no}.JPG`}
     const withMoreAttrListSong = addMoreAttr(list_song, info.label_no);
     dispatch(addObjectToState({stateKey:'songListInAlbum', key: receipt_no, value: withMoreAttrListSong}))
     dispatch(addObjectToState({stateKey:'albumInfoList', key:receipt_no, value: imagePathAttachedAlbum}))
