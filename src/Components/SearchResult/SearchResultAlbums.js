@@ -65,12 +65,14 @@ function SearchResultAlbums(props) {
                 {albums.map((album,index) => (  
                     // <RenderIfVisible defaultHeight={270}>
                     <AlbumBox 
+                        album={album}
                         key={album.receipt_no}
-                        receipt_no={album.receipt_no}
-                        nameAlbum={album.album_name_bold} 
-                        nameArtist={album.artist_bold}
-                        matched={album.artist_matched}
-                        imagePath={album.eval_imagePath}
+                        // receipt_no={album.receipt_no}
+                        // nameAlbum={album.album_name_bold} 
+                        // nameArtist={album.artist_bold}
+                        // matched={album.artist_matched}
+                        // imagePath={album.eval_imagePath}
+                        // releaseYear={album.release_year}
                         history={history}
                         lazyLoaing={true}
                         preserveHtmlTag={true}

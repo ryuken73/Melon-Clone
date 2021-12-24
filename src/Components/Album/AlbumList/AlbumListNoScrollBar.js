@@ -21,12 +21,14 @@ const AlbumList = props => {
         <Container>
             {albums.map((album,index) => (  
                 <AlbumBox 
+                    album={album}
                     key={album.receipt_no}
-                    receipt_no={album.receipt_no}
-                    nameAlbum={album.album_name_bold} 
-                    nameArtist={album.artist_bold}
-                    matched={album.artist_matched}
-                    imagePath={album.eval_imagePath}
+                    // receipt_no={album.receipt_no}
+                    // nameAlbum={album.album_name_bold} 
+                    // nameArtist={album.artist_bold}
+                    // matched={album.artist_matched}
+                    // imagePath={album.eval_imagePath}
+                    // releaseYear={album.release_year}
                     history={history}
                     preserveHtmlTag={true}
                 ></AlbumBox>
