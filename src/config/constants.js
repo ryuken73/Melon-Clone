@@ -15,7 +15,7 @@ const dev = {
     "SWIPE_SLIDE_TO_SHHOW": 6,
     "SWIPE_SLIDE_TO_SCROLL": 5,
     "SWIPE_SLIDE_SPEED": 500,
-    "WIDTH_TO_HIDE_SIDE_PANEL": "1200px"
+    "WIDTH_TO_HIDE_SIDE_PANEL": "1250px"
 }
 
 const prd = {
