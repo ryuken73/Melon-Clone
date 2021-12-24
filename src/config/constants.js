@@ -14,7 +14,8 @@ const dev = {
     "SEARCH_SONG_PAGE_SIZES": 50,
     "SWIPE_SLIDE_TO_SHHOW": 6,
     "SWIPE_SLIDE_TO_SCROLL": 5,
-    "SWIPE_SLIDE_SPEED": 500
+    "SWIPE_SLIDE_SPEED": 500,
+    "WIDTH_TO_HIDE_SIDE_PANEL": "1200px"
 }
 
 const prd = {

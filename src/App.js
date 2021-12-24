@@ -18,6 +18,7 @@ import colors from 'config/colors' ;
 import MessageBox from './MessageBox';
 import Backdrop from 'Components/Common/BackDrop';
 import useMediaQuery from '@mui/material/useMediaQuery';
+import CONSTANTS from 'config/constants';
 
 const LeftPane = styled(Box)`
   width: 150px;
@@ -44,8 +45,9 @@ const CenterPane = styled(Box)`
 `
 
 function App() {
-  const hideLeftPane = useMediaQuery('(max-width:1200px)');
-  const hideRightPane = useMediaQuery('(max-width:1200px)');
+  const {WIDTH_TO_HIDE_SIDE_PANEL} = CONSTANTS;
+  const hideLeftPane = useMediaQuery(`(max-width:${WIDTH_TO_HIDE_SIDE_PANEL})`);
+  const hideRightPane = useMediaQuery(`(max-width:${WIDTH_TO_HIDE_SIDE_PANEL})`);
   return (
     <div className="App">
       <LeftPane hide={hideLeftPane}>
