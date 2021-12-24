@@ -17,6 +17,7 @@ import useCurrentPlaylist from 'hooks/useCurrentPlaylist';
 import useSongHelper from 'hooks/useSongHelper';
 import useDebounce from 'hooks/useDebounce';
 import useDownloadSong from 'hooks/useDownloadSong';
+import {withRouter} from 'react-router-dom';
 
 const Container = styled(Box)`
     && {
@@ -33,6 +34,7 @@ const Container = styled(Box)`
 `
 
 const SongIteminSearchAll = props => {
+    const {history} = props;
     const {song, rownum, ...rest} = props;
     const [hovered, setHovered] = React.useState(false);
     const {addSongsToCurrentPlaylist} = useCurrentPlaylist();
@@ -71,6 +73,11 @@ const SongIteminSearchAll = props => {
         downloadFile([song])
     },[downloadFile, song])
 
+    const gotoAlbumInfo = React.useCallback(() => {
+    history.push(`/album/${song.receipt_no}/songList`, {receipt_no:song.receipt_no})
+
+    },[history, song.receipt_no])
+
     const songIndex = React.useMemo(() => rownum+1, [rownum]);
 
     return (
@@ -79,7 +86,7 @@ const SongIteminSearchAll = props => {
                 <Box flex="1" mr="5px" flexShrink="0" display="flex" justifyContent="center" alignItems="center">
                     {/* Small Album Image */}
                     <TextBox text={songIndex} {...rest} fontSize="10px" marginRight="10px" cursor="auto" color="darkgrey"></TextBox>
-                    <ImageBox lazyLoading={false} src={albumImageSrc} width="35px" height="35px"></ImageBox>
+                    <ImageBox onClick={gotoAlbumInfo} lazyLoading={false} src={albumImageSrc} width="35px" height="35px"></ImageBox>
                 </Box>
                 <Box flex="4" display="flex" flexDirection="row" alignItems="center">
                     {/* 곡명 */}
@@ -118,4 +125,4 @@ const SongIteminSearchAll = props => {
     )
 }
 
-export default React.memo(SongIteminSearchAll)
+export default React.memo(withRouter(SongIteminSearchAll))
