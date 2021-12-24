@@ -24,7 +24,7 @@ const LinkArtist = props => {
                 history.push(`/artist/${encodedArtist}/songList?sch_id=${sch_id}`)
             } else {
                 // alert('등록된 아티스트가 없습니다.');
-                showMessageBox('등록된 아티스트가 없습니다.', 1000)
+                showMessageBox('등록된 아티스트가 없습니다.', 1000, 'error')
                 return;
             }
         })
