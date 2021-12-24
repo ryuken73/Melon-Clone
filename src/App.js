@@ -17,15 +17,17 @@ import VerticalMenu from './VerticalMenu';
 import colors from 'config/colors' ;
 import MessageBox from './MessageBox';
 import Backdrop from 'Components/Common/BackDrop';
+import useMediaQuery from '@mui/material/useMediaQuery';
 
 const LeftPane = styled(Box)`
   width: 150px;
   flex-grow:0;
   flex-shrink:0;
   background:${colors.player};
+  display: ${props => props.hide ? 'none':'block'};
 `
 const RightPane = styled(Box)`
-  display: flex;
+  display: ${props => props.hide ? 'none':'flex'};
   flex-direction: column;
   width: 300px;
   min-width: 300px;
@@ -36,21 +38,20 @@ const RightPane = styled(Box)`
 const CenterPane = styled(Box)`
   flex-grow:1;
   min-width:800px;
-  background: ${colors.centerPane}
+  background: ${colors.centerPane};
+  padding-left: ${props => props.hideLeftPane && '20px'};
+  padding-right: ${props => props.hideRightPane && '20px'};
 `
 
 function App() {
-  /* React.useEffect(()=>  {
-        if ("scrollRestoration" in window.history) {
-            window.history.scrollRestoration = "manual"
-          }
-  },[]); */
+  const hideLeftPane = useMediaQuery('(max-width:1200px)');
+  const hideRightPane = useMediaQuery('(max-width:1200px)');
   return (
     <div className="App">
-      <LeftPane>
+      <LeftPane hide={hideLeftPane}>
         <VerticalMenu></VerticalMenu>
       </LeftPane>
-      <CenterPane>
+      <CenterPane hideLeftPane={hideLeftPane} hideRightPane={hideRightPane}>
         <CenterHeader></CenterHeader>
         <Switch>
           <Route exact path="/" render={()=><PortalView />} />
@@ -62,7 +63,7 @@ function App() {
           <Route render={()=><withRouterNotFoundView />} />
         </Switch>
       </CenterPane>
-      <RightPane>
+      <RightPane hide={hideRightPane}>
         <PlayerSkin></PlayerSkin>
         <Player></Player>
         <PlayList></PlayList>
