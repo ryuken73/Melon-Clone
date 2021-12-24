@@ -3,6 +3,7 @@ import Box from '@mui/material/Box';
 import styled from 'styled-components';
 import ImageBox from 'Components/Common/ImageBox';
 import TextBox from 'Components/Common/TextBox';
+import LinkArtist from 'Components/Links/LinkArtist';
 // import useAlbumInfo from 'hooks/useAlbumInfo';
 import useQueryAlbumInfo from 'hooks/useQueryAlbumInfo';
 import createAlbumInfo from 'lib/albumInfoClass';
@@ -33,7 +34,9 @@ const AlbumDetailInfo = props => {
         <InfoContainer>
             <TextBox mb="20px" fontSize="14px" text={album_type}></TextBox>
             <TextBox mt="10px" fontSize="18px" color="white" text={album_name}></TextBox>
-            <TextBox my="5px" fontSize="15px" opacity="0.9" text={artist}></TextBox>
+            <Box my="5px">
+                <LinkArtist fontSize="15px" opacity="0.9" artist={artist}></LinkArtist>
+            </Box>
             <TextBox fontSize="14px" cursor="auto" text={producer}></TextBox>
         </InfoContainer>
     )
