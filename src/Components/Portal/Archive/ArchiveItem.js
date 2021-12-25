@@ -51,7 +51,7 @@ function ArchiveItem(props) {
                 <Box flexShrink={0} minWidth="20px">
                     <TextBox 
                         fontSize="14px" 
-                        color={chan_cd_full === 'AM' ?'gold':'lightskyblue'}
+                        color={chan_cd_full === 'AM' ?'burlywood':'lightskyblue'}
                         text={`[${chan_cd_full}]`}
                         mr="5px"
                         ml="3px"

@@ -18,7 +18,7 @@ const PortalPage = props => {
             <Box>
                 <AlbumListSwiperPage></AlbumListSwiperPage>
             </Box>
-            <Box mt="15px">
+            <Box mt="30px">
                 <ArchiveRecentPage></ArchiveRecentPage>
             </Box>
         </Container>

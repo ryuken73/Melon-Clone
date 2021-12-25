@@ -59,7 +59,7 @@ const ArchiveRecentPage = props => {
             <Box display="flex" flexDisplay="row" alignItems="center" mb="5px">
                 <TextBox 
                     fontSize="20px" 
-                    color="white" 
+                    color="yellow" 
                     opacity="0.7" 
                     opacityOnHover="0.9" 
                     text="최신 아카이브 >"
