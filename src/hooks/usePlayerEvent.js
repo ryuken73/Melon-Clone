@@ -49,6 +49,7 @@ export default function usePlayerEvent(manifestLoaded, playerRef) {
     },[player, isPlaying])
 
     const onClickReplay10 = React.useCallback(()=>{
+        if(!player) return;
         const {currentTime} = player;
         const replayTime = currentTime - 10 > 0 ? currentTime - 10 : 0;
         playerRef.current.currentTime = replayTime;
@@ -59,6 +60,7 @@ export default function usePlayerEvent(manifestLoaded, playerRef) {
     },[player, playerRef])
 
     const onClickForward10 = React.useCallback(()=>{
+        if(!player) return;
         const {currentTime} = player;
         const forwardTime = currentTime + 10 < player.duration ? currentTime + 10 : duration;
         playerRef.current.currentTime = forwardTime;

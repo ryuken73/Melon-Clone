@@ -93,6 +93,7 @@ function useCurrentPlaylist() {
   },[dispatch]);
 
   const playNextSong = React.useCallback(() => {
+    if(currentPlaylist.length < 2) return;
     const currentSongIndex = currentPlaylist.findIndex(song => song.src === currentSrc);
     const nextSongIndex = currentSongIndex === currentPlaylist.length -1 ? 0 : currentSongIndex + 1;
     const nextSong = currentPlaylist[nextSongIndex]
@@ -100,6 +101,7 @@ function useCurrentPlaylist() {
   },[currentSrc, currentPlaylist, setPlayerSource])
 
   const playPrevSong = React.useCallback(() => {
+    if(currentPlaylist.length < 2) return;
     const currentSongIndex = currentPlaylist.findIndex(song => song.src === currentSrc);
     const prevSongIndex = currentSongIndex === 0 ? currentPlaylist.length -1 : currentSongIndex - 1;
     const prevSong = currentPlaylist[prevSongIndex]
