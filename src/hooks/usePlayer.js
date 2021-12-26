@@ -24,7 +24,7 @@ export default function usePlayer(hlsSource) {
             setManifestLoaded(false);
             audioElementRef.current = null;
         }
-        if(hlsRef.current !== null){
+        if(hlsRef && hlsRef.current !== null){
             setManifestLoaded(false);
             hlsRef.current.destroy();
         }
