@@ -81,7 +81,7 @@ function App() {
       </RightPane> 
       <MessageBox></MessageBox>
       <Backdrop></Backdrop>
-      {hideRightPane && <Footer>
+      {hideRightPane && <Footer> 
         <PlayerFlat></PlayerFlat>
       </Footer>
       }
