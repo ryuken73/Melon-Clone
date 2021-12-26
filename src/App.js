@@ -11,6 +11,7 @@ import SongView from 'Views/SongView';
 import PortalView from 'Components/Portal/PortalPage';
 import PlayerSkin from 'Components/AudioPlayer/Skin';
 import Player from 'Components/AudioPlayer/Player';
+import PlayerFlat from 'Components/AudioPlayer/PlayerFlat';
 import PlayList from 'Components/PlayList';
 import CenterHeader from './CenterHeader';
 import VerticalMenu from './VerticalMenu';
@@ -49,6 +50,7 @@ const Footer = styled(Box)`
   bottom: 0;
   width: 100%;
   background-color: red;
+  height: 100px;
 `
 
 function App() {
@@ -80,7 +82,7 @@ function App() {
       <MessageBox></MessageBox>
       <Backdrop></Backdrop>
       {hideRightPane && <Footer>
-        <div>111</div>
+        <PlayerFlat></PlayerFlat>
       </Footer>
       }
     </div>
