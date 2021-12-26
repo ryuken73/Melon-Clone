@@ -44,6 +44,13 @@ const CenterPane = styled(Box)`
   padding-right: ${props => props.hideRightPane && '20px'};
 `
 
+const Footer = styled(Box)`
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  background-color: red;
+`
+
 function App() {
   const {WIDTH_TO_HIDE_SIDE_PANEL} = CONSTANTS;
   const hideLeftPane = useMediaQuery(`(max-width:${WIDTH_TO_HIDE_SIDE_PANEL})`);
@@ -72,6 +79,10 @@ function App() {
       </RightPane> 
       <MessageBox></MessageBox>
       <Backdrop></Backdrop>
+      {hideRightPane && <Footer>
+        <div>111</div>
+      </Footer>
+      }
     </div>
   );
 }

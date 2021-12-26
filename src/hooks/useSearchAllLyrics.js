@@ -18,18 +18,18 @@ const queryAll = async ({queryKey}) => {
 
 const useSearchAllLyrics = options => {
 
-  const {keyword, artistName, songName, exactSearch} = options;
+  const {keyword, artistName, songName, exactSearch, page_sizes=3} = options;
   const needExactSearch = exactSearch === 'yes';
 
   const paramsExact = {
-    page_sizes: 3,
+    page_sizes,
     scn: 'lyrics', 
     query: `song_name_str = '${songName}' and artist_str='${artistName}' and status='Y'`,
     orderby: 'order by song_name_str asc'
   }
 
   const params = {
-    page_sizes: 3,
+    page_sizes,
     scn: 'lyrics', 
     query: `lyc_idx = '${keyword}' allwordthruindexsyn and status='Y'`,
     orderby: 'order by song_name_str asc'
@@ -38,8 +38,8 @@ const useSearchAllLyrics = options => {
   const {url: urlExact, fetchOptions: fetchOptionsExact} = apiMap.searchMusicAll({...paramsExact});
   const {url, fetchOptions} = apiMap.searchMusicAll({...params});
 
-  const exactSearchResult = useQuery(['searchMusicAll', urlExact, fetchOptionsExact, artistName, songName, 'lyrics'], queryAll, {enabled:needExactSearch});
-  const searchResult = useQuery(['searchMusicAll', url, fetchOptions, keyword, 'lyrics'], queryAll, {enabled:!needExactSearch});
+  const exactSearchResult = useQuery(['searchMusicAll', urlExact, fetchOptionsExact, artistName, songName, page_sizes, 'lyrics'], queryAll, {enabled:needExactSearch});
+  const searchResult = useQuery(['searchMusicAll', url, fetchOptions, keyword, page_sizes, 'lyrics'], queryAll, {enabled:!needExactSearch});
 
   const result = needExactSearch ? exactSearchResult : searchResult;
 

@@ -7,7 +7,7 @@ const HoverButton = styled(IconButton)`
         opacity: ${props => props.opacityDisabled || '0.3'};
     }
     .MuiSvgIcon-root {
-        color: ${props => props.color || 'white'};
+        color: ${props => props.fontcolor || 'white'};
         opacity: ${props => props.opacitynormal || '0.5'};
         &:hover {
             opacity: ${props => props.opacityhover || '0.7'};

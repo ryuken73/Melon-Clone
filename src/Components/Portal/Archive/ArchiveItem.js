@@ -36,7 +36,7 @@ function ArchiveItem(props) {
     const reversed = React.useMemo(() => [...archiveChildren].reverse(),[archiveChildren]);
     const rownum = index + 1;
     const lastUpdated = `${last_brd_time.slice(0,2)}시${last_brd_time.slice(2,4)}분`
-    console.log(archiveChildren);
+    // console.log(archiveChildren);
     const addSongNPlay = React.useCallback((event) => {
         const index = event.target.id;
         const archive = reversed[index];

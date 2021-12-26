@@ -3,6 +3,7 @@ import Box from '@mui/material/Box';
 import Paper from '@mui/material/Paper';
 import styled from 'styled-components';
 import PlayArrowIcon from '@mui/icons-material/PlayArrow';
+import Badge from '@mui/material/Badge';
 import PauseIcon from '@mui/icons-material/Pause';
 import SkipNextIcon from '@mui/icons-material/SkipNext';
 import SkipPreviousIcon from '@mui/icons-material/SkipPrevious';
@@ -22,6 +23,14 @@ import usePlayer from 'hooks/usePlayer';
 import usePlayerState from 'hooks/usePlayerState';
 import usePlayerEvent from 'hooks/usePlayerEvent';
 import useCurrentPlaylist from 'hooks/useCurrentPlaylist';
+
+const repeatOption = ['none','one','all']
+const getNextRepeatOption = (current) => {
+    const currentOptionIndex = repeatOption.findIndex(option => option === current);
+    if(currentOptionIndex === -1) return repeatOption[0];
+    if(currentOptionIndex === repeatOption.length - 1) return repeatOption[0];
+    return repeatOption[currentOptionIndex+1]
+}
 
 const Container = styled(Box)`
     display: flex;
@@ -47,6 +56,7 @@ const ControlContainer = styled(Box)`
     display: flex;
     justify-content: center;
     background: black;
+    position: relative;
 `
 const CustomVolumeIcon = styled(VolumeUpIcon)`
     margin-top: 5px;
@@ -60,10 +70,20 @@ const CustomVolumeOffIcon = styled(VolumeOffIcon)`
     background: black;
     color: grey;
 `
+const CounterAbsolute = styled(Box)`
+    position: absolute;
+    font-size: 10px;
+    width: 12px;
+    top: 5px;
+    left: 22px;
+    color: red;
+    opacity: 0.7;
+`
 
 function Player(props) {
     const {src: hlsSource} = usePlayerState();
     const [playerRef, manifestLoaded=false, duration="00:00"] = usePlayer(hlsSource);
+    const [repeatMode, setRepeatMode] = React.useState(repeatOption[0]);
     const {
         playNextSong=()=>{},
         playPrevSong=()=>{},
@@ -80,10 +100,6 @@ function Player(props) {
     } = usePlayerEvent(manifestLoaded, playerRef);
 
     const canPlay = manifestLoaded;
-
-    const {
-        onClickRepeat=()=>{},
-    } = props;  
 
     const [volumeIconActive, setVolumeIconActive] = React.useState(false);
 
@@ -114,6 +130,14 @@ function Player(props) {
 
     const anchorElRef = React.useRef(null);
 
+    const onClickRepeat = React.useCallback(() => {
+        const nextMode = getNextRepeatOption(repeatMode);
+        setRepeatMode(nextMode);
+    },[repeatMode])
+
+    const hoverButtonColor = repeatMode === 'none' ?  'white' :
+                             repeatMode === 'one' ? 'red': 'yellow'
+
     return (
         <Container>
             <ProgressContainer>
@@ -126,7 +150,8 @@ function Player(props) {
                 </Duration>
             </ProgressContainer>
             <ControlContainer>
-                <HoverButton onClick={onClickRepeat}><RepeatIcon fontSize="small"></RepeatIcon></HoverButton>
+                {repeatMode === 'one' && <CounterAbsolute>1</CounterAbsolute>}
+                <HoverButton onClick={onClickRepeat} fontcolor={hoverButtonColor} opacitynormal='0.8'><RepeatIcon fontSize="small"></RepeatIcon></HoverButton>
                 <HoverButton onClick={onClickReplay10}><Replay10Icon fontSize="small"></Replay10Icon></HoverButton>
                 <HoverButton onClick={onClickSkipPrevious}><SkipPreviousIcon></SkipPreviousIcon></HoverButton>
                 <HoverButton onClick={onClickPlay} opacitynormal='0.7' opacityhover='1' disabled={!canPlay}>
