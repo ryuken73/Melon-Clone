@@ -6,7 +6,7 @@ import { showMessageBoxForDuration } from 'appSlice';
 function useMessageBox() {
   const dispatch = useDispatch();
 
-  const showMessageBox = useCallback((text, duration, level='success') => {
+  const showMessageBox = useCallback((text, duration=1000, level='success') => {
       dispatch(showMessageBoxForDuration(text, duration, level))
   },[dispatch])
 

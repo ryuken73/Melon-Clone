@@ -23,6 +23,7 @@ import usePlayer from 'hooks/usePlayer';
 import usePlayerState from 'hooks/usePlayerState';
 import usePlayerEvent from 'hooks/usePlayerEvent';
 import useCurrentPlaylist from 'hooks/useCurrentPlaylist';
+import useMessageBox from 'hooks/useMessageBox';
 
 const repeatOption = ['none','one','all']
 const getNextRepeatOption = (current) => {
@@ -84,6 +85,7 @@ function Player(props) {
     const {src: hlsSource} = usePlayerState();
     const [playerRef, manifestLoaded=false, duration="00:00"] = usePlayer(hlsSource);
     const [repeatMode, setRepeatMode] = React.useState(repeatOption[0]);
+    const {showMessageBox} = useMessageBox();
     const {
         playNextSong=()=>{},
         playPrevSong=()=>{},
@@ -92,7 +94,8 @@ function Player(props) {
         muted=false,
         isPlaying=false, 
         progress="0", 
-        currentTime="00:00", 
+        currentTime="00:00",
+        endedTime, 
         onClickPlay=()=>{},
         onClickReplay10=()=>{},
         onClickForward10=()=>{},
@@ -100,9 +103,7 @@ function Player(props) {
     } = usePlayerEvent(manifestLoaded, playerRef);
 
     const canPlay = manifestLoaded;
-
     const [volumeIconActive, setVolumeIconActive] = React.useState(false);
-
     const onClickVolumeControl = React.useCallback(() => {
         setVolumeIconActive(true);
     },[setVolumeIconActive])
@@ -130,13 +131,34 @@ function Player(props) {
 
     const anchorElRef = React.useRef(null);
 
+    React.useEffect(() => {
+        const player = playerRef.current;
+        if(player === undefined || player===null) return;
+        if(player.duration !== player.currentTime) return;
+        if(endedTime){
+            if(repeatMode === 'all'){
+                playNextSong();
+                return
+            }
+            if(repeatMode === 'one'){
+                player.currentTime = 0;
+                player.play();
+            }
+        }
+    },[endedTime, repeatMode, playerRef, playNextSong, showMessageBox])
+
     const onClickRepeat = React.useCallback(() => {
         const nextMode = getNextRepeatOption(repeatMode);
+        nextMode === 'one' && showMessageBox('1개곡을 반복합니다.')
+        nextMode === 'all' && showMessageBox('전체곡을 반복합니다.')
         setRepeatMode(nextMode);
-    },[repeatMode])
+    },[repeatMode, showMessageBox])
 
-    const hoverButtonColor = repeatMode === 'none' ?  'white' :
-                             repeatMode === 'one' ? 'red': 'yellow'
+    const repeatHoverButtonColor = repeatMode === 'none' ?  'white' :
+                             repeatMode === 'one' ? 'red': 'yellow';
+    const repeatHoverOpacity = repeatMode === 'none' ?  '0.5' :
+                             repeatMode === 'one' ? '0.9': '0.9';
+                             
 
     return (
         <Container>
@@ -151,7 +173,7 @@ function Player(props) {
             </ProgressContainer>
             <ControlContainer>
                 {repeatMode === 'one' && <CounterAbsolute>1</CounterAbsolute>}
-                <HoverButton onClick={onClickRepeat} fontcolor={hoverButtonColor} opacitynormal='0.8'><RepeatIcon fontSize="small"></RepeatIcon></HoverButton>
+                <HoverButton onClick={onClickRepeat} fontcolor={repeatHoverButtonColor} opacitynormal={repeatHoverOpacity}><RepeatIcon fontSize="small"></RepeatIcon></HoverButton>
                 <HoverButton onClick={onClickReplay10}><Replay10Icon fontSize="small"></Replay10Icon></HoverButton>
                 <HoverButton onClick={onClickSkipPrevious}><SkipPreviousIcon></SkipPreviousIcon></HoverButton>
                 <HoverButton onClick={onClickPlay} opacitynormal='0.7' opacityhover='1' disabled={!canPlay}>

@@ -2,11 +2,12 @@ import React from 'react';
 import {secondsToTime} from 'lib/util';
 import {useSelector, useDispatch} from 'react-redux';
 import {setCurrentPlayingByIndex} from 'Components/PlayList/playlistSlice';
-import {setVolume} from 'Components/AudioPlayer/audioPlayerSlice'
+import {setVolume, setEndedTime} from 'Components/AudioPlayer/audioPlayerSlice'
 
 export default function usePlayerEvent(manifestLoaded, playerRef) {
     const dispatch = useDispatch();
     const currentIndex = useSelector(state => state.audioPlayer.currentIndex);
+    const endedTime = useSelector(state => state.audioPlayer.endedTime);
     const volume = useSelector(state => state.audioPlayer.volume);
     const [isPlaying, setIsPlaying] = React.useState(false);
     const [duration, setDuration] = React.useState("00:00");
@@ -35,6 +36,10 @@ export default function usePlayerEvent(manifestLoaded, playerRef) {
         setProgress(progress)
     },[player])
 
+    const handleEnded = React.useCallback(() => {
+        dispatch(setEndedTime({endedTime: Date.now()}));
+    },[dispatch])
+
     const handleVolumeControl = React.useCallback(volume=>{
         dispatch(setVolume({volume}))
         if(player !== null) player.volume = volume;
@@ -62,7 +67,7 @@ export default function usePlayerEvent(manifestLoaded, playerRef) {
     const onClickForward10 = React.useCallback(()=>{
         if(!player) return;
         const {currentTime} = player;
-        const forwardTime = currentTime + 10 < player.duration ? currentTime + 10 : duration;
+        const forwardTime = currentTime + 10 < player.duration ? currentTime + 10 : player.duration;
         playerRef.current.currentTime = forwardTime;
         const forwardTimeToSeconds = secondsToTime(forwardTime);
         setCurrentTime(forwardTimeToSeconds)
@@ -94,11 +99,13 @@ export default function usePlayerEvent(manifestLoaded, playerRef) {
         player.addEventListener('playing', handlePlaying)
         player.addEventListener('pause', handlePause)
         player.addEventListener('timeupdate', handleTimeupdate)
+        player.addEventListener('ended', handleEnded)
 
         return (() => {
             player.removeEventListener('playing', handlePlaying)
             player.removeEventListener('pause', handlePause)
             player.removeEventListener('timeupdate', handleTimeupdate)
+            player.removeEventListener('ended', handleEnded)
         })
 
     },[manifestLoaded, player, muted, handlePlaying, handlePause, handleTimeupdate])
@@ -110,6 +117,7 @@ export default function usePlayerEvent(manifestLoaded, playerRef) {
         currentTime, 
         duration, 
         volume,
+        endedTime,
         onClickPlay, 
         onClickReplay10,
         onClickForward10,
