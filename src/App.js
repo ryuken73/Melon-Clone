@@ -46,6 +46,7 @@ const CenterPane = styled(Box)`
 `
 
 const Footer = styled(Box)`
+  display: ${props => props.show ? 'block':'none'};
   position: fixed;
   bottom: 0;
   width: 100%;
@@ -54,6 +55,7 @@ const Footer = styled(Box)`
 `
 
 function App() {
+  const playerRef = React.useRef(null);
   const {WIDTH_TO_HIDE_SIDE_PANEL} = CONSTANTS;
   const hideLeftPane = useMediaQuery(`(max-width:${WIDTH_TO_HIDE_SIDE_PANEL})`);
   const hideRightPane = useMediaQuery(`(max-width:${WIDTH_TO_HIDE_SIDE_PANEL})`);
@@ -76,15 +78,18 @@ function App() {
       </CenterPane>
       <RightPane hide={hideRightPane}>
         <PlayerSkin></PlayerSkin>
-        <Player></Player>
+        <Player ref={playerRef}></Player>
         <PlayList></PlayList>
       </RightPane> 
       <MessageBox></MessageBox>
       <Backdrop></Backdrop>
-      {hideRightPane && <Footer> 
-        <PlayerFlat></PlayerFlat>
+      <Footer show={hideRightPane}>
+        <PlayerFlat ref={playerRef}></PlayerFlat>
       </Footer>
-      }
+      {/* {hideRightPane && <Footer> 
+        <PlayerFlat ref={playerRef}></PlayerFlat>
+      </Footer>
+      } */}
     </div>
   );
 }

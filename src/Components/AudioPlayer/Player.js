@@ -81,9 +81,13 @@ const CounterAbsolute = styled(Box)`
     opacity: 0.7;
 `
 
-function Player(props) {
+// const Player = React.forwardRef((props, playerRef) => {
+const Player = (props, playerRef) => {
     const {src: hlsSource} = usePlayerState();
-    const [playerRef, manifestLoaded=false, duration="00:00"] = usePlayer(hlsSource);
+    // const [playerRef, manifestLoaded=false, duration="00:00"] = usePlayer(hlsSource);
+    // const playerRef = React.useRef(null);
+    // console.log('ref:', playerRef.current);
+    const [manifestLoaded=false, duration="00:00"] = usePlayer(hlsSource, playerRef);
     const [repeatMode, setRepeatMode] = React.useState(repeatOption[0]);
     const {showMessageBox} = useMessageBox();
     const {
@@ -229,4 +233,4 @@ function Player(props) {
    );
 }
 
-export default React.memo(Player);
+export default React.memo(React.forwardRef(Player));

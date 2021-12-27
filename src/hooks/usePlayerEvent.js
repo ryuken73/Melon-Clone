@@ -95,7 +95,7 @@ export default function usePlayerEvent(manifestLoaded, playerRef) {
             dispatch(setIsPlaying({isPlaying:false}))
             return [];
         }
-        console.log('attach player event handlers');
+        console.log('attach player event handlers', player);
         player.muted = muted;
         player.addEventListener('playing', handlePlaying)
         player.addEventListener('pause', handlePause)

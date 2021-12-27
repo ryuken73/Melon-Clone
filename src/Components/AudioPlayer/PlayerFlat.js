@@ -100,9 +100,9 @@ const UtilContainer = styled(Box)`
 `
 
 
-function PlayerFlat(props) {
+const PlayerFlat = (props, playerRef) => {
     const {src: hlsSource, song={}} = usePlayerState();
-    const [playerRef, manifestLoaded=false, duration="00:00"] = usePlayer(hlsSource);
+    const [manifestLoaded=false, duration="00:00"] = usePlayer(hlsSource, playerRef);
     const [repeatMode, setRepeatMode] = React.useState(repeatOption[0]);
     const {showMessageBox} = useMessageBox();
     const {
@@ -266,4 +266,4 @@ function PlayerFlat(props) {
    );
 }
 
-export default React.memo(PlayerFlat);
+export default React.memo(React.forwardRef(PlayerFlat));

@@ -2,10 +2,10 @@ import React from 'react';
 import Hls from 'hls.js';
 import {secondsToTime} from 'lib/util';
 
-export default function usePlayer(hlsSource) {
+export default function usePlayer(hlsSource, audioElementRef) {
     const [manifestLoaded, setManifestLoaded] = React.useState(false);
     const [duration, setDuration] = React.useState("00:00");
-    const audioElementRef = React.useRef(null);
+    // const audioElementRef = React.useRef(null);
     const hlsRef = React.useRef(null);
     React.useEffect(()=>{
         console.log('### hlsSource changed!:', hlsSource);
@@ -31,7 +31,7 @@ export default function usePlayer(hlsSource) {
         //
         // create new Audio and Hls instance, then load source.
         if(Hls.isSupported()){
-            console.log('!! create audio Element')
+            console.log('!! create audio Element', hlsRef)
             audioElementRef.current = new Audio();
             hlsRef.current = new Hls();
             hlsRef.current.attachMedia(audioElementRef.current);
@@ -49,7 +49,8 @@ export default function usePlayer(hlsSource) {
         return (() => {
             audioElementRef.current.removeEventListener('loadedmetadata', handleLoadedMetadata)
         })
-    },[hlsSource]);
+    },[hlsSource, audioElementRef]);
 
-    return [audioElementRef, manifestLoaded, duration];
+    // return [audioElementRef, manifestLoaded, duration];
+    return [manifestLoaded, duration];
 }
