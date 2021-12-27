@@ -29,10 +29,14 @@ const LeftPane = styled(Box)`
   display: ${props => props.hide ? 'none':'block'};
 `
 const RightPane = styled(Box)`
-  display: ${props => props.hide ? 'none':'flex'};
+  /* display: ${props => props.hide ? 'none':'flex'}; */
+  display: flex;
   flex-direction: column;
-  width: 300px;
-  min-width: 300px;
+  width: ${props => props.hide ? '0px':'300px'};
+  opacity: ${props => props.hide ? '0':'1'};
+  transition: all 1s;
+  transition-delay: ${props => props.hide ? '0s':'0.3s'};
+  /* min-width: 300px; */
   background:black;
   flex-grow: 0;
   flex-shrink: 0;
@@ -46,12 +50,15 @@ const CenterPane = styled(Box)`
 `
 
 const Footer = styled(Box)`
-  display: ${props => props.show ? 'block':'none'};
+  /* display: ${props => props.show ? 'block':'none'}; */
   position: fixed;
   bottom: 0;
   width: 100%;
   background-color: red;
-  height: 100px;
+  height: ${props => props.show ? '100px':'0px'};
+  opacity: ${props => props.show ? '1':'0'};
+  transition: all 1s;
+  transition-delay: ${props => props.show ? '0.3s':'0s'};
 `
 
 function App() {
