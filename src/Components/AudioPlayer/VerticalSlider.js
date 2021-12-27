@@ -8,9 +8,12 @@ const CustomSlider = styled(Slider)`
     background: transparent;
     color: white !important;
     padding: 0px !important;
-    & .MuiSlider-thumb {
-        height: 8px;
-        width: 8px;
+    .MuiSlider-thumb {
+      height: 8px;
+      width: 8px;
+    }
+    .MuiSlider-thumb:after {
+      height: 10px;
     }
 `
 
