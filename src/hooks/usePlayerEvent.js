@@ -3,38 +3,42 @@ import {secondsToTime} from 'lib/util';
 import {useSelector, useDispatch} from 'react-redux';
 import {setCurrentPlayingByIndex} from 'Components/PlayList/playlistSlice';
 import {setVolume, setEndedTime} from 'Components/AudioPlayer/audioPlayerSlice'
+import {setIsPlaying, setCurrentTime, setProgress, setMuted} from 'Components/AudioPlayer/audioPlayerSlice'
 
 export default function usePlayerEvent(manifestLoaded, playerRef) {
     const dispatch = useDispatch();
     const currentIndex = useSelector(state => state.audioPlayer.currentIndex);
     const endedTime = useSelector(state => state.audioPlayer.endedTime);
     const volume = useSelector(state => state.audioPlayer.volume);
-    const [isPlaying, setIsPlaying] = React.useState(false);
-    const [duration, setDuration] = React.useState("00:00");
-    const [currentTime, setCurrentTime] = React.useState("00:00");
-    const [progress, setProgress] = React.useState(0);
-    const [muted, setMuted] = React.useState(false);
+    const isPlaying = useSelector(state => state.audioPlayer.isPlaying);
+    const currentTime = useSelector(state => state.audioPlayer.currentTime);
+    const progress = useSelector(state => state.audioPlayer.progress);
+    const muted = useSelector(state => state.audioPlayer.muted);
+    // const [isPlaying, setIsPlaying] = React.useState(false);
+    // const [currentTime, setCurrentTime] = React.useState("00:00");
+    // const [progress, setProgress] = React.useState(0);
+    // const [muted, setMuted] = React.useState(false);
     const player = playerRef.current;
 
     const handlePlaying = React.useCallback(()=>{
         console.log('in usePlayerEvent: handlePlaying')
-        setIsPlaying(true);
+        dispatch(setIsPlaying({isPlaying:true}))
         dispatch(setCurrentPlayingByIndex({targetIndex: currentIndex, playing: true}));
         if(player !== null) player.volume = volume;
     },[dispatch, player, volume, currentIndex])
 
     const handlePause = React.useCallback(()=>{
         console.log('in usePlayerEvent: handlePause')
-        setIsPlaying(false);
+        dispatch(setIsPlaying({isPlaying:false}))
         dispatch(setCurrentPlayingByIndex({targetIndex: currentIndex, playing: false}));
     },[dispatch, currentIndex])
 
     const handleTimeupdate = React.useCallback(()=>{
         const currentTime = secondsToTime(parseInt(player.currentTime));
-        setCurrentTime(currentTime)
+        dispatch(setCurrentTime({currentTime}))
         const progress = ((player.currentTime/player.duration) * 100).toFixed(0);
-        setProgress(progress)
-    },[player])
+        dispatch(setProgress({progress}))
+    },[dispatch, player])
 
     const handleEnded = React.useCallback(() => {
         dispatch(setEndedTime({endedTime: Date.now()}));
@@ -59,9 +63,9 @@ export default function usePlayerEvent(manifestLoaded, playerRef) {
         const replayTime = currentTime - 10 > 0 ? currentTime - 10 : 0;
         playerRef.current.currentTime = replayTime;
         const replayTimeToSeconds = secondsToTime(replayTime);
-        setCurrentTime(replayTimeToSeconds)
+        dispatch(setCurrentTime({currentTime:replayTimeToSeconds}));
         const progress = ((replayTime/player.duration) * 100).toFixed(0);
-        setProgress(progress)
+        dispatch(setProgress({progress}))
     },[player, playerRef])
 
     const onClickForward10 = React.useCallback(()=>{
@@ -70,28 +74,25 @@ export default function usePlayerEvent(manifestLoaded, playerRef) {
         const forwardTime = currentTime + 10 < player.duration ? currentTime + 10 : player.duration;
         playerRef.current.currentTime = forwardTime;
         const forwardTimeToSeconds = secondsToTime(forwardTime);
-        setCurrentTime(forwardTimeToSeconds)
+        dispatch(setCurrentTime({currentTime:forwardTimeToSeconds}));
         const progress = ((forwardTime/player.duration) * 100).toFixed(0);
-        setProgress(progress)
-    },[player, playerRef, duration])
+        dispatch(setProgress({progress}))
+    },[player, playerRef])
 
     const toggleMute = React.useCallback(() => {
-        setMuted(muted => {
-            const player = playerRef.current;
-            const toggled = !muted;
-            if(player) {
-                player.muted = toggled;
-                // dispatch(setVolume({volume: player.volume}))
-                return toggled;
-            }
-            return muted;
-        })
-    },[setMuted, dispatch, playerRef])
+        const player = playerRef.current;
+        const toggled = !muted;
+        console.log('^ toggle Mute:', toggled, player)
+        if(player){
+            player.muted = toggled;
+            dispatch(setMuted({muted:toggled}));
+        }
+    },[muted, dispatch, playerRef])
 
     React.useEffect(() => {
         if(manifestLoaded === false) return [];
         if(player === null || player === undefined) {
-            setIsPlaying(false);
+            dispatch(setIsPlaying({isPlaying:false}))
             return [];
         }
         console.log('attach player event handlers');
@@ -108,14 +109,13 @@ export default function usePlayerEvent(manifestLoaded, playerRef) {
             player.removeEventListener('ended', handleEnded)
         })
 
-    },[manifestLoaded, player, muted, handlePlaying, handlePause, handleTimeupdate])
+    },[manifestLoaded, player, muted, handlePlaying, handlePause, handleTimeupdate, dispatch, handleEnded])
 
     return {
         muted,
         isPlaying, 
         progress, 
         currentTime, 
-        duration, 
         volume,
         endedTime,
         onClickPlay, 

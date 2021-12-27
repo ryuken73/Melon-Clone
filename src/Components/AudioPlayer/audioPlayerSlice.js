@@ -7,6 +7,11 @@ const initialState = {
     currentAlbumImage: '',
     volume: 0.5,
     endedTime: '',
+    isPlaying: false,
+    currentTime:'00:00',
+    progress:0,
+    muted: false
+
 }
 
 export const audioPlayerSlice = createSlice({
@@ -30,14 +35,38 @@ export const audioPlayerSlice = createSlice({
             const {type, payload} = action;
             const {endedTime} = payload
             state.endedTime = endedTime;
-        }
+        },
+        setIsPlaying: (state, action) => {
+            const {type, payload} = action;
+            const {isPlaying} = payload
+            state.isPlaying = isPlaying;
+        },
+        setCurrentTime: (state, action) => {
+            const {type, payload} = action;
+            const {currentTime} = payload
+            state.currentTime = currentTime;
+        },
+        setProgress: (state, action) => {
+            const {type, payload} = action;
+            const {progress} = payload
+            state.progress = progress;
+        },
+        setMuted: (state, action) => {
+            const {type, payload} = action;
+            const {muted} = payload
+            state.muted = muted;
+        },
     }
 })
 
 export const {
     setCurrent,
     setVolume,
-    setEndedTime
+    setEndedTime,
+    setIsPlaying,
+    setCurrentTime,
+    setProgress,
+    setMuted
 } = audioPlayerSlice.actions;
 
 export default audioPlayerSlice.reducer;
