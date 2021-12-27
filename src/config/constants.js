@@ -23,8 +23,8 @@ const prd = {
     "BASE_API_URL": 'https://mbk-api.sbs.co.kr',
     "BASE_STREAM_URL": 'https://mbk-stream.sbs.co.kr/music/_definst/mp3:',
     "BASE_STREAM_URL_ONAIR": 'https://mbk-stream.sbs.co.kr/onair/_definst/mp3:',
-    "DOWNLOAD_URL": 'http://mbk-down.sbs.co.kr/music',
-    "DOWNLOAD_URL_ONAIR": 'http://mbk-down.sbs.co.kr/onair',
-    "AUTOCOMPLETE_URL": 'http://mbk-suggest.sbs.co.kr'
+    "DOWNLOAD_URL": 'https://mbk-down.sbs.co.kr/music',
+    "DOWNLOAD_URL_ONAIR": 'https://mbk-down.sbs.co.kr/onair',
+    "AUTOCOMPLETE_URL": 'https://mbk-suggest.sbs.co.kr'
 }
 export default process.env.NODE_ENV === 'development' ? dev:prd;
