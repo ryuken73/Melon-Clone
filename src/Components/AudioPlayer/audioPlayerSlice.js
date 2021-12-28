@@ -10,7 +10,8 @@ const initialState = {
     isPlaying: false,
     currentTime:'00:00',
     progress:0,
-    muted: false
+    muted: false,
+    repeatMode: 'none'
 
 }
 
@@ -56,6 +57,11 @@ export const audioPlayerSlice = createSlice({
             const {muted} = payload
             state.muted = muted;
         },
+        setRepeatMode: (state, action) => {
+            const {type, payload} = action;
+            const {repeatMode} = payload
+            state.repeatMode = repeatMode;
+        },
     }
 })
 
@@ -66,7 +72,8 @@ export const {
     setIsPlaying,
     setCurrentTime,
     setProgress,
-    setMuted
+    setMuted,
+    setRepeatMode
 } = audioPlayerSlice.actions;
 
 export default audioPlayerSlice.reducer;

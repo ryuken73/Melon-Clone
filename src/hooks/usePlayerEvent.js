@@ -2,11 +2,21 @@ import React from 'react';
 import {secondsToTime} from 'lib/util';
 import {useSelector, useDispatch} from 'react-redux';
 import {setCurrentPlayingByIndex} from 'Components/PlayList/playlistSlice';
-import {setVolume, setEndedTime} from 'Components/AudioPlayer/audioPlayerSlice'
+import {setVolume, setEndedTime, setRepeatMode} from 'Components/AudioPlayer/audioPlayerSlice'
 import {setIsPlaying, setCurrentTime, setProgress, setMuted} from 'Components/AudioPlayer/audioPlayerSlice'
+import useMessageBox from 'hooks/useMessageBox';
+
+const repeatOption = ['none','one','all']
+const getNextRepeatOption = (current) => {
+    const currentOptionIndex = repeatOption.findIndex(option => option === current);
+    if(currentOptionIndex === -1) return repeatOption[0];
+    if(currentOptionIndex === repeatOption.length - 1) return repeatOption[0];
+    return repeatOption[currentOptionIndex+1]
+}
 
 export default function usePlayerEvent(manifestLoaded, playerRef) {
     const dispatch = useDispatch();
+    const {showMessageBox} = useMessageBox();
     const currentIndex = useSelector(state => state.audioPlayer.currentIndex);
     const endedTime = useSelector(state => state.audioPlayer.endedTime);
     const volume = useSelector(state => state.audioPlayer.volume);
@@ -14,6 +24,7 @@ export default function usePlayerEvent(manifestLoaded, playerRef) {
     const currentTime = useSelector(state => state.audioPlayer.currentTime);
     const progress = useSelector(state => state.audioPlayer.progress);
     const muted = useSelector(state => state.audioPlayer.muted);
+    const repeatMode = useSelector(state => state.audioPlayer.repeatMode);
     // const [isPlaying, setIsPlaying] = React.useState(false);
     // const [currentTime, setCurrentTime] = React.useState("00:00");
     // const [progress, setProgress] = React.useState(0);
@@ -89,6 +100,13 @@ export default function usePlayerEvent(manifestLoaded, playerRef) {
         }
     },[muted, dispatch, playerRef])
 
+    const onClickRepeat = React.useCallback(() => {
+        const nextMode = getNextRepeatOption(repeatMode);
+        nextMode === 'one' && showMessageBox('1개곡을 반복합니다.')
+        nextMode === 'all' && showMessageBox('전체곡을 반복합니다.')
+        dispatch(setRepeatMode({repeatMode: nextMode}));
+    },[dispatch, repeatMode, showMessageBox])
+
     React.useEffect(() => {
         if(manifestLoaded === false) return [];
         if(player === null || player === undefined) {
@@ -118,9 +136,11 @@ export default function usePlayerEvent(manifestLoaded, playerRef) {
         currentTime, 
         volume,
         endedTime,
+        repeatMode,
         onClickPlay, 
         onClickReplay10,
         onClickForward10,
+        onClickRepeat,
         handleVolumeControl,
         toggleMute
     }

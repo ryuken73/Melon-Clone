@@ -1,9 +1,7 @@
 import React from 'react';
 import Box from '@mui/material/Box';
-import Paper from '@mui/material/Paper';
 import styled from 'styled-components';
 import PlayArrowIcon from '@mui/icons-material/PlayArrow';
-import Badge from '@mui/material/Badge';
 import PauseIcon from '@mui/icons-material/Pause';
 import SkipNextIcon from '@mui/icons-material/SkipNext';
 import SkipPreviousIcon from '@mui/icons-material/SkipPrevious';
@@ -12,7 +10,6 @@ import Forward10Icon from '@mui/icons-material/Forward10';
 import RepeatIcon from '@mui/icons-material/Repeat';
 import VolumeUpIcon from '@mui/icons-material/VolumeUp';
 import VolumeOffIcon from '@mui/icons-material/VolumeOff';
-import IconButton from '@mui/material/IconButton';
 import TextBox from 'Components/Common/TextBox';
 import SliderBar from 'Components/Common/SliderBar';
 import ImageBox from 'Components/Common/ImageBox';
@@ -25,15 +22,6 @@ import usePlayerState from 'hooks/usePlayerState';
 import usePlayerEvent from 'hooks/usePlayerEvent';
 import useCurrentPlaylist from 'hooks/useCurrentPlaylist';
 import useMessageBox from 'hooks/useMessageBox';
-
-const repeatOption = ['none','one','all']
-const getNextRepeatOption = (current) => {
-    const currentOptionIndex = repeatOption.findIndex(option => option === current);
-    if(currentOptionIndex === -1) return repeatOption[0];
-    if(currentOptionIndex === repeatOption.length - 1) return repeatOption[0];
-    return repeatOption[currentOptionIndex+1]
-}
-
 
 const Progress = styled(Box)`
     flex: 7;
@@ -61,7 +49,7 @@ const CounterAbsolute = styled(Box)`
     font-size: 12px;
     width: 12px;
     top: 5px;
-    left: 22px;
+    left: 18px;
     color: red;
     opacity: 0.7;
 `
@@ -104,7 +92,6 @@ const UtilContainer = styled(Box)`
 const PlayerFlat = (props, playerRef) => {
     const {src: hlsSource, song={}} = usePlayerState();
     const [manifestLoaded=false, duration="00:00"] = usePlayer(hlsSource, playerRef);
-    const [repeatMode, setRepeatMode] = React.useState(repeatOption[0]);
     const {showMessageBox} = useMessageBox();
     const {
         albumImageSrc='',
@@ -124,9 +111,11 @@ const PlayerFlat = (props, playerRef) => {
         progress="0", 
         currentTime="00:00",
         endedTime, 
+        repeatMode,
         onClickPlay=()=>{},
         onClickReplay10=()=>{},
         onClickForward10=()=>{},
+        onClickRepeat=()=>{},
         toggleMute=()=>{}
     } = usePlayerEvent(manifestLoaded, playerRef);
 
@@ -174,13 +163,6 @@ const PlayerFlat = (props, playerRef) => {
             }
         }
     },[endedTime, repeatMode, playerRef, playNextSong, showMessageBox])
-
-    const onClickRepeat = React.useCallback(() => {
-        const nextMode = getNextRepeatOption(repeatMode);
-        nextMode === 'one' && showMessageBox('1개곡을 반복합니다.')
-        nextMode === 'all' && showMessageBox('전체곡을 반복합니다.')
-        setRepeatMode(nextMode);
-    },[repeatMode, showMessageBox])
 
     const repeatHoverButtonColor = repeatMode === 'none' ?  'white' :
                              repeatMode === 'one' ? 'red': 'yellow';
