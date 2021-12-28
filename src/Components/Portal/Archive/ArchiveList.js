@@ -2,7 +2,7 @@ import React from 'react'
 import Box from '@mui/material/Box'
 import styled from 'styled-components'
 import ArchiveItem from 'Components/Portal/Archive/ArchiveItem'; 
-import useMediaQuery from '@mui/material/useMediaQuery';
+import useMediaQueryEasy from 'hooks/useMediaQueryEasy';
 
 const Container = styled(Box)`
     display: grid;
@@ -12,10 +12,10 @@ const Container = styled(Box)`
 `
 function ArchiveList(props) {
     const {groupedArchives} = props;
-    const smallViewport = useMediaQuery('(max-width:1440px)');
-    const archivesToShow = smallViewport ? groupedArchives.slice(0,10):groupedArchives
+    const {showMiniArchiveList} = useMediaQueryEasy();
+    const archivesToShow = showMiniArchiveList ? groupedArchives.slice(0,10):groupedArchives
     return (
-        <Container smallViewport={smallViewport}>
+        <Container smallViewport={showMiniArchiveList}>
             {archivesToShow.map((archives, index) => (
                 <ArchiveItem
                     key={archives.pgm_cd}

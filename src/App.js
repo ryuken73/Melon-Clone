@@ -18,9 +18,10 @@ import VerticalMenu from './VerticalMenu';
 import colors from 'config/colors' ;
 import MessageBox from './MessageBox';
 import Backdrop from 'Components/Common/BackDrop';
-import useMediaQuery from '@mui/material/useMediaQuery';
+import useMediaQueryEasy from 'hooks/useMediaQueryEasy';
 import CONSTANTS from 'config/constants';
 
+const {HEIGHT_OF_FLAT_PLAYER} = CONSTANTS;
 const LeftPane = styled(Box)`
   width: 150px;
   flex-grow:0;
@@ -54,8 +55,7 @@ const Footer = styled(Box)`
   position: fixed;
   bottom: 0;
   width: 100%;
-  background-color: red;
-  height: ${props => props.show ? '100px':'0px'};
+  height: ${props => props.show ? HEIGHT_OF_FLAT_PLAYER:'0px'};
   opacity: ${props => props.show ? '1':'0'};
   transition: all 0.5s;
   transition-delay: ${props => props.show ? '0.3s':'0s'};
@@ -63,11 +63,9 @@ const Footer = styled(Box)`
 
 function App() {
   const playerRef = React.useRef(null);
-  const {WIDTH_TO_HIDE_SIDE_PANEL} = CONSTANTS;
-  const hideLeftPane = useMediaQuery(`(max-width:${WIDTH_TO_HIDE_SIDE_PANEL})`);
-  const hideRightPane = useMediaQuery(`(max-width:${WIDTH_TO_HIDE_SIDE_PANEL})`);
+  const {hideLeftPane, hideRightPane} = useMediaQueryEasy();
   return (
-    <div className="App">
+    <div className='App'>
       <LeftPane hide={hideLeftPane}>
         <VerticalMenu></VerticalMenu>
       </LeftPane>
