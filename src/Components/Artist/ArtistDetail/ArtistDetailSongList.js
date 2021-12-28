@@ -18,6 +18,7 @@ import useInfiniteData from 'hooks/useInfiniteData';
 import useSearchMusicAllInfinite from 'hooks/useSearchMusicAllInfinite';
 import useCurrentPlaylist from 'hooks/useCurrentPlaylist';
 import useSongHelper from 'hooks/useSongHelper';
+import useMediaQueryEasy from 'hooks/useMediaQueryEasy';
 // import useSongsInAlbum from 'hooks/useSongsInAlbum';
 
 const Container = styled(Box)`
@@ -118,6 +119,7 @@ const ArtistDetailSongList = props => {
 
     const replaceRequired = false;
     const rootForObservation = React.useRef();
+    const {fullViewHeightMediaQuery} = useMediaQueryEasy();
     return (
         <Container>
             <ButtonContainer>
@@ -164,7 +166,7 @@ const ArtistDetailSongList = props => {
                     getMoreItem={fetchNextPage} 
                     category={category}
                     autoHide 
-                    style={{ width:'100%', height: 'calc(100vh - 410px)' }}
+                    style={{ width:'100%', height: `calc(${fullViewHeightMediaQuery} - 400px)`  }}
                     ref={rootForObservation}
                 >
                     <SongListInSearchAll renderIfVisible={true} rootRef={rootForObservation} songs={songs}></SongListInSearchAll>

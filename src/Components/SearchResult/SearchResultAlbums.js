@@ -10,6 +10,7 @@ import queryString from 'query-string';
 import {getString} from 'lib/util';
 import useInfiniteData from 'hooks/useInfiniteData';
 import useSearchMusicAllInfinite from 'hooks/useSearchMusicAllInfinite';
+import useMediaQueryEasy from 'hooks/useMediaQueryEasy';
 const {SEARCH_SONG_PAGE_SIZES} = CONSTANTS;
 
 const Container = styled(Box)`
@@ -53,13 +54,14 @@ function SearchResultAlbums(props) {
     const [albums, total] = useInfiniteData(data, 'albums');
     const replaceRequired = false;
     console.log('@@@@:', data, albums);
+    const {fullViewHeightMediaQuery} = useMediaQueryEasy();
 
     return (
         <ScrollBarWithColor 
             moveScrollToTop={replaceRequired} 
             getMoreItem={fetchNextPage} 
             autoHide 
-            style={{ width:'100%', height: 'calc(100vh - 100px)' }}
+            style={{ width:'100%', height: `calc(${fullViewHeightMediaQuery} - 100px)` }}
         >
             <Container>
                 {albums.map((album,index) => (  

@@ -9,6 +9,7 @@ import queryString from 'query-string';
 import {Switch, Route, withRouter} from 'react-router-dom';
 import { qsToNavigateInSearchResult } from 'lib/util';
 import ScrollBarWithColor from 'Components/Common/ScrollBarWithColor';
+import useMediaQueryEasy from 'hooks/useMediaQueryEasy';
 
 const Container = styled(Box)`
     display: flex;
@@ -24,11 +25,12 @@ function SearchResultLyrics(props) {
     console.log('^^^^:', query)
     const result = useSearchAllLyrics({keyword, exactSearch, artistName, songName, page_sizes:50});
     const lyrices = React.useMemo(() => createLyrics(result.data),[result.data]);
+    const {fullViewHeightMediaQuery} = useMediaQueryEasy();
     return (
         <Container>
             <ScrollBarWithColor
                 autoHide 
-                style={{width:'100%', height:'calc(100vh - 150px)'}}
+                style={{width:'100%', height: `calc(${fullViewHeightMediaQuery} - 150px)`}}
             >
                 <LyricsListInSearchAll lyrices={lyrices}></LyricsListInSearchAll>
             </ScrollBarWithColor>

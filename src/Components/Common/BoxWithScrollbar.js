@@ -2,6 +2,7 @@ import React from 'react'
 import Box from '@mui/material/Box';
 import styled from 'styled-components';
 import ScrollBarWithColor from '../Common/ScrollBarWithColor';
+import useMediaQueryEasy from 'hooks/useMediaQueryEasy';
 
 const Container = styled(Box)`
     && {
@@ -15,8 +16,9 @@ const Container = styled(Box)`
 
 const BoxWithScrollbar = props => {
     console.log(props)
+    const {fullViewHeightMediaQuery} = useMediaQueryEasy();
     return (
-        <ScrollBarWithColor autoHide style={{width:'auto', height: '100vh' }}>
+        <ScrollBarWithColor autoHide style={{width:'auto', height: fullViewHeightMediaQuery}}>
             <Container>
                 {props.children}
             </Container>

@@ -9,6 +9,7 @@ import queryString from 'query-string';
 import {withRouter} from 'react-router-dom';
 import useInfiniteData from 'hooks/useInfiniteData';
 import useSearchMusicAllInfinite from 'hooks/useSearchMusicAllInfinite';
+import useMediaQueryEasy from 'hooks/useMediaQueryEasy';
 
 const Container = styled(Box)`
     display: flex;
@@ -54,6 +55,7 @@ function SearchResultAlbumsScroll(props) {
     const replaceRequired = false;
     const rootForObservation = React.useRef();
     const albums = [];
+    const {fullViewHeightMediaQuery} = useMediaQueryEasy();
     return (
         <Container>
             <ScrollBarWithColor
@@ -61,7 +63,7 @@ function SearchResultAlbumsScroll(props) {
                 getMoreItem={fetchNextPage} 
                 category={category}
                 autoHide 
-                style={{ width:'100%', height: 'calc(100vh - 220px)' }}
+                style={{ width:'100%', height: `calc(${fullViewHeightMediaQuery} - 220px)`}}
                 ref={rootForObservation}
             >
                 <AlbumList albums={albums}></AlbumList>

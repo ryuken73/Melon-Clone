@@ -6,6 +6,7 @@ import { useVirtual } from "react-virtual";
 import SongListInSearchAll from 'Components/Song/SongListInSearchAll';
 import SongIteminSearchAll from 'Components/Song/SongIteminSearchAll';
 import Divider from '@mui/material/Divider';
+import useMediaQueryEasy from 'hooks/useMediaQueryEasy';
 
 const Container = styled(Box)`
     display: flex;
@@ -19,13 +20,14 @@ function ScrollBarRenderIfShow(props) {
     const replaceRequired = false;
     const parentRef = React.useRef();
     const [scrollRefTime, setScrollRefTime] = React.useState(Date.now());
+    const {fullViewHeightMediaQuery} = useMediaQueryEasy();
     return (
         <ScrollBarWithColor
             moveScrollToTop={replaceRequired} 
             getMoreItem={fetchNextPage} 
             category={category}
             autoHide 
-            style={{ width:'100%', height: `calc(100vh - ${heightMinus})`}}
+            style={{ width:'100%', height: `calc(${fullViewHeightMediaQuery} - ${heightMinus})`}}
             ref={parentRef}
             setScrollRefTime={setScrollRefTime}
         >

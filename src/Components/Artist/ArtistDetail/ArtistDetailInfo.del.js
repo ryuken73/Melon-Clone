@@ -9,6 +9,7 @@ const Container = styled(Box)`
     flex-direction: column;
     height: ${prop => prop.height || "auto"};
     width: ${prop => prop.height || "auto"};
+    background-color: yellow;
 `
 
 const ArtistDetailInfo = () => {

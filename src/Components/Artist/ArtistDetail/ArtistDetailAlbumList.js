@@ -6,6 +6,7 @@ import {withRouter} from 'react-router-dom';
 import ScrollBarWithColor from 'Components/Common/ScrollBarWithColor';
 import useInfiniteData from 'hooks/useInfiniteData';
 import useSearchMusicAllInfinite from 'hooks/useSearchMusicAllInfinite';
+import useMediaQueryEasy from 'hooks/useMediaQueryEasy';
 
 const Container = styled(Box)`
     display: grid;
@@ -18,6 +19,7 @@ const Container = styled(Box)`
 const ArtistDetailAlbumList = props => {
     const {history, match} = props;
     const {artist_name, category} = match.params;
+    const {fullViewHeightMediaQuery} = useMediaQueryEasy();
 
     const params = React.useMemo(() => {
         return {
@@ -56,18 +58,19 @@ const ArtistDetailAlbumList = props => {
             getMoreItem={fetchNextPage} 
             category={category}
             autoHide 
-            style={{ width:'100%', height: 'calc(100vh - 300px)' }}
+            style={{ width:'100%', height: `calc(${fullViewHeightMediaQuery} - 270px)`  }}
         >
             <Container>
                 {albums.map((album,index) => (  
                     <AlbumBox 
                         key={album.receipt_no}
-                        receipt_no={album.receipt_no}
-                        nameAlbum={album.album_name_bold} 
-                        nameArtist={album.artist_bold}
+                        album={album}
+                        // receipt_no={album.receipt_no}
+                        // nameAlbum={album.album_name_bold} 
+                        // nameArtist={album.artist_bold}
                         preserveHtmlTag={true}
-                        matched={album.artist_matched}
-                        imagePath={album.eval_imagePath}
+                        // matched={album.artist_matched}
+                        // imagePath={album.eval_imagePath}
                         history={history}
                         lazyLoaing={true}
                     ></AlbumBox>

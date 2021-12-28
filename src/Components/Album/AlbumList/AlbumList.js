@@ -9,6 +9,7 @@ import {withRouter} from 'react-router-dom';
 // import createAlbum from 'lib/albumClass';
 // import RenderIfVisible from 'react-render-if-visible';
 import useSearchMusicAllInfinite from 'hooks/useSearchMusicAllInfinite';
+import useMediaQueryEasy from 'hooks/useMediaQueryEasy';
 import useInfiniteData from 'hooks/useInfiniteData';
 import {genre} from 'config/apis';
 import { getDateTimeString } from 'lib/util';
@@ -48,7 +49,8 @@ const AlbumList = props => {
         // isSuccess
     } = useSearchMusicAllInfinite({params, page_sizes:31, page_num:1});
     const [albums] = useInfiniteData(data, 'albums');
-    console.log('%% result: ', data, albums)
+    // console.log('%% result: ', data, albums)
+    const {fullViewHeightMediaQuery} = useMediaQueryEasy();
 
     return (
         <ScrollBarWithColor 
@@ -56,7 +58,7 @@ const AlbumList = props => {
             getMoreItem={fetchNextPage} 
             category={category}
             autoHide 
-            style={{ width:'100%', height: 'calc(100vh - 100px)' }}
+            style={{ width:'100%', height: `calc(${fullViewHeightMediaQuery} - 100px)` }}
         >
             <Container>
                 {albums.map((album,index) => (  

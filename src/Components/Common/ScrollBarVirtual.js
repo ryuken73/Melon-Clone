@@ -5,6 +5,7 @@ import ScrollBarWithColor from 'Components/Common/ScrollBarWithColor';
 import { useVirtual } from "react-virtual";
 import SongIteminSearchAll from 'Components/Song/SongIteminSearchAll';
 import Divider from '@mui/material/Divider';
+import useMediaQueryEasy from 'hooks/useMediaQueryEasy';
 
 const Container = styled(Box)`
     display: flex;
@@ -24,13 +25,14 @@ function ScrollBarVirtual(props) {
         parentRef,
         estimateSize: React.useCallback(() => rowHeight, [rowHeight])
     });
+    const {fullViewHeightMediaQuery} = useMediaQueryEasy();
     return (
         <ScrollBarWithColor
             moveScrollToTop={replaceRequired} 
             getMoreItem={fetchNextPage} 
             category={category}
             autoHide 
-            style={{ width:'100%', height: `calc(100vh - ${heightMinus})`}}
+            style={{ width:'100%', height: `calc(${fullViewHeightMediaQuery} - ${heightMinus})`}}
             ref={parentRef}
             setScrollRefTime={setScrollRefTime}
         >

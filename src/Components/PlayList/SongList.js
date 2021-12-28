@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import Song from './Song';
 import ScrollBarWithColor from '../Common/ScrollBarWithColor';
 import useCurrentPlaylist from 'hooks/useCurrentPlaylist';
+import useMediaQueryEasy from 'hooks/useMediaQueryEasy';
 
 const Container = styled(Box)`
     && {
@@ -20,8 +21,9 @@ const SongList = () => {
     // }) : [];
 
     console.log('###songs:', currentPlaylist)
+    const {fullViewHeightMediaQuery} = useMediaQueryEasy();
     return (
-        <ScrollBarWithColor autoHide style={{ width:'300px', height: 'calc(100vh - 440px)' }}>
+        <ScrollBarWithColor autoHide style={{ width:'300px', height: `calc(${fullViewHeightMediaQuery} - 440px)`}}>
             <Container>
                 {currentPlaylist.map((song,index) => <Song key={index} sequenceId ={index} song={song}></Song>)}
             </Container>
