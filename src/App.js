@@ -34,7 +34,7 @@ const RightPane = styled(Box)`
   flex-direction: column;
   width: ${props => props.hide ? '0px':'300px'};
   opacity: ${props => props.hide ? '0':'1'};
-  transition: all 1s;
+  transition: all 0.5s;
   transition-delay: ${props => props.hide ? '0s':'0.3s'};
   /* min-width: 300px; */
   background:black;
@@ -57,7 +57,7 @@ const Footer = styled(Box)`
   background-color: red;
   height: ${props => props.show ? '100px':'0px'};
   opacity: ${props => props.show ? '1':'0'};
-  transition: all 1s;
+  transition: all 0.5s;
   transition-delay: ${props => props.show ? '0.3s':'0s'};
 `
 
