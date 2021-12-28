@@ -3,6 +3,7 @@ import Box from '@mui/material/Box';
 import styled from 'styled-components';
 import colors from '../../config/colors';
 import Slide from '@mui/material/Slide';
+import useMediaQueryEasy from 'hooks/useMediaQueryEasy'
 
 const Container = styled(Box)`
     && {
@@ -12,7 +13,7 @@ const Container = styled(Box)`
         justify-content: center;
         position: absolute;
         border-radius: 8px;
-        bottom: 20px;
+        bottom: ${props => props.bottom || '20px'};
         width: ${props => props.width || 'auto'};
         height: ${props => props.height || 'auto'};
         padding: 5px;
@@ -28,9 +29,10 @@ const Container = styled(Box)`
 const SnackBar = props => {
     const {hidden=true, direction="up", children} = props;
     const {containerProps} = props;
+    const {bottomByMediaQuery} = useMediaQueryEasy();
     return (
         <Slide direction={direction} timeout={500} in={!hidden} mountOnEnter unmountOnExit>
-            <Container {...containerProps}>
+            <Container bottom={bottomByMediaQuery} {...containerProps}>
                 {children}
             </Container>
         </Slide>

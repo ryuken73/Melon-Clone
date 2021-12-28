@@ -7,12 +7,14 @@ function useMediaQueryEasy() {
   const hideRightPane = useMediaQuery(`(max-width:${WIDTH_TO_HIDE_SIDE_PANEL})`);
   const showMiniArchiveList = useMediaQuery('(max-width:1440px)');
   const fullViewHeightMediaQuery = hideLeftPane ? `100vh - ${HEIGHT_OF_FLAT_PLAYER} - 20px` : '100vh';
+  const bottomByMediaQuery = hideLeftPane ? '120px' : '20px';
 
   return {
     hideLeftPane,
     hideRightPane,
     showMiniArchiveList,
-    fullViewHeightMediaQuery
+    fullViewHeightMediaQuery,
+    bottomByMediaQuery
   }
 }
 
