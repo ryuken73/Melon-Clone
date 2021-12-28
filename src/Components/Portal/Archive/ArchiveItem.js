@@ -5,6 +5,8 @@ import TextBox from 'Components/Common/TextBox'
 import useCurrentPlaylist from 'hooks/useCurrentPlaylist'
 import TheatersIcon from '@mui/icons-material/Theaters'
 import ButtonIcon from 'Components/Common/ButtonIcon'
+import CONSTANTS from 'config/constants';
+import useMediaQuery from '@mui/material/useMediaQuery';
 
 const Container = styled(Box)`
     display: flex;
@@ -30,6 +32,8 @@ const SmallTheatersIcon = styled(TheatersIcon)`
 `
 
 function ArchiveItem(props) {
+    const {WIDTH_TO_HIDE_SIDE_PANEL} = CONSTANTS;
+    const hideRightPane = useMediaQuery(`(max-width:${WIDTH_TO_HIDE_SIDE_PANEL})`);
     const {index, archives} = props
     const {addSongsToCurrentPlaylist} = useCurrentPlaylist();
     const {pgm_nm, chan_cd_full, dj, last_brd_time, archiveChildren} = archives;
@@ -42,6 +46,7 @@ function ArchiveItem(props) {
         const archive = reversed[index];
         addSongsToCurrentPlaylist(archive, true);
     },[addSongsToCurrentPlaylist,reversed])
+    const UPDATE_TEXT = hideRightPane ? 'Last Updated: ' : 'Updated';
     return (
         <Container>
             <RowContainer>
@@ -60,7 +65,7 @@ function ArchiveItem(props) {
                 </Box>
                 <TextBox fontSize="14px" color="white" text={pgm_nm}></TextBox>
                 <Box ml="auto" mr="20px">
-                    <TextBox cursor="auto" opacity="0.5" text={'last update: '+lastUpdated}></TextBox>
+                    <TextBox cursor="auto" opacity="0.5" text={`${UPDATE_TEXT} ${lastUpdated}`}></TextBox>
                 </Box>
             </RowContainer>
             <RowReverseContainer>

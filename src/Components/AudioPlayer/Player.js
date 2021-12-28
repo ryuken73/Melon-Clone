@@ -77,7 +77,6 @@ const CounterAbsolute = styled(Box)`
     width: 12px;
     top: 5px;
     left: 22px;
-    color: red;
     opacity: 0.7;
 `
 
@@ -91,6 +90,7 @@ const Player = (props, playerRef) => {
     const [repeatMode, setRepeatMode] = React.useState(repeatOption[0]);
     const {showMessageBox} = useMessageBox();
     const {
+        currentPlaylist,
         playNextSong=()=>{},
         playPrevSong=()=>{},
     } = useCurrentPlaylist();
@@ -162,6 +162,8 @@ const Player = (props, playerRef) => {
                              repeatMode === 'one' ? 'red': 'yellow';
     const repeatHoverOpacity = repeatMode === 'none' ?  '0.5' :
                              repeatMode === 'one' ? '0.9': '0.9';
+    const repeatCount = repeatMode === 'one' ? 1 : currentPlaylist.length;
+
                              
 
     return (
@@ -176,7 +178,7 @@ const Player = (props, playerRef) => {
                 </Duration>
             </ProgressContainer>
             <ControlContainer>
-                {repeatMode === 'one' && <CounterAbsolute>1</CounterAbsolute>}
+                {repeatMode !== 'none' && <CounterAbsolute color={repeatHoverButtonColor}>{repeatCount}</CounterAbsolute>}
                 <HoverButton onClick={onClickRepeat} fontcolor={repeatHoverButtonColor} opacitynormal={repeatHoverOpacity}><RepeatIcon fontSize="small"></RepeatIcon></HoverButton>
                 <HoverButton onClick={onClickReplay10}><Replay10Icon fontSize="small"></Replay10Icon></HoverButton>
                 <HoverButton onClick={onClickSkipPrevious}><SkipPreviousIcon></SkipPreviousIcon></HoverButton>
