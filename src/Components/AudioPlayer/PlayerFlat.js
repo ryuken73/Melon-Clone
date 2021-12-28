@@ -58,7 +58,7 @@ const CustomVolumeOffIcon = styled(VolumeOffIcon)`
 `
 const CounterAbsolute = styled(Box)`
     position: absolute;
-    font-size: 10px;
+    font-size: 12px;
     width: 12px;
     top: 5px;
     left: 22px;
@@ -83,6 +83,7 @@ const ControlContainer = styled(Box)`
     justify-content: center;
     min-width: 460px;
     max-width: 460px;
+    position: relative;
 `
 const ButtonsContainer = styled(Box)`
     display: flex;
@@ -113,6 +114,7 @@ const PlayerFlat = (props, playerRef) => {
         currentPlaying=false,
     } = song;
     const {
+        currentPlaylist,
         playNextSong=()=>{},
         playPrevSong=()=>{},
     } = useCurrentPlaylist();
@@ -184,7 +186,8 @@ const PlayerFlat = (props, playerRef) => {
                              repeatMode === 'one' ? 'red': 'yellow';
     const repeatHoverOpacity = repeatMode === 'none' ?  '0.5' :
                              repeatMode === 'one' ? '0.9': '0.9';
-                             
+    const repeatCount = repeatMode === 'one' ? 1 : currentPlaylist.length;
+
     const width = getFileSizeParams === 'archive' ? '70px':'50px';
     const objectFit = getFileSizeParams === 'archive' ? 'contain':'cover';
     return (
@@ -200,7 +203,7 @@ const PlayerFlat = (props, playerRef) => {
             </InfoContainer>
             <ControlContainer>
                 <ButtonsContainer>
-                    {repeatMode === 'one' && <CounterAbsolute>0</CounterAbsolute>}
+                    {repeatMode !== 'none' && <CounterAbsolute color={repeatHoverButtonColor}>{repeatCount}</CounterAbsolute>}
                     <HoverButton onClick={onClickRepeat} fontcolor={repeatHoverButtonColor} opacitynormal={repeatHoverOpacity}><RepeatIcon fontSize="large"></RepeatIcon></HoverButton>
                     <HoverButton onClick={onClickReplay10}><Replay10Icon fontSize="large"></Replay10Icon></HoverButton>
                     <HoverButton onClick={onClickSkipPrevious}><SkipPreviousIcon fontSize="large"></SkipPreviousIcon></HoverButton>
