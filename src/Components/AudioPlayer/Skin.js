@@ -6,6 +6,19 @@ import TextBox from 'Components/Common/TextBox';
 import colors from 'config/colors';
 import usePlayerState from 'hooks/usePlayerState';
 
+const VideoContainer = styled(Box)`
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 270px;
+    flex-grow: 0;
+`
+const CustomVideo = styled.video`
+    aspect-ratio: 4/3;
+    object-fit: cover;
+`
+
 const Container = styled(Box)`
     display: flex;
     flex-direction: column;
@@ -36,21 +49,32 @@ function Skin(props) {
         artist="아티스트",
         getFileSizeParams='',
         currentPlaying=false,
+        src_type = 'mp4'
     } = song;
+    console.log('&&&&&', src_type)
     const width = getFileSizeParams === 'archive' ? '150px':'150px';
     const objectFit = getFileSizeParams === 'archive' ? 'contain':'cover';
     return (
-        <Container>
-            <Image>
-                <ImageBox src={albumImageSrc} objectFit={objectFit} width={width} height="150px"></ImageBox>
-            </Image>
-            <Title>
-                <TextBox textalign="center" fontSize="13px" text={song_name} color={currentPlaying ? 'yellow':colors.textMain}></TextBox>
-            </Title>
-            <Artist>
-                <TextBox textalign="center" text={artist}></TextBox>
-            </Artist>
-        </Container>
+        <Box>
+            {src_type === 'mp4' && (
+                <VideoContainer>
+                    <CustomVideo></CustomVideo>
+                </VideoContainer>
+            )}
+            {(src_type === 'hls' || src_type === 'mp3') && (
+                <Container>
+                    <Image>
+                        <ImageBox src={albumImageSrc} objectFit={objectFit} width={width} height="150px"></ImageBox>
+                    </Image>
+                    <Title>
+                        <TextBox textalign="center" fontSize="13px" text={song_name} color={currentPlaying ? 'yellow':colors.textMain}></TextBox>
+                    </Title>
+                    <Artist>
+                        <TextBox textalign="center" text={artist}></TextBox>
+                    </Artist>
+                </Container>
+            )}
+        </Box>
     );
 }
 
