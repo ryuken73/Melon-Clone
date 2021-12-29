@@ -90,8 +90,8 @@ const UtilContainer = styled(Box)`
 
 
 const PlayerFlat = (props, playerRef) => {
-    const {src: hlsSource, song={}} = usePlayerState();
-    const [manifestLoaded=false, duration="00:00"] = usePlayer(hlsSource, playerRef);
+    const {src, src_type, song={}} = usePlayerState();
+    const [manifestLoaded=false, duration="00:00"] = usePlayer(src, playerRef, src_type);
     const {showMessageBox} = useMessageBox();
     const {
         albumImageSrc='',

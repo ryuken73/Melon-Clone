@@ -28,6 +28,7 @@ class Archive {
     get file_size() { return this.nativeProps.file_size}
     get bora_archive_yn() { return this.nativeProps.bora_archive_yn}
     get bora_archive_open_yn() { return this.nativeProps.bora_archive_open_yn}
+    get src_type() { return 'hls'}
     get src() {
         const {
             attach_path,
@@ -62,7 +63,8 @@ class Archive {
             receipt_no: this.id,
             wavsize: this.file_size,
             reg_no: this.episode,
-            albumImageSrc: this.albumImageSrc
+            albumImageSrc: this.albumImageSrc,
+            src_type: this.src_type
         }
     }
     get parsedWithoutBTag() {

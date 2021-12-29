@@ -71,8 +71,8 @@ const CounterAbsolute = styled(Box)`
 `
 
 const Player = (props, playerRef) => {
-    const {src: hlsSource} = usePlayerState();
-    const [manifestLoaded=false, duration="00:00"] = usePlayer(hlsSource, playerRef);
+    const {src, src_type} = usePlayerState();
+    const [manifestLoaded=false, duration="00:00"] = usePlayer(src, playerRef, src_type);
     const {showMessageBox} = useMessageBox();
     const {
         currentPlaylist,

@@ -35,6 +35,7 @@ class Song {
     get album_type() { return this.nativeProps.album_type}
     get version() { return this.nativeProps.version}
     get duration() { return secondsToTime(parseInt(this.nativeProps.runtime))}
+    get src_type() { return 'hls'}
     get src() {
         const {
             attach_path,
@@ -95,7 +96,8 @@ class Song {
             src: this.src,
             download_url: this.download_url,
             saveTo: this.saveTo,
-            getFileSizeParams: this.getFileSizeParams
+            getFileSizeParams: this.getFileSizeParams,
+            src_type: this.src_type
         }
     }
     get parsedWithoutBTag() {

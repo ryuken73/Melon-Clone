@@ -58,11 +58,13 @@ class SongInAlbum {
             top_genre: this.top_genre,
             version: this.version,
             duration: this.duration,
+            src_type: this.src_type,
         }
     } 
     get albumImageSrc() {
         return `${CONSTANTS.BASE_API_URL}/Video/small_image/${this.label_no}.JPG`
     }
+    get src_type() { return 'hls'}
     get src() {
         const {
             attach_path,
