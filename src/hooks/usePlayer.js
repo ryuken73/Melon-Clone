@@ -60,7 +60,9 @@ export default function usePlayer(src, audioElementRef, src_type) {
         }
 
         return (() => {
-            audioElementRef.current.removeEventListener('loadedmetadata', handleLoadedMetadata)
+            if(audioElementRef.current){
+                audioElementRef.current.removeEventListener('loadedmetadata', handleLoadedMetadata)
+            }
         })
     },[src, src_type, audioElementRef]);
 

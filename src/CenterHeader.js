@@ -1,9 +1,15 @@
 import React from 'react';
 import Box from '@mui/material/Box';
+import Menu from '@mui/material/Menu';
+import MenuItem from '@mui/material/MenuItem';
 import {withRouter} from 'react-router-dom';
 import styled from 'styled-components';
 import CenterHeaderNav from './CenterHeaderNav';
 import AutoComplete from './Components/Common/AutoComplete';
+import HoverButton from 'Components/Common/ButtonHover';
+import MenuIcon from '@mui/icons-material/Menu';
+import useMediaQueryEasy from 'hooks/useMediaQueryEasy';
+import colors from 'config/colors';
 
 const Container = styled(Box)`
     display: flex;
@@ -13,15 +19,63 @@ const Container = styled(Box)`
     background: transparent;
     margin-bottom: 15px;
 `
+const StyledMenu = styled(Menu)`
+    .MuiPaper-root {
+        background: ${colors.highCenterPane};
+        ul {
+            li.MuiMenuItem-root {
+                color: white;
+                font-size: 12px;
+            }
+        }
+    }
+    }
+`
 const CenterHeader = props => {
+    const {history} = props;
+    const [anchorEl, setAnchorEl] = React.useState(null);
+    const open = Boolean(anchorEl);
     const [historyPushedCount, setHistoryPushedCount] = React.useState(0);
+    const {hideRightPane} = useMediaQueryEasy()
+    const onClickMenu = React.useCallback(event => {
+        setAnchorEl(event.currentTarget)
+    },[])
+    const handleClose = React.useCallback(() => {
+        history.push('/')
+        setAnchorEl(null);
+    },[history])
 
     return (
         <Container>
+            <HoverButton 
+                id="basic-button"
+                aria-controls="basic-menu"
+                aria-haspopup="true"
+                aria-expanded={open ? 'true':undefined}
+                onClick={onClickMenu} 
+                opacitynormal='1' 
+                opacityhover='1' 
+                disabled={!hideRightPane}
+            >
+                <MenuIcon></MenuIcon>
+            </HoverButton>
+            <StyledMenu
+                id="basic-menu"
+                anchorEl={anchorEl}
+                open={open}
+                onClose={handleClose}
+                MenuListProps={{
+                    'aria-labelledby': 'basic-button'
+                }}
+            >
+                <MenuItem onClick={handleClose}>홈</MenuItem>
+                <MenuItem onClick={handleClose}>아카이브</MenuItem>
+                <MenuItem onClick={handleClose}>팟캐스트</MenuItem> 
+            </StyledMenu>
             <CenterHeaderNav historyPushedCount={historyPushedCount} setHistoryPushedCount={setHistoryPushedCount}></CenterHeaderNav>
             <AutoComplete></AutoComplete>
         </Container>
     )
 }
 
-export default withRouter(CenterHeader);
+export default React.memo(withRouter(CenterHeader));
