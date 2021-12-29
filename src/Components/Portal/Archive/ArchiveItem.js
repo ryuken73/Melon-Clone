@@ -3,7 +3,8 @@ import Box from '@mui/material/Box'
 import styled from 'styled-components'
 import TextBox from 'Components/Common/TextBox'
 import useCurrentPlaylist from 'hooks/useCurrentPlaylist'
-import TheatersIcon from '@mui/icons-material/Theaters'
+// import TheatersIcon from '@mui/icons-material/Theaters'
+import SmartDisplay from '@mui/icons-material/SmartDisplay'
 import ButtonIcon from 'Components/Common/ButtonIcon'
 import CONSTANTS from 'config/constants';
 import useMediaQuery from '@mui/material/useMediaQuery';
@@ -25,7 +26,7 @@ const RowReverseContainer = styled(Box)`
     align-items: 'center';
 `
 
-const SmallTheatersIcon = styled(TheatersIcon)`
+const SmallSmartDisplay = styled(SmartDisplay)`
     font-size: 18px !important;
     color: darkslategrey;
     cursor: pointer;
@@ -46,6 +47,12 @@ function ArchiveItem(props) {
         const archive = reversed[index];
         addSongsToCurrentPlaylist(archive, true);
     },[addSongsToCurrentPlaylist,reversed])
+    const addVideoNPlay = React.useCallback((event) => {
+        addSongsToCurrentPlaylist({
+            src:'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4',
+            src_type:'mp4',
+        }, true)
+    },[])
     const UPDATE_TEXT = hideRightPane ? 'Last Updated: ' : 'Updated';
     return (
         <Container>
@@ -81,8 +88,9 @@ function ArchiveItem(props) {
                             text={child.episode}
                         ></TextBox>
                         {child.bora_archive_yn === 'Y' &&
-                            <SmallTheatersIcon
-                            ></SmallTheatersIcon>
+                            <SmallSmartDisplay
+                                onClick={addVideoNPlay}
+                            ></SmallSmartDisplay>
                         }
                         
                     </Box>
