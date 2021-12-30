@@ -49,7 +49,7 @@ function Skin(props) {
         artist="아티스트",
         getFileSizeParams='',
         currentPlaying=false,
-        src_type = 'mp4'
+        src_type = 'hls'
     } = song;
     console.log('&&&&&', src_type)
     const width = getFileSizeParams === 'archive' ? '150px':'150px';
@@ -61,7 +61,7 @@ function Skin(props) {
                     <CustomVideo></CustomVideo>
                 </VideoContainer>
             )}
-            {(src_type === 'hls' || src_type === 'mp3') && (
+            {src_type !== 'mp4' && (
                 <Container>
                     <Image>
                         <ImageBox src={albumImageSrc} objectFit={objectFit} width={width} height="150px"></ImageBox>

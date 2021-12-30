@@ -323,6 +323,7 @@ export const apiMap = {
             }
         }
     },
+    // get Radio Program List
     'doProgramList': (b_ipp, b_page, channel) => {
         const postBody = new URLSearchParams();
         postBody.append('b_ipp', b_ipp);
@@ -334,6 +335,28 @@ export const apiMap = {
                 method: 'POST',
                 body: postBody,
                 ...DEFAULT_FETCH_OPTIONS
+            }
+        }
+    },
+    // get archive infor and ops media_id from musicbank media_id
+    'doValueRadio.mb': (media_id) => {
+        const postBody = new URLSearchParams();
+        postBody.append('media_id', media_id);
+        return {
+            url: `/mbs/regist402/doValueRadio.mb`,
+            fetchOptions: {
+                method: 'POST',
+                body: postBody,
+                ...DEFAULT_FETCH_OPTIONS
+            }
+        }
+    },
+    // get Bora Attach info (get download and streaming url)
+    'doListBoraRadioAttach.mb': (asset_id, bora_archive_yn) => {
+        return {
+            url: `/mbs/regist402/doListBoraRadioAttach.mb?asset_id=${asset_id}&bora_archive_yn=${bora_archive_yn}`,
+            fetchOptions: {
+                method: 'GET'
             }
         }
     }

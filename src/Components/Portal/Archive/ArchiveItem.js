@@ -4,10 +4,11 @@ import styled from 'styled-components'
 import TextBox from 'Components/Common/TextBox'
 import useCurrentPlaylist from 'hooks/useCurrentPlaylist'
 // import TheatersIcon from '@mui/icons-material/Theaters'
-import SmartDisplay from '@mui/icons-material/SmartDisplay'
+import ArchiveBoraPlayButton from 'Components/Portal/Archive/ArchiveBoraPlayButton'
 import ButtonIcon from 'Components/Common/ButtonIcon'
 import CONSTANTS from 'config/constants';
 import useMediaQuery from '@mui/material/useMediaQuery';
+// import useQueryArchiveDetail from 'hooks/useQueryArchiveDetail';
 
 const Container = styled(Box)`
     display: flex;
@@ -26,33 +27,30 @@ const RowReverseContainer = styled(Box)`
     align-items: 'center';
 `
 
-const SmallSmartDisplay = styled(SmartDisplay)`
-    font-size: 18px !important;
-    color: darkslategrey;
-    cursor: pointer;
-`
-
 function ArchiveItem(props) {
     const {WIDTH_TO_HIDE_SIDE_PANEL} = CONSTANTS;
     const hideRightPane = useMediaQuery(`(max-width:${WIDTH_TO_HIDE_SIDE_PANEL})`);
     const {index, archives} = props
     const {addSongsToCurrentPlaylist} = useCurrentPlaylist();
-    const {pgm_nm, chan_cd_full, dj, last_brd_time, archiveChildren} = archives;
-    const reversed = React.useMemo(() => [...archiveChildren].reverse(),[archiveChildren]);
+    const {id, pgm_nm, chan_cd_full, dj, last_brd_time, archiveChildren} = archives;
     const rownum = index + 1;
     const lastUpdated = `${last_brd_time.slice(0,2)}시${last_brd_time.slice(2,4)}분`
+    const reversed = React.useMemo(() => [...archiveChildren].reverse(),[archiveChildren]);
+    // const queryDetailBatch = useQueryArchiveDetail(reversed);
     // console.log(archiveChildren);
     const addSongNPlay = React.useCallback((event) => {
         const index = event.target.id;
         const archive = reversed[index];
         addSongsToCurrentPlaylist(archive, true);
     },[addSongsToCurrentPlaylist,reversed])
-    const addVideoNPlay = React.useCallback((event) => {
-        addSongsToCurrentPlaylist({
-            src:'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4',
-            src_type:'mp4',
-        }, true)
-    },[])
+    // const addVideoNPlay = React.useCallback((event) => {
+    //     const index = event.target.id;
+    //     const queryDetail = queryDetailBatch[parseInt(index)];
+    //     queryDetail.refetch()
+    //     .then(result => {
+    //         console.log(result);
+    //     })
+    // },[queryDetailBatch])
     const UPDATE_TEXT = hideRightPane ? 'Last Updated: ' : 'Updated';
     return (
         <Container>
@@ -78,7 +76,7 @@ function ArchiveItem(props) {
             <RowReverseContainer>
                 <Box flexShrink={0} minWidth="20px"></Box>
                 {reversed.map((child, index) => (
-                    <Box display="flex" alignItems="center" flexDirection="row" key={index} mr="5px">
+                    <Box display="flex" alignItems="center" flexDirection="row" key={id} mr="5px">
                         <TextBox 
                             id={index} 
                             color="white" 
@@ -88,9 +86,9 @@ function ArchiveItem(props) {
                             text={child.episode}
                         ></TextBox>
                         {child.bora_archive_yn === 'Y' &&
-                            <SmallSmartDisplay
-                                onClick={addVideoNPlay}
-                            ></SmallSmartDisplay>
+                            <ArchiveBoraPlayButton
+                                media_id={child.media_id}
+                            ></ArchiveBoraPlayButton>
                         }
                         
                     </Box>
