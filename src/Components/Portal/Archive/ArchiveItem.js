@@ -3,12 +3,9 @@ import Box from '@mui/material/Box'
 import styled from 'styled-components'
 import TextBox from 'Components/Common/TextBox'
 import useCurrentPlaylist from 'hooks/useCurrentPlaylist'
-// import TheatersIcon from '@mui/icons-material/Theaters'
 import ArchiveBoraPlayButton from 'Components/Portal/Archive/ArchiveBoraPlayButton'
-import ButtonIcon from 'Components/Common/ButtonIcon'
 import CONSTANTS from 'config/constants';
 import useMediaQuery from '@mui/material/useMediaQuery';
-// import useQueryArchiveDetail from 'hooks/useQueryArchiveDetail';
 
 const Container = styled(Box)`
     display: flex;
@@ -36,21 +33,11 @@ function ArchiveItem(props) {
     const rownum = index + 1;
     const lastUpdated = `${last_brd_time.slice(0,2)}시${last_brd_time.slice(2,4)}분`
     const reversed = React.useMemo(() => [...archiveChildren].reverse(),[archiveChildren]);
-    // const queryDetailBatch = useQueryArchiveDetail(reversed);
-    // console.log(archiveChildren);
     const addSongNPlay = React.useCallback((event) => {
         const index = event.target.id;
         const archive = reversed[index];
         addSongsToCurrentPlaylist(archive, true);
     },[addSongsToCurrentPlaylist,reversed])
-    // const addVideoNPlay = React.useCallback((event) => {
-    //     const index = event.target.id;
-    //     const queryDetail = queryDetailBatch[parseInt(index)];
-    //     queryDetail.refetch()
-    //     .then(result => {
-    //         console.log(result);
-    //     })
-    // },[queryDetailBatch])
     const UPDATE_TEXT = hideRightPane ? 'Last Updated: ' : 'Updated';
     return (
         <Container>
@@ -88,6 +75,7 @@ function ArchiveItem(props) {
                         {child.bora_archive_yn === 'Y' &&
                             <ArchiveBoraPlayButton
                                 media_id={child.media_id}
+                                archive={child}
                             ></ArchiveBoraPlayButton>
                         }
                         

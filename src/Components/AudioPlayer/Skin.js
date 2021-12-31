@@ -15,6 +15,7 @@ const VideoContainer = styled(Box)`
     flex-grow: 0;
 `
 const CustomVideo = styled.video`
+    width: 90%;
     aspect-ratio: 4/3;
     object-fit: cover;
 `
@@ -41,7 +42,7 @@ const Artist = styled(Box)`
     max-width: 200px;
 `;
 
-function Skin(props) {
+function Skin(props, ref) {
     const {song={}} = usePlayerState();
     const {
         albumImageSrc='',
@@ -58,7 +59,7 @@ function Skin(props) {
         <Box>
             {src_type === 'mp4' && (
                 <VideoContainer>
-                    <CustomVideo></CustomVideo>
+                    <CustomVideo controls ref={ref}></CustomVideo>
                 </VideoContainer>
             )}
             {src_type !== 'mp4' && (
@@ -78,4 +79,4 @@ function Skin(props) {
     );
 }
 
-export default React.memo(Skin);
+export default React.memo(React.forwardRef(Skin));

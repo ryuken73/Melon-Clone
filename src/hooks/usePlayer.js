@@ -22,15 +22,17 @@ export default function usePlayer(src, audioElementRef, src_type) {
             console.error('src is null. just return')
             return;
         }
+        // to attach event, make manifestLoaded false
+        setManifestLoaded(false);
         // remove previous Audio and Hls instance 
-        if(audioElementRef.current !== null){
+        if(audioElementRef.current !== null && src_type !=='mp4'){
             console.log('usePlayer: nullify audioElement', audioElementRef)
-            setManifestLoaded(false);
+            // setManifestLoaded(false);
             audioElementRef.current.pause();
             audioElementRef.current = null;
         }
         if(hlsRef && hlsRef.current !== null){
-            setManifestLoaded(false);
+            // setManifestLoaded(false);
             hlsRef.current.destroy();
         }
         //
@@ -54,6 +56,13 @@ export default function usePlayer(src, audioElementRef, src_type) {
         if(src_type === 'mp3') {
             console.log('!! create audio Element for mp3');
             audioElementRef.current = new Audio();
+            audioElementRef.current.addEventListener('loadedmetadata', handleLoadedMetadata)
+            audioElementRef.current.src = src;
+            setManifestLoaded(true);
+        }
+
+        if(src_type === 'mp4') {
+            console.log('!! this should be video Element:', audioElementRef.current);
             audioElementRef.current.addEventListener('loadedmetadata', handleLoadedMetadata)
             audioElementRef.current.src = src;
             setManifestLoaded(true);

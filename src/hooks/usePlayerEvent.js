@@ -121,6 +121,7 @@ export default function usePlayerEvent(manifestLoaded, playerRef) {
         player.addEventListener('ended', handleEnded)
 
         return (() => {
+            console.log('detach player event handlers', player);
             player.removeEventListener('playing', handlePlaying)
             player.removeEventListener('pause', handlePause)
             player.removeEventListener('timeupdate', handleTimeupdate)
