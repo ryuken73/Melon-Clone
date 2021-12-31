@@ -43,7 +43,7 @@ const Artist = styled(Box)`
 `
 const SmallSmartDisplay = styled(SmartDisplay)`
     font-size: 16px !important;
-    color: white;
+    color: ${props => props.playing ? 'gold':'white'};
     opacity: 0.5;
     cursor: auto;
     margin-left: 2px;
@@ -80,7 +80,7 @@ const Song = props => {
             <SmallCheckBox checked={checkedPlaylist} setChecked={onChecked} />
             <Artist>
                 {currentPlaying && <PlayingIcon></PlayingIcon>}
-                {src_type === 'mp4' && <SmallSmartDisplay></SmallSmartDisplay>}
+                {src_type === 'mp4' && <SmallSmartDisplay playing={currentPlaying}></SmallSmartDisplay>}
                 <TextBox text={song_name} onDoubleClick={onDoubleClick} doubleClicked={doubleClicked} color={currentPlaying && 'gold'} margin="0px 15px 0px 0px" width="125px"></TextBox>
             </Artist>
             <TextBox text={artist} color={currentPlaying && 'gold'} width="90px"></TextBox>

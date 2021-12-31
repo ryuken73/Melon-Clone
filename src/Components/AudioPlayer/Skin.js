@@ -60,6 +60,13 @@ function Skin(props, ref) {
     } = song;
     console.log('&&&&&', src_type)
     const [pipText, setPIPText] = React.useState('PIP(크게보기)');
+    React.useEffect(() => {
+        if(document.pictureInPictureElement){
+            setPIPText('PIP(돌아가기)')
+        } else {
+            setPIPText('PIP(크게보기)')
+        }
+    },[src_type])
     const togglePIP = React.useCallback(() => {
         if(document.pictureInPictureElement){
             document.exitPictureInPicture();
