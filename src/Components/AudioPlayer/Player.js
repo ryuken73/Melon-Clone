@@ -17,7 +17,7 @@ import VerticalSlider from './VerticalSlider';
 import Popover from '@mui/material/Popover';
 import HoverButton from '../Common/ButtonHover';
 import colors from 'config/colors';
-import usePlayer from 'hooks/usePlayer';
+import usePlayerSource from 'hooks/usePlayerSource';
 import usePlayerState from 'hooks/usePlayerState';
 import usePlayerEvent from 'hooks/usePlayerEvent';
 import useCurrentPlaylist from 'hooks/useCurrentPlaylist';
@@ -72,7 +72,7 @@ const CounterAbsolute = styled(Box)`
 
 const Player = (props, playerRef) => {
     const {src, src_type} = usePlayerState();
-    const [manifestLoaded=false, duration="00:00"] = usePlayer(src, playerRef, src_type);
+    const [manifestLoaded=false, duration="00:00"] = usePlayerSource(src, playerRef, src_type);
     console.log('event handlers. manifestLoaded change:', src, manifestLoaded)
     const {showMessageBox} = useMessageBox();
     const {

@@ -20,6 +20,10 @@ const CustomVideo = styled.video`
     object-fit: cover;
 `
 
+const HiddenAudio = styled.audio`
+    display: none;
+`
+
 const Container = styled(Box)`
     display: flex;
     flex-direction: column;
@@ -72,6 +76,7 @@ function Skin(props, ref) {
                     </Title>
                     <Artist>
                         <TextBox textalign="center" text={artist}></TextBox>
+                        <HiddenAudio ref={ref}></HiddenAudio>
                     </Artist>
                 </Container>
             )}
