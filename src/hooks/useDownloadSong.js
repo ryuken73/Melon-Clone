@@ -1,12 +1,33 @@
 import * as React from 'react';
-import { getTimeString } from 'lib/util';
+import {getTimeString} from 'lib/util';
 import useDoFileSizeSongList from 'hooks/useDoFileSizeSongList';
 import useMessageBox from './useMessageBox';
+import fileDownload from 'js-file-download';
+import CONSTANTS from 'config/constants';
+
+const {SRC_TYPE} = CONSTANTS;
+const groupByDownloadMethod = checkedSongList => {
+    const downloadableByDext5 = checkedSongList.filter(song => song.src_type === SRC_TYPE.SONG);
+    const downloadableByNative = checkedSongList.filter(song => song.src_type !== SRC_TYPE.SONG);
+    return {downloadableByDext5, downloadableByNative};
+}
+
+const nativeDownload = (url, filename) => {
+    fetch(url)
+    .then(response => response.blob())
+    .then(blob => {
+        fileDownload(blob, '/d/aa.jpg')
+    })
+    .catch(err => {
+        console.log(err)
+    })
+}
 
 const GUBUN='M';
 const useDownloadSong = (songsToDownload) => {
     const {showMessageBox} = useMessageBox();
-    const doGetFileSizeBatch = useDoFileSizeSongList(songsToDownload, GUBUN);
+    const {downloadableByDext5: willDownloadByDext5} = groupByDownloadMethod(songsToDownload);
+    const doGetFileSizeBatch = useDoFileSizeSongList(willDownloadByDext5, GUBUN);
     React.useEffect(() => {
         window.DEXT5UPLOAD_FinishDownloaded = (uploadID, nDownloadItemCount) => {
             window.fileDownloadCallback();
@@ -14,6 +35,7 @@ const useDownloadSong = (songsToDownload) => {
         }
     },[])
     const downloadFile = React.useCallback((checkedSongList, callback=()=>{}) => {
+        const {downloadableByDext5, downloadableByNative} = groupByDownloadMethod(checkedSongList);
         window.fileDownloadCallback = callback;
     	window.DEXT5UPLOAD.DeleteSelectedFile("chrome_downloader");
         window.doStartDownload_chrome_show();
@@ -23,8 +45,8 @@ const useDownloadSong = (songsToDownload) => {
             results.forEach(result => {
                 // console.log('@@@:',result.data)
                 const {receipt_no, reg_no ,wavsize} = result.data.song_list[0];
-                console.log('*************', receipt_no, reg_no, wavsize, checkedSongList)
-                const songToDownload = checkedSongList.find(song => song.receipt_no === receipt_no && song.reg_no === reg_no)
+                console.log('*************', receipt_no, reg_no, wavsize, downloadableByDext5)
+                const songToDownload = downloadableByDext5.find(song => song.receipt_no === receipt_no && song.reg_no === reg_no)
                 if(songToDownload){
                     const {saveTo, download_url} = songToDownload;
                     const now = new Date();
@@ -38,6 +60,11 @@ const useDownloadSong = (songsToDownload) => {
         .catch(err => {
             console.error(err);
         })
+        // download BORA Files
+        // downloadableByNative.map(file => {
+        //     const {download_url} = file;
+        //     nativeDownload(download_url, 'a.mp4');
+        // })
     },[doGetFileSizeBatch])
     return downloadFile;
 } 
