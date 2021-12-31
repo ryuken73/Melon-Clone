@@ -2,7 +2,7 @@ import CONSTANTS from 'config/constants';
 import { secondsToTime, replaceIllegalCharacters} from './util';
 import {headers, responseToObject} from 'config/apis';
 import {replaceBold, removeBold} from 'lib/util';
-const {BASE_API_URL, BASE_STREAM_URL} = CONSTANTS;
+const {BASE_API_URL, BASE_STREAM_URL, SRC_TYPE} = CONSTANTS;
 
 class Song {
     constructor(props){
@@ -35,7 +35,7 @@ class Song {
     get album_type() { return this.nativeProps.album_type}
     get version() { return this.nativeProps.version}
     get duration() { return secondsToTime(parseInt(this.nativeProps.runtime))}
-    get src_type() { return 'hls'}
+    get src_type() { return SRC_TYPE.SONG}
     get src() {
         const {
             attach_path,

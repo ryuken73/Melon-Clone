@@ -3,6 +3,9 @@ import Hls from 'hls.js';
 import {secondsToTime} from 'lib/util';
 import {setManifestLoaded, setDuration} from 'Components/AudioPlayer/audioPlayerSlice';
 import {useSelector, useDispatch} from 'react-redux';
+import CONSTANTS from 'config/constants';
+
+const {SRC_TYPE} = CONSTANTS;
 
 export default function usePlayer(src, mediaElementRef, src_type) {
     // console.log('&&',src_type)
@@ -39,7 +42,7 @@ export default function usePlayer(src, mediaElementRef, src_type) {
             hlsRef.current.destroy();
         }
         //
-        if(src_type === 'hls' && Hls.isSupported()){
+        if(src_type === SRC_TYPE.SONG && Hls.isSupported()){
             console.log('!! attach mediaElement(audio) to hlsRef')
             hlsRef.current = new Hls();
             hlsRef.current.attachMedia(mediaElementRef.current);
@@ -54,7 +57,7 @@ export default function usePlayer(src, mediaElementRef, src_type) {
             })
         }
 
-        if(src_type === 'mp3' || src_type === 'mp4') {
+        if(src_type === SRC_TYPE.POT_CAST || src_type === SRC_TYPE.BORA) {
             console.log('!! attach loadedmetadata event handler to media element(not hls) and set media source');
             mediaElementRef.current.addEventListener('loadedmetadata', handleLoadedMetadata)
             mediaElementRef.current.src = src;

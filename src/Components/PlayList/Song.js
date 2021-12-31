@@ -8,6 +8,9 @@ import PlayingIcon from 'Components/Common/PlayingIcon';
 import colors from '../../config/colors';
 import useSongPlaylist from 'hooks/useSongPlaylist';
 import usePlayerState from 'hooks/usePlayerState';
+import CONSTANTS from 'config/constants';
+
+const {SRC_TYPE} = CONSTANTS;
 
 const Mount = keyframes`
     from {
@@ -80,7 +83,7 @@ const Song = props => {
             <SmallCheckBox checked={checkedPlaylist} setChecked={onChecked} />
             <Artist>
                 {currentPlaying && <PlayingIcon></PlayingIcon>}
-                {src_type === 'mp4' && <SmallSmartDisplay playing={currentPlaying}></SmallSmartDisplay>}
+                {src_type === SRC_TYPE.BORA && <SmallSmartDisplay playing={currentPlaying}></SmallSmartDisplay>}
                 <TextBox text={song_name} onDoubleClick={onDoubleClick} doubleClicked={doubleClicked} color={currentPlaying && 'gold'} margin="0px 15px 0px 0px" width="125px"></TextBox>
             </Artist>
             <TextBox text={artist} color={currentPlaying && 'gold'} width="90px"></TextBox>

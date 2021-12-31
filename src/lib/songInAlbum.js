@@ -1,6 +1,7 @@
 import CONSTANTS from 'config/constants';
 import { secondsToTime, replaceIllegalCharacters} from './util';
 import {replaceBold, removeBold} from 'lib/util';
+const {SRC_TYPE} = CONSTANTS;
 
 class SongInAlbum {
     constructor(props, label_no){
@@ -64,7 +65,7 @@ class SongInAlbum {
     get albumImageSrc() {
         return `${CONSTANTS.BASE_API_URL}/Video/small_image/${this.label_no}.JPG`
     }
-    get src_type() { return 'hls'}
+    get src_type() { return SRC_TYPE.SONG}
     get src() {
         const {
             attach_path,

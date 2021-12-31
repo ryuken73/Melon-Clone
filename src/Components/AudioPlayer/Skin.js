@@ -5,6 +5,7 @@ import ImageBox from 'Components/Common/ImageBox';
 import TextBox from 'Components/Common/TextBox';
 import colors from 'config/colors';
 import usePlayerState from 'hooks/usePlayerState';
+import CONSTANTS from 'config/constants';
 
 const VideoContainer = styled(Box)`
     display: flex;
@@ -48,6 +49,8 @@ const Artist = styled(Box)`
     max-width: 200px;
 `;
 
+const {SRC_TYPE} = CONSTANTS;
+
 function Skin(props, ref) {
     const {song={}} = usePlayerState();
     const {
@@ -56,7 +59,7 @@ function Skin(props, ref) {
         artist="아티스트",
         getFileSizeParams='',
         currentPlaying=false,
-        src_type = 'hls'
+        src_type = SRC_TYPE.SONG
     } = song;
     console.log('&&&&&', src_type)
     const [pipText, setPIPText] = React.useState('PIP(크게보기)');
@@ -82,7 +85,7 @@ function Skin(props, ref) {
     const objectFit = getFileSizeParams === 'archive' ? 'contain':'cover';
     return (
         <Box>
-            {src_type === 'mp4' && (
+            {src_type === SRC_TYPE.BORA && (
                 <VideoContainer>
                     <CustomVideo ref={ref}></CustomVideo>
                     <Box>
@@ -90,7 +93,7 @@ function Skin(props, ref) {
                     </Box>
                 </VideoContainer>
             )}
-            {src_type !== 'mp4' && (
+            {src_type !== SRC_TYPE.BORA && (
                 <Container>
                     <Image>
                         <ImageBox src={albumImageSrc} objectFit={objectFit} width={width} height="150px"></ImageBox>

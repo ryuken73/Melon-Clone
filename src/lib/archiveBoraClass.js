@@ -1,5 +1,5 @@
 import CONSTANTS from 'config/constants';
-const {BASE_BORA_STREAM_URL} = CONSTANTS;
+const {BASE_BORA_STREAM_URL, SRC_TYPE} = CONSTANTS;
 
 class ArchiveBora {
     constructor(result){
@@ -14,7 +14,7 @@ class ArchiveBora {
     get src(){
         return `${BASE_BORA_STREAM_URL}${this.file_path}`
     }
-    get src_type() { return 'mp4'};
+    get src_type() { return SRC_TYPE.BORA};
     get parsed() {
         return {
             id: this.id,

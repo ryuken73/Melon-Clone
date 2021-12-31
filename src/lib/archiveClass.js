@@ -1,7 +1,7 @@
 import {headers, responseToObject} from 'config/apis';
 import CONSTANTS from 'config/constants';
 import {removeBold, replaceIllegalCharacters} from './util';
-const {BASE_API_URL, BASE_STREAM_URL} = CONSTANTS;
+const {BASE_API_URL, BASE_STREAM_URL, SRC_TYPE} = CONSTANTS;
 
 class Archive {
     constructor(props){
@@ -28,7 +28,7 @@ class Archive {
     get file_size() { return this.nativeProps.file_size}
     get bora_archive_yn() { return this.nativeProps.bora_archive_yn}
     get bora_archive_open_yn() { return this.nativeProps.bora_archive_open_yn}
-    get src_type() { return 'hls'}
+    get src_type() { return SRC_TYPE.SONG}
     get src() {
         const {
             attach_path,
