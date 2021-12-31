@@ -35,7 +35,6 @@ const ArchiveBoraPlayButton = props => {
             const resultOpsItem = result.get.items[0];
             const archiveBora = createArchiveBora(resultOpsItem);
             const mergedArchive = {...archive.parsed, ...archiveBora.parsed}
-            mergedArchive.song_name = `${mergedArchive.song_name}[V]`
             addSongsToCurrentPlaylist(mergedArchive, true)
         })
     },[queryDetail, archive, addSongsToCurrentPlaylist])

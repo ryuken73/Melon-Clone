@@ -1,5 +1,6 @@
 import React from 'react'
 import Box from '@mui/material/Box';
+import SmartDisplay from '@mui/icons-material/SmartDisplay'
 import styled, {keyframes, css} from 'styled-components';
 import TextBox from '../Common/TextBox';
 import SmallCheckBox from '../Common/CheckBox';
@@ -40,7 +41,13 @@ const Artist = styled(Box)`
     align-items: center;
     width: 150px;
 `
-
+const SmallSmartDisplay = styled(SmartDisplay)`
+    font-size: 16px !important;
+    color: white;
+    opacity: 0.5;
+    cursor: auto;
+    margin-left: 2px;
+`
 const Song = props => {
     const defaultSong = {
         id: 1,
@@ -50,7 +57,7 @@ const Song = props => {
     }
     const [doubleClicked, setDoubleClicked] = React.useState(false);
     const {song=defaultSong, sequenceId} = props;
-    const {id, song_name, artist, checkedPlaylist, albumImageSrc, src, currentPlaying} = song;
+    const {id, song_name, artist, checkedPlaylist, albumImageSrc, src, currentPlaying, src_type} = song;
     console.log('^^^^:', id, song_name, artist, checkedPlaylist, currentPlaying)
     // const [loadPlayer, setLoadPlayer] = React.useState(false);
     const [removeFromPlaylist, setChecked] = useSongPlaylist(sequenceId);
@@ -73,6 +80,7 @@ const Song = props => {
             <SmallCheckBox checked={checkedPlaylist} setChecked={onChecked} />
             <Artist>
                 {currentPlaying && <PlayingIcon></PlayingIcon>}
+                {src_type === 'mp4' && <SmallSmartDisplay></SmallSmartDisplay>}
                 <TextBox text={song_name} onDoubleClick={onDoubleClick} doubleClicked={doubleClicked} color={currentPlaying && 'gold'} margin="0px 15px 0px 0px" width="125px"></TextBox>
             </Artist>
             <TextBox text={artist} color={currentPlaying && 'gold'} width="90px"></TextBox>
