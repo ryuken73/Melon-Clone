@@ -16,8 +16,10 @@ const VideoContainer = styled(Box)`
 `
 const CustomVideo = styled.video`
     width: 90%;
-    aspect-ratio: 4/3;
+    /* aspect-ratio: 4/3; */
     object-fit: cover;
+    pointer-events: none;
+    margin: auto;
 `
 
 const HiddenAudio = styled.audio`
@@ -57,13 +59,28 @@ function Skin(props, ref) {
         src_type = 'hls'
     } = song;
     console.log('&&&&&', src_type)
+    const [pipText, setPIPText] = React.useState('PIP(크게보기)');
+    const togglePIP = React.useCallback(() => {
+        if(document.pictureInPictureElement){
+            document.exitPictureInPicture();
+            setPIPText('PIP(크게보기)')
+        } else {
+            if (document.pictureInPictureEnabled) {
+                ref.current.requestPictureInPicture();
+                setPIPText('PIP(돌아가기)')
+            }
+        }
+    },[ref])
     const width = getFileSizeParams === 'archive' ? '150px':'150px';
     const objectFit = getFileSizeParams === 'archive' ? 'contain':'cover';
     return (
         <Box>
             {src_type === 'mp4' && (
                 <VideoContainer>
-                    <CustomVideo controls ref={ref}></CustomVideo>
+                    <CustomVideo ref={ref}></CustomVideo>
+                    <Box>
+                        <TextBox onClick={togglePIP} text={pipText}></TextBox>
+                    </Box>
                 </VideoContainer>
             )}
             {src_type !== 'mp4' && (
