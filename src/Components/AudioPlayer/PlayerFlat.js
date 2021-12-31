@@ -233,7 +233,7 @@ const PlayerFlat = (props, playerRef) => {
                         }}
                     >
                         <Box display="flex" flexDirection="column" alignItems="center">
-                            <VerticalSlider manifestLoaded={manifestLoaded} playerRef={playerRef}></VerticalSlider>
+                            <VerticalSlider playerRef={playerRef}></VerticalSlider>
                             {muted ? 
                                 <CustomVolumeOffIcon fontSize="large" onClick={toggleMute}></CustomVolumeOffIcon> :
                                 <CustomVolumeIcon fontSize="large" onClick={toggleMute}></CustomVolumeIcon>

@@ -21,8 +21,8 @@ const volumeToSliderValue = volume => volume * 100;
 const sliderValueToVolume = value => value / 100;
 
 const VerticalSlider = props => {
-  const {manifestLoaded, playerRef} = props;
-  const {muted, volume, handleVolumeControl} = usePlayerEvent(manifestLoaded, playerRef);
+  const {playerRef} = props;
+  const {muted, volume, handleVolumeControl} = usePlayerEvent(playerRef);
   function preventHorizontalKeyboardNavigation(event) {
     if (event.key === 'ArrowLeft' || event.key === 'ArrowRight') {
       event.preventDefault();

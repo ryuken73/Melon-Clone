@@ -204,7 +204,7 @@ const Player = (props, playerRef) => {
                     }}
                 >
                     <Box display="flex" flexDirection="column" alignItems="center">
-                        <VerticalSlider manifestLoaded={manifestLoaded} playerRef={playerRef}></VerticalSlider>
+                        <VerticalSlider playerRef={playerRef}></VerticalSlider>
                         {muted ? 
                             <CustomVolumeOffIcon onClick={toggleMute}></CustomVolumeOffIcon> :
                             <CustomVolumeIcon onClick={toggleMute}></CustomVolumeIcon>
