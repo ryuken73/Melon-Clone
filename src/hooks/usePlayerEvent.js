@@ -14,7 +14,7 @@ const getNextRepeatOption = (current) => {
     return repeatOption[currentOptionIndex+1]
 }
 
-export default function usePlayerEvent(manifestLoaded, playerRef) {
+export default function usePlayerEvent(playerRef) {
     const dispatch = useDispatch();
     const {showMessageBox} = useMessageBox();
     const currentIndex = useSelector(state => state.audioPlayer.currentIndex);
@@ -24,6 +24,8 @@ export default function usePlayerEvent(manifestLoaded, playerRef) {
     const currentTime = useSelector(state => state.audioPlayer.currentTime);
     const progress = useSelector(state => state.audioPlayer.progress);
     const muted = useSelector(state => state.audioPlayer.muted);
+    const manifestLoaded = useSelector(state => state.audioPlayer.manifestLoaded);
+    const duration = useSelector(state => state.audioPlayer.duration);
     const repeatMode = useSelector(state => state.audioPlayer.repeatMode);
     // const [isPlaying, setIsPlaying] = React.useState(false);
     // const [currentTime, setCurrentTime] = React.useState("00:00");
@@ -138,6 +140,8 @@ export default function usePlayerEvent(manifestLoaded, playerRef) {
         volume,
         endedTime,
         repeatMode,
+        manifestLoaded,
+        duration,
         onClickPlay, 
         onClickReplay10,
         onClickForward10,

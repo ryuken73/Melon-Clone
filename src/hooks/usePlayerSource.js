@@ -1,24 +1,29 @@
 import React from 'react';
 import Hls from 'hls.js';
 import {secondsToTime} from 'lib/util';
+import {setManifestLoaded, setDuration} from 'Components/AudioPlayer/audioPlayerSlice';
+import {useSelector, useDispatch} from 'react-redux';
 
 export default function usePlayer(src, mediaElementRef, src_type) {
     // console.log('&&',src_type)
-    const [manifestLoaded, setManifestLoaded] = React.useState(false);
-    const [duration, setDuration] = React.useState("00:00");
+    const dispatch = useDispatch();
+    const duration = useSelector(state => state.audioPlayer.duration);
+    const manifestLoaded = useSelector(state => state.audioPlayer.manifestLoaded);
+    // const [manifestLoaded, setManifestLoaded] = React.useState(false);
+    // const [duration, setDuration] = React.useState("00:00");
     // const mediaElementRef = React.useRef(null);
     const hlsRef = React.useRef(null);
     React.useEffect(()=>{
         console.log('### src changed!:', src);
 
         //initialize manifestLoaded to false for playing HLS
-        setManifestLoaded(false);
+        dispatch(setManifestLoaded({manifestLoaded:false}));
 
         const handleLoadedMetadata = event => {
-            console.log('in usePlayer: loadedMetadata', mediaElementRef.current.duration)
+            console.log('in usePlayerSource: loadedMetadata', mediaElementRef.current.duration)
             if(!isNaN(mediaElementRef.current.duration)){
                 const durationSec = parseInt(mediaElementRef.current.duration);
-                setDuration(secondsToTime(durationSec))
+                dispatch(setDuration({duration: secondsToTime(durationSec)}));
                 mediaElementRef.current.play();
             }
         }
@@ -45,7 +50,7 @@ export default function usePlayer(src, mediaElementRef, src_type) {
             })
             hlsRef.current.on(Hls.Events.MANIFEST_PARSED, (event, data) => {
                 console.log('manifest loaded, found data:', data);
-                setManifestLoaded(true)
+                dispatch(setManifestLoaded({manifestLoaded: true}));
             })
         }
 
@@ -53,7 +58,7 @@ export default function usePlayer(src, mediaElementRef, src_type) {
             console.log('!! attach loadedmetadata event handler to media element(not hls) and set media source');
             mediaElementRef.current.addEventListener('loadedmetadata', handleLoadedMetadata)
             mediaElementRef.current.src = src;
-            setManifestLoaded(true);
+            dispatch(setManifestLoaded({manifestLoaded:true}));
         }
 
         return (() => {
@@ -61,7 +66,7 @@ export default function usePlayer(src, mediaElementRef, src_type) {
                 mediaElementRef.current.removeEventListener('loadedmetadata', handleLoadedMetadata)
             }
         })
-    },[src, src_type, mediaElementRef]);
+    },[src, src_type, mediaElementRef, dispatch]);
 
     // return [mediaElementRef, manifestLoaded, duration];
     return [manifestLoaded, duration];

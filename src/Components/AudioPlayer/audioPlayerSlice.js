@@ -11,8 +11,9 @@ const initialState = {
     currentTime:'00:00',
     progress:0,
     muted: false,
-    repeatMode: 'none'
-
+    repeatMode: 'none',
+    manifestLoaded: false,
+    duration: "00:00"
 }
 
 export const audioPlayerSlice = createSlice({
@@ -62,6 +63,16 @@ export const audioPlayerSlice = createSlice({
             const {repeatMode} = payload
             state.repeatMode = repeatMode;
         },
+        setManifestLoaded: (state, action) => {
+            const {type, payload} = action;
+            const {manifestLoaded} = payload
+            state.manifestLoaded = manifestLoaded;
+        },
+        setDuration: (state, action) => {
+            const {type, payload} = action;
+            const {duration} = payload
+            state.duration = duration;
+        },
     }
 })
 
@@ -73,7 +84,9 @@ export const {
     setCurrentTime,
     setProgress,
     setMuted,
-    setRepeatMode
+    setRepeatMode,
+    setManifestLoaded,
+    setDuration
 } = audioPlayerSlice.actions;
 
 export default audioPlayerSlice.reducer;

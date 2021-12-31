@@ -91,7 +91,8 @@ const UtilContainer = styled(Box)`
 
 const PlayerFlat = (props, playerRef) => {
     const {src, src_type, song={}} = usePlayerState();
-    const [manifestLoaded=false, duration="00:00"] = usePlayerSource(src, playerRef, src_type);
+    // const [manifestLoaded=false, duration="00:00"] = usePlayerSource(src, playerRef, src_type);
+    // console.log('in Flat: event handlers. manifestLoaded change:', src, manifestLoaded)
     const {showMessageBox} = useMessageBox();
     const {
         albumImageSrc='',
@@ -112,12 +113,14 @@ const PlayerFlat = (props, playerRef) => {
         currentTime="00:00",
         endedTime, 
         repeatMode,
+        manifestLoaded,
+        duration,
         onClickPlay=()=>{},
         onClickReplay10=()=>{},
         onClickForward10=()=>{},
         onClickRepeat=()=>{},
         toggleMute=()=>{}
-    } = usePlayerEvent(manifestLoaded, playerRef);
+    } = usePlayerEvent(playerRef);
 
     const canPlay = manifestLoaded;
     const [volumeIconActive, setVolumeIconActive] = React.useState(false);

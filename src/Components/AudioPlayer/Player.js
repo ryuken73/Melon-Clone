@@ -72,8 +72,8 @@ const CounterAbsolute = styled(Box)`
 
 const Player = (props, playerRef) => {
     const {src, src_type} = usePlayerState();
-    const [manifestLoaded=false, duration="00:00"] = usePlayerSource(src, playerRef, src_type);
-    console.log('event handlers. manifestLoaded change:', src, manifestLoaded)
+    usePlayerSource(src, playerRef, src_type);
+    console.log('in Mini: event handlers. manifestLoaded change:', src, src_type)
     const {showMessageBox} = useMessageBox();
     const {
         currentPlaylist,
@@ -87,12 +87,14 @@ const Player = (props, playerRef) => {
         currentTime="00:00",
         endedTime, 
         repeatMode,
+        manifestLoaded,
+        duration,
         onClickPlay=()=>{},
         onClickReplay10=()=>{},
         onClickForward10=()=>{},
         onClickRepeat=()=>{},
-        toggleMute=()=>{}
-    } = usePlayerEvent(manifestLoaded, playerRef);
+        toggleMute=()=>{},
+    } = usePlayerEvent(playerRef);
 
     const canPlay = manifestLoaded;
     const [volumeIconActive, setVolumeIconActive] = React.useState(false);
