@@ -61,10 +61,11 @@ const useDownloadSong = (songsToDownload) => {
             console.error(err);
         })
         // download BORA Files
-        // downloadableByNative.map(file => {
-        //     const {download_url} = file;
-        //     nativeDownload(download_url, 'a.mp4');
-        // })
+        downloadableByNative.map(file => {
+            const {download_url} = file;
+            // nativeDownload(download_url, 'a.mp4');
+            window.open(download_url)
+        })
     },[doGetFileSizeBatch])
     return downloadFile;
 } 
