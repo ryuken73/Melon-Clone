@@ -5,6 +5,10 @@ import Song from './Song';
 import ScrollBarWithColor from '../Common/ScrollBarWithColor';
 import useCurrentPlaylist from 'hooks/useCurrentPlaylist';
 import useMediaQueryEasy from 'hooks/useMediaQueryEasy';
+import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
+import { setCurrent } from 'Components/AudioPlayer/audioPlayerSlice';
+import { setCurrentPlayList } from './playlistSlice';
+
 
 const Container = styled(Box)`
     && {
@@ -12,21 +16,53 @@ const Container = styled(Box)`
         flex-direction: column;
     }
 `
+const reorder = (list, startIndex, endIndex) => {
+  const result = Array.from(list);
+  const [removed] = result.splice(startIndex, 1);
+  result.splice(endIndex, 0, removed);
+  return result;
+};
 
 const SongList = () => {
-    const {currentPlaylist} = useCurrentPlaylist();
-    // const songs = currentPlaylist.length > 0 ? currentPlaylist.map(song => {
-    //     console.log('#### song', song)
-    //     return {title: song.song_name, ...song}
-    // }) : [];
+    const {currentPlaylist, setCurrentPlaylist} = useCurrentPlaylist();
 
+    const onDragEnd = React.useCallback((result) => {
+        console.log(result)
+        if (!result.destination) {
+            return;
+        }
+        const reordered = reorder(currentPlaylist, result.source.index, result.destination.index)
+        setCurrentPlaylist(reordered);
+    },[currentPlaylist, setCurrentPlaylist])
     console.log('###songs:', currentPlaylist)
     const {fullViewHeightMediaQuery} = useMediaQueryEasy();
     return (
         <ScrollBarWithColor autoHide style={{ width:'300px', height: `calc(${fullViewHeightMediaQuery} - 440px)`}}>
-            <Container>
-                {currentPlaylist.map((song,index) => <Song key={index} sequenceId ={index} song={song}></Song>)}
-            </Container>
+            <DragDropContext onDragEnd={onDragEnd}>
+                <Droppable droppableId="droppable">
+                    {(provided, snapshot) => (
+                    <Container
+                        {...provided.droppableProps}
+                        ref={provided.innerRef} 
+                    >
+                        {currentPlaylist.map((song,index) => (
+                            <Draggable key={song.id} draggableId={song.id} index={index}>
+                                 {(provided, snapshot) => (
+                                    <div
+                                        ref={provided.innerRef}
+                                        {...provided.draggableProps}
+                                        {...provided.dragHandleProps}
+                                    >
+                                     <Song key={index} sequenceId ={index} song={song}></Song>
+                                    </div>
+                                 )}
+                            </Draggable>
+                        ))}
+                        {provided.placeholder}
+                    </Container>
+                    )}
+                </Droppable>
+            </DragDropContext>
         </ScrollBarWithColor>
     )
 }
