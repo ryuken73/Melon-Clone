@@ -24,7 +24,8 @@ import useCurrentPlaylist from 'hooks/useCurrentPlaylist';
 import useMessageBox from 'hooks/useMessageBox';
 
 const Container = styled(Box)`
-    display: flex;
+    display: 'flex';
+    width: ${props => props.hide && '0px'};
     flex-direction: column;
 `
 const ProgressContainer = styled(Box)`
@@ -71,6 +72,7 @@ const CounterAbsolute = styled(Box)`
 `
 
 const Player = (props, playerRef) => {
+    const {hide} = props;
     const {src, src_type} = usePlayerState();
     usePlayerSource(src, playerRef, src_type);
     console.log('in Mini: event handlers. manifestLoaded change:', src, src_type)
@@ -148,7 +150,7 @@ const Player = (props, playerRef) => {
     const repeatCount = repeatMode === 'one' ? 1 : currentPlaylist.length;
 
     return (
-        <Container>
+        <Container hide={hide}>
             <ProgressContainer>
                 <Progress>
                     <SliderBar value={progress} onChange={handleMoveProgressSlider} />
@@ -160,18 +162,19 @@ const Player = (props, playerRef) => {
             </ProgressContainer>
             <ControlContainer>
                 {repeatMode !== 'none' && <CounterAbsolute color={repeatHoverButtonColor}>{repeatCount}</CounterAbsolute>}
-                <HoverButton onClick={onClickRepeat} fontcolor={repeatHoverButtonColor} opacitynormal={repeatHoverOpacity}><RepeatIcon fontSize="small"></RepeatIcon></HoverButton>
-                <HoverButton onClick={onClickReplay10}><Replay10Icon fontSize="small"></Replay10Icon></HoverButton>
-                <HoverButton onClick={onClickSkipPrevious}><SkipPreviousIcon></SkipPreviousIcon></HoverButton>
-                <HoverButton onClick={onClickPlay} opacitynormal='0.7' opacityhover='1' disabled={!canPlay}>
+                <HoverButton hide={hide} onClick={onClickRepeat} fontcolor={repeatHoverButtonColor} opacitynormal={repeatHoverOpacity}><RepeatIcon fontSize="small"></RepeatIcon></HoverButton>
+                <HoverButton hide={hide} onClick={onClickReplay10}><Replay10Icon fontSize="small"></Replay10Icon></HoverButton>
+                <HoverButton hide={hide} onClick={onClickSkipPrevious}><SkipPreviousIcon></SkipPreviousIcon></HoverButton>
+                <HoverButton hide={hide} onClick={onClickPlay} opacitynormal='0.7' opacityhover='1' disabled={!canPlay}>
                     {isPlaying ?                     
                         <PauseIcon fontSize="large" ></PauseIcon> :
                         <PlayArrowIcon fontSize="large" ></PlayArrowIcon>                  
                     }
                 </HoverButton>
-                <HoverButton onClick={onClickSkipNext}><SkipNextIcon></SkipNextIcon></HoverButton>
-                <HoverButton onClick={onClickForward10}><Forward10Icon fontSize="small"></Forward10Icon></HoverButton>
+                <HoverButton hide={hide} onClick={onClickSkipNext}><SkipNextIcon></SkipNextIcon></HoverButton>
+                <HoverButton hide={hide} onClick={onClickForward10}><Forward10Icon fontSize="small"></Forward10Icon></HoverButton>
                 <HoverButton 
+                    hide={hide}
                     onClick={onClickVolumeControl} 
                     opacitynormal={volumeIconActive ? 1 : 0.7} 
                     ref={anchorElRef}

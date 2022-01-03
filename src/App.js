@@ -83,8 +83,8 @@ function App() {
       </CenterPane>
       <RightPane hide={hideRightPane}>
         <PlayerSkin ref={playerRef}></PlayerSkin>
-        <Player ref={playerRef}></Player>
-        <PlayList></PlayList>
+        <Player ref={playerRef} hide={hideRightPane}></Player>
+        <PlayList hide={hideRightPane}></PlayList>
       </RightPane> 
       <MessageBox></MessageBox>
       <Backdrop></Backdrop>

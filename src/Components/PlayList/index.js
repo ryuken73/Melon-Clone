@@ -16,16 +16,18 @@ const Container = styled(Box)`
     /* justify-content: center; */
     align-items: center;
 `
-const PlayList = () => {
+const PlayList = props => {
+    const {hide=false} = props;
     const [activeTabId, setActiveTabId] = React.useState('song');
     return (
         <Container>
             <TabHeader
+                hide={hide}
                 activeTabId={activeTabId}
                 setActiveTabId={setActiveTabId}
             ></TabHeader>
-            <SongHeader></SongHeader>
-            <SongList></SongList>
+            <SongHeader hide={hide}></SongHeader>
+            <SongList hide={hide}></SongList>
             <Helper></Helper>
         </Container>
     )

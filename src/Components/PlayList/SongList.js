@@ -23,7 +23,8 @@ const reorder = (list, startIndex, endIndex) => {
   return result;
 };
 
-const SongList = () => {
+const SongList = props => {
+    const {hide} =props;
     const {currentPlaylist, setCurrentPlaylist} = useCurrentPlaylist();
 
     const onDragEnd = React.useCallback((result) => {
@@ -37,7 +38,7 @@ const SongList = () => {
     console.log('###songs:', currentPlaylist)
     const {fullViewHeightMediaQuery} = useMediaQueryEasy();
     return (
-        <ScrollBarWithColor autoHide style={{ width:'300px', height: `calc(${fullViewHeightMediaQuery} - 440px)`}}>
+        <ScrollBarWithColor autoHide style={{ width:`${hide ? '0px':'300px'}`, height: `calc(${fullViewHeightMediaQuery} - 440px)`}}>
             <DragDropContext onDragEnd={onDragEnd}>
                 <Droppable droppableId="droppable">
                     {(provided, snapshot) => (
