@@ -6,6 +6,7 @@ import {
   removeChecked, 
   toggleAllChecked, 
   clearChecked,
+  setCurrentPlayList,
   hasSong
 } from 'Components/PlayList/playlistSlice';
 import usePlayerState from './usePlayerState';
@@ -121,11 +122,16 @@ function useCurrentPlaylist() {
     return currentPlaylist.filter(song => song.checkedPlaylist);
   },[currentPlaylist])
 
+  const setCurrentPlaylist = React.useCallback(currentPlaylist => {
+    dispatch(setCurrentPlayList({currentPlaylist}));
+  }, [dispatch])
+
   return {
     currentPlaylist, 
     checkedSongList,
     checkedCount, 
     // addSongToCurrentPlaylist, 
+    setCurrentPlaylist,
     addSongsToCurrentPlaylist,
     removeFromCurrentPlaylist, 
     toggleCurrentPlayList, 
