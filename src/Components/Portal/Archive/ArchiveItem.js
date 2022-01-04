@@ -5,7 +5,8 @@ import TextBox from 'Components/Common/TextBox'
 import useCurrentPlaylist from 'hooks/useCurrentPlaylist'
 import ArchiveBoraPlayButton from 'Components/Portal/Archive/ArchiveBoraPlayButton'
 import CONSTANTS from 'config/constants';
-import useMediaQuery from '@mui/material/useMediaQuery';
+// import useMediaQuery from '@mui/material/useMediaQuery';
+import useMediaQueryEasy from 'hooks/useMediaQueryEasy';
 
 const Container = styled(Box)`
     display: flex;
@@ -25,8 +26,9 @@ const RowReverseContainer = styled(Box)`
 `
 
 function ArchiveItem(props) {
-    const {WIDTH_TO_HIDE_SIDE_PANEL} = CONSTANTS;
-    const hideRightPane = useMediaQuery(`(max-width:${WIDTH_TO_HIDE_SIDE_PANEL})`);
+    // const {WIDTH_TO_HIDE_SIDE_PANEL} = CONSTANTS;
+    // const hideRightPane = useMediaQuery(`(max-width:${WIDTH_TO_HIDE_SIDE_PANEL})`);
+    const {hideRightPane, showMiniArchiveList} = useMediaQueryEasy();
     const {index, archives} = props
     const {addSongsToCurrentPlaylist} = useCurrentPlaylist();
     const {id, pgm_nm, chan_cd_full, dj, last_brd_time, archiveChildren} = archives;
@@ -38,7 +40,7 @@ function ArchiveItem(props) {
         const archive = reversed[index];
         addSongsToCurrentPlaylist(archive, true);
     },[addSongsToCurrentPlaylist,reversed])
-    const UPDATE_TEXT = hideRightPane ? 'Last Updated: ' : 'Updated';
+    const UPDATE_TEXT = showMiniArchiveList ? 'Last Updated: ' : 'Updated';
     return (
         <Container>
             <RowContainer>

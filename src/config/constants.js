@@ -19,6 +19,7 @@ const dev = {
     "SWIPE_SLIDE_TO_SCROLL": 5,
     "SWIPE_SLIDE_SPEED": 500,
     "WIDTH_TO_HIDE_SIDE_PANEL": "1250px",
+    "WIDTH_TO_SHOW_MINI_ARCHIVE": "1600px",
     "SRC_TYPE" : {
         "SONG": 'hls',
         "BORA": 'mp4',
