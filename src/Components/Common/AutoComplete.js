@@ -41,7 +41,7 @@ const Listbox = styled(Box)`
   max-height: 40%;
   margin-top: 5px;
   padding: 0px;
-  z-index: 1;
+  z-index: 9999;
   border-radius: 10px;
   position: absolute;
   list-style: none;
@@ -85,7 +85,7 @@ const UseAutocomplete = props => {
     groupedOptions,
     value
   } = useAutocomplete({
-    id: 'use-autocomplete-demo',
+    id: 'use-autocomplete',
     options: options,
     limit: 10,
     freeSolo: true,
