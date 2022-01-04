@@ -10,6 +10,7 @@ const dev = {
     "ALBUM_PAGE_SIZE": 20,
     "HEIGHT_OF_FLAT_PLAYER": '100px',
     "IMAGE_LAZY_SHOW_THRESHOLD": 0.2,
+    "LOGLESS_REDUX_ACTIONS": ["audioPlayer/setProgress", "audioPlayer/setCurrentTime"],
     "SEARCH_DEBOUNCE_MILLISECONDS": 100,
     "SEARCH_PAGE_NUM": 1,
     "SEARCH_PAGE_SIZE": 10,

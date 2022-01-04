@@ -6,8 +6,12 @@ import playlistSlice from 'Components/PlayList/playlistSlice'
 import audioPlayerSlice from 'Components/AudioPlayer/audioPlayerSlice'
 // import autoCompleteSlice from 'Components/Common/autoCompleteSlice'
 import songHelperSlice from 'Components/SongHelper/songHelperSlice'
+import CONSTANTS from 'config/constants';
+const {LOGLESS_REDUX_ACTIONS=[]} = CONSTANTS;
 
-const logger = createLogger();
+const logger = createLogger({
+  predicate: (getState, action) => ! LOGLESS_REDUX_ACTIONS.includes(action.type)
+});
 
 export const store = configureStore({
     reducer: {
