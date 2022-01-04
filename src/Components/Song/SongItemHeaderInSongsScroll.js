@@ -6,6 +6,7 @@ import TextBox from '../Common/TextBox';
 import LinkArtist from 'Components/Links/LinkArtist';
 import useSongHelper from 'hooks/useSongHelper';
 import AnimatedNumber from 'Components/Common/AnimatedNumber';
+import useMediaQueryEasy from 'hooks/useMediaQueryEasy';
 
 const Container = styled(Box)`
     && {
@@ -27,6 +28,7 @@ const NumberContainer = styled(Box)`
 
 const SongItemHeaderInSongScroll = props => {
     const {songs, total, ...rest} = props;
+    const {showMiniArchiveList} = useMediaQueryEasy()
     // console.log('### in SongItemHeaderInAlbumDetail: ', receipt_no)
     const {toggleAllSongChecked, isAllChecked} = useSongHelper();
     const toggleAllChecked = React.useCallback(checked => {
@@ -47,23 +49,27 @@ const SongItemHeaderInSongScroll = props => {
                         <AnimatedNumber from={0} to={total || 0}></AnimatedNumber>
                     </NumberContainer>
                 </Box>
-                <Box flex="4" display="flex" flexDirection="row" alignItems="center">
+                <Box flex="3" display="flex" flexDirection="row" alignItems="center">
                     {/* 곡명 */}
                     <TextBox containerProps={{marginRight:"15px"}} text="곡명" {...rest}></TextBox>
                 </Box>
-                <Box width="10%" display="flex" flexDirection="row" alignItems="center">
+                <Box width="25%">
+                    {/* 앨범 */}
+                    <TextBox containerProps={{marginRight:"15px"}} text="앨범명" {...rest}></TextBox>
+                </Box>
+                <Box width="5%" display={showMiniArchiveList ? "none":"flex"} flexDirection="row" alignItems="center">
                     {/* 발매일 */}
                     <TextBox containerProps={{marginRight:"15px"}} text="발매일" {...rest}></TextBox>
                 </Box>
-                <Box width="20%">
+                <Box width="15%">
                     {/* 아티스트 */}
                     <TextBox text="아티스트" {...rest} color="darkgrey"></TextBox>
                 </Box>
-                <Box width="15%" display="flex" flexDirection="row" alignItems="center">
+                <Box width="10%" display="flex" flexDirection="row" alignItems="center">
                     {/* 버전 */}
                     <TextBox text="버전" {...rest} cursor="auto" color="darkgrey"></TextBox>
                 </Box>
-                <Box width="15%" display="flex" flexDirection="row" alignItems="center">
+                <Box width="10%" display="flex" flexDirection="row" alignItems="center">
                     {/* 재생시간 */}
                     <TextBox text="재생시간" {...rest} cursor="auto" color="darkgrey"></TextBox>
                 </Box>

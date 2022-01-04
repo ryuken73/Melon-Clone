@@ -12,12 +12,14 @@ import HoverButton from '../Common/ButtonHover';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import {secondsToTime} from 'lib/util'
 import LinkArtist from 'Components/Links/LinkArtist';
+import LinkAlbum from 'Components/Links/LinkAlbum';
 import useSongsInAlbum from 'hooks/useSongsInAlbum';
 import useCurrentPlaylist from 'hooks/useCurrentPlaylist';
 import useSongHelper from 'hooks/useSongHelper';
 import useDebounce from 'hooks/useDebounce';
 import useDownloadSong from 'hooks/useDownloadSong';
 import {withRouter} from 'react-router-dom';
+import useMediaQueryEasy from 'hooks/useMediaQueryEasy';
 
 const Container = styled(Box)`
     && {
@@ -38,6 +40,7 @@ const SongIteminSearchAll = props => {
     const {song, rownum, ...rest} = props;
     const [hovered, setHovered] = React.useState(false);
     const {addSongsToCurrentPlaylist} = useCurrentPlaylist();
+    const {showMiniArchiveList} = useMediaQueryEasy()
     const {checked, addChecked, delChecked} = useSongHelper(song.id);
     const downloadFile = useDownloadSong([song]);
 
@@ -88,7 +91,7 @@ const SongIteminSearchAll = props => {
                     <TextBox text={songIndex} {...rest} fontSize="10px" marginRight="10px" cursor="auto" color="darkgrey"></TextBox>
                     <ImageBox onClick={gotoAlbumInfo} lazyLoading={false} src={albumImageSrc} width="35px" height="35px"></ImageBox>
                 </Box>
-                <Box flex="4" display="flex" flexDirection="row" alignItems="center">
+                <Box flex="3" display="flex" flexDirection="row" alignItems="center">
                     {/* 곡명 */}
                     <TextBox preserveHtmlTag containerProps={{marginRight:"16px"}} text={song_name_bold} {...rest} color="darkgrey"></TextBox>
                     {deboucedHovered && (
@@ -99,19 +102,22 @@ const SongIteminSearchAll = props => {
                         </Box>
                     )}
                 </Box>
-                <Box width="10%">
+                <Box width="25%">
+                    <LinkAlbum album_name={song.album_name} receipt_no={song.receipt_no}></LinkAlbum>
+                </Box>
+                <Box width="5%" display={showMiniArchiveList ? "none":"flex"}>
                     {/* 발매일 */}
                     <TextBox text={release_year ? `${release_year}년`:''} {...rest} cursor="auto" color="darkgrey"></TextBox>
                 </Box>
-                <Box width="20%">
+                <Box width="15%">
                     {/* 아티스트 */}
                     <LinkArtist artist={artist_bold} matched={artist_matched} preserveHtmlTag {...rest} color="darkgrey"></LinkArtist>
                 </Box>
-                <Box width="15%" display="flex" flexDirection="row" alignItems="center">
+                <Box width="10%" display="flex" flexDirection="row" alignItems="center">
                     {/* 버전 */}
                     <TextBox text={version} {...rest} cursor="auto" color="darkgrey"></TextBox>
                 </Box>
-                <Box width="15%" display="flex" flexDirection="row" alignItems="center">
+                <Box width="10%" display="flex" flexDirection="row" alignItems="center">
                     {/* 재생시간 */}
                     <TextBox text={duration} {...rest} cursor="auto" color="darkgrey"></TextBox> 
                     {deboucedHovered && (
