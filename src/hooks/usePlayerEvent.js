@@ -1,7 +1,7 @@
 import React from 'react';
 import {secondsToTime} from 'lib/util';
 import {useSelector, useDispatch} from 'react-redux';
-import {setCurrentPlayingByIndex} from 'Components/PlayList/playlistSlice';
+import {setCurrentPlayingByIndex, setCurrentPlayingBySrc} from 'Components/PlayList/playlistSlice';
 import {setVolume, setEndedTime, setRepeatMode} from 'Components/AudioPlayer/audioPlayerSlice'
 import {setIsPlaying, setCurrentTime, setProgress, setMuted} from 'Components/AudioPlayer/audioPlayerSlice'
 import useMessageBox from 'hooks/useMessageBox';
@@ -17,6 +17,7 @@ const getNextRepeatOption = (current) => {
 export default function usePlayerEvent(playerRef) {
     const dispatch = useDispatch();
     const {showMessageBox} = useMessageBox();
+    const currentSrc = useSelector(state => state.audioPlayer.currentSrc);
     const currentIndex = useSelector(state => state.audioPlayer.currentIndex);
     const endedTime = useSelector(state => state.audioPlayer.endedTime);
     const volume = useSelector(state => state.audioPlayer.volume);
@@ -36,15 +37,17 @@ export default function usePlayerEvent(playerRef) {
     const handlePlaying = React.useCallback(()=>{
         console.log('in usePlayerEvent: handlePlaying')
         dispatch(setIsPlaying({isPlaying:true}))
-        dispatch(setCurrentPlayingByIndex({targetIndex: currentIndex, playing: true}));
+        // dispatch(setCurrentPlayingByIndex({targetIndex: currentIndex, playing: true}));
+        dispatch(setCurrentPlayingBySrc({src: currentSrc, playing: true}));
         if(player !== null) player.volume = volume;
-    },[dispatch, player, volume, currentIndex])
+    },[dispatch, player, volume, currentSrc])
 
     const handlePause = React.useCallback(()=>{
         console.log('in usePlayerEvent: handlePause')
         dispatch(setIsPlaying({isPlaying:false}))
-        dispatch(setCurrentPlayingByIndex({targetIndex: currentIndex, playing: false}));
-    },[dispatch, currentIndex])
+        // dispatch(setCurrentPlayingByIndex({targetIndex: currentIndex, playing: false}));
+        dispatch(setCurrentPlayingBySrc({src: currentSrc, playing: false}));
+    },[dispatch, currentSrc])
 
     const handleTimeupdate = React.useCallback(()=>{
         const currentTime = secondsToTime(parseInt(player.currentTime));
