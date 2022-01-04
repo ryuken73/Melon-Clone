@@ -3,8 +3,23 @@ import Box from '@mui/material/Box';
 import styled from 'styled-components';
 import AlbumBox from 'Components/Album/AlbumBox';
 import AlbumBoxSkeleton from 'Components/Album/AlbumBoxSkeleton';
-import Swiper from 'Components/Common/Swiper';
+// import Swiper from 'Components/Common/Swiper';
 import CONSTANTS from 'config/constants';
+
+// import { Swiper, SwiperSlide } from "swiper/react";
+import { Swiper, SwiperSlide } from 'swiper/react/swiper-react'
+
+// Import Swiper styles
+import 'swiper/swiper.min.css'
+import 'swiper/modules/pagination/pagination.min.css'
+
+// import Swiper core and required modules
+import SwiperCore, {
+  Pagination
+} from 'swiper';
+
+// install Swiper modules
+SwiperCore.use([Pagination]);
 
 const Container = styled(Box)`
     display: flex;
@@ -20,19 +35,24 @@ const AlbumList = props => {
     return (
         <Container width="100%">
             {/* {albums.length > 0 && */}
-                <Swiper>
+                <Swiper 
+                    slidesPerView={CONSTANTS.SWIPE_SLIDE_TO_SHHOW}
+                    grabCursor={true} 
+                >
                     {isLoading ? 
                         skeletonAlbum.map(album => (
                             <AlbumBoxSkeleton></AlbumBoxSkeleton>
                         )):
                         albums.map(album => (
-                            <AlbumBox 
-                                album={album}
-                                key={album.receipt_no}
-                                history={history}
-                                resizeOnHover={false}
-                            ></AlbumBox>
-                        ))
+                            <SwiperSlide>
+                                <AlbumBox 
+                                    album={album}
+                                    key={album.receipt_no}
+                                    history={history}
+                                    resizeOnHover={false}
+                                ></AlbumBox>
+                            </SwiperSlide>
+                       ))
                     }
                 </Swiper>
             {/* } */}
