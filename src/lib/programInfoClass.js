@@ -1,14 +1,14 @@
 import {headers, responseToObject} from 'config/apis';
 import CONSTANTS from 'config/constants';
 import {replaceBold} from 'lib/util';
-const {BASE_API_URL, BASE_STREAM_URL} = CONSTANTS;
+const {BASE_API_URL, BASE_STREAM_URL, DEFAULT_PROGRAM_ATTACH_PATH} = CONSTANTS;
 
 class ProgramInfoClass {
     constructor(props){
         this.nativeProps = {...props};
     }
-    get attach_name() { return this.nativeProps.attach_name}
-    get attach_path() { return this.nativeProps.attach_path}
+    get attach_name() { return this.nativeProps.attach_name || `${this.nativeProps.pgm_cd}.jpg`}
+    get attach_path() { return this.nativeProps.attach_path || DEFAULT_PROGRAM_ATTACH_PATH}
     get attach_size() { return this.nativeProps.attach_size}
     get brd_time() { return this.nativeProps.brd_time}
     get dat_flag() { return this.nativeProps.dat_flag}
@@ -37,7 +37,7 @@ class ProgramInfoClass {
 
 
 const createProgramList = (apiResult, baseApiUrl=BASE_API_URL, baseStreamUrl=BASE_STREAM_URL) => {
-    const get = apiResult?.get? apiResult.get: [];
+    const get = apiResult?.get? apiResult.get: apiResult?.mst_list? apiResult.mst_list: [];
     const programList = get.map(program => {
         return new ProgramInfoClass(program);
     })

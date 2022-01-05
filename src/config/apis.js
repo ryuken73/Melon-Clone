@@ -338,7 +338,7 @@ export const apiMap = {
             }
         }
     },
-    // get archive infor and ops media_id from musicbank media_id
+    // get archive info and ops media_id from musicbank media_id
     'doValueRadio.mb': (media_id) => {
         const postBody = new URLSearchParams();
         postBody.append('media_id', media_id);
@@ -357,6 +357,42 @@ export const apiMap = {
             url: `/mbs/regist402/doListBoraRadioAttach.mb?asset_id=${asset_id}&bora_archive_yn=${bora_archive_yn}`,
             fetchOptions: {
                 method: 'GET'
+            }
+        }
+    },
+    // get all program list
+    'doPgmListSearch.mb': options => {
+        const {
+            start_dd='',
+            end_dd='',
+            pgm_nm='',
+            use_yn='Y',
+            on_air='Y',
+            chan_cd='',
+            week_yn='',
+            b_ipp=1,
+            b_page=500,
+            order_column='brd_time',
+            order_direction='asc'
+        } = options;
+        const postBody = new URLSearchParams();
+        postBody.append('start_dd', start_dd);
+        postBody.append('end_dd', end_dd);
+        postBody.append('pgm_nm', pgm_nm);
+        postBody.append('use_yn', use_yn);
+        postBody.append('on_air', on_air);
+        postBody.append('chan_cd', chan_cd);
+        postBody.append('week_yn', week_yn);
+        postBody.append('b_ipp', b_ipp);
+        postBody.append('b_page', b_page);
+        postBody.append('order_column', order_column);
+        postBody.append('order_direction', order_direction);
+        return {
+            url: `/mbs/regist201/doPgmListSearch.mb`,
+            fetchOptions: {
+                method: 'POST',
+                body: postBody,
+                ...DEFAULT_FETCH_OPTIONS
             }
         }
     }

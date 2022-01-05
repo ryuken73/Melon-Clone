@@ -38,7 +38,7 @@ const ArchiveRecentPage = props => {
     const {history} = props;
     const handleOnClick = React.useCallback(()=>{
         console.log('### history.location changed', history)
-        history.push('/archive/all')
+        history.push('/program/onair')
     },[history])
 
     const result = useQueryArchives(1, 60);

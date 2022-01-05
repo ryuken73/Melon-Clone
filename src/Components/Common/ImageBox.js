@@ -15,7 +15,7 @@ const Image = styled.img`
     height: auto;
     border-radius: ${prop => prop.borderRadius || "8px"};
     object-fit: ${prop => prop.objectFit || "cover"};
-    aspect-ratio: 1;
+    aspect-ratio: ${prop => prop.aspectRatio || 1};
     vertical-align: bottom;
     transform: scale(1.0);
     transition: transform 0.2s ease-out;
@@ -30,8 +30,18 @@ const Image = styled.img`
             `
         }
     `}
-
 `;
+
+const getExtension = src => {
+    const srcSplit = src.split('.');
+    if(srcSplit.length === 1) {
+        return false;
+    } 
+    return srcSplit[srcSplit.length -1];
+
+}
+
+const IMG_EXT_TRIAL_SET = ['jpg', 'JPG', 'png', 'PNG' ]
 
 const THRESHOLD = CONSTANTS.IMAGE_LAZY_SHOW_THRESHOLD
 
@@ -46,7 +56,9 @@ const ImageBox = props => {
         isResizeOnHover=false,
         isHoverInnerElement=false,
         lazyLoading=true,
-        objectFit="cover"
+        objectFit="cover",
+        withoutSrcExtension=false,
+        ...restProps
     } = props;
     const imgRef = React.useRef(null);
     const observerRef = React.useRef();
@@ -86,8 +98,32 @@ const ImageBox = props => {
 
 
     const onError = React.useCallback(event => {
-        event.target.src='/images/loading-album.png';
-    },[])
+        if(!withoutSrcExtension){
+            event.target.src='/images/loading-album.png';
+            return;
+        }
+        const extension = getExtension(event.target.src);
+        if(extension === 'jpg'){
+            event.target.src = `${event.target.src.replace('jpg', 'JPG')}`
+            return
+        } else if(extension === 'JPG'){
+            event.target.src = `${event.target.src.replace('JPG', 'png')}`
+            return
+        } else if(extension === 'png'){
+            event.target.src = `${event.target.src.replace('png', 'PNG')}`
+            return
+        } else if(extension === 'PNG'){
+            event.target.src = `${event.target.src.replace('PNG', 'gif')}`
+            return
+        } else if(extension === 'gif'){
+            event.target.src = `${event.target.src.replace('gif', 'GIF')}`
+            return
+        } else {
+            event.target.src='/images/loading-album.png';
+        }
+        return
+    },[withoutSrcExtension])
+
     return (
         <Container>
             <Image
@@ -102,6 +138,7 @@ const ImageBox = props => {
                 isResizeOnHover={isResizeOnHover}
                 isHoverInnerElement={isHoverInnerElement}
                 objectFit={objectFit}
+                {...restProps}
                 // loading="lazy"
                 // loaded={loaded}
                 // onLoad={showImage}

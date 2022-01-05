@@ -11,9 +11,12 @@ const queryAll = async ({queryKey}) => {
   return response.json()
 };
 
-const useQueryProgramList = (channel_cd='A',enabled=true) => {
-  const {url, fetchOptions} = apiMap['doProgramList'](1, 30, channel_cd);
-  const searchResult = useQuery(['doListProgramList', url, fetchOptions, channel_cd, 'programList'], queryAll, {
+const useQueryProgramList = (chan_cd='A',enabled=true) => {
+  const {url, fetchOptions} = 
+    chan_cd === 'ONAIR' || chan_cd === 'END' ?
+    apiMap['doPgmListSearch.mb']({}) :
+    apiMap['doProgramList'](1, 30, chan_cd) ;
+  const searchResult = useQuery(['doListProgramList', url, fetchOptions, chan_cd, 'programList'], queryAll, {
     enabled
   });
   return searchResult;

@@ -6,6 +6,7 @@ import {Switch, Route} from 'react-router-dom';
 import AlbumListPage from 'Components/Album/AlbumList/AlbumListPage';
 import AlbumDetailPage from 'Components/Album/AlbumDetail/AlbumDetailPage';
 import ArtistDetailPage from 'Components/Artist/ArtistDetail/ArtistDetailPage';
+import ProgramPage from 'Components/Archive/ProgramPage';
 import SearchResultPage from 'Components/SearchResult/SearchResultPage';
 import SongView from 'Views/SongView';
 import PortalView from 'Components/Portal/PortalPage';
@@ -78,6 +79,7 @@ function App() {
           <Route path="/song/:id" render={(routerProps)=><SongView {...routerProps} />} />
           <Route path="/artist/:artist_name/:category" render={(routerProps)=><ArtistDetailPage {...routerProps} />} />
           <Route path="/searchResult/:category" render={(routerProps)=><SearchResultPage {...routerProps} />} />
+          <Route path="/program/:category" render={(routerProps)=><ProgramPage {...routerProps} />} />
           <Route render={()=><withRouterNotFoundView />} />
         </Switch>
       </CenterPane>
