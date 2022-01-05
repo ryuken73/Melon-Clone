@@ -21,6 +21,7 @@ const groupBy = (key, archives, programs) => {
                 'pgm_nm': archive['pgm_nm'],
                 'dj': archive['dj'],
                 'last_brd_time': archive['brd_time'],
+                'chan_cd': archive['chan_cd'],
                 'chan_cd_full': archive['chan_cd_full'],
                 'eval_imagePath': eval_imagePath,
                 archiveChildren: [archive]
@@ -37,8 +38,8 @@ const ArchiveRecentPage = props => {
     const {history} = props;
     const handleOnClick = React.useCallback(()=>{
         console.log('### history.location changed', history)
-        history.push('/archive')
-    },[history.location])
+        history.push('/archive/all')
+    },[history])
 
     const result = useQueryArchives(1, 60);
     const resultsAM = useQueryProgramList('A');

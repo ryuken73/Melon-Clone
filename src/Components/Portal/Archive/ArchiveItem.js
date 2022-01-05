@@ -31,7 +31,7 @@ function ArchiveItem(props) {
     const {hideRightPane, showMiniArchiveList} = useMediaQueryEasy();
     const {index, archives} = props
     const {addSongsToCurrentPlaylist} = useCurrentPlaylist();
-    const {id, pgm_nm, chan_cd_full, dj, last_brd_time, archiveChildren} = archives;
+    const {id, pgm_nm, chan_cd, chan_cd_full, dj, last_brd_time, archiveChildren} = archives;
     const rownum = index + 1;
     const lastUpdated = `${last_brd_time.slice(0,2)}시${last_brd_time.slice(2,4)}분`
     const reversed = React.useMemo(() => [...archiveChildren].reverse(),[archiveChildren]);
@@ -50,7 +50,7 @@ function ArchiveItem(props) {
                 <Box flexShrink={0} minWidth="20px">
                     <TextBox 
                         fontSize="14px" 
-                        color={chan_cd_full === 'AM' ?'burlywood':'lightskyblue'}
+                        color={chan_cd === 'A' ?'burlywood':'lightskyblue'}
                         text={`[${chan_cd_full}]`}
                         mr="5px"
                         ml="3px"
