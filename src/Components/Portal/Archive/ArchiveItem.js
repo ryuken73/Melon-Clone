@@ -28,7 +28,7 @@ const RowReverseContainer = styled(Box)`
 function ArchiveItem(props) {
     // const {WIDTH_TO_HIDE_SIDE_PANEL} = CONSTANTS;
     // const hideRightPane = useMediaQuery(`(max-width:${WIDTH_TO_HIDE_SIDE_PANEL})`);
-    const {hideRightPane, showMiniArchiveList} = useMediaQueryEasy();
+    const {hideRightPane, showShortArchiveList} = useMediaQueryEasy();
     const {index, archives} = props
     const {addSongsToCurrentPlaylist} = useCurrentPlaylist();
     const {id, pgm_nm, chan_cd, chan_cd_full, dj, last_brd_time, archiveChildren} = archives;
@@ -40,7 +40,7 @@ function ArchiveItem(props) {
         const archive = reversed[index];
         addSongsToCurrentPlaylist(archive, true);
     },[addSongsToCurrentPlaylist,reversed])
-    const UPDATE_TEXT = showMiniArchiveList ? 'Last Updated: ' : 'Updated';
+    const UPDATE_TEXT = showShortArchiveList ? 'Last Updated: ' : 'Updated';
     return (
         <Container>
             <RowContainer>
@@ -58,7 +58,7 @@ function ArchiveItem(props) {
                     </TextBox>
                 </Box>
                 <TextBox fontSize="14px" color="white" text={pgm_nm}></TextBox>
-                <Box ml="auto" mr="20px">
+                <Box ml="auto" minWidth="100px" mr="20px">
                     <TextBox cursor="auto" opacity="0.5" text={`${UPDATE_TEXT} ${lastUpdated}`}></TextBox>
                 </Box>
             </RowContainer>

@@ -28,7 +28,7 @@ const NumberContainer = styled(Box)`
 
 const SongItemHeaderInSongScroll = props => {
     const {songs, total, ...rest} = props;
-    const {showMiniArchiveList} = useMediaQueryEasy()
+    const {showShortArchiveList} = useMediaQueryEasy()
     // console.log('### in SongItemHeaderInAlbumDetail: ', receipt_no)
     const {toggleAllSongChecked, isAllChecked} = useSongHelper();
     const toggleAllChecked = React.useCallback(checked => {
@@ -57,7 +57,7 @@ const SongItemHeaderInSongScroll = props => {
                     {/* 앨범 */}
                     <TextBox containerProps={{marginRight:"15px"}} text="앨범명" {...rest}></TextBox>
                 </Box>
-                <Box width="5%" display={showMiniArchiveList ? "none":"flex"} flexDirection="row" alignItems="center">
+                <Box width="5%" display={showShortArchiveList ? "none":"flex"} flexDirection="row" alignItems="center">
                     {/* 발매일 */}
                     <TextBox containerProps={{marginRight:"15px"}} text="발매일" {...rest}></TextBox>
                 </Box>

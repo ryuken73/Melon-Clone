@@ -40,7 +40,7 @@ const SongIteminSearchAll = props => {
     const {song, rownum, ...rest} = props;
     const [hovered, setHovered] = React.useState(false);
     const {addSongsToCurrentPlaylist} = useCurrentPlaylist();
-    const {showMiniArchiveList} = useMediaQueryEasy()
+    const {showShortArchiveList} = useMediaQueryEasy()
     const {checked, addChecked, delChecked} = useSongHelper(song.id);
     const downloadFile = useDownloadSong([song]);
 
@@ -105,7 +105,7 @@ const SongIteminSearchAll = props => {
                 <Box width="25%">
                     <LinkAlbum album_name={song.album_name} receipt_no={song.receipt_no}></LinkAlbum>
                 </Box>
-                <Box width="5%" display={showMiniArchiveList ? "none":"flex"}>
+                <Box width="5%" display={showShortArchiveList ? "none":"flex"}>
                     {/* 발매일 */}
                     <TextBox text={release_year ? `${release_year}년`:''} {...rest} cursor="auto" color="darkgrey"></TextBox>
                 </Box>
