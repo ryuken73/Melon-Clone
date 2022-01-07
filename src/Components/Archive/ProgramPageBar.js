@@ -25,21 +25,20 @@ const SubContainer = styled(Box)`
 `
 
 const PATHS = {
-    '방송중': '/program/onair',
-    '방송종료': '/program/end',
     'POWER FM': '/program/powerFM',
-    'LOVE FM': '/program/loveFM'
+    'LOVE FM': '/program/loveFM',
+    '방송종료': '/program/end',
 }
 
 const findPathKeyByCategory = category => {
     const index = Object.values(PATHS).findIndex(path => path.endsWith(category));
-    return Object.keys(PATHS)[index] || '방송중';
+    return Object.keys(PATHS)[index] || 'POWER FM';
 }
 
 function ProgramPageBar(props) {
     const {history, match, location} = props;
     const {category} = match.params;
-    const [activeTab, setActiveTab] = React.useState('방송중');
+    const [activeTab, setActiveTab] = React.useState('POWER FM');
     React.useEffect(()=>{
         const tabname = findPathKeyByCategory(category)
         setActiveTab(tabname);

@@ -12,7 +12,7 @@ const Container = styled(Box)`
     /* display: grid; */
     /* grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr; */
     display: flex;
-    /* flex-wrap: wrap; */
+    flex-wrap: wrap;
     height: ${prop => prop.height || "auto"};
     width: ${prop => prop.height || "auto"};
 
@@ -40,6 +40,7 @@ const ProgramList = props  => {
             style={{ width:'100%', height: `calc(${fullViewHeightMediaQuery} - 100px)` }}
         >
             <Container>
+                {chan_cd !== 'END' && (
                 <Masonry columns={3} spacing={1}>
                     {allPrograms.map(program => (
                         <ProgramBox
@@ -48,6 +49,15 @@ const ProgramList = props  => {
                         ></ProgramBox>
                     ))}
                 </Masonry>
+                )}
+                {chan_cd === 'END' && (
+                    allPrograms.map(program => (
+                        <ProgramBox
+                            key={program.pgm_cd}
+                            program={program}
+                        ></ProgramBox>
+                    ))
+                )}
            </Container>
         </ScrollBarWithColor>
     )
