@@ -1,11 +1,6 @@
 import {apiMap} from 'config/apis';
-import {useQuery} from 'react-query';
+import {useQueries} from 'react-query';
 import {getString} from 'lib/util';
-
-const getDateTimeString = () => {
-    const now = new Date();
-    return getString(now, {sep:''}).substring(0,12);
-}
 
 const getDateString = (dayBefore) => {
     const targetDate = new Date(new Date().getTime() + dayBefore*24*60*60*1000);
@@ -22,20 +17,31 @@ const queryAll = async ({queryKey}) => {
   return response.json()
 };
 
+const DEFAULT_PARAMS = {
+  page_num: 1,
+  page_sizes: 60,
+  scn: 'archive', 
+  query: `brd_dd >= ${getDateString(-1)}`,
+  orderby: "order by brd_dd desc, brd_time desc",
+  bool: true,
+}
 
-const useQueryArchives = (page_num=1, page_sizes=60) => {
-  const params = {
-    page_num,
-    page_sizes,
-    scn: 'archive', 
-    query: `brd_dd >= ${getDateString(-1)}`,
-    orderby: "order by brd_dd desc, brd_time desc",
-    bool: true
-  }
 
-  const {url, fetchOptions} = apiMap.searchMusicAll({...params});
-  const searchResult = useQuery(['searchMusicAll', url, fetchOptions, params, 'archive'], queryAll);
-  return searchResult;
+const useQueryArchives = (queryOptions, enabled=true) => {
+  const optionsArray = Array.isArray(queryOptions) ? queryOptions : [queryOptions];
+  const result = useQueries(optionsArray.map(options => {
+    const params = {
+      ...DEFAULT_PARAMS,
+      ...options
+    }
+    const {url, fetchOptions} = apiMap.searchMusicAll({...params});
+    return {
+      queryKey: ['searchMusicAll', url, fetchOptions, params, 'archive'],
+      queryFn: queryAll,
+      enabled
+    }
+  }))
+  return result;
 } 
 
 export default useQueryArchives;

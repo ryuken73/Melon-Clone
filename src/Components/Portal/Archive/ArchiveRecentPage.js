@@ -8,6 +8,12 @@ import useQueryProgramList from 'hooks/useQueryProgramList'
 import createArchive from 'lib/archiveClass';
 import createProgramList from 'lib/programInfoClass';
 import ArchiveList from 'Components/Portal/Archive/ArchiveList';
+import {getString} from 'lib/util';
+
+const getDateString = (dayBefore) => {
+    const targetDate = new Date(new Date().getTime() + dayBefore*24*60*60*1000);
+    return getString(targetDate, {sep:''}).substring(0,8);
+}
 
 const groupBy = (key, archives, programs) => {
     return archives.reduce((acc, archive) => {
@@ -41,13 +47,19 @@ const ArchiveRecentPage = props => {
         history.push('/program/onair')
     },[history])
 
-    const result = useQueryArchives(1, 60);
+    const queryOptions = {
+        page_sizes: 60,
+        query: `brd_dd >= ${getDateString(-1)}`,
+        orderby: "order by brd_dd desc, brd_time desc",
+    }
+
+    const result = useQueryArchives(queryOptions);
     const resultsAM = useQueryProgramList('A');
     const resultsFM = useQueryProgramList('F');
     const programs = [...createProgramList(resultsAM.data), ...createProgramList(resultsFM.data)];
-    const archives = React.useMemo(() => createArchive(result.data), [result.data]);
+    const archives = React.useMemo(() => createArchive(result[0].data), [result]);
     const groupedArchives = groupBy('pgm_cd', archives, programs).slice(0,20)
-    console.log('@@@', archives, groupedArchives)
+    console.log('@@@', result, archives, groupedArchives)
     const {refetch} = result;
 
     const refresh = React.useCallback(()=>{
