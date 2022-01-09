@@ -1,10 +1,8 @@
 import React from 'react'
 import Box from '@mui/material/Box';
 import styled from 'styled-components';
-import AlbumBoxImage from 'Components/Album/AlbumBoxImage';
+import ProgramBoxImage from 'Components/Archive/ProgramBoxImage';
 import TextBox from '../Common/TextBox';
-import ImageBox from '../Common/ImageBox';
-import LinkArtist from 'Components/Links/LinkArtist';
 
 const Container = styled(Box)`
     display: flex;
@@ -15,23 +13,14 @@ const Container = styled(Box)`
     padding: 5px;
     height: ${prop => prop.height || "auto"};
     width: ${prop => prop.height || "auto"};
-    /* border: 2px solid grey; */
     border-radius: 5px;
 `
 
 const ArchiveBox = props => {
     const {
-        // receipt_no=0,
-        // nameAlbum="잊어야 한다는", 
-        // nameArtist="김광석", 
-        // matched,
-        // imagePath="/images/no_image_black.jpg", 
         program = {},
-        resizeOnHover=true,
         preserveHtmlTag=false,
         history,
-        lazyLoading=true,
-        // releaseYear
     } = props;
     const {
         pgm_cd,
@@ -45,15 +34,16 @@ const ArchiveBox = props => {
 
     return (
         <Container>
-            <ImageBox 
-                key={pgm_cd}
-                width="100%"
-                height="auto"
+            <ProgramBoxImage 
+                pgm_cd={pgm_cd}
+                title={pgm_nm}
+                resizeOnHover={false}
                 objectFit="contain"
-                aspectRatio="0"
                 src={eval_imagePath}
+                aspectRatio="9/5"
+                lazyLoading={true}
                 withoutSrcExtension={true}
-            ></ImageBox>
+            ></ProgramBoxImage>
             <Box marginTop="5px"></Box>
             <TextBox 
                 fontSize="14px" 

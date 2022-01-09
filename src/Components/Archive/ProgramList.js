@@ -1,18 +1,16 @@
 import React from 'react';
 import Box from '@mui/material/Box';
-import Masonry from '@mui/lab/Masonry';
 import styled from 'styled-components';
 import ProgramBox from 'Components/Archive/ProgramBox';
+import TextBox from 'Components/Common/TextBox';
 import ScrollBarWithColor from 'Components/Common/ScrollBarWithColor';
 import useQueryProgramList from 'hooks/useQueryProgramList';
 import useMediaQueryEasy from 'hooks/useMediaQueryEasy';
 import createProgramList from 'lib/programInfoClass';
 
 const Container = styled(Box)`
-    /* display: grid; */
-    /* grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr; */
-    display: flex;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
     height: ${prop => prop.height || "auto"};
     width: ${prop => prop.height || "auto"};
 
@@ -31,6 +29,7 @@ const ProgramList = props  => {
     const result = useQueryProgramList(chan_cd);
     const allPrograms = createProgramList(result.data);
     console.log('^^^:', allPrograms)
+
     const {fullViewHeightMediaQuery} = useMediaQueryEasy();
     return (
         <ScrollBarWithColor 
@@ -40,22 +39,18 @@ const ProgramList = props  => {
             style={{ width:'100%', height: `calc(${fullViewHeightMediaQuery} - 100px)` }}
         >
             <Container>
-                {chan_cd !== 'END' && (
-                <Masonry columns={3} spacing={1}>
-                    {allPrograms.map(program => (
-                        <ProgramBox
-                            key={program.pgm_cd}
-                            program={program}
-                        ></ProgramBox>
-                    ))}
-                </Masonry>
-                )}
-                {chan_cd === 'END' && (
+                {chan_cd !== 'END' && result.isSuccess && (
                     allPrograms.map(program => (
                         <ProgramBox
                             key={program.pgm_cd}
                             program={program}
                         ></ProgramBox>
+                    ))
+                )}
+                {chan_cd === 'END' && (
+                    allPrograms.map(program => (
+                        <TextBox text={program.pgm_nm}
+                        ></TextBox>
                     ))
                 )}
            </Container>

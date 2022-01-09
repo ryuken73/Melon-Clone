@@ -4,9 +4,7 @@ import styled from 'styled-components';
 import CommonPageHeader from 'Components/Common/CommonPageHeader';
 import TextBox from 'Components/Common/TextBox';
 import TextBoxHighlight from 'Components/Common/TextBoxHighlight';
-import queryString from 'query-string';
-import {qsToNavigateInSearchResult} from 'lib/util';
-import {Switch, Route, withRouter} from 'react-router-dom';
+import {withRouter} from 'react-router-dom';
 
 const Container = styled(Box)`
     display: flex;

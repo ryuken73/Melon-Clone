@@ -44,7 +44,7 @@ const ArchiveRecentPage = props => {
     const {history} = props;
     const handleOnClick = React.useCallback(()=>{
         console.log('### history.location changed', history)
-        history.push('/program/onair')
+        history.push('/program/powerFM')
     },[history])
 
     const queryOptions = {
@@ -60,7 +60,7 @@ const ArchiveRecentPage = props => {
     const archives = React.useMemo(() => createArchive(result[0].data), [result]);
     const groupedArchives = groupBy('pgm_cd', archives, programs).slice(0,20)
     console.log('@@@', result, archives, groupedArchives)
-    const {refetch} = result;
+    const {refetch} = result[0];
 
     const refresh = React.useCallback(()=>{
         refetch()
