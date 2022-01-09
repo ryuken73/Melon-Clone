@@ -14,7 +14,7 @@ const Container = styled(Box)`
     background: transparent;
 `
 function ScrollBarVirtual(props) {
-    const {songs, fetchNextPage, rowHeight=60, heightMinus="220px"} = props;
+    const {songs, fetchNextPage, rowHeight=60, heightMinus="220px", ItemElement} = props;
     const [scrollRefTime, setScrollRefTime] = React.useState(Date.now());
     const category="";
     const replaceRequired = false;
@@ -59,13 +59,13 @@ function ScrollBarVirtual(props) {
                             }}
                         >
                             <Box key={song.id} px="10px">
-                                <SongIteminSearchAll
+                                <ItemElement
                                     rownum={virtualRow.index}
                                     fontSize="14px"
                                     color="white"
                                     song={song}
                                     width="100%"
-                                ></SongIteminSearchAll>
+                                ></ItemElement>
                                 <Divider opacity="0.2" margin="0px" mr={"15px"}></Divider>
                             </Box>
                         </div>

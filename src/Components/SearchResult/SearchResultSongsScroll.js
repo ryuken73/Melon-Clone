@@ -11,6 +11,7 @@ import queryString from 'query-string';
 import {withRouter} from 'react-router-dom';
 import useInfiniteData from 'hooks/useInfiniteData';
 import useSearchMusicAllInfinite from 'hooks/useSearchMusicAllInfinite';
+import SongIteminSearchAll from 'Components/Song/SongIteminSearchAll';
 
 const Container = styled(Box)`
     display: flex;
@@ -68,6 +69,7 @@ function SearchResultSongsScroll(props) {
                 fetchNextPage={fetchNextPage}
                 rowHeight={57}
                 heightMinus="220px"
+                ItemElement={SongIteminSearchAll}
             >
             </ScrollBarVirtual>
             {/* <ScrollBarRenderIfShow
