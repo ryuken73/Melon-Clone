@@ -3,7 +3,6 @@ import Box from '@mui/material/Box';
 import styled from 'styled-components';
 import ScrollBarWithColor from 'Components/Common/ScrollBarWithColor';
 import { useVirtual } from "react-virtual";
-import SongIteminSearchAll from 'Components/Song/SongIteminSearchAll';
 import Divider from '@mui/material/Divider';
 import useMediaQueryEasy from 'hooks/useMediaQueryEasy';
 
@@ -14,13 +13,13 @@ const Container = styled(Box)`
     background: transparent;
 `
 function ScrollBarVirtual(props) {
-    const {songs, fetchNextPage, rowHeight=60, heightMinus="220px", ItemElement} = props;
+    const {items, fetchNextPage, rowHeight=60, heightMinus="220px", ItemElement} = props;
     const [scrollRefTime, setScrollRefTime] = React.useState(Date.now());
     const category="";
     const replaceRequired = false;
     const parentRef = React.useRef();
     const rowVirtualizer = useVirtual({
-        size: songs.length,
+        size: items.length,
         overscan: 10,
         parentRef,
         estimateSize: React.useCallback(() => rowHeight, [rowHeight])
@@ -44,8 +43,8 @@ function ScrollBarVirtual(props) {
                 }}
             >
                 {rowVirtualizer.virtualItems.map(virtualRow => {
-                    const song = songs[virtualRow.index];
-                    console.log(`${song.id}::${virtualRow.index}`)
+                    const item = items[virtualRow.index];
+                    console.log(`${item.id}::${virtualRow.index}`)
                     return (
                         <div
                             key={virtualRow.index}
@@ -58,12 +57,12 @@ function ScrollBarVirtual(props) {
                                 transform: `translateY(${virtualRow.start}px)`
                             }}
                         >
-                            <Box key={song.id} px="10px">
+                            <Box key={item.id} px="10px">
                                 <ItemElement
                                     rownum={virtualRow.index}
                                     fontSize="14px"
                                     color="white"
-                                    song={song}
+                                    item={item}
                                     width="100%"
                                 ></ItemElement>
                                 <Divider opacity="0.2" margin="0px" mr={"15px"}></Divider>

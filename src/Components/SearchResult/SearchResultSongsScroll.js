@@ -65,7 +65,7 @@ function SearchResultSongsScroll(props) {
                 total={total}
             ></SongItemHeaderInSongsScroll>
             <ScrollBarVirtual
-                songs={songs}
+                items={songs}
                 fetchNextPage={fetchNextPage}
                 rowHeight={57}
                 heightMinus="220px"

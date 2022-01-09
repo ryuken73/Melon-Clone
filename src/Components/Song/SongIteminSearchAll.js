@@ -37,7 +37,7 @@ const Container = styled(Box)`
 
 const SongIteminSearchAll = props => {
     const {history} = props;
-    const {song, rownum, ...rest} = props;
+    const {item:song, rownum, ...rest} = props;
     const [hovered, setHovered] = React.useState(false);
     const {addSongsToCurrentPlaylist} = useCurrentPlaylist();
     const {showShortArchiveList} = useMediaQueryEasy()

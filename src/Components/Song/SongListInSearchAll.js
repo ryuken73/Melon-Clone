@@ -29,7 +29,7 @@ const SongListInSearchAll = props => {
                                 rownum={index}
                                 fontSize="13px"
                                 color="white"
-                                song={song}
+                                item={song}
                                 width="100%"
                             ></SongIteminSearchAll>
                             <Divider opacity="0.2" margin="0px" mr={mr}></Divider>
@@ -42,7 +42,7 @@ const SongListInSearchAll = props => {
                             rownum={index}
                             fontSize="14px"
                             color="white"
-                            song={song}
+                            item={song}
                             width="100%"
                         ></SongIteminSearchAll>
                         <Divider opacity="0.2" margin="0px" mr={mr}></Divider>
