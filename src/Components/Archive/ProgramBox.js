@@ -3,6 +3,7 @@ import Box from '@mui/material/Box';
 import styled from 'styled-components';
 import ProgramBoxImage from 'Components/Archive/ProgramBoxImage';
 import TextBox from '../Common/TextBox';
+import {withRouter} from 'react-router-dom'
 
 const Container = styled(Box)`
     display: flex;
@@ -61,4 +62,4 @@ const ArchiveBox = props => {
     )
 }
 
-export default React.memo(ArchiveBox)
+export default React.memo(withRouter(ArchiveBox));
