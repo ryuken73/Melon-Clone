@@ -15,7 +15,8 @@ const Image = styled.img`
     height: auto;
     border-radius: ${prop => prop.borderRadius || "8px"};
     object-fit: ${prop => prop.objectFit || "cover"};
-    aspect-ratio: ${prop => prop.aspectRatio || 1};
+    /* aspect-ratio: ${prop => prop.aspectRatio || 1}; */
+    aspect-ratio: ${prop => prop.aspectRatio || `attr(width) / attr(height)`};
     vertical-align: bottom;
     transform: scale(1.0);
     transition: transform 0.2s ease-out;
@@ -41,13 +42,12 @@ const getExtension = src => {
 
 }
 
-const IMG_EXT_TRIAL_SET = ['jpg', 'JPG', 'png', 'PNG' ]
-
 const THRESHOLD = CONSTANTS.IMAGE_LAZY_SHOW_THRESHOLD
 
 const ImageBox = props => {
     const {
         src='/images/loading-album.png',
+        loadingImage="/images/loading-album.png",
         onClick=()=>{},
         alt="image",
         title="related image",
@@ -69,7 +69,7 @@ const ImageBox = props => {
             return src;
         }
         if(lazyLoading && !isLoaded){
-            return '/images/loading-album.png'
+            return loadingImage;
         }
         if(!lazyLoading){
             return src
@@ -99,7 +99,7 @@ const ImageBox = props => {
 
     const onError = React.useCallback(event => {
         if(!withoutSrcExtension){
-            event.target.src='/images/loading-album.png';
+            event.target.src = loadingImage
             return;
         }
         const extension = getExtension(event.target.src);
@@ -119,7 +119,7 @@ const ImageBox = props => {
             event.target.src = `${event.target.src.replace('gif', 'GIF')}`
             return
         } else {
-            event.target.src='/images/loading-album.png';
+            event.target.src = loadingImage;
         }
         return
     },[withoutSrcExtension])
