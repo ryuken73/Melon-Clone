@@ -59,7 +59,7 @@ const ArchiveRecentPage = props => {
     const programs = [...createProgramList(resultsAM.data), ...createProgramList(resultsFM.data)];
     const archives = React.useMemo(() => createArchive(result[0].data), [result]);
     const groupedArchives = groupBy('pgm_cd', archives, programs).slice(0,20)
-    console.log('@@@', result, archives, groupedArchives)
+    // console.log('@@@', result, archives, groupedArchives)
     const {refetch} = result[0];
 
     const refresh = React.useCallback(()=>{

@@ -19,7 +19,7 @@ const SmallSmartDisplay = styled(SmartDisplay)`
 
 const ArchiveBoraPlayButton = props => {
     const {media_id, archive} = props;
-    console.log('archive:', archive)
+    // console.log('archive:', archive)
     const queryDetail = useQueryArchiveDetail(media_id);
     const {addSongsToCurrentPlaylist} = useCurrentPlaylist();
     const addVideoNPlay = React.useCallback(() => {

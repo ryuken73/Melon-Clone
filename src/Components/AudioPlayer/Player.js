@@ -75,7 +75,7 @@ const Player = (props, playerRef) => {
     const {hide} = props;
     const {src, src_type} = usePlayerState();
     usePlayerSource(src, playerRef, src_type);
-    console.log('in Mini: event handlers. manifestLoaded change:', src, src_type)
+    // console.log('in Mini: event handlers. manifestLoaded change:', src, src_type)
     const {showMessageBox} = useMessageBox();
     const {
         currentPlaylist,
