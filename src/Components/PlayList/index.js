@@ -9,18 +9,18 @@ import Helper from './Helper';
 
 const Container = styled(Box)`
     position: relative;
-    background: ${colors.player};
-    flex-grow: 1;
+    background: ${props => props.mode === 'flat' ? colors.playerLight1 : colors.player};
+    flex-grow: 0;
     display: flex;
     flex-direction: column;
     /* justify-content: center; */
     align-items: center;
 `
 const PlayList = props => {
-    const {hide=false} = props;
+    const {hide=false, mode} = props;
     const [activeTabId, setActiveTabId] = React.useState('song');
     return (
-        <Container>
+        <Container mode={mode}>
             <TabHeader
                 hide={hide}
                 activeTabId={activeTabId}

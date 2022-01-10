@@ -52,6 +52,7 @@ const Artist = styled(Box)`
 const {SRC_TYPE} = CONSTANTS;
 
 function Skin(props, ref) {
+    const {mode, miniPlayerRef, hideRightPane} = props;
     const {song={}} = usePlayerState();
     const {
         albumImageSrc='',
@@ -62,6 +63,21 @@ function Skin(props, ref) {
         src_type = SRC_TYPE.SONG
     } = song;
     console.log('&&&&&', src_type)
+    React.useEffect(() => {
+        if(mode !== 'flat') {
+            return;
+        }
+        const origStream = miniPlayerRef.current.captureStream();
+        const videoOnlyStream = new MediaStream(origStream.getVideoTracks());
+        ref.current.srcObject = null;
+        ref.current.srcObject = videoOnlyStream;
+        if(hideRightPane){
+            ref.current.play();
+            return;
+        } else {
+            ref.current.pause();
+        }
+    },[hideRightPane, miniPlayerRef, ref, mode, song])
     const [pipText, setPIPText] = React.useState('PIP(크게보기)');
     React.useEffect(() => {
         if(document.pictureInPictureElement){
@@ -87,7 +103,8 @@ function Skin(props, ref) {
         <Box>
             {src_type === SRC_TYPE.BORA && (
                 <VideoContainer>
-                    <CustomVideo ref={ref}></CustomVideo>
+                    {mode === 'flat' && (<CustomVideo ref={ref}></CustomVideo>)}
+                    {mode !== 'flat' && (<CustomVideo crossOrigin="anonymous" ref={ref}></CustomVideo>)}
                     <Box>
                         <TextBox onClick={togglePIP} text={pipText}></TextBox>
                     </Box>

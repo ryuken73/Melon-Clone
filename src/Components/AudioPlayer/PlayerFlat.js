@@ -11,6 +11,7 @@ import RepeatIcon from '@mui/icons-material/Repeat';
 import VolumeUpIcon from '@mui/icons-material/VolumeUp';
 import VolumeOffIcon from '@mui/icons-material/VolumeOff';
 import TextBox from 'Components/Common/TextBox';
+import ButtonSmall from 'Components/Common/ButtonSmall';
 import SliderBar from 'Components/Common/SliderBar';
 import ImageBox from 'Components/Common/ImageBox';
 import VerticalSlider from './VerticalSlider';
@@ -90,6 +91,7 @@ const UtilContainer = styled(Box)`
 
 
 const PlayerFlat = (props, playerRef) => {
+    const {setOpenPlaySkinFlat} = props;
     const {src, src_type, song={}} = usePlayerState();
     // const [manifestLoaded=false, duration="00:00"] = usePlayerSource(src, playerRef, src_type);
     // console.log('in Flat: event handlers. manifestLoaded change:', src, manifestLoaded)
@@ -148,6 +150,12 @@ const PlayerFlat = (props, playerRef) => {
     const onClickSkipPrevious = React.useCallback(() => {
         playPrevSong()
     },[playPrevSong]);
+
+    const toggleFlatPlaylist = React.useCallback(() => {
+        setOpenPlaySkinFlat(openPlaySkinFlat => {
+            return !openPlaySkinFlat;
+        })
+    },[setOpenPlaySkinFlat])
 
     const anchorElRef = React.useRef(null);
 
@@ -249,7 +257,9 @@ const PlayerFlat = (props, playerRef) => {
                     <TextBox mr="10px" fontSize="11px" text={duration} marginLeft="5px" color={colors.textMain}></TextBox>
                 </ProgressContainer>
             </ControlContainer>
-            <UtilContainer></UtilContainer>
+            <UtilContainer>
+                <ButtonSmall onClick={toggleFlatPlaylist}>Toggle Playlist</ButtonSmall>
+            </UtilContainer>
         </Container>
    );
 }
