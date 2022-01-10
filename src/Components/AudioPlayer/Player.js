@@ -79,6 +79,7 @@ const Player = (props, playerRef) => {
     const {showMessageBox} = useMessageBox();
     const {
         currentPlaylist,
+        currentPlaylistIndex,
         playNextSong=()=>{},
         playPrevSong=()=>{},
     } = useCurrentPlaylist();
@@ -147,7 +148,7 @@ const Player = (props, playerRef) => {
                              repeatMode === 'one' ? 'red': 'yellow';
     const repeatHoverOpacity = repeatMode === 'none' ?  '0.5' :
                              repeatMode === 'one' ? '0.9': '0.9';
-    const repeatCount = repeatMode === 'one' ? 1 : currentPlaylist.length;
+    const repeatCount = repeatMode === 'one' ? 1 : `${currentPlaylistIndex+1}/${currentPlaylist.length}`;
 
     return (
         <Container hide={hide}>

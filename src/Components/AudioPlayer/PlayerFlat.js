@@ -106,6 +106,7 @@ const PlayerFlat = (props, playerRef) => {
     } = song;
     const {
         currentPlaylist,
+        currentPlaylistIndex,
         playNextSong=()=>{},
         playPrevSong=()=>{},
     } = useCurrentPlaylist();
@@ -178,7 +179,7 @@ const PlayerFlat = (props, playerRef) => {
                              repeatMode === 'one' ? 'red': 'yellow';
     const repeatHoverOpacity = repeatMode === 'none' ?  '0.5' :
                              repeatMode === 'one' ? '0.9': '0.9';
-    const repeatCount = repeatMode === 'one' ? 1 : currentPlaylist.length;
+    const repeatCount = repeatMode === 'one' ? 1 : `${currentPlaylistIndex+1}/${currentPlaylist.length}`;
 
     const width = getFileSizeParams === 'archive' ? '70px':'50px';
     const objectFit = getFileSizeParams === 'archive' ? 'contain':'cover';

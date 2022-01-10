@@ -122,6 +122,10 @@ function useCurrentPlaylist() {
     return currentPlaylist.filter(song => song.checkedPlaylist);
   },[currentPlaylist])
 
+  const currentPlaylistIndex = React.useMemo(() => {
+    return currentPlaylist.findIndex(song => song.src === currentSrc);
+  },[currentPlaylist, currentSrc])
+
   const setCurrentPlaylist = React.useCallback(currentPlaylist => {
     dispatch(setCurrentPlayList({currentPlaylist}));
   }, [dispatch])
@@ -130,6 +134,7 @@ function useCurrentPlaylist() {
     currentPlaylist, 
     checkedSongList,
     checkedCount, 
+    currentPlaylistIndex,
     // addSongToCurrentPlaylist, 
     setCurrentPlaylist,
     addSongsToCurrentPlaylist,
