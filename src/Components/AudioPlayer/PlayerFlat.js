@@ -23,6 +23,7 @@ import usePlayerState from 'hooks/usePlayerState';
 import usePlayerEvent from 'hooks/usePlayerEvent';
 import useCurrentPlaylist from 'hooks/useCurrentPlaylist';
 import useMessageBox from 'hooks/useMessageBox';
+import useAppState from 'hooks/useAppState';
 
 const Progress = styled(Box)`
     flex: 7;
@@ -91,7 +92,7 @@ const UtilContainer = styled(Box)`
 
 
 const PlayerFlat = (props, playerRef) => {
-    const {setOpenPlaySkinFlat} = props;
+    const {toggleFlatPlaylist} = useAppState();
     const {src, src_type, song={}} = usePlayerState();
     // const [manifestLoaded=false, duration="00:00"] = usePlayerSource(src, playerRef, src_type);
     // console.log('in Flat: event handlers. manifestLoaded change:', src, manifestLoaded)
@@ -151,11 +152,9 @@ const PlayerFlat = (props, playerRef) => {
         playPrevSong()
     },[playPrevSong]);
 
-    const toggleFlatPlaylist = React.useCallback(() => {
-        setOpenPlaySkinFlat(openPlaySkinFlat => {
-            return !openPlaySkinFlat;
-        })
-    },[setOpenPlaySkinFlat])
+    const toggleFlatPlaylistOpen = React.useCallback(() => {
+        toggleFlatPlaylist()
+    },[toggleFlatPlaylist]);
 
     const anchorElRef = React.useRef(null);
 
@@ -258,7 +257,7 @@ const PlayerFlat = (props, playerRef) => {
                 </ProgressContainer>
             </ControlContainer>
             <UtilContainer>
-                <ButtonSmall onClick={toggleFlatPlaylist}>Toggle Playlist</ButtonSmall>
+                <ButtonSmall onClick={toggleFlatPlaylistOpen}>Toggle Playlist</ButtonSmall>
             </UtilContainer>
         </Container>
    );

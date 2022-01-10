@@ -3,7 +3,8 @@ import {createSlice} from "@reduxjs/toolkit";
 const initialState = {
     isMessageBoxHidden: true,
     messageBoxText:'',
-    messageBoxLevel: 'success'
+    messageBoxLevel: 'success',
+    openPlaySkinFlat: false
 }
 
 export const appSlice = createSlice({
@@ -22,6 +23,10 @@ export const appSlice = createSlice({
             const {type, payload} = action;
             state.messageBoxLevel = payload;
         },
+        setOpenPlaySkinFlat: (state, action) => {
+            const {type, payload} = action;
+            state.openPlaySkinFlat = payload;
+        }
     }
 })
 
@@ -42,5 +47,11 @@ export const showMessageBoxForDuration = (text, duration=1000, level='success') 
 
 }
 
-export const {setMessageBoxHide, setMessageBoxText, setMessageBoxLevel} = appSlice.actions;
+export const {
+    setMessageBoxHide, 
+    setMessageBoxText, 
+    setMessageBoxLevel,
+    setOpenPlaySkinFlat
+} = appSlice.actions;
+
 export default appSlice.reducer;

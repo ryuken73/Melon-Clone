@@ -20,6 +20,7 @@ import VerticalMenu from './VerticalMenu';
 import colors from 'config/colors' ;
 import MessageBox from './MessageBox';
 import Backdrop from 'Components/Common/BackDrop';
+import PlaylistDrawer from 'PlaylistDrawer';
 import useMediaQueryEasy from 'hooks/useMediaQueryEasy';
 import CONSTANTS from 'config/constants';
 
@@ -51,22 +52,22 @@ const CenterPane = styled(Box)`
   padding-left: ${props => props.hideLeftPane && '20px'};
   padding-right: ${props => props.hideRightPane && '20px'};
 `
-const PlayerSkinFlat = styled(Box)`
-  position: fixed;
-  right: 10px;
-  bottom: ${HEIGHT_OF_FLAT_PLAYER};
-  /* max-height: 300px; */
-  max-height: 450px;
-  height: ${props => props.show ? `calc(100vh - ${HEIGHT_OF_FLAT_PLAYER} )`: '0px'};
-  opacity: ${props => props.show ? '1':'0'};
-  transition: all 1s;
-  /* width: 100%; */
-  /* background: ${colors.highCenterPane}; */
-  background: transparent;
-  /* z-index: 9999; */
-  display: flex;
-  flex-direction: row;
-`
+// const PlayerSkinFlat = styled(Box)`
+//   position: fixed;
+//   right: 10px;
+//   bottom: ${HEIGHT_OF_FLAT_PLAYER};
+//   /* max-height: 300px; */
+//   max-height: 450px;
+//   height: ${props => props.show ? `calc(100vh - ${HEIGHT_OF_FLAT_PLAYER} )`: '0px'};
+//   opacity: ${props => props.show ? '1':'0'};
+//   transition: all 1s;
+//   /* width: 100%; */
+//   /* background: ${colors.highCenterPane}; */
+//   background: transparent;
+//   /* z-index: 9999; */
+//   display: flex;
+//   flex-direction: row;
+// `
 
 const Footer = styled(Box)`
   /* display: ${props => props.show ? 'block':'none'}; */
@@ -83,8 +84,7 @@ function App() {
   const playerRef = React.useRef(null);
   // const playerFlatRef = React.useRef(null);
   const {hideLeftPane, hideRightPane} = useMediaQueryEasy();
-  const [openPlaySkinFlat, setOpenPlaySkinFlat] = React.useState(false);
-  const showPlaySkinFlat = openPlaySkinFlat && hideRightPane;
+  // const [openPlaySkinFlat, setOpenPlaySkinFlat] = React.useState(false);
   return (
     <div className='App'>
       <LeftPane hide={hideLeftPane}>
@@ -111,17 +111,20 @@ function App() {
       </RightPane> 
       <MessageBox></MessageBox>
       <Backdrop></Backdrop>
-      <PlayerSkinFlat show={showPlaySkinFlat}>
+      {/* <PlayerSkinFlat show={showPlaySkinFlat}> */}
         {/* can mirror video, but too much performance degrade */}
         {/* <Box display="flex" bgColor="transparent" alignItems="center" flex="3" height="100%" fontSize="20px">
           <PlayerSkin mode="flat" miniPlayerRef={playerRef} hideRightPane={hideRightPane} ref={playerFlatRef}></PlayerSkin>
         </Box> */}
         {/* <Box ml="auto"> */}
-          <PlayList mode="flat" flex="1" hide={!hideRightPane}></PlayList>
+          {/* <PlayList mode="flat" flex="1" hide={!hideRightPane}></PlayList> */}
         {/* </Box> */}
-      </PlayerSkinFlat>
+      {/* </PlayerSkinFlat> */}
+      <PlaylistDrawer hideRightPane={hideRightPane}>
+      </PlaylistDrawer>
       <Footer show={hideRightPane}>
-        <PlayerFlat setOpenPlaySkinFlat={setOpenPlaySkinFlat} ref={playerRef}></PlayerFlat>
+        {/* <PlayerFlat setOpenPlaySkinFlat={setOpenPlaySkinFlat} ref={playerRef}></PlayerFlat> */}
+        <PlayerFlat ref={playerRef}></PlayerFlat>
       </Footer>
       {/* {hideRightPane && <Footer> 
         <PlayerFlat ref={playerRef}></PlayerFlat>
