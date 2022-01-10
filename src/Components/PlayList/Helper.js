@@ -30,7 +30,7 @@ const Helper = props => {
         downloadFile(checkedSongList, clearCheckedCurrentPlayList)
     },[downloadFile, checkedSongList, clearCheckedCurrentPlayList])
     return (
-        <SnackBar hidden={hidden} containerProps={{width:'200px'}}>
+        <SnackBar hidden={hidden} containerProps={{bottom:'20px', width:'200px'}}>
             <Box flex="1" justifyContent="center">
                 <TextBox textAlign="center" text={text}></TextBox>
             </Box>
