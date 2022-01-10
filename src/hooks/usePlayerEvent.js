@@ -77,17 +77,19 @@ export default function usePlayerEvent(playerRef) {
         if(!player) return;
         const {currentTime} = player;
         const replayTime = currentTime - 10 > 0 ? currentTime - 10 : 0;
+        if(Number.isNaN(replayTime)) return;
         playerRef.current.currentTime = replayTime;
         const replayTimeToSeconds = secondsToTime(replayTime);
         dispatch(setCurrentTime({currentTime:replayTimeToSeconds}));
         const progress = ((replayTime/player.duration) * 100).toFixed(0);
         dispatch(setProgress({progress}))
-    },[player, playerRef])
+    },[dispatch, player, playerRef])
 
     const onClickForward10 = React.useCallback(()=>{
         if(!player) return;
         const {currentTime} = player;
         const forwardTime = currentTime + 10 < player.duration ? currentTime + 10 : player.duration;
+        if(Number.isNaN(forwardTime)) return;
         playerRef.current.currentTime = forwardTime;
         const forwardTimeToSeconds = secondsToTime(forwardTime);
         dispatch(setCurrentTime({currentTime:forwardTimeToSeconds}));

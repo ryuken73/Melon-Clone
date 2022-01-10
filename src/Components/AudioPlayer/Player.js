@@ -115,6 +115,7 @@ const Player = (props, playerRef) => {
         if(duration === undefined || duration === null) return;
         const timeToGo = (duration * progressPercent/100);
         console.log(duration, timeToGo)
+        if(Number.isNaN(timeToGo)) return;
         player.currentTime = timeToGo;
     },[playerRef])
 
