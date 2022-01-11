@@ -8,13 +8,15 @@ const {HEIGHT_OF_FLAT_PLAYER} = CONSTANTS;
 
 const PlayerSkinFlat = styled(Box)`
   position: fixed;
-  right: 10px;
+  right: ${props => props.show ? '10px':'10px'};
   bottom: ${HEIGHT_OF_FLAT_PLAYER};
   max-height: 450px;
   height: ${props => props.show ? `calc(100vh - ${HEIGHT_OF_FLAT_PLAYER} )`: '0px'};
   opacity: ${props => props.show ? '1':'0'};
-  transition: all 1s;
+  transition: opacity 1s, height 0.5s, width 1s;
   background: transparent;
+  z-index: 9999;
+  /* border: 2px solid grey; */
   display: flex;
   flex-direction: row;
 `
