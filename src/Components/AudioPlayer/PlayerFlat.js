@@ -10,6 +10,8 @@ import Forward10Icon from '@mui/icons-material/Forward10';
 import RepeatIcon from '@mui/icons-material/Repeat';
 import VolumeUpIcon from '@mui/icons-material/VolumeUp';
 import VolumeOffIcon from '@mui/icons-material/VolumeOff';
+import QueueMusicIcon from '@mui/icons-material/QueueMusic';
+import PlaylistRemoveIcon from '@mui/icons-material/PlaylistRemove';
 import TextBox from 'Components/Common/TextBox';
 import ButtonSmall from 'Components/Common/ButtonSmall';
 import SliderBar from 'Components/Common/SliderBar';
@@ -88,11 +90,15 @@ const ProgressContainer = styled(Box)`
 `
 const UtilContainer = styled(Box)`
     flex: 2;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
 `
 
 
 const PlayerFlat = (props, playerRef) => {
-    const {toggleFlatPlaylist} = useAppState();
+    const {openPlaySkinFlat, toggleFlatPlaylist} = useAppState();
     const {src, src_type, song={}} = usePlayerState();
     // const [manifestLoaded=false, duration="00:00"] = usePlayerSource(src, playerRef, src_type);
     // console.log('in Flat: event handlers. manifestLoaded change:', src, manifestLoaded)
@@ -251,7 +257,7 @@ const PlayerFlat = (props, playerRef) => {
                     </Popover>
                 </ButtonsContainer>
                 <ProgressContainer>
-                    <TextBox ml="10px" fontSize="11px" text={currentTime} color={colors.textMain}></TextBox>
+                    <TextBox ml="10 px" fontSize="11px" text={currentTime} color={colors.textMain}></TextBox>
                     <Progress>
                         <SliderBar value={progress} onChange={handleMoveProgressSlider} />
                     </Progress>
@@ -259,7 +265,13 @@ const PlayerFlat = (props, playerRef) => {
                 </ProgressContainer>
             </ControlContainer>
             <UtilContainer>
-                <ButtonSmall onClick={toggleFlatPlaylistOpen}>Toggle Playlist</ButtonSmall>
+                <Box ml="auto" mr="20px" mb="10px" >
+                    <HoverButton opacitynormal="0.7" opacityhover="0.9" onClick={toggleFlatPlaylistOpen} sx={{paddingBottom: '0px'}}>
+                        {!openPlaySkinFlat && <QueueMusicIcon sx={{fontSize: '50px'}}></QueueMusicIcon>}
+                        {openPlaySkinFlat && <PlaylistRemoveIcon sx={{fontSize: '50px'}}></PlaylistRemoveIcon>}
+                    </HoverButton>
+                    <TextBox opacity="1" cursor="none" text="플레이리스트"></TextBox>
+                </Box>
             </UtilContainer>
         </Container>
    );
