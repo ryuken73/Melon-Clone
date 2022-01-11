@@ -34,6 +34,15 @@ export const getString = (date, separator={}) => {
     return `${dateString}${sep}${timeString}`;
 }
 
+export const getWeekDay = date => {
+    const WEEK_DAYS = ['일', '월', '화', '수', '목', '금', '토'];
+    if(date instanceof Date){
+        return WEEK_DAYS[date.getDay()];
+    } else {
+        throw Error('date should be type of Date.')
+    }
+}
+
 export const getTimeString = date => {
     return getString(date).split('.')[1];
 }

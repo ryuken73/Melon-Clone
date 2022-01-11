@@ -9,6 +9,7 @@ const dev = {
     "DEFAULT_PROGRAM_ATTACH_PATH": '/Video/pgm_img/',
     "GET_MORE_WAIT_SEC_DEBOUNCE": 100,
     "ALBUM_PAGE_SIZE": 20,
+    "ARCHIVE_PAGE_SIZE": 50,
     "HEIGHT_OF_FLAT_PLAYER": '100px',
     "IMAGE_LAZY_SHOW_THRESHOLD": 0.2,
     "LOGLESS_REDUX_ACTIONS": ["audioPlayer/setProgress", "audioPlayer/setCurrentTime"],

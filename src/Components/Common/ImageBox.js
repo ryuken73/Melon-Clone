@@ -8,15 +8,14 @@ const Container = styled(Box)`
     width: ${prop => prop.height || "auto"};
     overflow: hidden;
     border-radius: 8px;
-
 `
 const Image = styled.img`
     max-width: 100%;
     height: auto;
     border-radius: ${prop => prop.borderRadius || "8px"};
     object-fit: ${prop => prop.objectFit || "cover"};
-    /* aspect-ratio: ${prop => prop.aspectRatio || 1}; */
-    aspect-ratio: ${prop => prop.aspectRatio || `attr(width) / attr(height)`};
+    aspect-ratio: ${prop => prop.aspectRatio || 1};
+    /* aspect-ratio: ${prop => prop.aspectRatio || `attr(width) / attr(height)`}; */
     vertical-align: bottom;
     transform: scale(1.0);
     transition: transform 0.2s ease-out;

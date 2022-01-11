@@ -395,5 +395,19 @@ export const apiMap = {
                 ...DEFAULT_FETCH_OPTIONS
             }
         }
+    },
+    // get program info by pgm_cd
+    'doValueAlbum2.mb': options => {
+        const {pgm_cd} = options;
+        const postBody = new URLSearchParams();
+        postBody.append('pgm_cd', pgm_cd);
+        return {
+            url: `/mbs/regist202/doValueAlbum2.mb`,
+            fetchOptions: {
+                method: 'POST',
+                body: postBody,
+                ...DEFAULT_FETCH_OPTIONS
+            }
+        }
     }
 }

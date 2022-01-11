@@ -2,6 +2,7 @@ import React from 'react';
 import Box from '@mui/material/Box';
 import styled from 'styled-components';
 import ProgramBox from 'Components/Archive/ProgramBox';
+import ProgramEnd from 'Components/Archive/ProgramEnd';
 import TextBox from 'Components/Common/TextBox';
 import ScrollBarWithColor from 'Components/Common/ScrollBarWithColor';
 import useQueryProgramList from 'hooks/useQueryProgramList';
@@ -49,8 +50,10 @@ const ProgramList = props  => {
                 )}
                 {chan_cd === 'END' && (
                     allPrograms.map(program => (
-                        <TextBox text={program.pgm_nm}
-                        ></TextBox>
+                        <ProgramEnd 
+                            key={program.pgm_cd}
+                            program={program}
+                        ></ProgramEnd>
                     ))
                 )}
            </Container>

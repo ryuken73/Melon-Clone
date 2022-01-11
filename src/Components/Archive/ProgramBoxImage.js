@@ -7,6 +7,7 @@ const Container = styled(Box)`
     height: ${prop => prop.height || "auto"};
     width: ${prop => prop.height || "auto"};
     position: relative;
+    cursor: pointer;
 `
 const ProgramBoxImage = props => {
   const {

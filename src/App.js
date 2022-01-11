@@ -124,7 +124,7 @@ function App() {
       </PlaylistDrawer>
       <Footer show={hideRightPane}>
         {/* <PlayerFlat setOpenPlaySkinFlat={setOpenPlaySkinFlat} ref={playerRef}></PlayerFlat> */}
-        <PlayerFlat ref={playerRef}></PlayerFlat>
+        <PlayerFlat hideRightPane={hideRightPane} ref={playerRef}></PlayerFlat>
       </Footer>
       {/* {hideRightPane && <Footer> 
         <PlayerFlat ref={playerRef}></PlayerFlat>

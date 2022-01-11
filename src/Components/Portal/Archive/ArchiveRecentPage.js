@@ -26,7 +26,7 @@ const groupBy = (key, archives, programs) => {
                 [key]: archive[key],
                 'pgm_nm': archive['pgm_nm'],
                 'dj': archive['dj'],
-                'last_brd_time': archive['brd_time'],
+                'last_brd_time': archive['brd_time_str'],
                 'chan_cd': archive['chan_cd'],
                 'chan_cd_full': archive['chan_cd_full'],
                 'eval_imagePath': eval_imagePath,

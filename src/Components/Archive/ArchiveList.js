@@ -2,11 +2,15 @@ import React from 'react';
 import styled from 'styled-components';
 import Box from '@mui/material/Box';
 import TextBox from 'Components/Common/TextBox';
+import ArchiveListTitle from 'Components/Archive/ArchiveListTitle';
+import ArchiveListHeader from 'Components/Archive/ArchiveListHeader';
 import ScrollBarVirtual from 'Components/Common/ScrollBarVirtual'; 
 import ArchiveListItem from 'Components/Archive/ArchiveListItem';
 import useSearchMusicAllInfinite from 'hooks/useSearchMusicAllInfinite';
 import useInfiniteData from 'hooks/useInfiniteData';
+import useQueryProgram from 'hooks/useQueryProgram';
 import CONSTANTS from 'config/constants';
+import createProgramInfo from 'lib/programInfoClass';
 const {ARCHIVE_PAGE_SIZE=50} = CONSTANTS;
 
 const Container = styled(Box)`
@@ -30,9 +34,22 @@ const ArchiveList = props => {
         page_sizes:ARCHIVE_PAGE_SIZE
     })
     const [archives, total] = useInfiniteData(data, 'archives');
+    const {data:programResult} = useQueryProgram(pgm_cd);
     console.log(archives, total);
+    console.log(programResult)
+    const program = createProgramInfo(programResult);
     return (
         <Container>
+            <ArchiveListTitle
+                program={program}
+                total={total}
+            >
+            </ArchiveListTitle>
+            <ArchiveListHeader
+                archives={archives}
+                total={total}
+            >
+            </ArchiveListHeader>
             <ScrollBarVirtual
                 items={archives}
                 fetchNextPage={fetchNextPage}

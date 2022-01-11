@@ -40,8 +40,11 @@ const CenterHeader = props => {
     const onClickMenu = React.useCallback(event => {
         setAnchorEl(event.currentTarget)
     },[])
-    const handleClose = React.useCallback(() => {
-        history.push('/')
+    const handleClose = React.useCallback(event => {
+        const category = event.target.id;
+        category === 'home' && history.push('/');
+        category === 'archive' && history.push('/program/powerFM');
+        category === 'podcast' && history.push('/');
         setAnchorEl(null);
     },[history])
 
@@ -68,9 +71,9 @@ const CenterHeader = props => {
                     'aria-labelledby': 'basic-button'
                 }}
             >
-                <MenuItem onClick={handleClose}>홈</MenuItem>
-                <MenuItem onClick={handleClose}>아카이브</MenuItem>
-                <MenuItem onClick={handleClose}>팟캐스트</MenuItem> 
+                <MenuItem id="home" onClick={handleClose}>홈</MenuItem>
+                <MenuItem id="archive" onClick={handleClose}>아카이브</MenuItem>
+                <MenuItem id="podcast" onClick={handleClose}>팟캐스트</MenuItem> 
             </StyledMenu>
             <CenterHeaderNav historyPushedCount={historyPushedCount} setHistoryPushedCount={setHistoryPushedCount}></CenterHeaderNav>
             <AutoComplete></AutoComplete>

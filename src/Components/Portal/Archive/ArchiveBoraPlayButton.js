@@ -7,7 +7,8 @@ import createArchiveBora from 'lib/archiveBoraClass';
 import useCurrentPlaylist from 'hooks/useCurrentPlaylist';
 
 const SmallSmartDisplay = styled(SmartDisplay)`
-    font-size: 16px !important;
+    /* font-size: 16px !important; */
+    font-size: ${props => props.size === 'medium' ? '20px !important':'16px !important'};
     color: white;
     opacity: 0.5;
     cursor: pointer;
@@ -18,7 +19,7 @@ const SmallSmartDisplay = styled(SmartDisplay)`
 `
 
 const ArchiveBoraPlayButton = props => {
-    const {media_id, archive} = props;
+    const {media_id, archive, size="small"} = props;
     // console.log('archive:', archive)
     const queryDetail = useQueryArchiveDetail(media_id);
     const {addSongsToCurrentPlaylist} = useCurrentPlaylist();
@@ -41,6 +42,7 @@ const ArchiveBoraPlayButton = props => {
     return (
         <SmallSmartDisplay
             onClick={addVideoNPlay}
+            size={size}
         >
         </SmallSmartDisplay>
     );

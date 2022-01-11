@@ -4,6 +4,7 @@ import styled from 'styled-components'
 import TextBox from 'Components/Common/TextBox'
 import useCurrentPlaylist from 'hooks/useCurrentPlaylist'
 import ArchiveBoraPlayButton from 'Components/Portal/Archive/ArchiveBoraPlayButton'
+import {withRouter} from 'react-router-dom'
 import CONSTANTS from 'config/constants';
 // import useMediaQuery from '@mui/material/useMediaQuery';
 import useMediaQueryEasy from 'hooks/useMediaQueryEasy';
@@ -29,17 +30,28 @@ function ArchiveItem(props) {
     // const {WIDTH_TO_HIDE_SIDE_PANEL} = CONSTANTS;
     // const hideRightPane = useMediaQuery(`(max-width:${WIDTH_TO_HIDE_SIDE_PANEL})`);
     const {hideRightPane, showShortArchiveList} = useMediaQueryEasy();
-    const {index, archives} = props
+    const {index, archives, history} = props
     const {addSongsToCurrentPlaylist} = useCurrentPlaylist();
-    const {id, pgm_nm, chan_cd, chan_cd_full, dj, last_brd_time, archiveChildren} = archives;
+    const {id, pgm_cd, pgm_nm, chan_cd, chan_cd_full, dj, last_brd_time, archiveChildren} = archives;
     const rownum = index + 1;
-    const lastUpdated = `${last_brd_time.slice(0,2)}시${last_brd_time.slice(2,4)}분`
+    // const lastUpdated = `${last_brd_time.slice(0,2)}시${last_brd_time.slice(2,4)}분`
+    const lastUpdated = last_brd_time;
     const reversed = React.useMemo(() => [...archiveChildren].reverse(),[archiveChildren]);
     const addSongNPlay = React.useCallback((event) => {
         const index = event.target.id;
         const archive = reversed[index];
         addSongsToCurrentPlaylist(archive, true);
     },[addSongsToCurrentPlaylist,reversed])
+
+    const handleOnClickChannel = React.useCallback(() => {
+        chan_cd === 'A' && history.push(`/program/loveFM`, {chan_cd})
+        chan_cd === 'F' && history.push(`/program/powerFM`, {chan_cd})
+    },[chan_cd, history])
+
+    const handleOnClickPgmNM = React.useCallback(() => {
+        history.push(`/archive/${pgm_cd}/archiveList`, {pgm_cd})
+    },[pgm_cd, history])
+
     const UPDATE_TEXT = showShortArchiveList ? 'Last Updated: ' : 'Updated';
     return (
         <Container>
@@ -54,10 +66,16 @@ function ArchiveItem(props) {
                         text={`[${chan_cd_full}]`}
                         mr="5px"
                         ml="3px"
+                        onClick={handleOnClickChannel}
                     >
                     </TextBox>
                 </Box>
-                <TextBox fontSize="14px" color="white" text={pgm_nm}></TextBox>
+                <TextBox 
+                    fontSize="14px" 
+                    color="white" 
+                    text={pgm_nm}
+                    onClick={handleOnClickPgmNM}
+                ></TextBox>
                 <Box ml="auto" minWidth="100px" mr="20px">
                     <TextBox cursor="auto" opacity="0.5" text={`${UPDATE_TEXT} ${lastUpdated}`}></TextBox>
                 </Box>
@@ -88,4 +106,4 @@ function ArchiveItem(props) {
     )
 }
 
-export default React.memo(ArchiveItem)
+export default React.memo(withRouter(ArchiveItem));

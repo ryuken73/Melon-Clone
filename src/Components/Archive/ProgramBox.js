@@ -3,7 +3,7 @@ import Box from '@mui/material/Box';
 import styled from 'styled-components';
 import ProgramBoxImage from 'Components/Archive/ProgramBoxImage';
 import TextBox from '../Common/TextBox';
-import {withRouter} from 'react-router-dom'
+import {withRouter} from 'react-router-dom';
 
 const Container = styled(Box)`
     display: flex;
@@ -17,7 +17,7 @@ const Container = styled(Box)`
     border-radius: 5px;
 `
 
-const ArchiveBox = props => {
+const ProgramBox = props => {
     const {
         program = {},
         preserveHtmlTag=false,
@@ -44,6 +44,7 @@ const ArchiveBox = props => {
                 aspectRatio="9/5"
                 lazyLoading={true}
                 withoutSrcExtension={true}
+                onClick={handleClickProgram}
             ></ProgramBoxImage>
             <Box marginTop="5px"></Box>
             <TextBox 
@@ -62,4 +63,4 @@ const ArchiveBox = props => {
     )
 }
 
-export default React.memo(withRouter(ArchiveBox));
+export default React.memo(withRouter(ProgramBox));

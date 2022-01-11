@@ -98,6 +98,7 @@ const UtilContainer = styled(Box)`
 
 
 const PlayerFlat = (props, playerRef) => {
+    const {hideRightPane} = props;
     const {openPlaySkinFlat, toggleFlatPlaylist} = useAppState();
     const {src, src_type, song={}} = usePlayerState();
     // const [manifestLoaded=false, duration="00:00"] = usePlayerSource(src, playerRef, src_type);
@@ -265,7 +266,7 @@ const PlayerFlat = (props, playerRef) => {
                 </ProgressContainer>
             </ControlContainer>
             <UtilContainer>
-                <Box ml="auto" mr="20px" mb="10px" >
+                <Box ml="auto" mr="20px" height={!hideRightPane ? "0px":"100%"} >
                     <HoverButton opacitynormal="0.7" opacityhover="0.9" onClick={toggleFlatPlaylistOpen} sx={{paddingBottom: '0px'}}>
                         {!openPlaySkinFlat && <QueueMusicIcon sx={{fontSize: '50px'}}></QueueMusicIcon>}
                         {openPlaySkinFlat && <PlaylistRemoveIcon sx={{fontSize: '50px'}}></PlaylistRemoveIcon>}
