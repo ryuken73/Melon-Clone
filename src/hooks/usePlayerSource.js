@@ -3,7 +3,7 @@ import Hls from 'hls.js';
 import {secondsToTime} from 'lib/util';
 import {setManifestLoaded, setDuration} from 'Components/AudioPlayer/audioPlayerSlice';
 import {useSelector, useDispatch} from 'react-redux';
-import useMediaQueryEasy from './useMediaQueryEasy';
+import useVideoPIP from 'hooks/useVideoPIP'
 import CONSTANTS from 'config/constants';
 
 const {SRC_TYPE} = CONSTANTS;
@@ -12,7 +12,7 @@ export default function usePlayer(src, mediaElementRef, src_type) {
     // console.log('&&',src_type)
     const dispatch = useDispatch();
     const duration = useSelector(state => state.audioPlayer.duration);
-    const {hideRightPane} = useMediaQueryEasy();
+    const {showPIP} = useVideoPIP();
     const manifestLoaded = useSelector(state => state.audioPlayer.manifestLoaded);
     // const [manifestLoaded, setManifestLoaded] = React.useState(false);
     // const [duration, setDuration] = React.useState("00:00");
@@ -27,11 +27,7 @@ export default function usePlayer(src, mediaElementRef, src_type) {
         const handleLoadedMetadata = event => {
             console.log('in usePlayerSource: loadedMetadata', mediaElementRef.current.duration)
             // set video player pip mode automatically in flat mode
-            if(src_type === SRC_TYPE.BORA && hideRightPane){
-                if(!document.pictureInPictureElement){
-                    mediaElementRef.current.requestPictureInPicture();
-                }
-            }
+            showPIP(mediaElementRef);
             if(!isNaN(mediaElementRef.current.duration)){
                 const durationSec = parseInt(mediaElementRef.current.duration);
                 dispatch(setDuration({duration: secondsToTime(durationSec)}));
