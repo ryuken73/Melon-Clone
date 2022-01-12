@@ -31,7 +31,7 @@ const SubTextBox = props => {
 const VerticalMenu = props => {
     const {history} = props;
     const onClickHome = React.useCallback(()=>{history.push('/')},[history.location])
-    const onClickArchive = React.useCallback(()=>{history.push('program/powerFM')},[history.location])
+    const onClickArchive = React.useCallback(()=>{history.push('/program/powerFM')},[history.location])
 
     return (
         <Container>
