@@ -64,6 +64,7 @@ export default function usePlayer(src, mediaElementRef, src_type) {
 
         if(src_type === SRC_TYPE.POT_CAST || src_type === SRC_TYPE.BORA) {
             console.log('!! attach loadedmetadata event handler to media element(not hls) and set media source');
+            mediaElementRef.current.src = null;
             mediaElementRef.current.addEventListener('loadedmetadata', handleLoadedMetadata)
             mediaElementRef.current.src = src;
             dispatch(setManifestLoaded({manifestLoaded:true}));
