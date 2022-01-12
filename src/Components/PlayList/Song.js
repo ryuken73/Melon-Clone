@@ -64,14 +64,15 @@ const Song = props => {
     console.log('^^^^:', id, song_name, artist, checkedPlaylist, currentPlaying)
     // const [loadPlayer, setLoadPlayer] = React.useState(false);
     const [removeFromPlaylist, setChecked] = useSongPlaylist(sequenceId);
-    const {setPlayerSource} = usePlayerState();
+    const {src: currentLoadedSrc, setPlayerSource, playNow} = usePlayerState();
     const onChecked = React.useCallback(() => {
         setChecked(!checkedPlaylist)
     },[checkedPlaylist, setChecked])
     const onDoubleClick = React.useCallback(() => {
         setDoubleClicked(true);
         setPlayerSource(src, albumImageSrc, sequenceId, song);
-    },[src, albumImageSrc, sequenceId, setPlayerSource, song])
+        src === currentLoadedSrc && playNow()
+    },[src, albumImageSrc, sequenceId, setPlayerSource, song, currentLoadedSrc, playNow])
     React.useEffect(() => {
         if(currentPlaying){
             setDoubleClicked(false)

@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {useSelector, useDispatch} from 'react-redux';
-import {setCurrent} from 'Components/AudioPlayer/audioPlayerSlice';
+import {setCurrent, setReqPlayTimestamp} from 'Components/AudioPlayer/audioPlayerSlice';
 import CONSTANTS from 'config/constants';
 const {SRC_TYPE} = CONSTANTS;
 const isSourceAudio = src_type => src_type === SRC_TYPE.SONG || src_type === SRC_TYPE.POT_CAST;
@@ -12,6 +12,7 @@ function usePlayerState() {
   const song = currentPlaylist.find(song => song.src === src);
   const src_type = song?.src_type;
   const dispatch = useDispatch();
+
   const setPlayerSource = React.useCallback((src, image, index, srcObj) => {
     // console.log('&&&&& setPlayerSource', srcObj);
     const {src_type='hls'} = srcObj;
@@ -20,7 +21,13 @@ function usePlayerState() {
     }
     dispatch(setCurrent({src, image, index, srcType:src_type}))
   },[dispatch]);
-  return {src, src_type, image, setPlayerSource, song};
+
+  const playNow = React.useCallback(() => { 
+    const now = Date.now();
+    dispatch(setReqPlayTimestamp({timestamp: now}))
+  },[dispatch])
+
+  return {src, src_type, image, setPlayerSource, playNow, song};
 }
 
 export default usePlayerState;

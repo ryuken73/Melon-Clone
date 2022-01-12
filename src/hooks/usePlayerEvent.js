@@ -29,11 +29,17 @@ export default function usePlayerEvent(playerRef) {
     const manifestLoaded = useSelector(state => state.audioPlayer.manifestLoaded);
     const duration = useSelector(state => state.audioPlayer.duration);
     const repeatMode = useSelector(state => state.audioPlayer.repeatMode);
+    const reqPlayTimestamp = useSelector(state => state.audioPlayer.reqPlayTimestamp);
     // const [isPlaying, setIsPlaying] = React.useState(false);
     // const [currentTime, setCurrentTime] = React.useState("00:00");
     // const [progress, setProgress] = React.useState(0);
     // const [muted, setMuted] = React.useState(false);
     const player = playerRef.current;
+
+    React.useEffect(() => {
+        if(reqPlayTimestamp === null || player === null) return;
+        player.play();
+    },[reqPlayTimestamp, player])
 
     const handlePlaying = React.useCallback(()=>{
         console.log('in usePlayerEvent: handlePlaying')
