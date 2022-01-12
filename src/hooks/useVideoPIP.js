@@ -9,6 +9,8 @@ export default function usePIP() {
     const srcType = useSelector(state => state.audioPlayer.currentSrcType);
     const {hideRightPane} = useMediaQueryEasy();
     const showPIP = React.useCallback( mediaElementRef => {
+        // if(mediaElementRef.current === null) return;
+        // if(mediaElementRef.current.readyState && mediaElementRef.current.readyState === 0) return;
         if(srcType === SRC_TYPE.BORA && hideRightPane){
             if(!document.pictureInPictureElement){
                 mediaElementRef.current.requestPictureInPicture();

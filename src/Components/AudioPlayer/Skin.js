@@ -6,6 +6,7 @@ import TextBox from 'Components/Common/TextBox';
 import VideoPlayer from 'Components/AudioPlayer/VideoPlayer';
 import colors from 'config/colors';
 import usePlayerState from 'hooks/usePlayerState';
+import useVideoPIP from 'hooks/useVideoPIP';
 import CONSTANTS from 'config/constants';
 
 const VideoContainer = styled(Box)`
@@ -56,6 +57,7 @@ function Skin(props, ref) {
     // const {mode, miniPlayerRef, hideRightPane} = props;
     const {mode} = props;
     const {song={}} = usePlayerState();
+    const {showPIP} = useVideoPIP();
     const {
         albumImageSrc='',
         song_name="곡명",
@@ -65,6 +67,14 @@ function Skin(props, ref) {
         src_type = SRC_TYPE.SONG
     } = song;
     console.log('&&&&&', src_type)
+    React.useEffect(() => {
+        if(ref === null){
+            return;
+        }
+        console.log('&&&&', ref.current.readyState)
+        // prevent error when adding new bora mp4 in flat mode
+        ref.current.readyState !== 0 && showPIP(ref);
+    },[showPIP, ref])
     // React.useEffect(() => {
     //     if(mode !== 'flat') {
     //         return;
@@ -83,11 +93,6 @@ function Skin(props, ref) {
     const [pipText, setPIPText] = React.useState('PIP(크게보기)');
     React.useEffect(() => {
         console.log('&&&&& src_type changed', src_type, ref.current);
-        // if src changed from mp4 to hls and pip opened, close pip
-        // if(src_type === 'hls' && document.pictureInPictureElement){
-        //     document.exitPictureInPicture();
-        // }
-        //
         if(document.pictureInPictureElement){
             setPIPText('PIP(돌아가기)')
         } else {
@@ -105,7 +110,7 @@ function Skin(props, ref) {
                 setPIPText('PIP(돌아가기)')
             }
         }
-    },[ref, src_type])
+    },[ref])
 
     const width = getFileSizeParams === 'archive' ? '150px':'150px';
     const objectFit = getFileSizeParams === 'archive' ? 'contain':'cover';
