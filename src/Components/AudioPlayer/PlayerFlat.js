@@ -51,9 +51,9 @@ const CustomVolumeOffIcon = styled(VolumeOffIcon)`
 const CounterAbsolute = styled(Box)`
     position: absolute;
     font-size: 12px;
-    width: 12px;
+    width: 40px;
     top: 5px;
-    left: 18px;
+    left: 5px;
     color: red;
     opacity: 0.7;
 `
@@ -266,7 +266,7 @@ const PlayerFlat = (props, playerRef) => {
                 </ProgressContainer>
             </ControlContainer>
             <UtilContainer>
-                <Box ml="auto" mr="20px" height={!hideRightPane ? "0px":"100%"} >
+                <Box ml="auto" mt="5px" mr="20px" height={!hideRightPane ? "0px":"100%"} >
                     <HoverButton opacitynormal="0.7" opacityhover="0.9" onClick={toggleFlatPlaylistOpen} sx={{paddingBottom: '0px'}}>
                         {!openPlaySkinFlat && <QueueMusicIcon sx={{fontSize: '50px'}}></QueueMusicIcon>}
                         {openPlaySkinFlat && <PlaylistRemoveIcon sx={{fontSize: '50px'}}></PlaylistRemoveIcon>}

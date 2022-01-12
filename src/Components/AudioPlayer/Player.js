@@ -65,9 +65,9 @@ const CustomVolumeOffIcon = styled(VolumeOffIcon)`
 const CounterAbsolute = styled(Box)`
     position: absolute;
     font-size: 10px;
-    width: 12px;
+    width: 40px;
     top: 5px;
-    left: 22px;
+    left: 9px;
     opacity: 0.7;
 `
 
