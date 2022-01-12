@@ -18,7 +18,7 @@ function usePlayerState() {
     if(isSourceAudio(src_type) && document.pictureInPictureElement){
         document.exitPictureInPicture();
     }
-    dispatch(setCurrent({src, image, index}))
+    dispatch(setCurrent({src, image, index, srcType:src_type}))
   },[dispatch]);
   return {src, src_type, image, setPlayerSource, song};
 }
