@@ -70,8 +70,8 @@ const Song = props => {
     },[checkedPlaylist, setChecked])
     const onDoubleClick = React.useCallback(() => {
         setDoubleClicked(true);
-        setPlayerSource(src, albumImageSrc, sequenceId);
-    },[src, albumImageSrc, sequenceId, setPlayerSource])
+        setPlayerSource(src, albumImageSrc, sequenceId, song);
+    },[src, albumImageSrc, sequenceId, setPlayerSource, song])
     React.useEffect(() => {
         if(currentPlaying){
             setDoubleClicked(false)

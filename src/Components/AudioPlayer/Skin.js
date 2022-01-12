@@ -84,10 +84,9 @@ function Skin(props, ref) {
     React.useEffect(() => {
         console.log('&&&&& src_type changed', src_type, ref.current);
         // if src changed from mp4 to hls and pip opened, close pip
-        if(src_type === 'hls' && document.pictureInPictureElement){
-            // document.pictureInPictureElement.src = null; //this makes access violation!
-            document.exitPictureInPicture();
-        }
+        // if(src_type === 'hls' && document.pictureInPictureElement){
+        //     document.exitPictureInPicture();
+        // }
         //
         if(document.pictureInPictureElement){
             setPIPText('PIP(돌아가기)')

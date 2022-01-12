@@ -17,7 +17,7 @@ export default function usePlayer(src, mediaElementRef, src_type) {
     // const mediaElementRef = React.useRef(null);
     const hlsRef = React.useRef(null);
     React.useEffect(()=>{
-        console.log('### src changed!:', src);
+        console.log('### src changed!:', src, mediaElementRef.current);
 
         //initialize manifestLoaded to false for playing HLS
         dispatch(setManifestLoaded({manifestLoaded:false}));
@@ -44,6 +44,7 @@ export default function usePlayer(src, mediaElementRef, src_type) {
         //
         if(src_type === SRC_TYPE.SONG && Hls.isSupported()){
             console.log('!! attach mediaElement(audio) to hlsRef')
+            mediaElementRef.current.src = null;
             hlsRef.current = new Hls();
             hlsRef.current.attachMedia(mediaElementRef.current);
             hlsRef.current.on(Hls.Events.MEDIA_ATTACHED, () => {
@@ -65,6 +66,7 @@ export default function usePlayer(src, mediaElementRef, src_type) {
         }
 
         return (() => {
+            console.log('src change. usePlayerSource umount:', mediaElementRef.current)
             if(mediaElementRef.current){
                 mediaElementRef.current.removeEventListener('loadedmetadata', handleLoadedMetadata)
             }

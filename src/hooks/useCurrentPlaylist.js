@@ -71,10 +71,10 @@ function useCurrentPlaylist() {
     showMessageBox(message, 2000, level);
     if(playAfterAdd){
       const songToPlay = songsArray[songsArray.length - 1];
-      level === 'success' && setPlayerSource(songToPlay.src, songToPlay.albumImageSrc, 0);
+      level === 'success' && setPlayerSource(songToPlay.src, songToPlay.albumImageSrc, 0, songToPlay);
       if(level === 'error'){
         const alreadySongIndex = currentPlaylist.findIndex(song => song.id === songToPlay.id)
-        setPlayerSource(songToPlay.src, songToPlay.albumImageSrc, alreadySongIndex);
+        setPlayerSource(songToPlay.src, songToPlay.albumImageSrc, alreadySongIndex, songToPlay);
       }
     }
     return songsArray.length;
@@ -98,7 +98,7 @@ function useCurrentPlaylist() {
     const currentSongIndex = currentPlaylist.findIndex(song => song.src === currentSrc);
     const nextSongIndex = currentSongIndex === currentPlaylist.length -1 ? 0 : currentSongIndex + 1;
     const nextSong = currentPlaylist[nextSongIndex]
-    setPlayerSource(nextSong.src, nextSong.albumImageSrc, nextSongIndex);
+    setPlayerSource(nextSong.src, nextSong.albumImageSrc, nextSongIndex, nextSong);
   },[currentSrc, currentPlaylist, setPlayerSource])
 
   const playPrevSong = React.useCallback(() => {
@@ -106,7 +106,7 @@ function useCurrentPlaylist() {
     const currentSongIndex = currentPlaylist.findIndex(song => song.src === currentSrc);
     const prevSongIndex = currentSongIndex === 0 ? currentPlaylist.length -1 : currentSongIndex - 1;
     const prevSong = currentPlaylist[prevSongIndex]
-    setPlayerSource(prevSong.src, prevSong.albumImageSrc, prevSongIndex);
+    setPlayerSource(prevSong.src, prevSong.albumImageSrc, prevSongIndex, prevSong);
   },[currentSrc, currentPlaylist, setPlayerSource])
   
   const checkedCount = React.useMemo(() => {
