@@ -22,6 +22,7 @@ import MessageBox from './MessageBox';
 import Backdrop from 'Components/Common/BackDrop';
 import PlaylistDrawer from 'PlaylistDrawer';
 import useMediaQueryEasy from 'hooks/useMediaQueryEasy';
+import usePlaylistInStorage from 'hooks/usePlaylistInStorage';
 import CONSTANTS from 'config/constants';
 
 const {HEIGHT_OF_FLAT_PLAYER} = CONSTANTS;
@@ -84,6 +85,8 @@ function App() {
   const playerRef = React.useRef(null);
   // const playerFlatRef = React.useRef(null);
   const {hideLeftPane, hideRightPane} = useMediaQueryEasy();
+  // load saved playlist and sync playlist back afterward
+  usePlaylistInStorage();
   // const [openPlaySkinFlat, setOpenPlaySkinFlat] = React.useState(false);
   return (
     <div className='App'>
