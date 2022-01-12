@@ -6,9 +6,6 @@ import ScrollBarWithColor from '../Common/ScrollBarWithColor';
 import useCurrentPlaylist from 'hooks/useCurrentPlaylist';
 import useMediaQueryEasy from 'hooks/useMediaQueryEasy';
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
-import { setCurrent } from 'Components/AudioPlayer/audioPlayerSlice';
-import { setCurrentPlayList } from './playlistSlice';
-
 
 const Container = styled(Box)`
     && {
