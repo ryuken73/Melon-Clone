@@ -38,10 +38,10 @@ const SongHeader = props => {
     return (
         <Container>
             <SmallCheckBox checked={allChecked} setChecked={onClickSetChecked} />
-            <Box display="flex" alignItems="center" ml="auto" mr="10px" width="90px">
+            {/* <Box display="flex" alignItems="center" ml="auto" mr="10px" width="90px">
                 <TextBox textalign="right" text="반복재생"></TextBox>
                 <HoverButton onClick={onClickRepeat}><RepeatIcon fontSize="small"></RepeatIcon></HoverButton>
-            </Box>
+            </Box> */}
         </Container>
     )   
 }
