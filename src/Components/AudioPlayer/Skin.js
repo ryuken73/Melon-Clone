@@ -71,9 +71,9 @@ function Skin(props, ref) {
         if(ref === null){
             return;
         }
-        console.log('&&&&', ref.current.readyState)
+        // console.log('&&&&', ref.current.readyState)
         // prevent error when adding new bora mp4 in flat mode
-        ref.current.readyState !== 0 && showPIP(ref);
+        // ref.current.readyState !== 0 && showPIP(ref);
     },[showPIP, ref])
     // React.useEffect(() => {
     //     if(mode !== 'flat') {
