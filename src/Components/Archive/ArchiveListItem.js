@@ -97,7 +97,7 @@ const ArchiveListItem = props => {
                 <TextBox color={bora_archive_yn === 'Y' && 'yellow'} text={bora_archive_yn}></TextBox>
                 {deboucedHovered && bora_archive_yn === 'Y' && (
                     <Box flexShrink="1" minWidth="150px" ml="auto" mr="20px">
-                            <HoverButton onClick={addSongNPlay}>
+                            <HoverButton>
                                 <ArchiveBoraPlayButton media_id={media_id} archive={archive} size="medium"></ArchiveBoraPlayButton>
                             </HoverButton>
                             <HoverButton onClick={downloadSong}><FileDownloadIcon fontSize="medium"></FileDownloadIcon></HoverButton>

@@ -68,8 +68,8 @@ function useSongsInAlbum(receipt_no, rownum) {
     addAllSongsInAlbum, 
     addSongByRownum, 
     addSongChecked,
-    addSongByRownumNPlay, 
-    playFirstSongInAlbum,
+    // addSongByRownumNPlay, 
+    // playFirstSongInAlbum,
     allChecked
   } ;
 }

@@ -50,10 +50,6 @@ const SongItemAlbumDetail = props => {
     const deboucedHovered = useDebounce(hovered, 100);
 
     const {rownum, id, song_name, song_name_bold, artist, artist_bold, version, duration, runtime, src, albumImageSrc} = song;
-    // const {id, rownum, song_name, artist, version, runtime, checkedSongList, src, albumImageSrc} = song;
-    // const duration = isNaN(parseInt(runtime)) ? runtime:secondsToTime(runtime)
-
-    // const {addSongByRownum, addSongByRownumNPlay, toggleSongChecked} = useSongsInAlbum(receipt_no, rownum);
     const onChecked = React.useCallback(() => {
         if(checked){
             delChecked(song);
