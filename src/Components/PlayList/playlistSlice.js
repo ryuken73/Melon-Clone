@@ -28,7 +28,9 @@ export const playlistSlice = createSlice({
         removeChecked: (state,action) => {
             const {type, payload} = action;
             state.currentPlaylist = state.currentPlaylist.filter(song => {
-                return song.checkedPlaylist === false;
+                // uncheck below line, if you don't want to remove song from playlist now playing
+                // return song.currentPlaying || song.checkedPlaylist === false; 
+                return song.checkedPlaylist === false; 
             })
             console.log(`## length of song list:`, state.currentPlaylist.length)
         },

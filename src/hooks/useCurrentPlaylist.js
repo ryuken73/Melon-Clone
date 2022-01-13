@@ -81,7 +81,10 @@ function useCurrentPlaylist() {
   },[dispatch, setPlayerSource, showMessageBox, currentPlaylist])
 
   const removeFromCurrentPlaylist = React.useCallback(() => {
-    console.log('### makes new removeFromCurrentPlaylist');
+    console.log('### exit pip otherwise player window remains and act up!');
+    if(document.pictureInPictureElement){
+        document.exitPictureInPicture();
+    }
     dispatch(removeChecked());
   },[dispatch]);
   

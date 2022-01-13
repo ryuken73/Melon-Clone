@@ -141,9 +141,9 @@ export default function usePlayerEvent(playerRef) {
             player.removeEventListener('timeupdate', handleTimeupdate)
             player.removeEventListener('ended', handleEnded)
             player.pause();
-            if(document.pictureInPictureElement){
-                document.exitPictureInPicture();
-            }
+            // if(document.pictureInPictureElement){
+            //     document.exitPictureInPicture();
+            // }
         })
 
     },[manifestLoaded, player, muted, handlePlaying, handlePause, handleTimeupdate, dispatch, handleEnded])
