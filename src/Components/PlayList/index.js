@@ -24,6 +24,7 @@ const PlayList = props => {
         <Container mode={mode}>
             <TabHeader
                 hide={hide}
+                mode={mode}
                 activeTabId={activeTabId}
                 setActiveTabId={setActiveTabId}
             ></TabHeader>

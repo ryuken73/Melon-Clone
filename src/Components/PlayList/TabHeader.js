@@ -16,40 +16,45 @@ const Container = styled(Box)`
 `
 
 const ButtonWrapper = styled(Box)`
-    background: ${props => props.background || 'black'};
+    background: ${props => props.mode === 'flat' ? 'transparent' : 'black'};
     border-radius: 10px;
     margin: 2px;
 `
 const TabHeader = props => {
     const {
         activeTabId='song', 
-        setActiveTabId=()=>{}
+        setActiveTabId=()=>{},
+        mode
      } = props;
      const {currentPlaylist} = useCurrentPlaylist();
 
     const onClickTabHaderButton = React.useCallback(event => {
         setActiveTabId(event.currentTarget.id);
     },[])
+    const activeColor = mode === 'flat' ? 'brown':colors.lightCenterPane;
+    const textColor = mode === 'flat' ? 'black':'white';
     return (
             <Container>
-                <ButtonWrapper>
+                <ButtonWrapper mode={mode}>
                     <ButtonSmall 
                         id='song' 
                         onClick={onClickTabHaderButton} 
-                        background={activeTabId === 'song' ? colors.lightCenterPane:'transparent'} 
-                        hoverBackground={colors.highCenterPane}
+                        background={activeTabId === 'song' ? activeColor:'transparent'} 
+                        // hoverBackground={colors.highCenterPane}
+                        hoverBackground="darkred"
                         fontSize='11px'
                     >
-                        <TextBox text={`곡 ${currentPlaylist.length}`}></TextBox>
+                        <TextBox color={textColor} text={`곡 ${currentPlaylist.length}`}></TextBox>
                     </ButtonSmall>
                     <ButtonSmall 
                         id='playlist' 
                         onClick={onClickTabHaderButton} 
-                        background={activeTabId === 'playlist' ? colors.lightCenterPane:'transparent'} 
-                        hoverBackground={colors.highCenterPane}
+                        background={activeTabId === 'playlist' ? activeColor:'transparent'} 
+                        // hoverBackground={colors.highCenterPane}
+                        hoverBackground="darkred"
                         fontSize='11px'
                     >
-                        <TextBox text="플레이리스트"></TextBox>
+                        <TextBox color={textColor} text="플레이리스트"></TextBox>
                     </ButtonSmall>
                 </ButtonWrapper>
             </Container>
