@@ -49,9 +49,9 @@ const SongList = props => {
                                     <div
                                         ref={provided.innerRef}
                                         {...provided.draggableProps}
-                                        {...provided.dragHandleProps}
+                                        // {...provided.dragHandleProps}
                                     >
-                                     <Song key={index} sequenceId ={index} song={song}></Song>
+                                     <Song key={index} sequenceId ={index} song={song} provided={provided}></Song>
                                     </div>
                                  )}
                             </Draggable>

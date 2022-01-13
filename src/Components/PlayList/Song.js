@@ -5,6 +5,7 @@ import styled, {keyframes, css} from 'styled-components';
 import TextBox from '../Common/TextBox';
 import SmallCheckBox from '../Common/CheckBox';
 import PlayingIcon from 'Components/Common/PlayingIcon';
+import DragHandleIcon from '@mui/icons-material/DragHandle';
 import colors from '../../config/colors';
 import useSongPlaylist from 'hooks/useSongPlaylist';
 import usePlayerState from 'hooks/usePlayerState';
@@ -51,6 +52,17 @@ const SmallSmartDisplay = styled(SmartDisplay)`
     cursor: auto;
     margin-left: 2px;
 `
+const CustomHandleIcon = styled(DragHandleIcon)`
+    && {
+        font-size: 14px;
+        opacity: 0.7;
+        &:hover {
+            opacity: 0.9;
+            font-size: 16px;
+        }
+    }
+`
+
 const Song = props => {
     const defaultSong = {
         id: 1,
@@ -59,7 +71,7 @@ const Song = props => {
         checkedPlaylist: false
     }
     const [doubleClicked, setDoubleClicked] = React.useState(false);
-    const {song=defaultSong, sequenceId} = props;
+    const {song=defaultSong, sequenceId, provided} = props;
     const {id, song_name, artist, checkedPlaylist, albumImageSrc, src, currentPlaying, src_type} = song;
     console.log('^^^^:', id, song_name, artist, checkedPlaylist, currentPlaying)
     // const [loadPlayer, setLoadPlayer] = React.useState(false);
@@ -88,6 +100,9 @@ const Song = props => {
                 <TextBox text={song_name} onDoubleClick={onDoubleClick} doubleClicked={doubleClicked} color={currentPlaying && 'gold'} margin="0px 15px 0px 0px" width="125px"></TextBox>
             </Artist>
             <TextBox text={artist} color={currentPlaying && 'gold'} width="90px"></TextBox>
+            <div {...provided.dragHandleProps}>
+                <CustomHandleIcon></CustomHandleIcon>
+            </div>
         </Container>
     )
 }
