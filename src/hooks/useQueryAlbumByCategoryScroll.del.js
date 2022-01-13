@@ -20,10 +20,11 @@ const queryAll = async ({queryKey, pageParam=1}) => {
   const [_key, category, page_num, page_sizes ] = queryKey;
   const genreNum = genre[category];
   const additionalQuery = category === 'all' ? '' : `and top_genre=${genreNum}`;
+  const currentTimeString = React.useMemo(() => getDateTimeString(), [additionalQuery]);
 
   const params = {
     scn: 'album', 
-    query: `status='Y' and open_dt <= '${getDateTimeString()}' ${additionalQuery}`,
+    query: `status='Y' and open_dt <= '${currentTimeString}' ${additionalQuery}`,
     orderby: 'order by open_dt desc',
     bool: true
   }

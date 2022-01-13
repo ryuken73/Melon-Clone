@@ -5,7 +5,6 @@ import AlbumBox from '../AlbumBox';
 import ScrollBarWithColor from 'Components/Common/ScrollBarWithColor';
 import {withRouter} from 'react-router-dom';
 // import useAlbumList from 'hooks/useAlbumList';
-// import useQueryAlbumByCategoryScroll from 'hooks/useQueryAlbumByCategoryScroll';
 // import createAlbum from 'lib/albumClass';
 // import RenderIfVisible from 'react-render-if-visible';
 import useSearchMusicAllInfinite from 'hooks/useSearchMusicAllInfinite';

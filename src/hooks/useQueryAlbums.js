@@ -1,3 +1,4 @@
+import * as React from 'react';
 import {apiMap} from 'config/apis';
 import {useQuery} from 'react-query';
 import {getString} from 'lib/util';
@@ -19,11 +20,12 @@ const queryAll = async ({queryKey}) => {
 
 
 const useQueryAlbums = (page_num=1, page_sizes=15) => {
+  const currentTimeString = React.useMemo(() => getDateTimeString(), []);
   const params = {
     page_num,
     page_sizes,
     scn: 'album', 
-    query: `status='Y' and open_time <= '${getDateTimeString()}'`,
+    query: `status='Y' and open_time <= '${currentTimeString}'`,
     orderby: "order by open_dt desc",
     bool: true
   }
