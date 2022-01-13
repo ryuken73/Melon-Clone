@@ -11,11 +11,19 @@ function usePlaylistInStorage() {
   const dispatch = useDispatch();
 
   React.useEffect(() => {
-    dispatch(setCurrentPlayList({currentPlaylist: storedValue}));
+    // load saved currentPlaylist
+    const playingMarkRemoved = storedValue.map(song => {
+      song.currentPlaying = false
+      return song
+    });
+    dispatch(setCurrentPlayList({currentPlaylist: playingMarkRemoved}));
+    // console.log('^^^^',storedValue)
+    // dispatch(setCurrentPlayList({currentPlaylist: storedValue}));
+
   },[dispatch])
 
   React.useEffect(() => {
-    console.log('*****',currentPlaylist)
+    // save currentPlaylist to localStorage
     setValue(currentPlaylist)
   },[currentPlaylist, setValue])
 
