@@ -1,7 +1,7 @@
 import './App.css';
 import React from 'react';
 import Box from '@mui/material/Box';
-import styled from 'styled-components';
+import styled, {keyframes, css} from 'styled-components';
 import {Switch, Route} from 'react-router-dom';
 import AlbumListPage from 'Components/Album/AlbumList/AlbumListPage';
 import AlbumDetailPage from 'Components/Album/AlbumDetail/AlbumDetailPage';
@@ -33,18 +33,49 @@ const LeftPane = styled(Box)`
   background:${colors.player};
   display: ${props => props.hide ? 'none':'block'};
 `
+const ShowRightPane = keyframes`
+  from {
+    width: 0px;
+    opacity: 0;
+  }
+  to {
+    width: 300px;
+    opacity: 1;
+  }
+`
+const HideRightPane = keyframes`
+  from {
+    width: 300px;
+    opacity: 1;
+  }
+  to {
+    width: 0;
+    opacity: 0;
+  }
+`
+
+const showStyle = css`
+  animation-name: ${ShowRightPane};
+  animation-delay: 0.3s;
+  animation-duration: 1s;
+  animation-fill-mode: both;
+`
+const hideStyle = css`
+  animation-name: ${HideRightPane};
+  animation-delay: 0.3s;
+  animation-duration: 1s;
+  animation-fill-mode: both;
+`
+
 const RightPane = styled(Box)`
   /* display: ${props => props.hide ? 'none':'flex'}; */
   display: flex;
   flex-direction: column;
-  width: ${props => props.hide ? '0px':'300px'};
-  opacity: ${props => props.hide ? '0':'1'};
-  transition: all 0.5s;
-  transition-delay: ${props => props.hide ? '0s':'0.3s'};
-  /* min-width: 300px; */
   background:black;
   flex-grow: 0;
   flex-shrink: 0;
+  ${props => (!props.hide && showStyle)};
+  ${props => (props.hide && hideStyle)};
 `
 const CenterPane = styled(Box)`
   flex-grow:1;
