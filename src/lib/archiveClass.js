@@ -43,7 +43,7 @@ class Archive {
     get src_type() { return SRC_TYPE.SONG}
     get getFileSizeParams() { return 'archive'}
     get eval_imagePath() {
-        return `${BASE_API_URL}${DEFAULT_PROGRAM_ATTACH_PATH}${this.pgm_cd}.jpg`
+        return `${BASE_API_URL}${DEFAULT_PROGRAM_ATTACH_PATH}${this.pgm_cd}.JPG`
     }
     get src() {
         const {
@@ -62,8 +62,9 @@ class Archive {
     get saveTo() {
         return `${replaceIllegalCharacters(this.song_name)}_hhmmss.wav`
     }
-    set albumImgSrc(src) { this._albumImgSrc = src }
-    get albumImageSrc() { return this.eval_imagePath }
+    set albumImgSrc(src) { this._albumImageSrc = src }
+    // get albumImageSrc() { return this.eval_imagePath }
+    get albumImageSrc() { return this._albumImageSrc } // correct image url from program info
     get parsed() {
         return {
             id: this.id,

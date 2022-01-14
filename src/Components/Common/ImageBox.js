@@ -102,11 +102,11 @@ const ImageBox = props => {
             return;
         }
         const extension = getExtension(event.target.src);
-        if(extension === 'jpg'){
-            event.target.src = `${event.target.src.replace('jpg', 'JPG')}`
+        if(extension === 'JPG'){
+            event.target.src = `${event.target.src.replace('JPG', 'jpg')}`
             return
-        } else if(extension === 'JPG'){
-            event.target.src = `${event.target.src.replace('JPG', 'png')}`
+        } else if(extension === 'jpg'){
+            event.target.src = `${event.target.src.replace('jpg', 'png')}`
             return
         } else if(extension === 'png'){
             event.target.src = `${event.target.src.replace('png', 'PNG')}`
@@ -121,7 +121,7 @@ const ImageBox = props => {
             event.target.src = loadingImage;
         }
         return
-    },[withoutSrcExtension])
+    },[withoutSrcExtension, loadingImage])
 
     return (
         <Container>
