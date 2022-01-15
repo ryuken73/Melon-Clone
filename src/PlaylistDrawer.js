@@ -15,7 +15,8 @@ const PlayerSkinFlat = styled(Box)`
   opacity: ${props => props.show ? '1':'0'};
   transition: opacity 1s, height 0.5s, width 1s;
   background: transparent;
-  z-index: 9999;
+  z-index: 9;
+  /* z-index: 9999; */
   /* border: 2px solid grey; */
   display: flex;
   flex-direction: row;

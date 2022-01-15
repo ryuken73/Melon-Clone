@@ -31,8 +31,10 @@ const TabHeader = props => {
     const onClickTabHaderButton = React.useCallback(event => {
         setActiveTabId(event.currentTarget.id);
     },[])
-    const activeColor = mode === 'flat' ? 'brown':colors.lightCenterPane;
-    const textColor = mode === 'flat' ? 'black':'white';
+    // const activeColor = mode === 'flat' ? 'brown':colors.lightCenterPane;
+    // const textColor = mode === 'flat' ? 'black':'white';
+    const activeColor = mode === 'flat' ? 'darkred':colors.lightCenterPane;
+    const textColor = 'white';
     return (
             <Container>
                 <ButtonWrapper mode={mode}>
