@@ -11,7 +11,10 @@ import useSearchMusicAllInfinite from 'hooks/useSearchMusicAllInfinite';
 import useMediaQueryEasy from 'hooks/useMediaQueryEasy';
 import useInfiniteData from 'hooks/useInfiniteData';
 import {genre} from 'config/apis';
-import { getDateTimeString } from 'lib/util';
+import {getDateTimeString} from 'lib/util';
+import CONSTANTS from 'config/constants';
+const {QUERY_MAX_PAGES} = CONSTANTS;
+
 
 const Container = styled(Box)`
     display: grid;
@@ -46,7 +49,7 @@ const AlbumList = props => {
         // isFetchingNextPage,
         // status,
         // isSuccess
-    } = useSearchMusicAllInfinite({params, page_sizes:31, page_num:1});
+    } = useSearchMusicAllInfinite({params, page_sizes:31, page_num:1, max_pages:QUERY_MAX_PAGES.ALBUMS});
     const [albums] = useInfiniteData(data, 'albums');
     // console.log('%% result: ', data, albums)
     const {fullViewHeightMediaQuery} = useMediaQueryEasy();

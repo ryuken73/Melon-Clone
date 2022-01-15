@@ -12,6 +12,10 @@ const dev = {
     "ARCHIVE_PAGE_SIZE": 50,
     "HEIGHT_OF_FLAT_PLAYER": '100px',
     "IMAGE_LAZY_SHOW_THRESHOLD": 0.2,
+    "QUERY_MAX_PAGES": {
+        "DEFAULT_MAX_PAGES" : 10,
+        "ALBUMS": 5
+    },
     "LOGLESS_REDUX_ACTIONS": ["audioPlayer/setProgress", "audioPlayer/setCurrentTime"],
     "SEARCH_DEBOUNCE_MILLISECONDS": 100,
     "SEARCH_PAGE_NUM": 1,
