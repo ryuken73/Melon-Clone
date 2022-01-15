@@ -52,10 +52,12 @@ const PreWithWrap = styled.div`
 `
 
 const slashReplaced = genre_nm => {
+    if(genre_nm === undefined) return '';
     const [blank, ...rest] = genre_nm.split('/');
     return rest.join(' > ')
 }
 const dateWithDot = dateString => {
+    if(dateString === undefined) return '';
     return `${dateString.substr(0,4)}.${dateString.substr(4,2)}.${dateString.substr(6,2)}`
 }
 const mkItems = albumInfo => {
@@ -92,13 +94,13 @@ const AlbumInfoTable = props => {
     const {receipt_no} = props;
     const result = useQueryAlbumInfo(receipt_no);
     const albumInfo = React.useMemo(() => createAlbumInfo(result.data),[result.data]);
-    console.log('^^ albumInfo:', albumInfo)
+    // console.log('^^ albumInfo:', albumInfo)
     const items = mkItems(albumInfo);
     const [remarkHeader, ...rest] = splitRemark(albumInfo.remark_ext)
     const remark = rest.join('\r\n\r\n');
     const songsInAlbum = albumInfo.list_song;
     const songs = songsInAlbum.map(song => song.song_name);
-    console.log('^^ songsInAlbum:', songsInAlbum)
+    // console.log('^^ songsInAlbum:', songsInAlbum)
     const [openTitle, setOpenTitle] = React.useState(false);
     const openLinkText = openTitle ? '접기':'펼치기';
     const onClickOpenTitle = React.useCallback(()=>{
