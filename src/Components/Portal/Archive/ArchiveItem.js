@@ -61,6 +61,7 @@ function ArchiveItem(props) {
                 </Box>
                 <Box flexShrink={0} minWidth="20px">
                     <TextBox 
+                        clickable
                         fontSize="14px" 
                         color={chan_cd === 'A' ?'burlywood':'lightskyblue'}
                         text={`[${chan_cd_full}]`}
@@ -71,6 +72,7 @@ function ArchiveItem(props) {
                     </TextBox>
                 </Box>
                 <TextBox 
+                    clickable
                     fontSize="14px" 
                     color="white" 
                     text={pgm_nm}
@@ -85,6 +87,7 @@ function ArchiveItem(props) {
                 {reversed.map((child, index) => (
                     <Box display="flex" alignItems="center" flexDirection="row" key={id} mr="5px">
                         <TextBox 
+                            clickable
                             id={index} 
                             color="white" 
                             opacity="0.5"

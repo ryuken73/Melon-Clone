@@ -17,6 +17,7 @@ const SubTextBox = props => {
     const {text} = props;
     return (
         <TextBox 
+            clickable
             fontSize="14px" 
             color="white" 
             opacity="0.7" 

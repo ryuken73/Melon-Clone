@@ -10,6 +10,7 @@ const LinkAlbum = props => {
     },[history, receipt_no])
     return (
         <TextBox 
+            clickable
             fontSize="12px" 
             color="darkgrey" 
             opacity="0.7" 

@@ -55,6 +55,7 @@ const AlbumBox = props => {
             ></AlbumBoxImage>
             <Box marginTop="5px"></Box>
             <TextBox 
+                clickable
                 fontSize="14px" 
                 color="white" 
                 opacity="0.7" 

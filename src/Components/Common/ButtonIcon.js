@@ -27,7 +27,7 @@ const ButtonIcon = props => {
                     startIcon={iconComponent}
                     {...props}
                 >
-                   <TextBox fontSize="11px" text={text}></TextBox>
+                   <TextBox clickable fontSize="11px" text={text}></TextBox>
                 </StyledButtonSmall>
             </Stack>
         </Container>

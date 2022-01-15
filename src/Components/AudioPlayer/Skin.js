@@ -122,7 +122,7 @@ function Skin(props, ref) {
                     {/* {mode !== 'flat' && (<CustomVideo crossOrigin="anonymous" ref={ref}></CustomVideo>)} */}
                     <VideoPlayer crossOrigin="anonymous" ref={ref}></VideoPlayer>
                     <Box>
-                        <TextBox onClick={togglePIP} text={pipText}></TextBox>
+                        <TextBox clickable onClick={togglePIP} text={pipText}></TextBox>
                     </Box>
                 </VideoContainer>
             )}

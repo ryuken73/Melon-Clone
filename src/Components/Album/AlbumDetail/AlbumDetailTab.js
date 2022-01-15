@@ -34,8 +34,8 @@ const AlbumDetailTab = props => {
     return (
         <Container>
             <SubContainer width="150px">
-                <TextBoxHighlight active={pathname.includes('songList')} onClick={onClickTab} fontSize="15px" text="수록곡"></TextBoxHighlight>
-                <TextBoxHighlight active={pathname.includes('albumInfo')} onClick={onClickAlbumInfo} fontSize="15px" text="상세정보"></TextBoxHighlight>
+                <TextBoxHighlight clickable active={pathname.includes('songList')} onClick={onClickTab} fontSize="15px" text="수록곡"></TextBoxHighlight>
+                <TextBoxHighlight clickable active={pathname.includes('albumInfo')} onClick={onClickAlbumInfo} fontSize="15px" text="상세정보"></TextBoxHighlight>
             </SubContainer>
             <Divider margin="0px"></Divider>
         </Container>

@@ -68,7 +68,7 @@ function SearchResultBar(props) {
                         text="검색">
                     </TextBox>
                     {Object.keys(PATHS).map(category => (
-                        <TextBoxHighlight key={category} text={category} active={activeTab === category} onClick={handleClick}></TextBoxHighlight>
+                        <TextBoxHighlight clickable key={category} text={category} active={activeTab === category} onClick={handleClick}></TextBoxHighlight>
                     ))}
                 </SubContainer>
             </CommonPageHeader>

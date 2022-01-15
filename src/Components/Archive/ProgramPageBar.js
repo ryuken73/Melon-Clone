@@ -57,11 +57,10 @@ function ProgramPageBar(props) {
                         color="white" 
                         opacity="0.7" 
                         opacityOnHover="0.7" 
-                        cursor="auto"
                         text="라디오 아카이브">
                     </TextBox>
                     {Object.keys(PATHS).map(category => (
-                        <TextBoxHighlight key={category} text={category} active={activeTab === category} onClick={handleClick}></TextBoxHighlight>
+                        <TextBoxHighlight clickable key={category} text={category} active={activeTab === category} onClick={handleClick}></TextBoxHighlight>
                     ))}
                 </SubContainer>
             </CommonPageHeader>

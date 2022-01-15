@@ -63,7 +63,7 @@ const AlbumListPage = props => {
                         text="최신 앨범">
                     </TextBox>
                     {Object.keys(PATHS).map(category => (
-                        <TextBoxHighlight key={category} text={category} active={activeTab === category} onClick={handleClick}></TextBoxHighlight>
+                        <TextBoxHighlight clickable key={category} text={category} active={activeTab === category} onClick={handleClick}></TextBoxHighlight>
                     ))}
                 </SubContainer>
                 <Switch>

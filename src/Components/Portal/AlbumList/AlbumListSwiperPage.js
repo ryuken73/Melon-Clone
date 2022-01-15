@@ -25,6 +25,7 @@ const AlbumListSwiperPage = props => {
         <CommonPageHeader>
             <Box display="flex" flexDisplay="row" alignItems="center" mb="5px">
                 <TextBox 
+                    clickable
                     fontSize="20px" 
                     color="yellow" 
                     opacity="0.7" 
@@ -33,6 +34,7 @@ const AlbumListSwiperPage = props => {
                     onClick={handleOnClick}>
                 </TextBox>
                 <TextBox
+                    clickable
                     fontSize="12px"
                     color="grey"
                     opacity="0.7"

@@ -14,6 +14,7 @@ const ProgramEnd = props => {
 
     return (
         <TextBox
+            clickable
             onClick={handleClickProgram}
             text={pgm_nm}
         >

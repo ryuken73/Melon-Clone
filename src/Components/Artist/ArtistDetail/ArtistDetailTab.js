@@ -43,8 +43,8 @@ const ArtistDetailTab = props => {
     return (
         <Container>
             <SubContainer width="80px">
-                <TextBoxHighlight active={pathname.includes('songList')} onClick={onClickSongList} fontSize="15px" text="곡"></TextBoxHighlight>
-                <TextBoxHighlight active={pathname.includes('albumList')} onClick={onClickAlbumList} fontSize="15px" text="앨범"></TextBoxHighlight>
+                <TextBoxHighlight clickable active={pathname.includes('songList')} onClick={onClickSongList} fontSize="15px" text="곡"></TextBoxHighlight>
+                <TextBoxHighlight clickable active={pathname.includes('albumList')} onClick={onClickAlbumList} fontSize="15px" text="앨범"></TextBoxHighlight>
             </SubContainer>
             <Divider margin="0px"></Divider>
         </Container>

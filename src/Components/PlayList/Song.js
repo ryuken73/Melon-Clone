@@ -97,7 +97,7 @@ const Song = props => {
             <Artist>
                 {currentPlaying && <PlayingIcon></PlayingIcon>}
                 {src_type === SRC_TYPE.BORA && <SmallSmartDisplay playing={currentPlaying}></SmallSmartDisplay>}
-                <TextBox text={song_name} onDoubleClick={onDoubleClick} doubleClicked={doubleClicked} color={currentPlaying && 'gold'} margin="0px 15px 0px 0px" width="125px"></TextBox>
+                <TextBox clickable text={song_name} onDoubleClick={onDoubleClick} doubleClicked={doubleClicked} color={currentPlaying && 'gold'} margin="0px 15px 0px 0px" width="125px"></TextBox>
             </Artist>
             <TextBox text={artist} color={currentPlaying && 'gold'} width="90px"></TextBox>
             <div {...provided.dragHandleProps}>

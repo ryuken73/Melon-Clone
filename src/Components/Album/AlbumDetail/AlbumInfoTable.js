@@ -115,7 +115,7 @@ const AlbumInfoTable = props => {
             ))}
             <TitleContainer>
                 <TableTitle text="앨범소개"></TableTitle>
-                <TextBox fontSize="8px" color="yellow" onClick={onClickOpenTitle} text={openLinkText}></TextBox>
+                <TextBox clickable fontSize="8px" color="yellow" onClick={onClickOpenTitle} text={openLinkText}></TextBox>
             </TitleContainer>
             <TextBoxWithNoramlCursor mb="5px" text={remarkHeader}></TextBoxWithNoramlCursor>
             {openTitle && <PreWithWrap>{remark}</PreWithWrap>}
