@@ -72,7 +72,7 @@ const AlbumBox = props => {
                     color="darkgrey"
                 ></LinkArtist>
                 <Box ml="auto">
-                    <TextBox opacity="0.5" cursor="auto" fontSize="10px" text={`${release_year}년`}></TextBox>
+                    <TextBox opacity="0.5" fontSize="10px" text={`${release_year}년`}></TextBox>
                 </Box>
             </Box>
             {/* <TextBox 

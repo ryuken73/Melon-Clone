@@ -26,7 +26,7 @@ function ArtistIteminSearchAll(props) {
                 preserveHtmlTag 
                 color="darkgrey"
             ></LinkArtist>
-            <TextBox preserveHtmlTag text={artist_type} cursor="auto"></TextBox>
+            <TextBox preserveHtmlTag text={artist_type} ></TextBox>
         </Container>
     )
 }

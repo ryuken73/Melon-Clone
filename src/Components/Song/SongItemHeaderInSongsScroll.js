@@ -44,7 +44,7 @@ const SongItemHeaderInSongScroll = props => {
                     <NumberContainer>
                         <AnimatedNumber from={0} to={songs.length || 0}></AnimatedNumber>
                     </NumberContainer>
-                    <TextBox text={`/`} {...rest} cursor="auto" color="darkgrey"></TextBox>
+                    <TextBox text={`/`} {...rest} color="darkgrey"></TextBox>
                     <NumberContainer>
                         <AnimatedNumber from={0} to={total || 0}></AnimatedNumber>
                     </NumberContainer>
@@ -67,11 +67,11 @@ const SongItemHeaderInSongScroll = props => {
                 </Box>
                 <Box width="10%" display="flex" flexDirection="row" alignItems="center">
                     {/* 버전 */}
-                    <TextBox text="버전" {...rest} cursor="auto" color="darkgrey"></TextBox>
+                    <TextBox text="버전" {...rest}  color="darkgrey"></TextBox>
                 </Box>
                 <Box width="10%" display="flex" flexDirection="row" alignItems="center">
                     {/* 재생시간 */}
-                    <TextBox text="재생시간" {...rest} cursor="auto" color="darkgrey"></TextBox>
+                    <TextBox text="재생시간" {...rest} color="darkgrey"></TextBox>
                 </Box>
             </Container>
     )

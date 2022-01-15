@@ -77,7 +77,7 @@ function ArchiveItem(props) {
                     onClick={handleOnClickPgmNM}
                 ></TextBox>
                 <Box ml="auto" minWidth="100px" mr="20px">
-                    <TextBox cursor="auto" opacity="0.5" text={`${UPDATE_TEXT} ${lastUpdated}`}></TextBox>
+                    <TextBox opacity="0.5" text={`${UPDATE_TEXT} ${lastUpdated}`}></TextBox>
                 </Box>
             </RowContainer>
             <RowReverseContainer>

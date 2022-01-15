@@ -32,7 +32,6 @@ const TitleContainer = styled(Box)`
 
 const TextBoxWithNoramlCursor =  styled(TextBox)`
     font-size: 14px;
-    cursor: auto;
 `
 
 const TableTitle = styled(TextBoxWithNoramlCursor)`

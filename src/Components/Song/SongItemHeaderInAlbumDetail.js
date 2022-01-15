@@ -32,11 +32,11 @@ const SongItemHeaderInAlbumDetail = props => {
                 <SmallCheckBox checked={allChecked} setChecked={toggleAllChecked} />
                 <Box flex="1">
                     {/* 순번 */}
-                    <TextBox text={"순번"} {...rest} cursor="auto"></TextBox>
+                    <TextBox text={"순번"} {...rest}></TextBox>
                 </Box>
                 <Box flex="5" display="flex" flexDirection="row" alignItems="center">
                     {/* 곡명 */}
-                    <TextBox containerProps={{marginRight:"15px"}} text={"곡명"} {...rest}></TextBox>
+                    <TextBox clickable containerProps={{marginRight:"15px"}} text={"곡명"} {...rest}></TextBox>
                 </Box>
                 <Box width="20%">
                     {/* 아티스트 */}
@@ -44,11 +44,11 @@ const SongItemHeaderInAlbumDetail = props => {
                 </Box>
                 <Box width="15%" display="flex" flexDirection="row" alignItems="center">
                     {/* 버전 */}
-                    <TextBox text={"버전"} {...rest} cursor="auto" color="darkgrey"></TextBox>
+                    <TextBox text={"버전"} {...rest} color="darkgrey"></TextBox>
                 </Box>
                 <Box width="15%" display="flex" flexDirection="row" alignItems="center">
                     {/* 재생시간 */}
-                    <TextBox text={"재생시간"} {...rest} cursor="auto" color="darkgrey"></TextBox>
+                    <TextBox text={"재생시간"} {...rest} color="darkgrey"></TextBox>
                 </Box>
             </Container>
     )

@@ -20,7 +20,7 @@ const Text = styled(Box)`
     color: ${props => props.color || "darkgrey"};
     font-weight: ${props => props.fontWeight || 400};
     opacity: ${props => props.opacity || "0.8"};
-    cursor: ${props => props.cursor || "pointer"};
+    cursor: ${props => props.cursor ? "pointer" : props.clickable ? "pointer" : "auto"};
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
@@ -36,6 +36,7 @@ const TextBox = props => {
         text="Text",
         preserveHtmlTag=false,
         containerProps={},
+        clickable=false,
         ...restProps
     } = props;
     return (
@@ -43,6 +44,7 @@ const TextBox = props => {
             {preserveHtmlTag && (
                 <Text
                     onClick={onClick}
+                    clickable={clickable}
                     dangerouslySetInnerHTML={{
                         __html: text
                     }}
@@ -53,6 +55,7 @@ const TextBox = props => {
             {!preserveHtmlTag && (
                 <Text
                     onClick={onClick}
+                    clickable={clickable}
                     {...restProps}
                 >
                     {text}

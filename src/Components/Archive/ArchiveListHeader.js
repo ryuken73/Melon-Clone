@@ -44,7 +44,7 @@ const ArchiveListHeader = props => {
                     <NumberContainer>
                         <AnimatedNumber from={0} to={archives.length || 0}></AnimatedNumber>
                     </NumberContainer>
-                    <TextBox text={`/`} {...rest} cursor="auto" color="darkgrey"></TextBox>
+                    <TextBox text={`/`} {...rest} color="darkgrey"></TextBox>
                     <NumberContainer>
                         <AnimatedNumber from={0} to={total || 0}></AnimatedNumber>
                     </NumberContainer>

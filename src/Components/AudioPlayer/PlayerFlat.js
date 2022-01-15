@@ -271,7 +271,7 @@ const PlayerFlat = (props, playerRef) => {
                         {!openPlaySkinFlat && <QueueMusicIcon sx={{fontSize: '50px'}}></QueueMusicIcon>}
                         {openPlaySkinFlat && <PlaylistRemoveIcon sx={{fontSize: '50px'}}></PlaylistRemoveIcon>}
                     </HoverButton>
-                    <TextBox opacity="1" cursor="none" text="플레이리스트"></TextBox>
+                    <TextBox opacity="1" text="플레이리스트"></TextBox>
                 </Box>
             </UtilContainer>
         </Container>

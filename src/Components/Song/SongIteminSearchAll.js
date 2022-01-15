@@ -88,7 +88,7 @@ const SongIteminSearchAll = props => {
                 <SmallCheckBox checked={checked} setChecked={onChecked} />
                 <Box flex="1" mr="5px" flexShrink="0" display="flex" justifyContent="center" alignItems="center">
                     {/* Small Album Image */}
-                    <TextBox text={songIndex} {...rest} fontSize="10px" marginRight="10px" cursor="auto" color="darkgrey"></TextBox>
+                    <TextBox text={songIndex} {...rest} fontSize="10px" marginRight="10px" color="darkgrey"></TextBox>
                     <ImageBox onClick={gotoAlbumInfo} lazyLoading={false} src={albumImageSrc} width="35px" height="35px"></ImageBox>
                 </Box>
                 <Box flex="3" display="flex" flexDirection="row" alignItems="center">
@@ -107,7 +107,7 @@ const SongIteminSearchAll = props => {
                 </Box>
                 <Box width="5%" display={showShortArchiveList ? "none":"flex"}>
                     {/* 발매일 */}
-                    <TextBox text={release_year ? `${release_year}년`:''} {...rest} cursor="auto" color="darkgrey"></TextBox>
+                    <TextBox text={release_year ? `${release_year}년`:''} {...rest} color="darkgrey"></TextBox>
                 </Box>
                 <Box width="15%">
                     {/* 아티스트 */}
@@ -115,11 +115,11 @@ const SongIteminSearchAll = props => {
                 </Box>
                 <Box width="10%" display="flex" flexDirection="row" alignItems="center">
                     {/* 버전 */}
-                    <TextBox text={version} {...rest} cursor="auto" color="darkgrey"></TextBox>
+                    <TextBox text={version} {...rest} color="darkgrey"></TextBox>
                 </Box>
                 <Box width="10%" display="flex" flexDirection="row" alignItems="center">
                     {/* 재생시간 */}
-                    <TextBox text={duration} {...rest} cursor="auto" color="darkgrey"></TextBox> 
+                    <TextBox text={duration} {...rest} color="darkgrey"></TextBox> 
                     {deboucedHovered && (
                         <Box ml="auto">
                             <HoverButton><MoreVertIcon fontSize="small"></MoreVertIcon></HoverButton>

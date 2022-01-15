@@ -77,7 +77,7 @@ const SongItemAlbumDetail = props => {
                 <SmallCheckBox checked={checked} setChecked={onChecked} />
                 <Box flex="1">
                     {/* 순번 */}
-                    <TextBox text={rownum} {...rest} cursor="auto"></TextBox>
+                    <TextBox text={rownum} {...rest}></TextBox>
                 </Box>
                 <Box flex="5" display="flex" flexDirection="row" alignItems="center">
                     {/* 곡명 */}
@@ -96,11 +96,11 @@ const SongItemAlbumDetail = props => {
                 </Box>
                 <Box width="15%" display="flex" flexDirection="row" alignItems="center">
                     {/* 버전 */}
-                    <TextBox text={version} {...rest} cursor="auto" color="darkgrey"></TextBox>
+                    <TextBox text={version} {...rest} color="darkgrey"></TextBox>
                 </Box>
                 <Box width="15%" display="flex" flexDirection="row" alignItems="center">
                     {/* 재생시간 */}
-                    <TextBox text={duration} {...rest} cursor="auto" color="darkgrey"></TextBox>
+                    <TextBox text={duration} {...rest} color="darkgrey"></TextBox>
                     {hovered && (
                         <Box ml="auto">
                             <HoverButton><MoreVertIcon fontSize="small"></MoreVertIcon></HoverButton>

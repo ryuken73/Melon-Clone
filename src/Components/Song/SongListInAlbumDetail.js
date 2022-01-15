@@ -22,7 +22,6 @@ const SongListInAlbumDetail = props => {
     return (
         <Container>
             <SongItemHeaderInAlbumDetail
-                cursor="auto"
                 // receipt_no={receipt_no}
                 songs={songs}
                 // headers={['순번', '곡명', '아티스트', '버전', '재생시간']}

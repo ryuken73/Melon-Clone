@@ -37,7 +37,7 @@ const AlbumDetailInfo = props => {
             <Box my="5px">
                 <LinkArtist fontSize="15px" opacity="0.9" artist={artist}></LinkArtist>
             </Box>
-            <TextBox fontSize="14px" cursor="auto" text={producer}></TextBox>
+            <TextBox fontSize="14px" text={producer}></TextBox>
         </InfoContainer>
     )
 }

@@ -65,7 +65,6 @@ function SearchResultBar(props) {
                         color="white" 
                         opacity="0.7" 
                         opacityOnHover="0.7" 
-                        cursor="auto"
                         text="검색">
                     </TextBox>
                     {Object.keys(PATHS).map(category => (

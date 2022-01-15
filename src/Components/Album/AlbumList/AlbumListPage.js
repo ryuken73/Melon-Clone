@@ -60,7 +60,6 @@ const AlbumListPage = props => {
                         color="white" 
                         opacity="0.7" 
                         opacityOnHover="0.7" 
-                        cursor="auto"
                         text="최신 앨범">
                     </TextBox>
                     {Object.keys(PATHS).map(category => (

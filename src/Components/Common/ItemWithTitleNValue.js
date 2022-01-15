@@ -5,7 +5,6 @@ import TextBox from 'Components/Common/TextBox';
 
 const TextBoxWithNoramlCursor =  styled(TextBox)`
     font-size: 14px;
-    cursor: auto;
 `
 
 const ItemTitle = styled(TextBoxWithNoramlCursor)`
