@@ -4,6 +4,7 @@ import SearchResultAllSongs from './SearchResultAllSongs';
 import SearchResultAllAlbums from './SearchResultAllAlbums';
 import SearchResultAllArtists from './SearchResultAllArtists';
 import SearchResultAllLyrics from './SearchResultAllLyrics';
+import SearchResultAllArchives from './SearchResultAllArchives';
 import useMediaQueryEasy from 'hooks/useMediaQueryEasy';
 
 function SearchResultAll(props) {
@@ -17,6 +18,7 @@ function SearchResultAll(props) {
             <SearchResultAllAlbums></SearchResultAllAlbums>
             <SearchResultAllArtists page_sizes={5}></SearchResultAllArtists>
             <SearchResultAllLyrics></SearchResultAllLyrics>
+            <SearchResultAllArchives></SearchResultAllArchives>
         </ScrollBarWithColor>
     )
 }

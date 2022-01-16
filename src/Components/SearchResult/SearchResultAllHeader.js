@@ -24,6 +24,7 @@ const categoryMap = {
     'song': '곡',
     'artist': '아티스트',
     'lyrics': '가사',
+    'archives': '아카이브'
 }
 
 function SearchResultAllHeader(props) {

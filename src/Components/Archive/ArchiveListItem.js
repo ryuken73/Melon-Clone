@@ -30,7 +30,7 @@ const Container = styled(Box)`
 `
 
 const ArchiveListItem = props => {
-    const {item:archive, rownum, ...rest} = props;
+    const {item:archive, rownum, isSearchResult=false, ...rest} = props;
     const [hovered, setHovered] = React.useState(false);
     const {addSongsToCurrentPlaylist} = useCurrentPlaylist();
     const {checked, addChecked, delChecked} = useSongHelper(archive.id);
@@ -62,6 +62,7 @@ const ArchiveListItem = props => {
     },[downloadFile, archive])
     const deboucedHovered = useDebounce(hovered, 100);
     const {
+        pgm_nm,
         brd_dd_with_weekday,
         episode,
         dj,
@@ -69,14 +70,20 @@ const ArchiveListItem = props => {
         bora_archive_yn,
         media_id
     } = archive;
+    const alignRownum = isSearchResult ? 'flext-start':'center';
+    const fontSizeRownum = isSearchResult ? '14px':'12px';
+    const fontSizeBrdDD = isSearchResult ? '12px':'14px';
+    const flexRownum = isSearchResult ? '2':'1';
+    const flexArtist = isSearchResult ? '1':'2';
     return (
         <Container hovered={deboucedHovered} onMouseEnter={onHovered} onMouseLeave={onHoverOut}>
             <SmallCheckBox checked={checked} setChecked={onChecked} />
-            <Box flex="1" display="flex" justifyContent="center">
+            <Box flex={flexRownum} display="flex" justifyContent={alignRownum}>
                 <TextBox text={rownum+1}></TextBox>
+                {isSearchResult && <TextBox clickable fontSize={fontSizeRownum} text={`.${pgm_nm}`}></TextBox>}
             </Box>
             <Box width="150px">
-                <TextBox fontSize="13px" color="white" text={brd_dd_with_weekday}></TextBox>
+                <TextBox fontSize={fontSizeBrdDD} color="white" text={brd_dd_with_weekday}></TextBox>
             </Box>
             <Box width="50px">
                 <TextBox text={episode}></TextBox>
@@ -91,7 +98,7 @@ const ArchiveListItem = props => {
                     </Box>
                 )}
             </Box>
-            <Box flex="2">
+            <Box flex={flexArtist}>
                 <TextBox text={artist || "-"}></TextBox>
             </Box>
             <Box flex="2" display="flex" flexDirection="row" alignItems="center">
