@@ -2,7 +2,7 @@ import React from 'react';
 import Box from '@mui/material/Box';
 import Slider from '@mui/material/Slider';
 import styled from 'styled-components';
-import usePlayerEvent from 'hooks/usePlayerEvent';
+// import usePlayerEvent from 'hooks/usePlayerEvent';
 
 const CustomSlider = styled(Slider)`
     background: transparent;
@@ -21,8 +21,9 @@ const volumeToSliderValue = volume => volume * 100;
 const sliderValueToVolume = value => value / 100;
 
 const VerticalSlider = props => {
-  const {playerRef} = props;
-  const {muted, volume, handleVolumeControl} = usePlayerEvent(playerRef);
+  const {muted, volume, handleVolumeControl} = props;
+  // const {muted, volume, handleVolumeControl} = usePlayerEvent(playerRef);
+
   function preventHorizontalKeyboardNavigation(event) {
     if (event.key === 'ArrowLeft' || event.key === 'ArrowRight') {
       event.preventDefault();

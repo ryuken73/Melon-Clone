@@ -46,8 +46,9 @@ export default function usePlayerEvent(playerRef) {
         dispatch(setIsPlaying({isPlaying:true}))
         // dispatch(setCurrentPlayingByIndex({targetIndex: currentIndex, playing: true}));
         dispatch(setCurrentPlayingBySrc({src: currentSrc, playing: true}));
-        if(player !== null) player.volume = volume;
-    },[dispatch, player, volume, currentSrc])
+        // if(player !== null) player.volume = volume;
+    // },[dispatch, player, volume, currentSrc])
+    },[dispatch, currentSrc])
 
     const handlePause = React.useCallback(()=>{
         console.log('in usePlayerEvent: handlePause')
@@ -128,7 +129,7 @@ export default function usePlayerEvent(playerRef) {
             return [];
         }
         console.log('attach player event handlers', player);
-        player.muted = muted;
+        // player.muted = muted;
         player.addEventListener('playing', handlePlaying)
         player.addEventListener('pause', handlePause)
         player.addEventListener('timeupdate', handleTimeupdate)
@@ -146,7 +147,8 @@ export default function usePlayerEvent(playerRef) {
             // }
         })
 
-    },[manifestLoaded, player, muted, handlePlaying, handlePause, handleTimeupdate, dispatch, handleEnded])
+    // },[manifestLoaded, player, muted, handlePlaying, handlePause, handleTimeupdate, dispatch, handleEnded])
+    },[manifestLoaded, player, handlePlaying, handlePause, handleTimeupdate, dispatch, handleEnded])
 
     return {
         muted,

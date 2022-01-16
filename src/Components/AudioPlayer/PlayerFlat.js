@@ -126,11 +126,13 @@ const PlayerFlat = (props, playerRef) => {
         repeatMode,
         manifestLoaded,
         duration,
+        volume,
         onClickPlay=()=>{},
         onClickReplay10=()=>{},
         onClickForward10=()=>{},
         onClickRepeat=()=>{},
-        toggleMute=()=>{}
+        toggleMute=()=>{},
+        handleVolumeControl=()=>{}
     } = usePlayerEvent(playerRef);
 
     const canPlay = manifestLoaded;
@@ -249,7 +251,8 @@ const PlayerFlat = (props, playerRef) => {
                         }}
                     >
                         <Box display="flex" flexDirection="column" alignItems="center">
-                            <VerticalSlider playerRef={playerRef}></VerticalSlider>
+                            {/* <VerticalSlider playerRef={playerRef}></VerticalSlider> */}
+                            <VerticalSlider muted={muted} volume={volume} handleVolumeControl={handleVolumeControl}></VerticalSlider>
                             {muted ? 
                                 <CustomVolumeOffIcon fontSize="large" onClick={toggleMute}></CustomVolumeOffIcon> :
                                 <CustomVolumeIcon fontSize="large" onClick={toggleMute}></CustomVolumeIcon>
