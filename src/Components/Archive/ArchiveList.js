@@ -33,15 +33,19 @@ const ArchiveList = props => {
         page_num:1, 
         page_sizes:ARCHIVE_PAGE_SIZE
     })
-    const [archives, total] = useInfiniteData(data, 'archives');
+    const [archives=[], total] = useInfiniteData(data, 'archives');
     const {data:programResult} = useQueryProgram(pgm_cd);
     console.log(archives, total);
     console.log(programResult)
     const program = createProgramInfo(programResult);
+    const chan_cd_full = archives.length > 0 ? archives[0].chan_cd_full:'-';
+    const chan_cd = archives.length > 0 ? archives[0].chan_cd:'A';
     return (
         <Container>
             <ArchiveListTitle
                 program={program}
+                chan_cd={chan_cd}
+                chan_cd_full={chan_cd_full}
                 total={total}
             >
             </ArchiveListTitle>

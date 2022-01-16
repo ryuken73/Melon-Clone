@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { withRouter } from 'react-router-dom';
 import Box from '@mui/material/Box';
 import TextBox from 'Components/Common/TextBox';
 import CommonPageHeader from 'Components/Common/CommonPageHeader';
@@ -19,18 +20,32 @@ const NumberContainer = styled(Box)`
     font-size: 20px;
     opacity: 0.7;
 `
-
 const ArchiveListTitle = props => {
-    const {program={}, total=0} = props;
+    const {history} = props;
+    const {program={}, total=0, chan_cd_full='', chan_cd} = props;
     const {
         pgm_nm,
         start_dd_with_weekday='-',
         end_dd_with_weekday='-',
         brd_time_str="-"
     } = program;
+    const handleOnClickChannel = React.useCallback(() => {
+        chan_cd === 'A' && history.push(`/program/loveFM`, {chan_cd})
+        chan_cd === 'F' && history.push(`/program/powerFM`, {chan_cd})
+    },[chan_cd, history])
     return (
         <CommonPageHeader>
             <SubContainer>
+                <TextBox
+                    clickable
+                    fontSize="20px" 
+                    color={chan_cd === 'A' ?'burlywood':'lightskyblue'}
+                    opacity={"0.7"}
+                    text={`[${chan_cd_full}] `}
+                    onClick={handleOnClickChannel}
+                >
+
+                </TextBox>
                 <TextBox 
                     fontSize="20px" 
                     color="white" 
@@ -64,4 +79,4 @@ const ArchiveListTitle = props => {
     )
 }
 
-export default React.memo(ArchiveListTitle); 
+export default React.memo(withRouter(ArchiveListTitle)); 
