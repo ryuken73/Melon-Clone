@@ -13,7 +13,6 @@ const SubContainer = styled(Box)`
     align-items: center;
     width: 100%;
     margin-bottom: 10px;
-    cursor: pointer;
 `
 
 const NumberContainer = styled(Box)`

@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import SmallCheckBox from 'Components/Common/CheckBox';
 import TextBox from 'Components/Common/TextBox';
 import ArchiveBoraPlayButton from 'Components/Portal/Archive/ArchiveBoraPlayButton'
+import ArchiveBoraDownloadButton from 'Components/Archive/ArchiveBoraDownloadButton'
 import FileDownloadIcon from '@mui/icons-material/FileDownload';
 import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 import AddIcon from '@mui/icons-material/Add';
@@ -100,7 +101,10 @@ const ArchiveListItem = props => {
                             <HoverButton>
                                 <ArchiveBoraPlayButton media_id={media_id} archive={archive} size="medium"></ArchiveBoraPlayButton>
                             </HoverButton>
-                            <HoverButton onClick={downloadSong}><FileDownloadIcon fontSize="medium"></FileDownloadIcon></HoverButton>
+                            <HoverButton>
+                                <ArchiveBoraDownloadButton media_id={media_id} archive={archive} size="medium"></ArchiveBoraDownloadButton>
+                            </HoverButton>
+                            {/* <HoverButton onClick={downloadSong}><FileDownloadIcon fontSize="medium"></FileDownloadIcon></HoverButton> */}
                             <HoverButton onClick={addSong}><AddIcon fontSize="medium"></AddIcon></HoverButton>
                     </Box>
                 )}
