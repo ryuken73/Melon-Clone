@@ -6,6 +6,7 @@ import TabHeader from './TabHeader';
 import SongList from './SongList';
 import SongHeader from './SongHeader';
 import Helper from './Helper';
+import usePlaylistInStorage from 'hooks/usePlaylistInStorage';
 
 const Container = styled(Box)`
     position: relative;
@@ -20,6 +21,7 @@ const Container = styled(Box)`
 const PlayList = props => {
     const {hide=false, mode} = props;
     const [activeTabId, setActiveTabId] = React.useState('song');
+    usePlaylistInStorage();
     return (
         <Container mode={mode}>
             <TabHeader
