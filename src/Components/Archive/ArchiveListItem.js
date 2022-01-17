@@ -116,7 +116,6 @@ const ArchiveListItem = props => {
                     </Box>
                 )}
             </Box>
-
         </Container>
     )
 }

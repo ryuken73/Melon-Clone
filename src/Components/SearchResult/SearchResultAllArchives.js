@@ -2,6 +2,7 @@ import React from 'react';
 import Box from '@mui/material/Box';
 import styled from 'styled-components';
 import ArchiveListItem from 'Components/Archive/ArchiveListItem';
+import Divider from 'Components/Common/Divider';
 import useQueryArchives from 'hooks/useQueryArchives';
 import createArchive from 'lib/archiveClass';
 import SongListInSearchAll from 'Components/Song/SongListInSearchAll';
@@ -46,13 +47,16 @@ function SearchResultAllArchives(props) {
                         showAllResults={showAllResults}
                     ></SearchResultAllHeader>
                     {archives.map((archive, index) => (
-                        <ArchiveListItem 
-                            key={archive.id}
-                            item={archive}
-                            rownum={index}
-                            isSearchResult={true}
-                        >
-                        </ArchiveListItem>
+                        <Box>
+                            <ArchiveListItem 
+                                key={archive.id}
+                                item={archive}
+                                rownum={index}
+                                isSearchResult={true}
+                            >
+                            </ArchiveListItem>
+                            <Divider margin="0px" opacity="0.2" mt="3px"></Divider>
+                        </Box>
                     ))}
                 </Box>
             )}

@@ -17,6 +17,7 @@ const SubContainer = styled(Box)`
 
 const NumberContainer = styled(Box)`
     font-size: 20px;
+    color: yellow;
     opacity: ${props => props.searchCount === 0 ? "0.2": "0.7"};
 `
 const categoryMap = {
@@ -34,7 +35,7 @@ function SearchResultAllHeader(props) {
             <SubContainer onClick={showAllResults}>
                 <TextBox 
                     fontSize="20px" 
-                    color="white" 
+                    color="yellow" 
                     opacity={searchCount === 0 ? "0.2":"0.7"}
                     opacityOnHover={searchCount === 0 ? "0.2":"0.9"}
                     
@@ -45,7 +46,7 @@ function SearchResultAllHeader(props) {
                 </NumberContainer>
                 <TextBox 
                     fontSize="20px" 
-                    color="white" 
+                    color="yellow" 
                     opacity={searchCount === 0 ? "0.2":"0.7"}
                     opacityOnHover={searchCount === 0 ? "0.2":"0.9"}
                     text={`) >`}>
