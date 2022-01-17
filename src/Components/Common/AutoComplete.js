@@ -74,6 +74,7 @@ const StyledList = styled(Box)`
 
 const UseAutocomplete = props => {
   const {history} = props;
+  const {searchResultPath} = props;
   const [options, setOptions] = React.useState([]);
   const [showOptions, setShowOptions] = React.useState(true);
   const {
@@ -125,15 +126,18 @@ const UseAutocomplete = props => {
   },[data, isLoading, isError, showOptions])
 
   React.useEffect(() => {
+    // when auto suggest selected(value change)
+    // remove history and searchResultPath are removed from useEffect dependency intentionally
+    // otherwise pushed history will be incorrect.
     console.log('^^ value changed:', value)
     const {artistName, songName} = value !== null ? value: {artistName:'', songName:''};
     setPrevSearch({artistName, songName})
     const encodedArtist = encodeURIComponent(artistName);
     const encodedSong = encodeURIComponent(songName);
     const encodedInputValue = encodeURIComponent(inputValue);
-    // value !== null && history.push(`/searchResult/all?exactSearch=yes&artistName=${artistName}&songName=${songName}&keyword=${inputValue}`);
-    value !== null && history.push(`/searchResult/all?exactSearch=yes&artistName=${encodedArtist} &songName=${encodedSong}&keyword=${encodedInputValue}`);
-  },[value, dispatch, history])
+    value !== null && history.push(`${searchResultPath}?exactSearch=yes&artistName=${encodedArtist} &songName=${encodedSong}&keyword=${encodedInputValue}`);
+  // },[value, searchResultPath, dispatch, history])
+  },[value,  dispatch])
 
   const getHighlightParts = React.useCallback(option => {
     const matches = match(`${option.artistName}: ${option.songName}`, inputValue);
@@ -142,6 +146,7 @@ const UseAutocomplete = props => {
   },[inputValue]);
 
   const handleKeyPressed = React.useCallback(event => {
+    console.log('^^ key pressed :', value)
     setShowOptions(true);
     if(event.charCode === 13 && event.target.value.trim()){
       setShowOptions(false);
@@ -151,13 +156,13 @@ const UseAutocomplete = props => {
         const encodedArtist = encodeURIComponent(artistName);
         const encodedSong = encodeURIComponent(songName);
         const encodedInputValue = encodeURIComponent(inputValue);
-        history.push(`/searchResult/all?exactSearch=yes&artistName=${encodedArtist}&songName=${encodedSong}&keyword=${encodedInputValue}`);
+        history.push(`${searchResultPath}?exactSearch=yes&artistName=${encodedArtist}&songName=${encodedSong}&keyword=${encodedInputValue}`);
         return;
       }
       setOptions([]);
-      history.push(`/searchResult/all?exactSearch=no&keyword=${encodeURIComponent(event.target.value)}`);
+      history.push(`${searchResultPath}?exactSearch=no&keyword=${encodeURIComponent(event.target.value)}`);
     }
-  },[setShowOptions, history, prevSearch, inputValue])
+  },[setShowOptions, searchResultPath, history, prevSearch, inputValue])
 
   const handleKeyDown = React.useCallback(event => {
     setShowOptions(true);

@@ -4,7 +4,8 @@ const initialState = {
     isMessageBoxHidden: true,
     messageBoxText:'',
     messageBoxLevel: 'success',
-    openPlaySkinFlat: false
+    openPlaySkinFlat: false,
+    searchResultPath: '/searchResult/all'
 }
 
 export const appSlice = createSlice({
@@ -26,6 +27,10 @@ export const appSlice = createSlice({
         setOpenPlaySkinFlat: (state, action) => {
             const {type, payload} = action;
             state.openPlaySkinFlat = payload;
+        },
+        setSearchResultPath: (state, action) => {
+            const {type, payload} = action;
+            state.searchResultPath = payload;
         }
     }
 })
@@ -51,7 +56,8 @@ export const {
     setMessageBoxHide, 
     setMessageBoxText, 
     setMessageBoxLevel,
-    setOpenPlaySkinFlat
+    setOpenPlaySkinFlat,
+    setSearchResultPath
 } = appSlice.actions;
 
 export default appSlice.reducer;

@@ -4,9 +4,12 @@ import styled from 'styled-components';
 import CommonPageHeader from 'Components/Common/CommonPageHeader';
 import TextBox from 'Components/Common/TextBox';
 import TextBoxHighlight from 'Components/Common/TextBoxHighlight';
+import PushPinIcon from '@mui/icons-material/PushPin';
 import queryString from 'query-string';
 import {qsToNavigateInSearchResult} from 'lib/util';
-import {Switch, Route, withRouter} from 'react-router-dom';
+import {withRouter} from 'react-router-dom';
+import useAppState from 'hooks/useAppState';
+import useMessageBox from 'hooks/useMessageBox';
 
 const Container = styled(Box)`
     display: flex;
@@ -14,7 +17,6 @@ const Container = styled(Box)`
     justify-content: flex-start;
     background: transparent;
 `
-
 const SubContainer = styled(Box)`
     display: flex;
     flex-direction: row;
@@ -22,6 +24,16 @@ const SubContainer = styled(Box)`
     align-items: baseline;
     width: 450px;
     margin-bottom: 10px;
+`
+const GreyPushPinIcon = styled(PushPinIcon)`
+    color: yellow;
+    opacity: ${props => props.show ? 1 : 0};
+    font-size: 20px;
+    &:hover {
+        opacity: 1;
+        cursor: pointer;
+        color: grey;
+    }
 `
 
 const PATHS = {
@@ -44,6 +56,8 @@ function SearchResultBar(props) {
     const query = queryString.parse(location.search);
     const {keyword, exactSearch, artistName, songName} = query;
     const [activeTab, setActiveTab] = React.useState('통합검색');
+    const {searchResultPath, toggleResultPath} = useAppState();
+    const {showMessageBox} = useMessageBox();
     React.useEffect(()=>{
         const tabname = findPathKeyByCategory(category)
         setActiveTab(tabname);
@@ -57,6 +71,21 @@ function SearchResultBar(props) {
         history.push(`${PATHS[tabName]}?${qs}`, {tabName, qs});
     },[history, qs])
 
+
+    const PinIcon = props => {
+        const {path, pathString, toggleResultPath, ...rest} = props
+        const setDefaultPath = React.useCallback(() => {
+            toggleResultPath(path);
+            showMessageBox(`검색결과를 ${pathString}기준으로 먼저 표시합니다.`, 1000)
+        },[toggleResultPath, path, pathString])
+        return (
+            <GreyPushPinIcon 
+                onClick={setDefaultPath} 
+                {...rest}
+            ></GreyPushPinIcon>
+        )
+    }
+
     return (
         <Container>
             <CommonPageHeader>
@@ -69,7 +98,21 @@ function SearchResultBar(props) {
                         text="검색">
                     </TextBox>
                     {Object.keys(PATHS).map(category => (
-                        <TextBoxHighlight clickable key={category} text={category} active={activeTab === category} onClick={handleClick}></TextBoxHighlight>
+                        <Box key={category} display="flex" flexDirection="row" alignItems="flex-end">
+                            <TextBoxHighlight clickable text={category} active={activeTab === category} onClick={handleClick}></TextBoxHighlight>
+                            <PinIcon
+                                show={searchResultPath === PATHS[category]} 
+                                path={PATHS[category]} 
+                                pathString={category}
+                                fontSize="15px"
+                                toggleResultPath={toggleResultPath}
+                            ></PinIcon>
+                            {/* <GreyPushPinIcon 
+                                show={searchResultPath === PATHS[category]} 
+                                id={PATHS[category]} 
+                                onClick={setDefaultPath} 
+                            ></GreyPushPinIcon> */}
+                        </Box>
                     ))}
                 </SubContainer>
             </CommonPageHeader>

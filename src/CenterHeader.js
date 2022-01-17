@@ -9,6 +9,7 @@ import AutoComplete from './Components/Common/AutoComplete';
 import HoverButton from 'Components/Common/ButtonHover';
 import MenuIcon from '@mui/icons-material/Menu';
 import useMediaQueryEasy from 'hooks/useMediaQueryEasy';
+import useAppState from 'hooks/useAppState';
 import colors from 'config/colors';
 
 const Container = styled(Box)`
@@ -36,7 +37,8 @@ const CenterHeader = props => {
     const [anchorEl, setAnchorEl] = React.useState(null);
     const open = Boolean(anchorEl);
     const [historyPushedCount, setHistoryPushedCount] = React.useState(0);
-    const {hideRightPane} = useMediaQueryEasy()
+    const {hideRightPane} = useMediaQueryEasy();
+    const {searchResultPath} = useAppState();
     const onClickMenu = React.useCallback(event => {
         setAnchorEl(event.currentTarget)
     },[])
@@ -76,7 +78,7 @@ const CenterHeader = props => {
                 <MenuItem id="podcast" onClick={handleClose}>팟캐스트</MenuItem> 
             </StyledMenu>
             <CenterHeaderNav historyPushedCount={historyPushedCount} setHistoryPushedCount={setHistoryPushedCount}></CenterHeaderNav>
-            <AutoComplete></AutoComplete>
+            <AutoComplete searchResultPath={searchResultPath}></AutoComplete>
         </Container>
     )
 }
