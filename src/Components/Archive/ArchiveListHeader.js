@@ -3,10 +3,8 @@ import Box from '@mui/material/Box';
 import styled from 'styled-components';
 import SmallCheckBox from '../Common/CheckBox';
 import TextBox from '../Common/TextBox';
-import LinkArtist from 'Components/Links/LinkArtist';
 import useSongHelper from 'hooks/useSongHelper';
 import AnimatedNumber from 'Components/Common/AnimatedNumber';
-import useMediaQueryEasy from 'hooks/useMediaQueryEasy';
 
 const Container = styled(Box)`
     && {
@@ -27,8 +25,7 @@ const NumberContainer = styled(Box)`
 `
 
 const ArchiveListHeader = props => {
-    const {archives, total, ...rest} = props;
-    const {showShortArchiveList} = useMediaQueryEasy()
+    const {archives, total, isSearchResult, ...rest} = props;
     // console.log('### in SongItemHeaderInAlbumDetail: ', receipt_no)
     const {toggleAllSongChecked, isAllChecked} = useSongHelper();
     const toggleAllChecked = React.useCallback(checked => {
@@ -37,10 +34,13 @@ const ArchiveListHeader = props => {
     const allChecked = React.useMemo(() => {
         return isAllChecked(archives)
     },[isAllChecked, archives]);
+    const alignRownum = isSearchResult ? 'flext-start':'center';
+    const flexRownum = isSearchResult ? '2':'1';
+    const flexArtist = isSearchResult ? '1':'2';
     return (
             <Container>
                 <SmallCheckBox checked={allChecked} setChecked={toggleAllChecked} />
-                <Box flex="1" display="flex" justifyContent="center">
+                <Box flex={flexRownum} display="flex" justifyContent={alignRownum}>
                     <NumberContainer>
                         <AnimatedNumber from={0} to={archives.length || 0}></AnimatedNumber>
                     </NumberContainer>
@@ -48,6 +48,7 @@ const ArchiveListHeader = props => {
                     <NumberContainer>
                         <AnimatedNumber from={0} to={total || 0}></AnimatedNumber>
                     </NumberContainer>
+                    {isSearchResult && <TextBox ml="10px" text="프로그램"></TextBox>}
                 </Box>
                 <Box width="150px">
                     <TextBox fontSize="13px" color="white" text={'방송일'}></TextBox>
@@ -58,7 +59,7 @@ const ArchiveListHeader = props => {
                 <Box flex="2" display="flex" flexDirection="row" alignItems="center">
                     <TextBox text={"진행자"}></TextBox>
                 </Box>
-                <Box flex="2">
+                <Box flex={flexArtist}>
                     <TextBox text={"출연자"}></TextBox>
                 </Box>
                 <Box flex="2" display="flex" flexDirection="row" alignItems="center">

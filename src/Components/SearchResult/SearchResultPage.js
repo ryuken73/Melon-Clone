@@ -8,6 +8,7 @@ import SearchResultSongs from './SearchResultSongs';
 import SearchResultAlbums from './SearchResultAlbums';
 import SearchResultArtists from './SearchResultArtists';
 import SearchResultLyrics from './SearchResultLyrics';
+import SearchResultArchives from './SearchResultArchives';
 import SongHelper from 'Components/SongHelper';
 
 const Container = styled(Box)`
@@ -37,6 +38,9 @@ function SearchResultPage(props) {
         }
         if(category === 'lyrics'){
             return <SearchResultLyrics></SearchResultLyrics>
+        }
+        if(category === 'archives'){
+            return <SearchResultArchives></SearchResultArchives>
         }
     }
     return (

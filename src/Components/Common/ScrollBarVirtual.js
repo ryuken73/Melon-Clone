@@ -13,7 +13,7 @@ const Container = styled(Box)`
     background: transparent;
 `
 function ScrollBarVirtual(props) {
-    const {items, fetchNextPage, rowHeight=60, heightMinus="220px", ItemElement} = props;
+    const {items, fetchNextPage, rowHeight=60, heightMinus="220px", ItemElement, itemProps} = props;
     const [scrollRefTime, setScrollRefTime] = React.useState(Date.now());
     const category="";
     const replaceRequired = false;
@@ -64,6 +64,7 @@ function ScrollBarVirtual(props) {
                                     color="white"
                                     item={item}
                                     width="100%"
+                                    {...itemProps}
                                 ></ItemElement>
                                 <Divider opacity="0.2" margin="0px" mr={"15px"}></Divider>
                             </Box>

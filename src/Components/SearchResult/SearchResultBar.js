@@ -20,7 +20,7 @@ const SubContainer = styled(Box)`
     flex-direction: row;
     justify-content: space-between;
     align-items: baseline;
-    width: 350px;
+    width: 450px;
     margin-bottom: 10px;
 `
 
@@ -29,7 +29,8 @@ const PATHS = {
     '곡': '/searchResult/songs',
     '앨범': '/searchResult/albums',
     '아티스트': '/searchResult/artists',
-    '가사': '/searchResult/lyrics'
+    '가사': '/searchResult/lyrics',
+    '아카이브': '/searchResult/archives'
 }
 
 const findPathKeyByCategory = category => {
