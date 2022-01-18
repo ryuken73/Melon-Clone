@@ -168,14 +168,14 @@ const Player = (props, playerRef) => {
                 {repeatMode !== 'none' && <CounterAbsolute color={repeatHoverButtonColor}>{repeatCount}</CounterAbsolute>}
                 <HoverButton hide={hide} onClick={onClickRepeat} fontcolor={repeatHoverButtonColor} opacitynormal={repeatHoverOpacity}><RepeatIcon fontSize="small"></RepeatIcon></HoverButton>
                 <HoverButton hide={hide} onClick={onClickReplay10}><Replay10Icon fontSize="small"></Replay10Icon></HoverButton>
-                <HoverButton hide={hide} onClick={onClickSkipPrevious}><SkipPreviousIcon></SkipPreviousIcon></HoverButton>
+                <HoverButton hide={hide} disabled={!manifestLoaded} onClick={onClickSkipPrevious}><SkipPreviousIcon></SkipPreviousIcon></HoverButton>
                 <HoverButton hide={hide} onClick={onClickPlay} opacitynormal='0.7' opacityhover='1' disabled={!canPlay}>
                     {isPlaying ?                     
                         <PauseIcon fontSize="large" ></PauseIcon> :
                         <PlayArrowIcon fontSize="large" ></PlayArrowIcon>                  
                     }
                 </HoverButton>
-                <HoverButton hide={hide} onClick={onClickSkipNext}><SkipNextIcon></SkipNextIcon></HoverButton>
+                <HoverButton hide={hide} disabled={!manifestLoaded} onClick={onClickSkipNext}><SkipNextIcon></SkipNextIcon></HoverButton>
                 <HoverButton hide={hide} onClick={onClickForward10}><Forward10Icon fontSize="small"></Forward10Icon></HoverButton>
                 <HoverButton 
                     hide={hide}

@@ -11,17 +11,21 @@ export default function usePIP() {
     const {hideRightPane} = useMediaQueryEasy();
     const {showMessageBox} = useMessageBox();
     const showPIP = React.useCallback( mediaElementRef => {
-        // if(mediaElementRef.current === null) return;
         // if(mediaElementRef.current.readyState && mediaElementRef.current.readyState === 0) return;
         if(srcType === SRC_TYPE.BORA && hideRightPane){
             if(!document.pictureInPictureElement){
-                mediaElementRef.current.requestPictureInPicture()
-                .catch(err => {
-                    console.error(err);
-                    showMessageBox('PIP Player Loading Error(temporary)', 1000, 'error')
-                })
+                try {
+                    if(mediaElementRef.current === null) return;
+                    mediaElementRef.current.requestPictureInPicture()
+                    .catch(err => {
+                        console.error(err);
+                        showMessageBox('PIP Player Loading Error(temporary)', 1000, 'error')
+                    })
+                } catch (err) {
+                    console.error(err)
+                }
             }
-        }
+       }
     }, [srcType, hideRightPane])
     return {showPIP}
 }
