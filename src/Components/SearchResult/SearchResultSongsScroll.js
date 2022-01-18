@@ -12,6 +12,7 @@ import {withRouter} from 'react-router-dom';
 import useInfiniteData from 'hooks/useInfiniteData';
 import useSearchMusicAllInfinite from 'hooks/useSearchMusicAllInfinite';
 import SongIteminSearchAll from 'Components/Song/SongIteminSearchAll';
+import {useHotkeys} from 'react-hotkeys-hook';
 
 const Container = styled(Box)`
     display: flex;
@@ -22,6 +23,9 @@ const Container = styled(Box)`
 function SearchResultSongsScroll(props) {
     const {location } = props;
     const {page_sizes=null, page_num=null} = props;
+    useHotkeys('F2',() => {
+        alert('download')
+    }, {enableOnTags:['INPUT']}, []);
     const query = queryString.parse(location.search)
     const {keyword, exactSearch, artistName, songName} = query;
     const getCurrentTimeFunc = React.useCallback(() => {
