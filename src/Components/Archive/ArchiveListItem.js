@@ -14,6 +14,7 @@ import useSongHelper from 'hooks/useSongHelper';
 import colors from 'config/colors';
 import useDebounce from 'hooks/useDebounce';
 import useDownloadSong from 'hooks/useDownloadSong';
+import {withRouter} from 'react-router-dom';
 
 const Container = styled(Box)`
     && {
@@ -30,7 +31,7 @@ const Container = styled(Box)`
 `
 
 const ArchiveListItem = props => {
-    const {item:archive, rownum, isSearchResult=false, ...rest} = props;
+    const {item:archive, rownum, isSearchResult=false, history, ...rest} = props;
     const [hovered, setHovered] = React.useState(false);
     const {addSongsToCurrentPlaylist} = useCurrentPlaylist();
     const {checked, addChecked, delChecked} = useSongHelper(archive.id);
@@ -62,6 +63,7 @@ const ArchiveListItem = props => {
     },[downloadFile, archive])
     const deboucedHovered = useDebounce(hovered, 100);
     const {
+        pgm_cd,
         pgm_nm,
         brd_dd_with_weekday,
         episode,
@@ -75,12 +77,16 @@ const ArchiveListItem = props => {
     const fontSizeBrdDD = isSearchResult ? '12px':'14px';
     const flexRownum = isSearchResult ? '2':'1';
     const flexArtist = isSearchResult ? '1':'2';
+    const handleOnClickPgmNM = React.useCallback(() => {
+        history.push(`/archive/${pgm_cd}/archiveList`, {pgm_cd})
+    },[pgm_cd, history])
+
     return (
         <Container hovered={deboucedHovered} onMouseEnter={onHovered} onMouseLeave={onHoverOut}>
             <SmallCheckBox checked={checked} setChecked={onChecked} />
             <Box flex={flexRownum} display="flex" justifyContent={alignRownum}>
                 <TextBox text={rownum+1}></TextBox>
-                {isSearchResult && <TextBox clickable fontSize={fontSizeRownum} text={`.${pgm_nm}`}></TextBox>}
+                {isSearchResult && <TextBox clickable onClick={handleOnClickPgmNM} fontSize={fontSizeRownum} text={`.${pgm_nm}`}></TextBox>}
             </Box>
             <Box width="150px">
                 <TextBox fontSize={fontSizeBrdDD} color="white" text={brd_dd_with_weekday}></TextBox>
@@ -120,4 +126,4 @@ const ArchiveListItem = props => {
     )
 }
 
-export default ArchiveListItem;
+export default React.memo(withRouter(ArchiveListItem));

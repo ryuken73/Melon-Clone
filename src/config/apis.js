@@ -130,8 +130,16 @@ export const headers = {
         'file_size',
         'bora_archive_yn',
         'bora_archive_open_yn'
+    ],
+    podcast: [
+        'pgm_title',
+        'brad_day',
+        'cast_nm',
+        'cmplt_yn',
+        'link',
+        'media_id',
+        'episode_title'
     ]
-
 }
 
 export const apiMap = {
