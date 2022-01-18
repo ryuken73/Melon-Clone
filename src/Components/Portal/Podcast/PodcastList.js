@@ -18,9 +18,9 @@ function PodcastList(props) {
     const {show2ColArchiveList, show3ColArchiveList} = useMediaQueryEasy();
     const columns = show2ColArchiveList ? 2 : show3ColArchiveList ? 3 : MAX_COLUMNS_FOR_ARCHIVELIST;
     const podcastsToShow = 
-        show2ColArchiveList ? podcasts.slice(0,8) :
-        show3ColArchiveList ? podcasts.slice(0,12) :
-        podcasts.slice(0,16)
+        show2ColArchiveList ? podcasts.slice(0,6) :
+        show3ColArchiveList ? podcasts.slice(0,9) :
+        podcasts.slice(0,12)
     return (
         <Container columns={columns}>
             {podcastsToShow.map((podcast, index) => (

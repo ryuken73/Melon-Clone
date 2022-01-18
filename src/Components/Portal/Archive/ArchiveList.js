@@ -18,9 +18,9 @@ function ArchiveList(props) {
     const {show2ColArchiveList, show3ColArchiveList} = useMediaQueryEasy();
     const columns = show2ColArchiveList ? 2 : show3ColArchiveList ? 3 : MAX_COLUMNS_FOR_ARCHIVELIST;
     const archivesToShow = 
-        show2ColArchiveList ? groupedArchives.slice(0,10) :
-        show3ColArchiveList ? groupedArchives.slice(0,15) :
-        groupedArchives
+        show2ColArchiveList ? groupedArchives.slice(0,8) :
+        show3ColArchiveList ? groupedArchives.slice(0,12) :
+        groupedArchives.slice(0,16)
     return (
         <Container columns={columns}>
             {archivesToShow.map((archives, index) => (
