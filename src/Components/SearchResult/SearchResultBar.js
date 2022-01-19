@@ -26,9 +26,10 @@ const SubContainer = styled(Box)`
     margin-bottom: 10px;
 `
 const GreyPushPinIcon = styled(PushPinIcon)`
-    color: yellow;
-    opacity: ${props => props.show ? 1 : 0};
-    font-size: 20px;
+    color: gold;
+    opacity: ${props => props.show ? 0.7 : 0};
+    font-size: 15px;
+    margin-left: 2px;
     &:hover {
         opacity: 1;
         cursor: pointer;
@@ -71,13 +72,13 @@ function SearchResultBar(props) {
         history.push(`${PATHS[tabName]}?${qs}`, {tabName, qs});
     },[history, qs])
 
-
     const PinIcon = props => {
-        const {path, pathString, toggleResultPath, ...rest} = props
-        const setDefaultPath = React.useCallback(() => {
+        const {qs, path, pathString, toggleResultPath, history, ...rest} = props
+        const setDefaultPath = React.useCallback(event => {
             toggleResultPath(path);
-            showMessageBox(`검색결과를 ${pathString}기준으로 먼저 표시합니다.`, 1000)
-        },[toggleResultPath, path, pathString])
+            history.push(`${path}?${qs}`, {path, qs});
+            showMessageBox(`검색결과를 ${pathString}기준으로 먼저 표시합니다.`, 2000)
+        },[toggleResultPath, path, pathString, qs, history])
         return (
             <GreyPushPinIcon 
                 onClick={setDefaultPath} 
@@ -98,13 +99,15 @@ function SearchResultBar(props) {
                         text="검색">
                     </TextBox>
                     {Object.keys(PATHS).map(category => (
-                        <Box key={category} display="flex" flexDirection="row" alignItems="flex-end">
+                        <Box key={category} display="flex" flexDirection="row" alignItems="center">
                             <TextBoxHighlight clickable text={category} active={activeTab === category} onClick={handleClick}></TextBoxHighlight>
                             <PinIcon
+                                qs={qs}
                                 show={searchResultPath === PATHS[category]} 
                                 path={PATHS[category]} 
                                 pathString={category}
                                 fontSize="15px"
+                                history={history}
                                 toggleResultPath={toggleResultPath}
                             ></PinIcon>
                             {/* <GreyPushPinIcon 
