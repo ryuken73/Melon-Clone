@@ -53,16 +53,6 @@ const ArtistDetailSongList = props => {
     const [orderRecent, setOrderRecent] = React.useState(true);
     const [orderAlpha, setOrderAlpha] = React.useState(true);
     const [orderBy, setOrderBy] = React.useState('order by album_name_str asc');
-    // const orderBy = 'order by album_name_str asc';
-
-    // const params = React.useMemo(() => {
-    //     return {
-    //         scn: 'song',
-    //         query: `artist = '${artist_name}' allwordthruindexsyn and status='Y'`,
-    //         orderby: orderBy,
-    //         bool: true
-    //     }
-    // },[artist_name, orderBy])
 
     const params = {
         scn: 'song',
@@ -70,13 +60,6 @@ const ArtistDetailSongList = props => {
         orderby: orderBy,
         bool: true
     }
-
-    // const uniqKeys = React.useMemo(() => {
-    //     return {
-    //         artist_name,
-    //         lastKey: 'artistDetailSong'
-    //     }
-    // },[artist_name])
 
     const uniqKeys = {
         artist_name,
