@@ -19,7 +19,7 @@ var RenderIfVisible = function (_a) {
     React.useEffect(() => {
         if (typeof window !== undefined && window.requestIdleCallback) {
             window.requestIdleCallback(function () { 
-                console.log('**setIsVisible idleCallback:', intersectingDebounced)
+                // console.log('**setIsVisible idleCallback:', intersectingDebounced)
                 // return setIsVisible(entries[0].isIntersecting); 
                 return setIsVisible(intersectingDebounced);
             }, {

@@ -61,7 +61,7 @@ const ArtistDetailSongList = props => {
             orderby: orderBy,
             bool: true
         }
-    },[artist_name, orderRecent, orderBy])
+    },[artist_name, orderBy])
 
     const uniqKeys = React.useMemo(() => {
         return {
@@ -69,6 +69,8 @@ const ArtistDetailSongList = props => {
             lastKey: 'artistDetailSong'
         }
     },[artist_name])
+    
+    console.log('re-render ArtistDetailSongList')
 
     const {
         data,

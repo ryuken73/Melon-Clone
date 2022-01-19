@@ -61,7 +61,7 @@ const SongItemHeaderInSongScroll = props => {
                     {/* 발매일 */}
                     <TextBox containerProps={{marginRight:"15px"}} text="발매일" {...rest}></TextBox>
                 </Box>
-                <Box width="15%">
+                <Box width="15%" ml="5px">
                     {/* 아티스트 */}
                     <TextBox text="아티스트" {...rest} color="darkgrey"></TextBox>
                 </Box>

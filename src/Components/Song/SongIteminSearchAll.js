@@ -109,7 +109,7 @@ const SongIteminSearchAll = props => {
                     {/* 발매일 */}
                     <TextBox text={release_year ? `${release_year}년`:''} {...rest} color="darkgrey"></TextBox>
                 </Box>
-                <Box width="15%">
+                <Box width="15%" ml="5px">
                     {/* 아티스트 */}
                     <LinkArtist artist={artist_bold} matched={artist_matched} preserveHtmlTag {...rest} color="darkgrey"></LinkArtist>
                 </Box>

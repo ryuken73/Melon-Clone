@@ -109,7 +109,7 @@ const ScrollBarWithColor = (props, ref) => {
         const t = ((scrollTop + pad) / (scrollHeight - clientHeight));
         setT(t);
         // if (t > 1) handleAboutToReachBottom();
-    },[handleAboutToReachBottom])
+    },[])
 
     return (
         <Scrollbars
