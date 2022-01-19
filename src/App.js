@@ -56,14 +56,14 @@ const HideRightPane = keyframes`
 
 const showStyle = css`
   animation-name: ${ShowRightPane};
-  animation-delay: 0.3s;
-  animation-duration: 1s;
+  animation-delay: 0s;
+  animation-duration: 0.5s;
   animation-fill-mode: both;
 `
 const hideStyle = css`
   animation-name: ${HideRightPane};
-  animation-delay: 0.3s;
-  animation-duration: 1s;
+  animation-delay: 0s;
+  animation-duration: 0.5s;
   animation-fill-mode: both;
 `
 
