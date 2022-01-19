@@ -50,10 +50,10 @@ const SongContainer = styled(Box)`
 const ArtistDetailSongList = props => {
     const {match} = props;
     const {artist_name, category} = match.params;
-    // const [orderRecent, setOrderRecent] = React.useState(true);
-    // const [orderAlpha, setOrderAlpha] = React.useState(true);
-    // const [orderBy, setOrderBy] = React.useState('order by album_name_str asc');
-    const orderBy = 'order by album_name_str asc';
+    const [orderRecent, setOrderRecent] = React.useState(true);
+    const [orderAlpha, setOrderAlpha] = React.useState(true);
+    const [orderBy, setOrderBy] = React.useState('order by album_name_str asc');
+    // const orderBy = 'order by album_name_str asc';
 
     // const params = React.useMemo(() => {
     //     return {
@@ -65,11 +65,11 @@ const ArtistDetailSongList = props => {
     // },[artist_name, orderBy])
 
     const params = {
-            scn: 'song',
-            query: `artist = '${artist_name}' allwordthruindexsyn and status='Y'`,
-            orderby: orderBy,
-            bool: true
-        }
+        scn: 'song',
+        query: `artist = '${artist_name}' allwordthruindexsyn and status='Y'`,
+        orderby: orderBy,
+        bool: true
+    }
 
     // const uniqKeys = React.useMemo(() => {
     //     return {
@@ -79,9 +79,9 @@ const ArtistDetailSongList = props => {
     // },[artist_name])
 
     const uniqKeys = {
-            artist_name,
-            lastKey: 'artistDetailSong'
-        }
+        artist_name,
+        lastKey: 'artistDetailSong'
+    }
     
     console.log('re-render ArtistDetailSongList')
     React.useEffect(() => {
@@ -106,36 +106,36 @@ const ArtistDetailSongList = props => {
     const [songs, total] = useInfiniteData(data, 'songs');
     console.log('&&: in artist detail all song:', data, songs);
 
-    // const {addSongsToCurrentPlaylist} = useCurrentPlaylist();
-    // const {clearChecked, toggleAllSongChecked} = useSongHelper();
+    const {addSongsToCurrentPlaylist} = useCurrentPlaylist();
+    const {clearChecked, toggleAllSongChecked} = useSongHelper();
 
-    // const toggleOrderRecent = React.useCallback(()=>{
-    //     setOrderRecent(orderRecent => {
-    //         const newOrderRecent = !orderRecent;
-    //         setOrderBy(`order by release_year ${newOrderRecent ? 'asc':'desc'} , song_name_str ${orderAlpha ? 'asc':'desc'}`)
-    //         return newOrderRecent;
-    //     });
-    // },[setOrderRecent, setOrderBy, orderAlpha]);
+    const toggleOrderRecent = React.useCallback(()=>{
+        setOrderRecent(orderRecent => {
+            const newOrderRecent = !orderRecent;
+            setOrderBy(`order by release_year ${newOrderRecent ? 'asc':'desc'} , song_name_str ${orderAlpha ? 'asc':'desc'}`)
+            return newOrderRecent;
+        });
+    },[setOrderRecent, setOrderBy, orderAlpha]);
 
-    // const toggleOrderAlpha = React.useCallback(()=>{
-    //     setOrderAlpha(orderAlpha => {
-    //         const newOrderAlpha = !orderAlpha
-    //         setOrderBy(`order by song_name_str ${newOrderAlpha ? 'asc':'desc'}, release_year ${orderRecent ? 'asc':'desc'}`)
-    //         return newOrderAlpha
-    //     });
-    // },[setOrderAlpha, setOrderBy, orderRecent]);
+    const toggleOrderAlpha = React.useCallback(()=>{
+        setOrderAlpha(orderAlpha => {
+            const newOrderAlpha = !orderAlpha
+            setOrderBy(`order by song_name_str ${newOrderAlpha ? 'asc':'desc'}, release_year ${orderRecent ? 'asc':'desc'}`)
+            return newOrderAlpha
+        });
+    },[setOrderAlpha, setOrderBy, orderRecent]);
 
-    // const toggleAllChecked = React.useCallback(()=>{
-    //     toggleAllSongChecked(songs);
-    // },[toggleAllSongChecked, songs])
+    const toggleAllChecked = React.useCallback(()=>{
+        toggleAllSongChecked(songs);
+    },[toggleAllSongChecked, songs])
 
-    // const addAllSongNPlay = React.useCallback(() => {
-    //     addSongsToCurrentPlaylist(songs, true);
-    //     clearChecked();
-    // },[addSongsToCurrentPlaylist, songs, clearChecked])
+    const addAllSongNPlay = React.useCallback(() => {
+        addSongsToCurrentPlaylist(songs, true);
+        clearChecked();
+    },[addSongsToCurrentPlaylist, songs, clearChecked])
 
-    // const ArrowOrderRecent = orderRecent ? ArrowDownward : ArrowUpward;
-    // const ArrowOrderAlpha = orderAlpha ? ArrowDownward : ArrowUpward;
+    const ArrowOrderRecent = orderRecent ? ArrowDownward : ArrowUpward;
+    const ArrowOrderAlpha = orderAlpha ? ArrowDownward : ArrowUpward;
 
     const replaceRequired = false;
     const rootForObservation = React.useRef();
@@ -143,7 +143,7 @@ const ArtistDetailSongList = props => {
     return (
         <Container>
             <ButtonContainer>
-                {/* <ButtonIcon
+                <ButtonIcon
                     text="최신순"
                     iconComponent={<ArrowOrderRecent fontSize="small"></ArrowOrderRecent>}
                     border="1px solid rgba(255, 255, 255, .5)"
@@ -156,8 +156,8 @@ const ArtistDetailSongList = props => {
                     border="1px solid rgba(255, 255, 255, .5)"
                     hoverBorder="1px solid rgba(255, 255, 255, 0.8)"
                     onClick={toggleOrderAlpha}
-                ></ButtonIcon> */}
-                {/* <Box ml="auto">
+                ></ButtonIcon>
+                <Box ml="auto">
                     <ButtonIcon 
                         text="전체선택" 
                         iconComponent={<CheckIcon fontSize="small"></CheckIcon>} 
@@ -173,7 +173,7 @@ const ArtistDetailSongList = props => {
                         border="1px solid rgba(255, 255, 255, .5)"
                         hoverBorder="1px solid rgba(255, 255, 255, 0.8)"
                         onClick={addAllSongNPlay}
-                    ></ButtonIcon> */}
+                    ></ButtonIcon>
             </ButtonContainer>
             <SongContainer>
                 <SongItemHeaderInSongsScroll
