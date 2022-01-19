@@ -94,8 +94,8 @@ const ArtistDetailSongList = props => {
     const [songs, total] = useInfiniteData(data, 'songs');
     console.log('&&: in artist detail all song:', data, songs);
 
-    const {addSongsToCurrentPlaylist} = useCurrentPlaylist();
-    const {clearChecked, toggleAllSongChecked} = useSongHelper();
+    // const {addSongsToCurrentPlaylist} = useCurrentPlaylist();
+    // const {clearChecked, toggleAllSongChecked} = useSongHelper();
 
     // const toggleOrderRecent = React.useCallback(()=>{
     //     setOrderRecent(orderRecent => {
@@ -113,14 +113,14 @@ const ArtistDetailSongList = props => {
     //     });
     // },[setOrderAlpha, setOrderBy, orderRecent]);
 
-    const toggleAllChecked = React.useCallback(()=>{
-        toggleAllSongChecked(songs);
-    },[toggleAllSongChecked, songs])
+    // const toggleAllChecked = React.useCallback(()=>{
+    //     toggleAllSongChecked(songs);
+    // },[toggleAllSongChecked, songs])
 
-    const addAllSongNPlay = React.useCallback(() => {
-        addSongsToCurrentPlaylist(songs, true);
-        clearChecked();
-    },[addSongsToCurrentPlaylist, songs, clearChecked])
+    // const addAllSongNPlay = React.useCallback(() => {
+    //     addSongsToCurrentPlaylist(songs, true);
+    //     clearChecked();
+    // },[addSongsToCurrentPlaylist, songs, clearChecked])
 
     // const ArrowOrderRecent = orderRecent ? ArrowDownward : ArrowUpward;
     // const ArrowOrderAlpha = orderAlpha ? ArrowDownward : ArrowUpward;
@@ -145,7 +145,7 @@ const ArtistDetailSongList = props => {
                     hoverBorder="1px solid rgba(255, 255, 255, 0.8)"
                     onClick={toggleOrderAlpha}
                 ></ButtonIcon> */}
-                <Box ml="auto">
+                {/* <Box ml="auto">
                     <ButtonIcon 
                         text="전체선택" 
                         iconComponent={<CheckIcon fontSize="small"></CheckIcon>} 
@@ -161,7 +161,7 @@ const ArtistDetailSongList = props => {
                         border="1px solid rgba(255, 255, 255, .5)"
                         hoverBorder="1px solid rgba(255, 255, 255, 0.8)"
                         onClick={addAllSongNPlay}
-                    ></ButtonIcon>
+                    ></ButtonIcon> */}
             </ButtonContainer>
             <SongContainer>
                 <SongItemHeaderInSongsScroll
