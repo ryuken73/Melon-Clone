@@ -71,6 +71,11 @@ const ArtistDetailSongList = props => {
     },[artist_name])
     
     console.log('re-render ArtistDetailSongList')
+    React.useEffect(() => {
+        return () => {
+            console.log('ArtistDetailSong umounted!')
+        }
+    },[])
 
     const {
         data,

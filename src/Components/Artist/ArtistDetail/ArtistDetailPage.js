@@ -21,6 +21,13 @@ const ArtistDetailPage = props => {
     const {location} = props;
     const query = queryString.parse(location.search)
     const {sch_id} = query;
+    console.log('re-render ArtistDetailPage')
+    React.useEffect(() => {
+        return () => {
+            console.log('ArtistDetailPage umounted!')
+        }
+    },[])
+    
     return (
         <Container>
             <ArtistDetailHeader sch_id={sch_id} ></ArtistDetailHeader>
