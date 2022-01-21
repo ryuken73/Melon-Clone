@@ -5,6 +5,11 @@ import Scrollbar from 'react-smooth-scrollbar'
 const StyledScrollbar = styled(Scrollbar)`
     height: ${props => props.height};
     width: ${props => props.width};
+    .scrollbar-track-y {
+        .scrollbar-thumb-y {
+            border-radius: 0px;
+        }
+    }
 
 `
 
@@ -38,6 +43,7 @@ const ScrollBarSmooth = (props, ref) => {
         <StyledScrollbar
             height={height}
             width={width}
+            alwaysShowTracks={true}
             onScroll={handleScroll}
             ref={scrollbar}
         >
