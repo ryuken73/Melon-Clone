@@ -2,6 +2,7 @@ import React from 'react';
 import Box from '@mui/material/Box';
 import styled from 'styled-components';
 import ScrollBarWithColor from 'Components/Common/ScrollBarWithColor';
+import ScrollBarSmooth from 'Components/Common/ScrollBarSmooth';
 import { useVirtual } from "react-virtual";
 import Divider from '@mui/material/Divider';
 import useMediaQueryEasy from 'hooks/useMediaQueryEasy';
@@ -26,15 +27,21 @@ function ScrollBarVirtual(props) {
     });
     const {fullViewHeightMediaQuery} = useMediaQueryEasy();
     return (
-        <ScrollBarWithColor
-            moveScrollToTop={replaceRequired} 
+        // <ScrollBarWithColor
+        //     moveScrollToTop={replaceRequired} 
+        //     getMoreItem={fetchNextPage} 
+        //     category={category}
+        //     autoHide 
+        //     style={{ width:'100%', height: `calc(${fullViewHeightMediaQuery} - ${heightMinus})`}}
+        //     ref={parentRef}
+        //     setScrollRefTime={setScrollRefTime}
+        // >
+        <ScrollBarSmooth
             getMoreItem={fetchNextPage} 
-            category={category}
-            autoHide 
-            style={{ width:'100%', height: `calc(${fullViewHeightMediaQuery} - ${heightMinus})`}}
+            height={`calc(${fullViewHeightMediaQuery} - ${heightMinus})`}
             ref={parentRef}
-            setScrollRefTime={setScrollRefTime}
-        >
+            refreshRefByTime={setScrollRefTime}
+        > 
             <div
                 style={{
                 height: `${rowVirtualizer.totalSize}px`,
@@ -44,7 +51,7 @@ function ScrollBarVirtual(props) {
             >
                 {rowVirtualizer.virtualItems.map(virtualRow => {
                     const item = items[virtualRow.index];
-                    console.log(`${item.id}::${virtualRow.index}`)
+                    console.log(`^^^ ${item.id}::${virtualRow.index}`)
                     return (
                         <div
                             key={virtualRow.index}
@@ -73,7 +80,8 @@ function ScrollBarVirtual(props) {
                 })}
                 {/* <SongListInSearchAll renderIfVisible={false} rootRef={rootForObservation} songs={songs}></SongListInSearchAll> */}
             </div>
-        </ScrollBarWithColor>
+        </ScrollBarSmooth>
+        // </ScrollBarWithColor>
     )
 }
 

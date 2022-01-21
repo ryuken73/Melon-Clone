@@ -2,8 +2,9 @@ import React from 'react'
 import Box from '@mui/material/Box';
 import AlbumBox from 'Components/Album/AlbumBox';
 import styled from 'styled-components';
-import SearchResultAlbumsScroll from './SearchResultAlbumsScroll';
+// import SearchResultAlbumsScroll from './SearchResultAlbumsScroll';
 import ScrollBarWithColor from 'Components/Common/ScrollBarWithColor';
+import ScrollBarSmooth from 'Components/Common/ScrollBarSmooth';
 import CONSTANTS from 'config/constants';
 import {withRouter} from 'react-router-dom';
 import queryString from 'query-string';
@@ -57,11 +58,15 @@ function SearchResultAlbums(props) {
     const {fullViewHeightMediaQuery} = useMediaQueryEasy();
 
     return (
-        <ScrollBarWithColor 
-            moveScrollToTop={replaceRequired} 
+        // <ScrollBarWithColor 
+        //     moveScrollToTop={replaceRequired} 
+        //     getMoreItem={fetchNextPage} 
+        //     autoHide 
+        //     style={{ width:'100%', height: `calc(${fullViewHeightMediaQuery} - 100px)` }}
+        // >
+        <ScrollBarSmooth
             getMoreItem={fetchNextPage} 
-            autoHide 
-            style={{ width:'100%', height: `calc(${fullViewHeightMediaQuery} - 100px)` }}
+            height={`calc(${fullViewHeightMediaQuery} - 100px)`}
         >
             <Container>
                 {albums.map((album,index) => (  
@@ -82,7 +87,8 @@ function SearchResultAlbums(props) {
                     // </RenderIfVisible>
                 ))}
             </Container>
-        </ScrollBarWithColor>
+        </ScrollBarSmooth>
+        // </ScrollBarWithColor>
     )
 }
 

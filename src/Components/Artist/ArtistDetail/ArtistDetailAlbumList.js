@@ -4,6 +4,7 @@ import AlbumBox from 'Components/Album/AlbumBox';
 import styled from 'styled-components';
 import {withRouter} from 'react-router-dom';
 import ScrollBarWithColor from 'Components/Common/ScrollBarWithColor';
+import ScrollBarSmooth from 'Components/Common/ScrollBarSmooth';
 import useInfiniteData from 'hooks/useInfiniteData';
 import useSearchMusicAllInfinite from 'hooks/useSearchMusicAllInfinite';
 import useMediaQueryEasy from 'hooks/useMediaQueryEasy';
@@ -53,12 +54,16 @@ const ArtistDetailAlbumList = props => {
     const replaceRequired = false;
 
     return (
-        <ScrollBarWithColor 
-            moveScrollToTop={replaceRequired} 
+        // <ScrollBarWithColor 
+        //     moveScrollToTop={replaceRequired} 
+        //     getMoreItem={fetchNextPage} 
+        //     category={category}
+        //     autoHide 
+        //     style={{ width:'100%', height: `calc(${fullViewHeightMediaQuery} - 270px)`  }}
+        // >
+        <ScrollBarSmooth
             getMoreItem={fetchNextPage} 
-            category={category}
-            autoHide 
-            style={{ width:'100%', height: `calc(${fullViewHeightMediaQuery} - 270px)`  }}
+            height={`calc(${fullViewHeightMediaQuery} - 270px)`}
         >
             <Container>
                 {albums.map((album,index) => (  
@@ -76,7 +81,8 @@ const ArtistDetailAlbumList = props => {
                     ></AlbumBox>
                 ))}
             </Container>
-        </ScrollBarWithColor>
+        </ScrollBarSmooth>
+        // {/* </ScrollBarWithColor> */}
     )
 }
 

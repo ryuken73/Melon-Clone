@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import { getString } from 'lib/util';
 import TextBox from 'Components/Common/TextBox';
 import SongItemHeaderInSongsScroll from 'Components/Song/SongItemHeaderInSongsScroll';
-import ScrollBarWithColor from 'Components/Common/ScrollBarWithColor';
+// import ScrollBarWithColor from 'Components/Common/ScrollBarWithColor';
 import ScrollBarVirtual from 'Components/Common/ScrollBarVirtual'; 
 import ScrollBarRenderIfShow from 'Components/Common/ScrollBarRenderIfShow'; 
 import queryString from 'query-string';

@@ -3,6 +3,7 @@ import Box from '@mui/material/Box';
 import styled from 'styled-components';
 import AlbumInfoTable from './AlbumInfoTable';
 import ScrollBarWithColor from 'Components/Common/ScrollBarWithColor';
+import ScrollBarSmooth from 'Components/Common/ScrollBarSmooth';
 import useMediaQueryEasy from 'hooks/useMediaQueryEasy';
 
 const Container = styled(Box)`
@@ -18,12 +19,16 @@ const AlbumDetailInfo = props => {
     const {fullViewHeightMediaQuery} = useMediaQueryEasy();
     return (
         <Container>
-            <ScrollBarWithColor 
+            {/* <ScrollBarWithColor 
                 autoHide 
                 style={{width:'100%', height:`calc(${fullViewHeightMediaQuery} - 258px)`}}
+            > */}
+            <ScrollBarSmooth
+                height={`calc(${fullViewHeightMediaQuery} - 258px)`}
             >
                 <AlbumInfoTable receipt_no={receipt_no} ></AlbumInfoTable>
-            </ScrollBarWithColor>
+            </ScrollBarSmooth>
+            {/* </ScrollBarWithColor> */}
         </Container>
     )
 }

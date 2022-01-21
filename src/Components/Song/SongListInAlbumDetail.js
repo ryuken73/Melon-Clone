@@ -5,6 +5,7 @@ import SongItemAlbumDetail from './SongIteminAlbumDetail';
 import SongItemHeaderInAlbumDetail from './SongItemHeaderInAlbumDetail';
 import Divider from '../Common/Divider';
 import ScrollBarWithColor from '../Common/ScrollBarWithColor';
+import ScrollBarSmooth from 'Components/Common/ScrollBarSmooth';
 import useMediaQueryEasy from 'hooks/useMediaQueryEasy';
 
 const Container = styled(Box)`
@@ -27,7 +28,10 @@ const SongListInAlbumDetail = props => {
                 // headers={['순번', '곡명', '아티스트', '버전', '재생시간']}
             ></SongItemHeaderInAlbumDetail>
             <Divider opacity="0.2" margin="0px" mr={mr}></Divider>
-            <ScrollBarWithColor autoHide style={{ width:'100%', height: `calc(${fullViewHeightMediaQuery} - 370px)`}}>
+            {/* <ScrollBarWithColor autoHide style={{ width:'100%', height: `calc(${fullViewHeightMediaQuery} - 370px)`}}> */}
+            <ScrollBarSmooth
+                height={`calc(${fullViewHeightMediaQuery} - 370px)`}
+            >
                 {songs.map((song, index) => (
                     <Box key={song.rownum}>
                         <SongItemAlbumDetail
@@ -40,7 +44,8 @@ const SongListInAlbumDetail = props => {
                         <Divider opacity="0.2" margin="0px" mr={mr}></Divider>
                     </Box>
                 ))}
-            </ScrollBarWithColor>
+            </ScrollBarSmooth>
+            {/* </ScrollBarWithColor> */}
         </Container>
     )
 }

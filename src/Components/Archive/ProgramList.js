@@ -5,6 +5,7 @@ import ProgramBox from 'Components/Archive/ProgramBox';
 import ProgramEnd from 'Components/Archive/ProgramEnd';
 import TextBox from 'Components/Common/TextBox';
 import ScrollBarWithColor from 'Components/Common/ScrollBarWithColor';
+import ScrollBarSmooth from 'Components/Common/ScrollBarSmooth';
 import useQueryProgramList from 'hooks/useQueryProgramList';
 import useMediaQueryEasy from 'hooks/useMediaQueryEasy';
 import createProgramList from 'lib/programInfoClass';
@@ -33,11 +34,14 @@ const ProgramList = props  => {
 
     const {fullViewHeightMediaQuery} = useMediaQueryEasy();
     return (
-        <ScrollBarWithColor 
-            moveScrollToTop={replaceRequired} 
-            category={category}
-            autoHide 
-            style={{ width:'100%', height: `calc(${fullViewHeightMediaQuery} - 100px)` }}
+        // <ScrollBarWithColor 
+        //     moveScrollToTop={replaceRequired} 
+        //     category={category}
+        //     autoHide 
+        //     style={{ width:'100%', height: `calc(${fullViewHeightMediaQuery} - 100px)` }}
+        // >
+        <ScrollBarSmooth
+            height={`calc(${fullViewHeightMediaQuery} - 100px)`}
         >
             <Container>
                 {chan_cd !== 'END' && result.isSuccess && (
@@ -57,7 +61,8 @@ const ProgramList = props  => {
                     ))
                 )}
            </Container>
-        </ScrollBarWithColor>
+        </ScrollBarSmooth>
+        // </ScrollBarWithColor>
     )
 }
 

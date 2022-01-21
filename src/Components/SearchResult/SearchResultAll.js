@@ -1,5 +1,6 @@
 import React from 'react';
 import ScrollBarWithColor from 'Components/Common/ScrollBarWithColor';
+import ScrollBarSmooth from 'Components/Common/ScrollBarSmooth';
 import SearchResultAllSongs from './SearchResultAllSongs';
 import SearchResultAllAlbums from './SearchResultAllAlbums';
 import SearchResultAllArtists from './SearchResultAllArtists';
@@ -10,16 +11,20 @@ import useMediaQueryEasy from 'hooks/useMediaQueryEasy';
 function SearchResultAll(props) {
     const {fullViewHeightMediaQuery} = useMediaQueryEasy();
     return (
-        <ScrollBarWithColor 
-            autoHide 
-            style={{ width:'100%', height: `calc(${fullViewHeightMediaQuery} - 130px)`}}
+        // <ScrollBarWithColor 
+        //     autoHide 
+        //     style={{ width:'100%', height: `calc(${fullViewHeightMediaQuery} - 130px)`}}
+        // >
+        <ScrollBarSmooth
+            height={`calc(${fullViewHeightMediaQuery} - 130px)`}
         >
             <SearchResultAllSongs></SearchResultAllSongs>
             <SearchResultAllAlbums></SearchResultAllAlbums>
             <SearchResultAllArtists page_sizes={5}></SearchResultAllArtists>
             <SearchResultAllLyrics></SearchResultAllLyrics>
             <SearchResultAllArchives></SearchResultAllArchives>
-        </ScrollBarWithColor>
+        </ScrollBarSmooth>
+        // </ScrollBarSmooth></ScrollBarWithColor>
     )
 }
 

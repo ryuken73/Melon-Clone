@@ -14,6 +14,7 @@ import SongListInSearchAll from 'Components/Song/SongListInSearchAll';
 import SongItemHeaderInSongsScroll from 'Components/Song/SongItemHeaderInSongsScroll';
 import SongHelper from 'Components/SongHelper';
 import ScrollBarWithColor from 'Components/Common/ScrollBarWithColor';
+import ScrollBarSmooth from 'Components/Common/ScrollBarSmooth';
 import useInfiniteData from 'hooks/useInfiniteData';
 import useSearchMusicAllInfinite from 'hooks/useSearchMusicAllInfinite';
 import useCurrentPlaylist from 'hooks/useCurrentPlaylist';
@@ -163,7 +164,7 @@ const ArtistDetailSongList = props => {
                     songs={songs}
                     total={total}
                 ></SongItemHeaderInSongsScroll>
-                <ScrollBarWithColor
+                {/* <ScrollBarWithColor
 
                     moveScrollToTop={replaceRequired} 
                     getMoreItem={fetchNextPage} 
@@ -171,9 +172,15 @@ const ArtistDetailSongList = props => {
                     autoHide 
                     style={{ width:'100%', height: `calc(${fullViewHeightMediaQuery} - 400px)`  }}
                     ref={rootForObservation}
+                > */}
+                <ScrollBarSmooth
+                    getMoreItem={fetchNextPage} 
+                    height={`calc(${fullViewHeightMediaQuery} - 400px)`}
+                    ref={rootForObservation}
                 >
                     <SongListInSearchAll renderIfVisible={true} rootRef={rootForObservation} songs={songs}></SongListInSearchAll>
-                </ScrollBarWithColor>
+                </ScrollBarSmooth>
+                {/* </ScrollBarWithColor> */}
                 {isFetching && (
                     <Box m="10px">
                         <TextBox fontSize="14px" text={`Getting More Data..`}></TextBox>

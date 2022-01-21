@@ -66,7 +66,6 @@ const AlbumList = props => {
         <ScrollBarSmooth
             getMoreItem={fetchNextPage} 
             height={`calc(${fullViewHeightMediaQuery} - 100px)`}
-        
         >
             <Container>
                 {albums.map((album,index) => (  

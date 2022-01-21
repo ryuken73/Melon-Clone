@@ -3,6 +3,7 @@ import Box from '@mui/material/Box';
 import styled from 'styled-components';
 import Song from './Song';
 import ScrollBarWithColor from '../Common/ScrollBarWithColor';
+import ScrollBarSmooth from 'Components/Common/ScrollBarSmooth';
 import useCurrentPlaylist from 'hooks/useCurrentPlaylist';
 import useMediaQueryEasy from 'hooks/useMediaQueryEasy';
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
@@ -35,7 +36,11 @@ const SongList = props => {
     console.log('###songs:', currentPlaylist)
     const {fullViewHeightMediaQuery} = useMediaQueryEasy();
     return (
-        <ScrollBarWithColor autoHide style={{ width:`${hide ? '0px':'300px'}`, flex:"1", height: `calc(${fullViewHeightMediaQuery} - 440px)`}}>
+        // <ScrollBarWithColor autoHide style={{ width:`${hide ? '0px':'300px'}`, flex:"1", height: `calc(${fullViewHeightMediaQuery} - 440px)`}}>
+        <ScrollBarSmooth
+            height={`calc(${fullViewHeightMediaQuery} - 440px)`}
+            width={hide ? '0px':'300px'}
+        >
             <DragDropContext onDragEnd={onDragEnd}>
                 <Droppable droppableId="droppable">
                     {(provided, snapshot) => (
@@ -61,7 +66,8 @@ const SongList = props => {
                     )}
                 </Droppable>
             </DragDropContext>
-        </ScrollBarWithColor>
+        </ScrollBarSmooth>
+        // </ScrollBarWithColor>
     )
 }
 
