@@ -60,6 +60,7 @@ function Skin(props, ref) {
     const {showPIP} = useVideoPIP();
     const {
         albumImageSrc='',
+        eval_imagePath='',
         song_name="곡명",
         artist="아티스트",
         getFileSizeParams='',
@@ -129,7 +130,12 @@ function Skin(props, ref) {
             {src_type !== SRC_TYPE.BORA && (
                 <Container>
                     <Image>
-                        <ImageBox src={albumImageSrc} objectFit={objectFit} width={width} height="150px"></ImageBox>
+                        <ImageBox 
+                            src={albumImageSrc || eval_imagePath} 
+                            objectFit={objectFit} 
+                            width={width} 
+                            height="150px"
+                        ></ImageBox>
                     </Image>
                     <Title>
                         <TextBox textalign="center" fontSize="13px" text={song_name} color={currentPlaying ? 'yellow':colors.textMain}></TextBox>

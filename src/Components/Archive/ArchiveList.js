@@ -19,7 +19,6 @@ const Container = styled(Box)`
     justify-content: flex-start;
     background: transparent;
 `
-
 const ArchiveList = props => {
     const {match} = props;
     const {pgm_cd} = match.params;
@@ -35,9 +34,12 @@ const ArchiveList = props => {
     })
     const [archives=[], total] = useInfiniteData(data, 'archives');
     const {data:programResult} = useQueryProgram(pgm_cd);
-    console.log(archives, total);
-    console.log(programResult)
     const program = createProgramInfo(programResult);
+    console.log(archives, program, total);
+    const archivesWithImage = archives.map(archive => {
+        archive.albumImgSrc = program.eval_imagePath;
+        return archive;
+    })
     const chan_cd_full = archives.length > 0 ? archives[0].chan_cd_full:'-';
     const chan_cd = archives.length > 0 ? archives[0].chan_cd:'A';
     return (
@@ -50,12 +52,12 @@ const ArchiveList = props => {
             >
             </ArchiveListTitle>
             <ArchiveListHeader
-                archives={archives}
+                archives={archivesWithImage}
                 total={total}
             >
             </ArchiveListHeader>
             <ScrollBarVirtual
-                items={archives}
+                items={archivesWithImage}
                 fetchNextPage={fetchNextPage}
                 rowHeight={57}
                 heightMinus="220px"
