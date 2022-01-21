@@ -60,7 +60,7 @@ const ArchiveList = props => {
                 items={archivesWithImage}
                 fetchNextPage={fetchNextPage}
                 rowHeight={57}
-                heightMinus="220px"
+                heightMinus="200px"
                 ItemElement={ArchiveListItem}
             ></ScrollBarVirtual>
             {isFetching && (

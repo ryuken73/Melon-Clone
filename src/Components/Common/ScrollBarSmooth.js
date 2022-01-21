@@ -43,7 +43,7 @@ const ScrollBarSmooth = (props, ref) => {
         <StyledScrollbar
             height={height}
             width={width}
-            alwaysShowTracks={true}
+            alwaysShowTracks={false}
             onScroll={handleScroll}
             ref={scrollbar}
         >
