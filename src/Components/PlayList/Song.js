@@ -7,7 +7,8 @@ import SmallCheckBox from '../Common/CheckBox';
 import PlayingIcon from 'Components/Common/PlayingIcon';
 import DragHandleIcon from '@mui/icons-material/DragHandle';
 import colors from '../../config/colors';
-import useSongPlaylist from 'hooks/useSongPlaylist';
+// import useSongPlaylist from 'hooks/useSongPlaylist';
+import useCurrentPlaylist from 'hooks/useCurrentPlaylist';
 import usePlayerState from 'hooks/usePlayerState';
 import CONSTANTS from 'config/constants';
 
@@ -73,18 +74,32 @@ const Song = props => {
     const [doubleClicked, setDoubleClicked] = React.useState(false);
     const {song=defaultSong, sequenceId, provided} = props;
     const {id, song_name, artist, checkedPlaylist, albumImageSrc, src, currentPlaying, src_type} = song;
-    console.log('^^^^:', id, song_name, artist, checkedPlaylist, currentPlaying)
+    // console.log('^^^^:', id, song_name, artist, checkedPlaylist, currentPlaying)
     // const [loadPlayer, setLoadPlayer] = React.useState(false);
-    const [removeFromPlaylist, setChecked] = useSongPlaylist(sequenceId);
+    // const [setChecked] = useSongPlaylist(sequenceId);
+    const {setChecked, setLastChecked, setCheckedFromLastToThis} = useCurrentPlaylist();
     const {src: currentLoadedSrc, setPlayerSource, playNow} = usePlayerState();
-    const onChecked = React.useCallback(() => {
-        setChecked(!checkedPlaylist)
-    },[checkedPlaylist, setChecked])
+
+    const onChecked = React.useCallback(checked => {
+        setChecked(id, !checkedPlaylist)
+    },[id, checkedPlaylist, setChecked])
+
+    const onClickCheckBox = React.useCallback(event => {
+        if(!event.shiftKey){
+            setLastChecked(id);
+            return;
+        }
+        if(event.shiftKey){
+            setCheckedFromLastToThis(id)
+        }
+    },[setLastChecked, setCheckedFromLastToThis, id])
+
     const onDoubleClick = React.useCallback(() => {
         setDoubleClicked(true);
         setPlayerSource(src, albumImageSrc, sequenceId, song);
         src === currentLoadedSrc && playNow()
     },[src, albumImageSrc, sequenceId, setPlayerSource, song, currentLoadedSrc, playNow])
+
     React.useEffect(() => {
         if(currentPlaying){
             setDoubleClicked(false)
@@ -93,7 +108,7 @@ const Song = props => {
 
     return (
         <Container doubleClicked={doubleClicked}>
-            <SmallCheckBox checked={checkedPlaylist} setChecked={onChecked} />
+            <SmallCheckBox checked={checkedPlaylist} setChecked={onChecked} handleClick={onClickCheckBox}/>
             <Artist>
                 {currentPlaying && <PlayingIcon></PlayingIcon>}
                 {src_type === SRC_TYPE.BORA && <SmallSmartDisplay playing={currentPlaying}></SmallSmartDisplay>}

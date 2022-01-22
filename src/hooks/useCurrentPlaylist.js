@@ -7,6 +7,9 @@ import {
   toggleAllChecked, 
   clearChecked,
   setCurrentPlayList,
+  setSongChecked,
+  setSongLastChecked,
+  setSongCheckedBetween,
   hasSong
 } from 'Components/PlayList/playlistSlice';
 import usePlayerState from './usePlayerState';
@@ -133,6 +136,25 @@ function useCurrentPlaylist() {
     dispatch(setCurrentPlayList({currentPlaylist}));
   }, [dispatch])
 
+  const setChecked = React.useCallback((id, checked) => {
+    console.log(id, checked)
+    dispatch(setSongChecked({id, checked}))
+  },[dispatch])
+
+  const setLastChecked = React.useCallback((id, checked) => {
+    dispatch(setSongLastChecked({id}))
+  },[dispatch])
+
+  const setCheckedFromLastToThis = React.useCallback((id) => {
+    const lastCheckedIndex = currentPlaylist.findIndex(song => song.lastChecked)
+    if(lastCheckedIndex === undefined) return;
+    const thisIndex = currentPlaylist.findIndex(song => song.id === id);
+    const valueToSet = currentPlaylist[lastCheckedIndex].checkedPlaylist;
+    const fromIndex = thisIndex > lastCheckedIndex ? lastCheckedIndex : thisIndex;
+    const toIndex = thisIndex > lastCheckedIndex ? thisIndex : lastCheckedIndex;
+    dispatch(setSongCheckedBetween({fromIndex, toIndex, checked: valueToSet}));
+  },[dispatch, currentPlaylist])
+
   return {
     currentPlaylist, 
     checkedSongList,
@@ -146,6 +168,9 @@ function useCurrentPlaylist() {
     clearCheckedCurrentPlayList,
     playNextSong,
     playPrevSong,
+    setChecked,
+    setLastChecked,
+    setCheckedFromLastToThis,
     allChecked
   }
 }

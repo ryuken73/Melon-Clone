@@ -3,9 +3,9 @@ import Checkbox from '@mui/material/Checkbox';
 import colors from '../../config/colors';
 
 const SmallCheckBox = props => {
-  const {checked, setChecked} = props;
+  const {checked, setChecked, handleClick=()=>{}} = props;
   const handleChange = React.useCallback(event => {
-    setChecked(event.target.checked);
+    setChecked(event.target.checked, event);
   }, [setChecked])
   return (
     <div>
@@ -13,6 +13,7 @@ const SmallCheckBox = props => {
         {...props}
         checked={checked}
         onChange={handleChange}
+        onClick={handleClick}
         sx={{ 
             color: colors.textSub,
             '&.Mui-checked': {
