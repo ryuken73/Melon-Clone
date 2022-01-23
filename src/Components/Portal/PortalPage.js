@@ -4,7 +4,6 @@ import styled from 'styled-components';
 import AlbumListSwiperPage from 'Components/Portal/AlbumList/AlbumListSwiperPage';
 import ArchiveRecentPage from 'Components/Portal/Archive/ArchiveRecentPage';
 import PodcastRecentPage from 'Components/Portal/Podcast/PodcastRecentPage';
-import ScrollBarWithColor from 'Components/Common/ScrollBarWithColor';
 import ScrollBarSmooth from 'Components/Common/ScrollBarSmooth';
 import useMediaQueryEasy from  'hooks/useMediaQueryEasy';
 
@@ -19,10 +18,6 @@ const PortalPage = props => {
     const {match} = props;
     const {fullViewHeightMediaQuery} = useMediaQueryEasy();
     return (
-        // <ScrollBarWithColor
-        //     autoHide
-        //     style={{ width:'100%', height: `calc(${fullViewHeightMediaQuery} - 100px)` }}
-        // >
         <ScrollBarSmooth
             height={`calc(${fullViewHeightMediaQuery} - 100px)`}
         >
@@ -38,7 +33,6 @@ const PortalPage = props => {
                 </Box>
             </Container>
         </ScrollBarSmooth>
-        // </ScrollBarWithColor> 
    )
 }
 

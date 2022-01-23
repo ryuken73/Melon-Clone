@@ -2,7 +2,6 @@ import React from 'react'
 import Box from '@mui/material/Box';
 import styled from 'styled-components';
 import AlbumBox from '../AlbumBox';
-import ScrollBarWithColor from 'Components/Common/ScrollBarWithColor';
 import ScrollBarSmooth from 'Components/Common/ScrollBarSmooth';
 import {withRouter} from 'react-router-dom';
 // import useAlbumList from 'hooks/useAlbumList';
@@ -56,13 +55,6 @@ const AlbumList = props => {
     const {fullViewHeightMediaQuery} = useMediaQueryEasy();
 
     return (
-        // <ScrollBarWithColor 
-        //     moveScrollToTop={replaceRequired} 
-        //     getMoreItem={fetchNextPage} 
-        //     category={category}
-        //     autoHide 
-        //     style={{ width:'100%', height: `calc(${fullViewHeightMediaQuery} - 100px)` }}
-        // >
         <ScrollBarSmooth
             getMoreItem={fetchNextPage} 
             height={`calc(${fullViewHeightMediaQuery} - 100px)`}
@@ -86,7 +78,6 @@ const AlbumList = props => {
                 ))}
             </Container>
         </ScrollBarSmooth>
-        // </ScrollBarWithColor>
     )
 }
 

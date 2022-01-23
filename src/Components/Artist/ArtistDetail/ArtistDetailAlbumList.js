@@ -3,7 +3,6 @@ import Box from '@mui/material/Box';
 import AlbumBox from 'Components/Album/AlbumBox';
 import styled from 'styled-components';
 import {withRouter} from 'react-router-dom';
-import ScrollBarWithColor from 'Components/Common/ScrollBarWithColor';
 import ScrollBarSmooth from 'Components/Common/ScrollBarSmooth';
 import useInfiniteData from 'hooks/useInfiniteData';
 import useSearchMusicAllInfinite from 'hooks/useSearchMusicAllInfinite';
@@ -54,13 +53,6 @@ const ArtistDetailAlbumList = props => {
     const replaceRequired = false;
 
     return (
-        // <ScrollBarWithColor 
-        //     moveScrollToTop={replaceRequired} 
-        //     getMoreItem={fetchNextPage} 
-        //     category={category}
-        //     autoHide 
-        //     style={{ width:'100%', height: `calc(${fullViewHeightMediaQuery} - 270px)`  }}
-        // >
         <ScrollBarSmooth
             getMoreItem={fetchNextPage} 
             height={`calc(${fullViewHeightMediaQuery} - 270px)`}
@@ -82,7 +74,6 @@ const ArtistDetailAlbumList = props => {
                 ))}
             </Container>
         </ScrollBarSmooth>
-        // {/* </ScrollBarWithColor> */}
     )
 }
 

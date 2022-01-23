@@ -4,7 +4,6 @@ import styled from 'styled-components';
 import ProgramBox from 'Components/Archive/ProgramBox';
 import ProgramEnd from 'Components/Archive/ProgramEnd';
 import TextBox from 'Components/Common/TextBox';
-import ScrollBarWithColor from 'Components/Common/ScrollBarWithColor';
 import ScrollBarSmooth from 'Components/Common/ScrollBarSmooth';
 import useQueryProgramList from 'hooks/useQueryProgramList';
 import useMediaQueryEasy from 'hooks/useMediaQueryEasy';
@@ -34,12 +33,6 @@ const ProgramList = props  => {
 
     const {fullViewHeightMediaQuery} = useMediaQueryEasy();
     return (
-        // <ScrollBarWithColor 
-        //     moveScrollToTop={replaceRequired} 
-        //     category={category}
-        //     autoHide 
-        //     style={{ width:'100%', height: `calc(${fullViewHeightMediaQuery} - 100px)` }}
-        // >
         <ScrollBarSmooth
             height={`calc(${fullViewHeightMediaQuery} - 100px)`}
         >
@@ -62,7 +55,6 @@ const ProgramList = props  => {
                 )}
            </Container>
         </ScrollBarSmooth>
-        // </ScrollBarWithColor>
     )
 }
 
