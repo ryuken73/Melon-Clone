@@ -93,6 +93,7 @@ const UseAutocomplete = props => {
     autoSelect: false,
     clearOnBlur: true,
     selectOnFocus: true,
+    disablePortal: true,
     filterOptions: options => options,
     getOptionLabel: (option) => {
       if(typeof(option) === 'object'){
@@ -188,6 +189,7 @@ const UseAutocomplete = props => {
           {groupedOptions.map((option, index) => (
             <StyledList 
               {...getOptionProps({option, index})} 
+              onMouseOver={()=>{}}
              >
               {getHighlightParts(option).map((part, index) => (
                 <SpanBox 
