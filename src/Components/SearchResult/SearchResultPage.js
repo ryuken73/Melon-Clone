@@ -22,7 +22,7 @@ const SubContainer = styled(Box)`
 function SearchResultPage(props) {
     const {match} = props;
     const {category} = match.params;
-    const ResultSummary = props => {
+    const ResultSummary = React.useCallback(props => {
         const {category} = props;
         if(category === 'all'){
             return <SearchResultAll></SearchResultAll>
@@ -42,7 +42,7 @@ function SearchResultPage(props) {
         if(category === 'archives'){
             return <SearchResultArchives></SearchResultArchives>
         }
-    }
+    },[category])
     return (
         <Container>
             <SearchResultBar></SearchResultBar>

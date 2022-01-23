@@ -12,13 +12,12 @@ function useInfiniteData(data, category) {
   const pages = React.useMemo(() => data ? data.pages:[], [data]);
   const total = React.useMemo(() => data ? data.pages[0].total:'', [data]);
   const merged = React.useMemo(() => {
-      const merged = pages.reduce((apiResult, acc) => {
+      const allData = pages.reduce((apiResult, acc) => {
           const albums = apiResult.fdata;
           return {...apiResult, fdata:[...albums, ...acc.fdata]}
       },{fdata:[]})
-      return createFuntions[category](merged)
+      return createFuntions[category](allData)
   },[pages, category]);
-
   return [merged, total];
 }
  

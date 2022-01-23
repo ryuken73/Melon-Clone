@@ -28,8 +28,6 @@ const SongHeader = props => {
         toggleCurrentPlayList();
     }, [toggleCurrentPlayList])
 
-    const onClickRepeat = () => {};
-    
     // React.useEffect(() => {
     //     console.log()
     //     currentPlaylist.length === 0 && setCheckAll(false);
