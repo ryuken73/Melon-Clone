@@ -9,6 +9,7 @@ import ScrollBarVirtual from 'Components/Common/ScrollBarVirtual';
 import ScrollBarRenderIfShow from 'Components/Common/ScrollBarRenderIfShow'; 
 import queryString from 'query-string';
 import {withRouter} from 'react-router-dom';
+import useAppState from 'hooks/useAppState';
 import useInfiniteData from 'hooks/useInfiniteData';
 import useSearchMusicAllInfinite from 'hooks/useSearchMusicAllInfinite';
 import SongIteminSearchAll from 'Components/Song/SongIteminSearchAll';
@@ -20,6 +21,11 @@ const Container = styled(Box)`
     justify-content: flex-start;
     background: transparent;
 `
+const getCurrentTimeFunc = () => {
+    const now = new Date();
+    return getString(now, {sep:''}).substr(0,12);
+}
+
 function SearchResultSongsScroll(props) {
     const {location } = props;
     const {page_sizes=null, page_num=null} = props;
@@ -28,28 +34,27 @@ function SearchResultSongsScroll(props) {
     }, {enableOnTags:['INPUT']}, []);
     const query = queryString.parse(location.search)
     const {keyword, exactSearch, artistName, songName} = query;
-    const getCurrentTimeFunc = React.useCallback(() => {
-        const now = new Date();
-        return getString(now, {sep:''}).substr(0,12);
-    },[])
     const needExactSearch = React.useMemo(() => exactSearch === 'yes',[exactSearch])
-    const params = React.useCallback(() => {
+
+    const {orderByTexts} = useAppState();
+    const orderby = orderByTexts['songList']
+    const params = React.useMemo(() => {
         const currentTime = getCurrentTimeFunc();
         return needExactSearch ? {
             scn: 'song', 
             query: `(song_name_str = '${songName}' and artist_str = '${artistName}') and open_time<='${currentTime}' and status='Y'`,
-            orderby: 'order by release_year desc,song_name_str asc'
+            orderby
         }:
         {
             scn: 'song', 
             query: `(song_idx = '${keyword}' allwordthruindexsyn or release_year='${keyword}' or label_no='${keyword}'and status='Y'
                     or song_name_str like '*${keyword}*' or artist_str like '*${keyword}*') and open_time<='${currentTime}' and status='Y'`,
-            orderby: 'order by release_year desc,song_name_str asc'
+            orderby
         };
-    },[getCurrentTimeFunc, needExactSearch, songName, artistName, keyword ]);
+    },[ needExactSearch, songName, artistName, keyword, orderby ]);
     const uniqKeys = React.useMemo(() => {
-        return {keyword, artistName, songName, lastKey:'song'}
-    },[keyword, artistName, songName])
+        return {keyword, artistName, songName, orderby, lastKey:'song'}
+    },[keyword, artistName, songName, orderby])
     const {
         data,
         error,

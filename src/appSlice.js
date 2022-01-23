@@ -5,7 +5,13 @@ const initialState = {
     messageBoxText:'',
     messageBoxLevel: 'success',
     openPlaySkinFlat: false,
-    searchResultPath: '/searchResult/all'
+    searchResultPath: '/searchResult/all',
+    orderByTexts: {
+        'albumList': 'order by open_dt desc',
+        'albumsOfArtist': 'order by release_year desc',
+        'archiveList': 'order by brd_dd desc',
+        'songList': 'order by release_year desc,song_name_str asc'
+    }
 }
 
 export const appSlice = createSlice({
@@ -31,6 +37,11 @@ export const appSlice = createSlice({
         setSearchResultPath: (state, action) => {
             const {type, payload} = action;
             state.searchResultPath = payload;
+        },
+        setOrderByText: (state, action) => {
+            const {type, payload} = action;
+            const {page, orderby} = payload;
+            state.orderByTexts[page] = orderby;
         }
     }
 })
@@ -57,7 +68,8 @@ export const {
     setMessageBoxText, 
     setMessageBoxLevel,
     setOpenPlaySkinFlat,
-    setSearchResultPath
+    setSearchResultPath,
+    setOrderByText,
 } = appSlice.actions;
 
 export default appSlice.reducer;
