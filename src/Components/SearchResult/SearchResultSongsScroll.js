@@ -4,7 +4,6 @@ import styled from 'styled-components';
 import { getString } from 'lib/util';
 import TextBox from 'Components/Common/TextBox';
 import SongItemHeaderInSongsScroll from 'Components/Song/SongItemHeaderInSongsScroll';
-// import ScrollBarWithColor from 'Components/Common/ScrollBarWithColor';
 import ScrollBarVirtual from 'Components/Common/ScrollBarVirtual'; 
 import ScrollBarRenderIfShow from 'Components/Common/ScrollBarRenderIfShow'; 
 import queryString from 'query-string';
@@ -37,7 +36,7 @@ function SearchResultSongsScroll(props) {
     const needExactSearch = React.useMemo(() => exactSearch === 'yes',[exactSearch])
 
     const {orderByTexts} = useAppState();
-    const orderby = orderByTexts['songList']
+    const orderby = React.useMemo(() => orderByTexts['songList'],[orderByTexts]);
     const params = React.useMemo(() => {
         const currentTime = getCurrentTimeFunc();
         return needExactSearch ? {
@@ -67,6 +66,7 @@ function SearchResultSongsScroll(props) {
     // } = useSearchSongsScroll({keyword, exactSearch, artistName, songName, page_sizes, page_num});
     } = useSearchMusicAllInfinite({params, page_sizes, page_num, uniqKeys});
     const [songs, total] = useInfiniteData(data, 'songs');
+    React.useEffect(() => console.log('^^^ songs changed'),[songs])
     return (
         <Container>
             <SongItemHeaderInSongsScroll

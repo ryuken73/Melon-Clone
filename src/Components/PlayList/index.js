@@ -19,6 +19,7 @@ const Container = styled(Box)`
     align-items: center;
 `
 const PlayList = props => {
+    console.log('^^^ re-render PlayList:', props.mode)
     const {hide=false, mode} = props;
     const [activeTabId, setActiveTabId] = React.useState('song');
     usePlaylistInStorage();

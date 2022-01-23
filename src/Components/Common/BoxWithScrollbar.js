@@ -15,7 +15,7 @@ const Container = styled(Box)`
 `
 
 const BoxWithScrollbar = props => {
-    console.log(props)
+    console.log('^^^ re-render BoxWithScrollbar')
     const {fullViewHeightMediaQuery} = useMediaQueryEasy();
     return (
         <ScrollBarWithColor autoHide style={{width:'auto', height: fullViewHeightMediaQuery}}>

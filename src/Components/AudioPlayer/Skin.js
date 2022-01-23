@@ -113,8 +113,8 @@ function Skin(props, ref) {
         }
     },[ref])
 
-    const width = getFileSizeParams === 'archive' ? '150px':'150px';
-    const objectFit = getFileSizeParams === 'archive' ? 'contain':'cover';
+    const width = React.useMemo(() => getFileSizeParams === 'archive' ? '150px':'150px', [getFileSizeParams]);
+    const objectFit = React.useMemo(() => getFileSizeParams === 'archive' ? 'contain':'cover', [getFileSizeParams]);
     return (
         <Box>
             {src_type === SRC_TYPE.BORA && (

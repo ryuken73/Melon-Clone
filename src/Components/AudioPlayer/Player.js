@@ -147,11 +147,18 @@ const Player = (props, playerRef) => {
         }
     },[endedTime, repeatMode, playerRef, playNextSong, showMessageBox])
 
-    const repeatHoverButtonColor = repeatMode === 'none' ?  'white' :
-                             repeatMode === 'one' ? 'red': 'yellow';
-    const repeatHoverOpacity = repeatMode === 'none' ?  '0.5' :
-                             repeatMode === 'one' ? '0.9': '0.9';
-    const repeatCount = repeatMode === 'one' ? 1 : `${currentPlaylistIndex+1}/${currentPlaylist.length}`;
+    const repeatHoverButtonColor = React.useMemo(() => {
+        return repeatMode === 'none' ?  'white' :
+               repeatMode === 'one' ? 'red': 'yellow';
+    },[repeatMode])
+    const repeatHoverOpacity = React.useMemo(() => {
+        return repeatMode === 'none' ?  '0.5' :
+               repeatMode === 'one' ? '0.9': '0.9';
+    },[repeatMode])
+    const repeatCount = React.useMemo(() => {
+        return repeatMode === 'one' ? 1 : 
+               `${currentPlaylistIndex+1}/${currentPlaylist.length}`;
+    },[repeatMode, currentPlaylistIndex, currentPlaylist])
 
     return (
         <Container hide={hide}>

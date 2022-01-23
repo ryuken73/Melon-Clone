@@ -50,14 +50,23 @@ function useDebounce(value, delay) {
 
 const ScrollBarWithColor = (props, ref) => {
     const {getMoreItem=()=>{}, moveScrollToTop=false, category} = props;
+    // below can make too may re-render, if setScrollRefTime is not in props
     const {setScrollRefTime=()=>{}} = props;
     const [t, setT] = React.useState(0);
     const [notMoveScroll, setNotMoveScroll] = React.useState(false);
     const scrollbar = React.useRef(null);
     const [parentRef, setParentRef] = React.useState(ref);
 
+    React.useEffect(() => console.log('^^^ moveScrollToTop changed'),[moveScrollToTop])
+    React.useEffect(() => console.log('^^^ parentRef changed'),[parentRef])
+    React.useEffect(() => console.log('^^^ setScrollRefTime changed:', setScrollRefTime),[setScrollRefTime])
+    React.useEffect(() => console.log('^^^ scrollbar changed'),[scrollbar])
+    React.useEffect(() => console.log('^^^ notMoveScroll changed'),[notMoveScroll])
+    React.useEffect(() => console.log('^^^ category changed'),[category])
+    React.useEffect(() => console.log('^^^ props.children changed:', props.children),[props.children])
+
     React.useEffect(()=>{
-        // console.log('^^^ in scroll effect!')
+        console.log('^^^ in scroll effect!')
         if(scrollbar === null) return;
         if(parentRef){
             // console.log('^^^^', parentRef, scrollbar)
@@ -77,7 +86,7 @@ const ScrollBarWithColor = (props, ref) => {
             console.log('scroll to top:', scrollbar.current)
             moveScrollToTop && scrollbar.current.scrollTop();
         }
-    },[moveScrollToTop, parentRef, setScrollRefTime, scrollbar, notMoveScroll, category, props.children]) 
+    },[moveScrollToTop, parentRef, setScrollRefTime, scrollbar, notMoveScroll, category]) 
 
 
     const RenderTrack = ({ style, ...props }) => {

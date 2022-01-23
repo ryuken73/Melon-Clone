@@ -22,6 +22,7 @@ const reorder = (list, startIndex, endIndex) => {
 };
 
 const SongList = props => {
+    console.log('^^^ re-render SongList')
     const {hide} =props;
     const {currentPlaylist, setCurrentPlaylist} = useCurrentPlaylist();
 
@@ -35,8 +36,20 @@ const SongList = props => {
     },[currentPlaylist, setCurrentPlaylist])
     console.log('###songs:', currentPlaylist)
     const {fullViewHeightMediaQuery} = useMediaQueryEasy();
+    const width = React.useMemo(() =>  hide ? '0px':'300px', [hide]);
+    const height = React.useMemo(() => `calc(${fullViewHeightMediaQuery} - 440px)`, [fullViewHeightMediaQuery]);
+    // not to make too many re-render of ScrollBarWithColor
+    const setScrollRefTime = React.useCallback(() => {},[]);
+
+    React.useEffect(() => console.log('^^^ hide changed:', hide),[hide])
+    React.useEffect(() => console.log('^^^ currentPlaylist changed:'),[currentPlaylist])
+    React.useEffect(() => console.log('^^^ setCurrentPlaylist changed:'),[setCurrentPlaylist])
     return (
-        <ScrollBarWithColor autoHide style={{ width:`${hide ? '0px':'300px'}`, flex:"1", height: `calc(${fullViewHeightMediaQuery} - 440px)`}}>
+        <ScrollBarWithColor 
+            autoHide 
+            setScrollRefTime={setScrollRefTime}
+            style={{ width:width, flex:"1", height:height}}
+        >
          {/* <ScrollBarSmooth
              height={`calc(${fullViewHeightMediaQuery} - 440px)`}
              width={hide ? '0px':'300px'}

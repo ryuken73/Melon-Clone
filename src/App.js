@@ -115,16 +115,18 @@ const Footer = styled(Box)`
 function App() {
   const playerRef = React.useRef(null);
   // const playerFlatRef = React.useRef(null);
-  const {hideLeftPane, hideRightPane} = useMediaQueryEasy();
+  const {hideRightPane} = useMediaQueryEasy();
+  console.log('&& re-render App')
+  React.useEffect(() => console.log('re-render change hideRightPane'), [hideRightPane])
   // load saved playlist and sync playlist back afterward
   // usePlaylistInStorage();
   // const [openPlaySkinFlat, setOpenPlaySkinFlat] = React.useState(false);
   return (
     <div className='App'>
-      <LeftPane hide={hideLeftPane}>
+      <LeftPane hide={hideRightPane}>
         <VerticalMenu></VerticalMenu>
       </LeftPane>
-      <CenterPane hideLeftPane={hideLeftPane} hideRightPane={hideRightPane}>
+      <CenterPane hideLeftPane={hideRightPane} hideRightPane={hideRightPane}>
         <CenterHeader></CenterHeader>
         <Switch>
           <Route exact path="/" render={()=><PortalView />} />
@@ -154,8 +156,10 @@ function App() {
           {/* <PlayList mode="flat" flex="1" hide={!hideRightPane}></PlayList> */}
         {/* </Box> */}
       {/* </PlayerSkinFlat> */}
+
       <PlaylistDrawer hideRightPane={hideRightPane}>
       </PlaylistDrawer>
+
       <Footer show={hideRightPane}>
         {/* <PlayerFlat setOpenPlaySkinFlat={setOpenPlaySkinFlat} ref={playerRef}></PlayerFlat> */}
         <PlayerFlat hideRightPane={hideRightPane} ref={playerRef}></PlayerFlat>

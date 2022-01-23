@@ -15,6 +15,7 @@ const Container = styled(Box)`
     background: transparent;
 `
 function ScrollBarRenderIfShow(props) {
+    console.log('^^^ re-render ScrollBarRenderIfShow')
     const {songs, fetchNextPage, heightMinus="220px"} = props;
     const category="";
     const replaceRequired = false;
