@@ -56,7 +56,8 @@ const SongItemHeaderInSongScroll = props => {
                     {/* 앨범 */}
                     <TextBox clickable containerProps={{marginRight:"15px"}} text="앨범명" {...rest}></TextBox>
                 </OrderableBox>
-                <OrderableBox page="songList" orderByString="order by release_year" width="5%" display={showShortArchiveList ? "none":"flex"} flexDirection="row" alignItems="center">
+                {/* <OrderableBox page="songList" orderByString="order by release_year" width="5%" display={showShortArchiveList ? "none":"flex"} flexDirection="row" alignItems="center"> */}
+                <OrderableBox page="songList" orderByString="order by release_year" width="5%" display={"flex"} flexDirection="row" alignItems="center">
                     {/* 발매일 */}
                     <TextBox clickable containerProps={{marginRight:"15px"}} text="발매일" {...rest}></TextBox>
                 </OrderableBox>

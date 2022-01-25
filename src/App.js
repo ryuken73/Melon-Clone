@@ -22,6 +22,7 @@ import MessageBox from './MessageBox';
 import Backdrop from 'Components/Common/BackDrop';
 import PlaylistDrawer from 'PlaylistDrawer';
 import useMediaQueryEasy from 'hooks/useMediaQueryEasy';
+import useMediaQueryApp from 'hooks/useMediaQueryApp';
 // import usePlaylistInStorage from 'hooks/usePlaylistInStorage';
 import CONSTANTS from 'config/constants';
 
@@ -115,7 +116,7 @@ const Footer = styled(Box)`
 function App() {
   const playerRef = React.useRef(null);
   // const playerFlatRef = React.useRef(null);
-  const {hideRightPane} = useMediaQueryEasy();
+  const {hideRightPane} = useMediaQueryApp();
   console.log('&& re-render App')
   React.useEffect(() => console.log('re-render change hideRightPane'), [hideRightPane])
   // load saved playlist and sync playlist back afterward
