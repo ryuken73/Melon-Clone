@@ -7,7 +7,6 @@ import LinkArtist from 'Components/Links/LinkArtist';
 import OrderableBox from 'OrderableBox';
 import useSongHelper from 'hooks/useSongHelper';
 import AnimatedNumber from 'Components/Common/AnimatedNumber';
-import useMediaQueryEasy from 'hooks/useMediaQueryEasy';
 
 const Container = styled(Box)`
     && {
@@ -27,8 +26,6 @@ const NumberContainer = styled(Box)`
 `
 const SongItemHeaderInSongScroll = props => {
     const {songs, total, ...rest} = props;
-    const {showShortArchiveList} = useMediaQueryEasy()
-    // console.log('### in SongItemHeaderInAlbumDetail: ', receipt_no)
     const {toggleAllSongChecked, isAllChecked} = useSongHelper();
     const toggleAllChecked = React.useCallback(checked => {
         toggleAllSongChecked(songs);
@@ -36,8 +33,9 @@ const SongItemHeaderInSongScroll = props => {
     const allChecked = React.useMemo(() => {
         return isAllChecked(songs)
     },[isAllChecked, songs]);
+
     return (
-            <Container>
+            <Container onClick={event => console.log('((',event.target)}>
                 <SmallCheckBox checked={allChecked} setChecked={toggleAllChecked} />
                 <Box flex="1" display="flex" justifyContent="center">
                     <NumberContainer>
@@ -48,28 +46,28 @@ const SongItemHeaderInSongScroll = props => {
                         <AnimatedNumber from={0} to={total || 0}></AnimatedNumber>
                     </NumberContainer>
                 </Box>
-                <OrderableBox page="songList" orderByString="order by song_name_str" flex="3" display="flex" flexDirection="row" alignItems="center">
+                <OrderableBox page="songList" orderByString="order by song_name_str" flex="3">
                     {/* 곡명 */}
-                    <TextBox clickable containerProps={{marginRight:"15px"}} text="곡명" {...rest}></TextBox>
+                    <TextBox clickable containerProps={{marginRight:"5px"}} text="곡명" {...rest}></TextBox>
                 </OrderableBox>
                 <OrderableBox page="songList" orderByString="order by album_name_str" width="25%">
                     {/* 앨범 */}
-                    <TextBox clickable containerProps={{marginRight:"15px"}} text="앨범명" {...rest}></TextBox>
+                    <TextBox clickable containerProps={{marginRight:"5px"}} text="앨범명" {...rest}></TextBox>
                 </OrderableBox>
                 {/* <OrderableBox page="songList" orderByString="order by release_year" width="5%" display={showShortArchiveList ? "none":"flex"} flexDirection="row" alignItems="center"> */}
-                <OrderableBox page="songList" orderByString="order by release_year" width="5%" display={"flex"} flexDirection="row" alignItems="center">
+                <OrderableBox page="songList" orderByString="order by release_year" width="5%">
                     {/* 발매일 */}
-                    <TextBox clickable containerProps={{marginRight:"15px"}} text="발매일" {...rest}></TextBox>
+                    <TextBox clickable containerProps={{marginRight:"5px"}} text="발매일" {...rest}></TextBox>
                 </OrderableBox>
                 <OrderableBox page="songList" orderByString="order by artist_str" width="15%" ml="5px">
                     {/* 아티스트 */}
                     <TextBox clickable text="아티스트" {...rest} color="darkgrey"></TextBox>
                 </OrderableBox>
-                <OrderableBox page="songList" orderByString="order by version_str" width="10%" display="flex" flexDirection="row" alignItems="center">
+                <OrderableBox page="songList" orderByString="order by version_str" width="10%">
                     {/* 버전 */}
                     <TextBox clickable text="버전" {...rest}  color="darkgrey"></TextBox>
                 </OrderableBox>
-                <OrderableBox clickable page="songList" orderByString="order by runtime" width="10%" display="flex" flexDirection="row" alignItems="center">
+                <OrderableBox clickable page="songList" orderByString="order by runtime" width="10%">
                     {/* 재생시간 */}
                     <TextBox text="재생시간" {...rest} color="darkgrey"></TextBox>
                 </OrderableBox>

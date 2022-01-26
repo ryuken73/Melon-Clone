@@ -11,7 +11,9 @@ const initialState = {
         'albumsOfArtist': 'order by release_year desc',
         'archiveList': 'order by brd_dd desc',
         'songList': 'order by release_year desc,song_name_str asc'
-    }
+    },
+    orderByStrings: {},
+    orderByDirections: {}
 }
 
 export const appSlice = createSlice({
@@ -42,6 +44,16 @@ export const appSlice = createSlice({
             const {type, payload} = action;
             const {page, orderby} = payload;
             state.orderByTexts[page] = orderby;
+        },
+        setCurrentOrderByString: (state, action) => {
+            const {type, payload} = action;
+            const {page, orderByString} = payload;
+            state.orderByStrings[page] = orderByString;
+        },
+        setCurrentOrderByDirection: (state, action) => {
+            const {type, payload} = action;
+            const {page, orderByDirection} = payload;
+            state.orderByDirections[page] = orderByDirection;
         }
     }
 })
@@ -70,6 +82,8 @@ export const {
     setOpenPlaySkinFlat,
     setSearchResultPath,
     setOrderByText,
+    setCurrentOrderByString,
+    setCurrentOrderByDirection,
 } = appSlice.actions;
 
 export default appSlice.reducer;

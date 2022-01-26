@@ -3,13 +3,17 @@ import {useSelector, useDispatch} from 'react-redux';
 import {
   setOpenPlaySkinFlat, 
   setSearchResultPath, 
-  setOrderByText
+  setOrderByText,
+  setCurrentOrderByString,
+  setCurrentOrderByDirection,
 } from 'appSlice';
 
 function useAppState() {
   const openPlaySkinFlat = useSelector((state) => state.app.openPlaySkinFlat);
   const searchResultPath = useSelector((state) => state.app.searchResultPath);
   const orderByTexts = useSelector((state) => state.app.orderByTexts);
+  const orderByStrings = useSelector((state) => state.app.orderByStrings);
+  const orderByDirections = useSelector((state) => state.app.orderByDirections);
   const dispatch = useDispatch();
   
   const toggleFlatPlaylist = React.useCallback(() => {
@@ -24,13 +28,25 @@ function useAppState() {
     dispatch(setOrderByText({page, orderby}))
   },[dispatch])
 
+  const setOrderByString = React.useCallback(({page, orderByString}) => {
+    dispatch(setCurrentOrderByString({page, orderByString}))
+  },[dispatch])
+
+  const setOrderByDirection = React.useCallback(({page, orderByDirection}) => {
+    dispatch(setCurrentOrderByDirection({page, orderByDirection}))
+  },[dispatch])
+
   return {
     openPlaySkinFlat, 
     searchResultPath, 
     orderByTexts, 
+    orderByStrings, 
+    orderByDirections, 
     toggleFlatPlaylist, 
     toggleResultPath, 
-    setOrderBy
+    setOrderBy,
+    setOrderByString,
+    setOrderByDirection,
   }
 }
 
