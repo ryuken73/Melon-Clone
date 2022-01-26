@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import ImageBox from 'Components/Common/ImageBox';
 import TextBox from 'Components/Common/TextBox';
 import VideoPlayer from 'Components/AudioPlayer/VideoPlayer';
+import LinkArtist from 'Components/Links/LinkArtist';
 import colors from 'config/colors';
 import usePlayerState from 'hooks/usePlayerState';
 import useVideoPIP from 'hooks/useVideoPIP';
@@ -30,13 +31,25 @@ const HiddenAudio = styled.audio`
 `
 
 const Container = styled(Box)`
+    position: relative;
     display: flex;
     flex-direction: column;
     flex-grow: 0;
     height: 270px;
-    /* background: #14181e; */
     background: ${colors.player};
 `
+const BlurContainer = styled(Box)`
+    position: absolute;
+    background-image: ${props => `url("${props.bgImage}")`};
+    background-size: cover;
+    background-position: center;
+    filter: blur(25px);
+    transform: scale(0.9);
+    height: 100%;
+    width: 100%;
+    /* z-index: -1; */
+`
+
 const Image = styled(Box)`
     margin-top: 50px;
 `;
@@ -44,11 +57,13 @@ const Title = styled(Box)`
     margin-top: 10px;
     align-self: center;
     max-width: 200px;
+    z-index: 1;
 `;
 const Artist = styled(Box)`
     align-self: center;
     margin-top: 5px;
     max-width: 200px;
+    z-index: 1;
 `;
 
 const {SRC_TYPE} = CONSTANTS;
@@ -129,6 +144,9 @@ function Skin(props, ref) {
             )}
             {src_type !== SRC_TYPE.BORA && (
                 <Container>
+                    <BlurContainer
+                        bgImage={albumImageSrc || eval_imagePath} 
+                    ></BlurContainer>
                     <Image>
                         <ImageBox 
                             src={albumImageSrc || eval_imagePath} 
@@ -141,7 +159,7 @@ function Skin(props, ref) {
                         <TextBox textalign="center" fontSize="13px" text={song_name} color={currentPlaying ? 'yellow':colors.textMain}></TextBox>
                     </Title>
                     <Artist>
-                        <TextBox textalign="center" text={artist}></TextBox>
+                        <LinkArtist textalign="center" artist={artist}></LinkArtist>
                         <HiddenAudio ref={ref}></HiddenAudio>
                     </Artist>
                 </Container>
