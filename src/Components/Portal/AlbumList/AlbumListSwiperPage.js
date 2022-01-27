@@ -23,7 +23,7 @@ const AlbumListSwiperPage = props => {
     },[refetch])
     return (
         <CommonPageHeader>
-            <Box display="flex" flexDisplay="row" alignItems="center" mb="5px">
+            <Box display="flex" flexDisplay="row" alignItems="center">
                 <TextBox 
                     clickable
                     fontSize="20px" 

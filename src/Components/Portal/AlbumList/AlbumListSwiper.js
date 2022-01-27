@@ -25,7 +25,7 @@ const Container = styled(Box)`
     display: flex;
     height: ${prop => prop.height || "auto"};
     width: ${prop => prop.height || "auto"};
-    margin-top: 10px;
+    /* margin-top: 10px; */
 `
 const AlbumList = props => {
     const {history} = props;
