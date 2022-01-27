@@ -25,12 +25,14 @@ const PlayList = props => {
     usePlaylistInStorage();
     return (
         <Container mode={mode}>
+            {!hide && (
             <TabHeader
                 hide={hide}
                 mode={mode}
                 activeTabId={activeTabId}
                 setActiveTabId={setActiveTabId}
             ></TabHeader>
+            )}
             <SongHeader hide={hide}></SongHeader>
             <SongList hide={hide}></SongList>
             <Helper></Helper>

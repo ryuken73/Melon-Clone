@@ -70,7 +70,7 @@ const {SRC_TYPE} = CONSTANTS;
 
 function Skin(props, ref) {
     // const {mode, miniPlayerRef, hideRightPane} = props;
-    const {mode} = props;
+    const {hide} = props;
     const {song={}} = usePlayerState();
     const {showPIP} = useVideoPIP();
     const {
@@ -137,16 +137,21 @@ function Skin(props, ref) {
                     {/* {mode === 'flat' && (<CustomVideo ref={ref}></CustomVideo>)} */}
                     {/* {mode !== 'flat' && (<CustomVideo crossOrigin="anonymous" ref={ref}></CustomVideo>)} */}
                     <VideoPlayer crossOrigin="anonymous" ref={ref}></VideoPlayer>
+                    {!hide && (
                     <Box>
                         <TextBox clickable onClick={togglePIP} text={pipText}></TextBox>
                     </Box>
+                    )}
                 </VideoContainer>
             )}
             {src_type !== SRC_TYPE.BORA && (
                 <Container>
+                    {!hide && (
                     <BlurContainer
                         bgImage={albumImageSrc || eval_imagePath} 
                     ></BlurContainer>
+                    )}
+                    {!hide && (
                     <Image>
                         <ImageBox 
                             src={albumImageSrc || eval_imagePath} 
@@ -155,11 +160,16 @@ function Skin(props, ref) {
                             height="150px"
                         ></ImageBox>
                     </Image>
+                    )}
+                    {!hide && (
                     <Title>
                         <TextBox textalign="center" fontSize="13px" text={song_name} color={currentPlaying ? 'yellow':colors.textMain}></TextBox>
                     </Title>
+                    )}
                     <Artist>
+                    {!hide && (
                         <LinkArtist textalign="center" artist={artist}></LinkArtist>
+                    )}
                         <HiddenAudio ref={ref}></HiddenAudio>
                     </Artist>
                 </Container>

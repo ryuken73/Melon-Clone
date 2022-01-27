@@ -162,6 +162,7 @@ const Player = (props, playerRef) => {
 
     return (
         <Container hide={hide}>
+            {!hide && (
             <ProgressContainer>
                 <Progress>
                     <SliderBar value={progress} onChange={handleMoveProgressSlider} />
@@ -171,6 +172,8 @@ const Player = (props, playerRef) => {
                     <TextBox fontSize="11px" text={duration} marginLeft="5px" color={colors.textSub}></TextBox>
                 </Duration>
             </ProgressContainer>
+            )}
+            {!hide && (
             <ControlContainer>
                 {repeatMode !== 'none' && <CounterAbsolute color={repeatHoverButtonColor}>{repeatCount}</CounterAbsolute>}
                 <HoverButton hide={hide} onClick={onClickRepeat} fontcolor={repeatHoverButtonColor} opacitynormal={repeatHoverOpacity}><RepeatIcon fontSize="small"></RepeatIcon></HoverButton>
@@ -227,6 +230,7 @@ const Player = (props, playerRef) => {
                     </Box>
                 </Popover>
             </ControlContainer>
+            )}
         </Container>
    );
 }

@@ -142,7 +142,7 @@ function App() {
         </Switch>
       </CenterPane>
       <RightPane hide={hideRightPane}>
-        <PlayerSkin ref={playerRef}></PlayerSkin>
+        <PlayerSkin ref={playerRef} hide={hideRightPane}></PlayerSkin>
         <Player ref={playerRef} hide={hideRightPane}></Player>
         <PlayList hide={hideRightPane}></PlayList>
       </RightPane> 
