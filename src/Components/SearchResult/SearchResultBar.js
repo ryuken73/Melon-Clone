@@ -22,7 +22,7 @@ const SubContainer = styled(Box)`
     flex-direction: row;
     justify-content: space-between;
     align-items: baseline;
-    width: 450px;
+    width: 500px;
     margin-bottom: 10px;
 `
 const GreyPushPinIcon = styled(PushPinIcon)`

@@ -1,5 +1,6 @@
 import {createSlice} from "@reduxjs/toolkit";
-
+import CONSTANTS from 'config/constants';
+const {DEFAULT_ORDER_BY_TEXT} = CONSTANTS
 const initialState = {
     isMessageBoxHidden: true,
     messageBoxText:'',
@@ -7,13 +8,13 @@ const initialState = {
     openPlaySkinFlat: false,
     searchResultPath: '/searchResult/all',
     orderByTexts: {
-        'albumList': 'order by open_dt desc',
-        'albumsOfArtist': 'order by release_year desc',
-        'archiveList': 'order by brd_dd desc',
-        'songList': 'order by release_year desc,song_name_str asc'
+        'albumList': DEFAULT_ORDER_BY_TEXT['albumList'],
+        'albumsOfArtist': DEFAULT_ORDER_BY_TEXT['albumsOfArtist'],
+        'archiveList': DEFAULT_ORDER_BY_TEXT['archiveList'],
+        'songList': DEFAULT_ORDER_BY_TEXT['songList']
     },
     orderByStrings: {},
-    orderByDirections: {}
+    orderByDirections: {},
 }
 
 export const appSlice = createSlice({
@@ -45,6 +46,13 @@ export const appSlice = createSlice({
             const {page, orderby} = payload;
             state.orderByTexts[page] = orderby;
         },
+        setOrderByTextDefault: (state, action) => {
+            const {type, payload} = action;
+            const {page} = payload;
+            state.orderByTexts[page] = DEFAULT_ORDER_BY_TEXT[page];
+            state.orderByStrings[page] = '';
+            state.orderByDirections[page] = '';
+        },
         setCurrentOrderByString: (state, action) => {
             const {type, payload} = action;
             const {page, orderByString} = payload;
@@ -72,7 +80,6 @@ export const showMessageBoxForDuration = (text, duration=1000, level='success') 
             dispatch(setMessageBoxText('success'));
         }
     }, [duration+500])
-
 }
 
 export const {
@@ -82,6 +89,7 @@ export const {
     setOpenPlaySkinFlat,
     setSearchResultPath,
     setOrderByText,
+    setOrderByTextDefault,
     setCurrentOrderByString,
     setCurrentOrderByDirection,
 } = appSlice.actions;

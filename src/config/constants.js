@@ -33,6 +33,12 @@ const dev = {
         "SONG": 'hls',
         "BORA": 'mp4',
         "POT_CAST": 'mp3',
+    },
+    "DEFAULT_ORDER_BY_TEXT" : {
+        "albumList": "order by open_dt desc",
+        "albumsOfArtist": "order by release_year desc",
+        "archiveList": "order by brd_dd desc",
+        "songList": "order by release_year desc,song_name_str asc"
     }
 }
 

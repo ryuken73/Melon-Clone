@@ -4,9 +4,12 @@ import {
   setOpenPlaySkinFlat, 
   setSearchResultPath, 
   setOrderByText,
+  setOrderByTextDefault,
   setCurrentOrderByString,
   setCurrentOrderByDirection,
 } from 'appSlice';
+import CONSTANTS from 'config/constants';
+const {DEFAULT_ORDER_BY_TEXT} = CONSTANTS;
 
 function useAppState() {
   const openPlaySkinFlat = useSelector((state) => state.app.openPlaySkinFlat);
@@ -28,13 +31,21 @@ function useAppState() {
     dispatch(setOrderByText({page, orderby}))
   },[dispatch])
 
-  const setOrderByString = React.useCallback(({page, orderByString}) => {
+  const setOrderByDefault = React.useCallback(({page}) => {
+    dispatch(setOrderByTextDefault({page}))
+  },[dispatch])
+
+  const setOrderByStringPart = React.useCallback(({page, orderByString}) => {
     dispatch(setCurrentOrderByString({page, orderByString}))
   },[dispatch])
 
-  const setOrderByDirection = React.useCallback(({page, orderByDirection}) => {
+  const setOrderByDirectionPart = React.useCallback(({page, orderByDirection}) => {
     dispatch(setCurrentOrderByDirection({page, orderByDirection}))
   },[dispatch])
+
+  const isOrderByDefault = React.useCallback(page => {
+    return orderByTexts[page] === DEFAULT_ORDER_BY_TEXT[page]
+  },[orderByTexts])
 
   return {
     openPlaySkinFlat, 
@@ -45,8 +56,10 @@ function useAppState() {
     toggleFlatPlaylist, 
     toggleResultPath, 
     setOrderBy,
-    setOrderByString,
-    setOrderByDirection,
+    setOrderByDefault,
+    setOrderByStringPart,
+    setOrderByDirectionPart,
+    isOrderByDefault
   }
 }
 

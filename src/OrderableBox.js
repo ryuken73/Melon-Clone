@@ -13,8 +13,8 @@ const OrderableBox = props => {
       setOrderBy, 
       orderByStrings, 
       orderByDirections, 
-      setOrderByString, 
-      setOrderByDirection
+      setOrderByStringPart, 
+      setOrderByDirectionPart
   } = useAppState();
   const {page, orderByString, ...rest} = props;
   const active = orderByString === orderByStrings[page];
@@ -27,22 +27,22 @@ const OrderableBox = props => {
           page,
           orderby
       })
-      setOrderByString({
+      setOrderByStringPart({
           page,
           orderByString
       })
-      setOrderByDirection({
+      setOrderByDirectionPart({
           page,
           orderByDirection: newOrderByDirection
       })
-  },[setOrderBy, setOrderByString, setOrderByDirection, orderByString, orderByDirection, page, active])
+  },[setOrderBy, setOrderByStringPart, setOrderByDirectionPart, orderByString, orderByDirection, page, active])
   const ArrowOrderRecent = orderByDirection === 'asc' ? ArrowDownward : ArrowUpward;
   return (
-      <Box onClick={handleClick} {...rest}>
-          <Box display="flex" flexDirect="row" alignItems="center">
-            {props.children}
-            {active && <ArrowOrderRecent fontSize="8px" sx={{opacity:'0.7', color: 'yellow'}}></ArrowOrderRecent>}
-          </Box>
+      <Box onClick={handleClick} display="flex" sx={{height: '100%', position: 'relative'}} {...rest}>
+        <Box display="flex" flexDirect="row" alignItems="center">
+        {props.children}
+        {active && <ArrowOrderRecent fontSize="8px" sx={{opacity:'0.7', color: 'yellow'}}></ArrowOrderRecent>}
+        </Box>
       </Box>
   )
 }

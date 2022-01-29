@@ -1,10 +1,14 @@
 import React from 'react'
 import Box from '@mui/material/Box';
+import ButtonIcon from 'Components/Common/ButtonIcon';
+import SettingsBackupRestoreIcon from '@mui/icons-material/SettingsBackupRestore';
 import styled from 'styled-components';
 import SmallCheckBox from '../Common/CheckBox';
 import TextBox from '../Common/TextBox';
+import ButtonColorIcon from 'Components/Common/ButtonColorIcon';
 import LinkArtist from 'Components/Links/LinkArtist';
 import OrderableBox from 'OrderableBox';
+import useAppState from 'hooks/useAppState';
 import useSongHelper from 'hooks/useSongHelper';
 import AnimatedNumber from 'Components/Common/AnimatedNumber';
 
@@ -24,8 +28,18 @@ const NumberContainer = styled(Box)`
     cursor: auto;
     color: darkgrey;
 `
+const StyledButtonIcon = styled(ButtonIcon)`
+    && { 
+        padding: 0px;
+        color: yellow !important;
+        font-size: 15px;
+        font-weight: bold;
+    }
+}
+`
 const SongItemHeaderInSongScroll = props => {
     const {songs, total, ...rest} = props;
+    const {isOrderByDefault, setOrderByDefault} = useAppState();
     const {toggleAllSongChecked, isAllChecked} = useSongHelper();
     const toggleAllChecked = React.useCallback(checked => {
         toggleAllSongChecked(songs);
@@ -33,9 +47,20 @@ const SongItemHeaderInSongScroll = props => {
     const allChecked = React.useMemo(() => {
         return isAllChecked(songs)
     },[isAllChecked, songs]);
+    const restoreOrderBy = React.useCallback(() => {
+        setOrderByDefault({page:'songList'})
+    },[setOrderByDefault])
 
     return (
-            <Container onClick={event => console.log('((',event.target)}>
+            <Container sx={{position: 'relative'}} onClick={event => console.log('((',event.target)}>
+                {!isOrderByDefault('songList') && (
+                    <Box position="absolute" onClick={restoreOrderBy} sx={{top:-50, left:550}}>
+                        <ButtonColorIcon
+                            iconComponent={<SettingsBackupRestoreIcon></SettingsBackupRestoreIcon>}
+                            text="기본 정렬로 돌리기"
+                        ></ButtonColorIcon>
+                    </Box>
+                )}
                 <SmallCheckBox checked={allChecked} setChecked={toggleAllChecked} />
                 <Box flex="1" display="flex" justifyContent="center">
                     <NumberContainer>
