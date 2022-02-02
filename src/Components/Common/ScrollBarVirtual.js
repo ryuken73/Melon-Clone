@@ -17,11 +17,18 @@ function ScrollBarVirtual(props) {
         parentRef,
         estimateSize: React.useCallback(() => rowHeight, [rowHeight]),
     });
+    const {scrollToIndex} = rowVirtualizer;
     const {fullViewHeightMediaQuery} = useMediaQueryEasy();
     // React.useEffect(() => console.log('^^^ items changed'),[items])
     // React.useEffect(() => console.log('^^^ parentRef changed'),[parentRef])
     // React.useEffect(() => console.log('^^^ rowHeight changed'),[rowHeight])
     // React.useEffect(() => console.log('^^^ fullViewHeightMediaQuery changed'),[fullViewHeightMediaQuery])
+    const scrollToX = React.useCallback(() => {
+        if(parentRef === undefined) return;
+        console.log('^^^^',parentRef.current.scrollTop)
+        console.log('^^^^',parentRef.current)
+        parentRef.current.scrollTop=20
+    },[parentRef])
 
    return (
         // <ScrollBarWithColor
@@ -55,6 +62,8 @@ function ScrollBarVirtual(props) {
                             size={virtualRow.size}
                             start={virtualRow.start}
                             ItemElement={ItemElement}
+                            scrollToIndex={scrollToIndex}
+                            scrollToX={scrollToX}
                             {...itemProps}
                         ></MemoItem>
                     );                        
