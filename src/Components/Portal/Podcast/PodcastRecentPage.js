@@ -13,31 +13,6 @@ const getDateString = (dayBefore, sep='') => {
     return getString(targetDate, {dateSep:sep}).substring(0,10);
 }
 
-const groupBy = (key, archives, programs) => {
-    return archives.reduce((acc, archive) => {
-        const alreadyGroup = acc.find(alreadyArchive => alreadyArchive[key] === archive[key]);
-        const eval_imagePath = programs.find(program => program.pgm_cd === archive.pgm_cd)?.eval_imagePath;
-        archive.albumImgSrc = eval_imagePath;
-        if(alreadyGroup === undefined){
-            // first member
-            acc.push({
-                [key]: archive[key],
-                'pgm_nm': archive['pgm_nm'],
-                'dj': archive['dj'],
-                'last_brd_time': archive['brd_time_str'],
-                'chan_cd': archive['chan_cd'],
-                'chan_cd_full': archive['chan_cd_full'],
-                'eval_imagePath': eval_imagePath,
-                archiveChildren: [archive]
-            })
-        } else {
-            // member of existing element
-            alreadyGroup.archiveChildren.push(archive);
-        }
-        return [...acc];
-    },[]) 
-}
-
 const PodcastRecentPage = props => {
     const {history} = props;
     const handleOnClick = React.useCallback(()=>{

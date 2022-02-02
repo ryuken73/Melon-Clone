@@ -3,7 +3,7 @@ import {useSelector, useDispatch} from 'react-redux';
 import {setCurrent, setReqPlayTimestamp} from 'Components/AudioPlayer/audioPlayerSlice';
 import CONSTANTS from 'config/constants';
 const {SRC_TYPE} = CONSTANTS;
-const isSourceAudio = src_type => src_type === SRC_TYPE.SONG || src_type === SRC_TYPE.POT_CAST;
+const isSourceAudio = src_type => src_type === SRC_TYPE.SONG || src_type === SRC_TYPE.PODCAST;
 
 function usePlayerState() {
   const src = useSelector((state) => state.audioPlayer.currentSrc);

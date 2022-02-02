@@ -2,6 +2,7 @@ import React from 'react'
 import Box from '@mui/material/Box'
 import styled from 'styled-components'
 import TextBox from 'Components/Common/TextBox'
+import PodcastPlayLink from 'Components/Portal/Podcast/PodcastPlayLink';
 import useCurrentPlaylist from 'hooks/useCurrentPlaylist'
 import {withRouter} from 'react-router-dom'
 import CONSTANTS from 'config/constants';
@@ -27,8 +28,7 @@ const RowReverseContainer = styled(Box)`
 function PodcastItem(props) {
     const {showShortArchiveList} = useMediaQueryEasy();
     const {index, podcast, history} = props
-    const {addSongsToCurrentPlaylist} = useCurrentPlaylist();
-    const {pgm_title, brad_day_with_weekday, episode_title} = podcast;
+    const {pgm_title, brad_day_with_weekday, media_id, episode_title} = podcast;
     const rownum = index + 1;
 
     const UPDATE_TEXT = showShortArchiveList ? 'Last Updated: ' : 'Updated';
@@ -48,7 +48,11 @@ function PodcastItem(props) {
                     <TextBox opacity="0.5" text={`${brad_day_with_weekday}`}></TextBox>
                 </Box>
             </RowContainer>
-            <TextBox text={episode_title}></TextBox>
+            <PodcastPlayLink 
+                media_id={media_id}
+                podcast={podcast}
+            ></PodcastPlayLink>
+            {/* <TextBox text={episode_title}></TextBox> */}
         </Container>
     )
 }

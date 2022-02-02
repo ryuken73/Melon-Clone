@@ -2,7 +2,9 @@ import CONSTANTS from 'config/constants';
 const {
     SEARCH_PAGE_NUM,
     SEARCH_PAGE_SIZE,
-    AUTOCOMPLETE_URL
+    AUTOCOMPLETE_URL,
+    OPEN_API_URL,
+    PODCAST_CLIENT_ID
 } = CONSTANTS;
 
 export const genre = {
@@ -415,6 +417,44 @@ export const apiMap = {
                 method: 'POST',
                 body: postBody,
                 ...DEFAULT_FETCH_OPTIONS
+            }
+        }
+    },
+    // get podcast pgminfo(especially audio_pgm_tms_id) by media_id
+    'doPodCastPgmInfoSelectView.mb': options => {
+        const {media_id} = options;
+        console.log('^^^^', media_id)
+        const postBody = new URLSearchParams();
+        postBody.append('media_id', media_id);
+        return {
+            url: `/mbs/regist505/doPodCastPgmInfoSelectView.mb`,
+            fetchOptions: {
+                method: 'POST',
+                body: postBody,
+                ...DEFAULT_FETCH_OPTIONS
+            }
+        }
+    },
+    // get download path of podcast by audio_pgm_tms_id
+    'doPodAttach.mb': options => {
+        const {audio_pgm_tms_id} = options;
+        const postBody = new URLSearchParams();
+        postBody.append('audio_pgm_tms_id', audio_pgm_tms_id);
+        return {
+            url: `/mbs/regist503q/doPodAttach.mb`,
+            fetchOptions: {
+                method: 'POST',
+                body: postBody,
+                ...DEFAULT_FETCH_OPTIONS
+            }
+        }
+    },
+    // get streaming path of podcast (get from ops openapi)
+    'queryMediaUrl': (audio_pgm_tms_id, clientid=PODCAST_CLIENT_ID) => {
+        return {
+            url: `${OPEN_API_URL}/api/sbs/video/audioInfo.json?audio_pgm_tms_id=${audio_pgm_tms_id}&clientid=${clientid}`,
+            fetchOptions: {
+                method: 'GET'
             }
         }
     }

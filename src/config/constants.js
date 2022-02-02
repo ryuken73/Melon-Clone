@@ -6,6 +6,8 @@ const dev = {
     "DOWNLOAD_URL_ONAIR": 'http://10.11.31.51:8554/onair',
     "AUTOCOMPLETE_URL": 'http://10.11.31.51:3010',
     "BASE_BORA_STREAM_URL": 'https://cmsrelay.sbs.co.kr',
+    "OPEN_API_URL": "http://openapi.sbs.co.kr/",
+    "OPS_URL": "http://ops.sbs.co.kr",
     "DEFAULT_PROGRAM_ATTACH_PATH": '/Video/pgm_img/',
     "GET_MORE_WAIT_SEC_DEBOUNCE": 100,
     "ALBUM_PAGE_SIZE": 20,
@@ -17,6 +19,7 @@ const dev = {
         "ALBUMS": 5
     },
     "LOGLESS_REDUX_ACTIONS": ["audioPlayer/setProgress", "audioPlayer/setCurrentTime"],
+    "PODCAST_CLIENT_ID": "36e6a615a6fb75cbf5c33bfb9bb64833a3be3f13",
     "SEARCH_DEBOUNCE_MILLISECONDS": 100,
     "SEARCH_PAGE_NUM": 1,
     "SEARCH_PAGE_SIZE": 10,
@@ -32,7 +35,7 @@ const dev = {
     "SRC_TYPE" : {
         "SONG": 'hls',
         "BORA": 'mp4',
-        "POT_CAST": 'mp3',
+        "PODCAST": 'mp3',
     },
     "DEFAULT_ORDER_BY_TEXT" : {
         "albumList": "order by open_dt desc",
@@ -49,6 +52,8 @@ const prd = {
     "BASE_STREAM_URL_ONAIR": 'https://mbk-stream.sbs.co.kr/onair/_definst/mp3:',
     "DOWNLOAD_URL": 'https://mbk-down.sbs.co.kr/music',
     "DOWNLOAD_URL_ONAIR": 'https://mbk-down.sbs.co.kr/onair',
-    "AUTOCOMPLETE_URL": 'https://mbk-suggest.sbs.co.kr'
+    "AUTOCOMPLETE_URL": 'https://mbk-suggest.sbs.co.kr',
+    "OPEN_API_URL": "https://openapi.sbs.co.kr/",
+    "OPS_URL": "https://ops.sbs.co.kr",
 }
 export default process.env.NODE_ENV === 'development' ? dev:prd;

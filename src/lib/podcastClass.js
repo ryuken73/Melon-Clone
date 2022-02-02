@@ -2,7 +2,7 @@
 import {headers, responseToObject} from 'config/apis';
 import CONSTANTS from 'config/constants';
 import {replaceBold, getWeekDay, number} from 'lib/util';
-const {BASE_API_URL, BASE_STREAM_URL} = CONSTANTS;
+const {BASE_API_URL, BASE_STREAM_URL, SRC_TYPE, OPS_URL} = CONSTANTS;
 
 class Podcast {
     constructor(props){
@@ -26,6 +26,32 @@ class Podcast {
     get media_id() { return this.nativeProps.media_id}
     get episode_title() { return this.nativeProps.episode_title}
     get song_name() { return this.nativeProps.episode_title}
+    get artist() { return this.nativeProps.cast_nm}
+    get src_type() { return SRC_TYPE.PODCAST }
+    set src(audio_media_url) { this._src = audio_media_url};
+    get src() { return this._src }
+    set ops_id(audio_pgm_tms_id) { this._audio_pgm_tms_id = audio_pgm_tms_id};
+    get audio_pgm_tms_id() { return this._audio_pgm_tms_id };
+    get download_url() {
+        return `${OPS_URL}/cms/api/audio/audioFileDownUrl?audio_pgm_tms_id=${this.audio_pgm_tms_id}`;
+    }
+    get parsed() {
+        return {
+            id: this.id,
+            song_name: this.song_name,
+            artist: this.artist,
+            src: this.src,
+            src_type: this.src_type,
+            brad_day: this.brad_day,
+            brad_day_with_weekday: this.brad_day_with_weekday,
+            download_url: this.download_url
+        }
+    }
+    get parsedWithoutBTag() {
+        return {
+            ...this.parsed,
+        }
+    }
 }
 
 

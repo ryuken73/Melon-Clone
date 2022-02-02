@@ -63,6 +63,7 @@ const useDownloadSong = (songsToDownload) => {
         // download BORA Files
         downloadableByNative.map(file => {
             const {download_url} = file;
+            // console.log('^^^^^',file, download_url)
             // nativeDownload(download_url, 'a.mp4');
             window.open(download_url)
         })
