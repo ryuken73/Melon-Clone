@@ -2,7 +2,9 @@ import React from 'react';
 import Box from '@mui/material/Box';
 import styled from 'styled-components';
 import { Scrollbars } from 'react-custom-scrollbars';
+import useCurrentPlaylist from 'hooks/useCurrentPlaylist';
 import CONSTANTS from '../../config/constants.js';
+
 
 const Track = styled(Box)`
     padding: ${props => props.viewPadding || 15};
@@ -48,6 +50,7 @@ function useDebounce(value, delay) {
     return debouncedValue;
   }
 
+const ROW_HEIGHT=35;
 const ScrollBarWithColor = (props, ref) => {
     const {getMoreItem=()=>{}, moveScrollToTop=false, category} = props;
     // below can make too may re-render, if setScrollRefTime is not in props
@@ -56,6 +59,7 @@ const ScrollBarWithColor = (props, ref) => {
     const [notMoveScroll, setNotMoveScroll] = React.useState(false);
     const scrollbar = React.useRef(null);
     const [parentRef, setParentRef] = React.useState(ref);
+    const {currentPlaylistIndex} = useCurrentPlaylist();
 
     React.useEffect(() => console.log('^^^ moveScrollToTop changed'),[moveScrollToTop])
     React.useEffect(() => console.log('^^^ parentRef changed'),[parentRef])
@@ -64,6 +68,12 @@ const ScrollBarWithColor = (props, ref) => {
     React.useEffect(() => console.log('^^^ notMoveScroll changed'),[notMoveScroll])
     React.useEffect(() => console.log('^^^ category changed'),[category])
     React.useEffect(() => console.log('^^^ props.children changed:', props.children),[props.children])
+
+    React.useEffect(() => {
+        console.log(scrollbar.current)
+        if(currentPlaylistIndex === -1) return;
+        scrollbar.current.scrollTop(currentPlaylistIndex*ROW_HEIGHT)
+    },[currentPlaylistIndex,scrollbar])
 
     React.useEffect(()=>{
         console.log('^^^ in scroll effect!')
@@ -111,7 +121,8 @@ const ScrollBarWithColor = (props, ref) => {
 
     const handleUpdate = React.useCallback(values => {
         const { scrollTop, scrollHeight, clientHeight } = values;
-        // console.log(scrollTop, scrollHeight, clientHeight)
+        console.log(scrollTop, scrollHeight, clientHeight)
+
         if(scrollTop === 0) return; // not enough rows;
         const pad = 1; // 100px of the bottom
         // t will be greater than 1 if we are about to reach the bottom
