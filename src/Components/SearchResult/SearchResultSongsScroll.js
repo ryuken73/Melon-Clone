@@ -33,7 +33,8 @@ function SearchResultSongsScroll(props) {
     }, {enableOnTags:['INPUT']}, []);
     const query = queryString.parse(location.search)
     const {keyword, exactSearch, artistName, songName} = query;
-    const needExactSearch = React.useMemo(() => exactSearch === 'yes',[exactSearch])
+    const needExactSearch = React.useMemo(() => exactSearch === 'yes',[exactSearch]);
+    
 
     const {orderByTexts} = useAppState();
     const orderby = React.useMemo(() => orderByTexts['songList'],[orderByTexts]);
@@ -66,7 +67,8 @@ function SearchResultSongsScroll(props) {
     // } = useSearchSongsScroll({keyword, exactSearch, artistName, songName, page_sizes, page_num});
     } = useSearchMusicAllInfinite({params, page_sizes, page_num, uniqKeys});
     const [songs, total] = useInfiniteData(data, 'songs');
-    React.useEffect(() => console.log('^^^ songs changed'),[songs])
+    React.useEffect(() => console.log('^^^ songs changed'),[songs]);
+    React.useEffect(() => console.log('remount searchResultSongsScroll'),[]);
     return (
         <Container>
             <SongItemHeaderInSongsScroll

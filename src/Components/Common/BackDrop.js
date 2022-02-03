@@ -10,7 +10,8 @@ export default function SimpleBackdrop() {
     // const isFetching = useIsFetching({predicate: query => query.queryKey[0] !== 'autocomplete'});
     const isFetching = useIsFetching({predicate: query => !keysNoLoading.includes(query.queryKey[0])});
     React.useEffect(() => {
-        if(isFetching){
+        if(isFetching !== 0){
+            console.log('number of isFetching:', isFetching)
             setOpen(true);
             return
         }

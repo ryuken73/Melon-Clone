@@ -22,6 +22,7 @@ const SubContainer = styled(Box)`
 function SearchResultPage(props) {
     const {match} = props;
     const {category} = match.params;
+    React.useEffect(() => console.log('remount SearchResultPage'),[]);
     const ResultSummary = React.useCallback(props => {
         const {category} = props;
         if(category === 'all'){
