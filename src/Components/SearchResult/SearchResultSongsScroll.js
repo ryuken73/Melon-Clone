@@ -38,9 +38,25 @@ function SearchResultSongsScroll(props) {
 
     const {orderByTexts} = useAppState();
     const orderby = React.useMemo(() => orderByTexts['songList'],[orderByTexts]);
-    const params = React.useMemo(() => {
-        const currentTime = getCurrentTimeFunc();
-        return needExactSearch ? {
+    // const params = React.useMemo(() => {
+    //     const currentTime = getCurrentTimeFunc();
+    //     return needExactSearch ? {
+    //         scn: 'song', 
+    //         query: `(song_name_str = '${songName}' and artist_str = '${artistName}') and open_time<='${currentTime}' and status='Y'`,
+    //         orderby
+    //     }:
+    //     {
+    //         scn: 'song', 
+    //         query: `(song_idx = '${keyword}' allwordthruindexsyn or release_year='${keyword}' or label_no='${keyword}'and status='Y'
+    //                 or song_name_str like '*${keyword}*' or artist_str like '*${keyword}*') and open_time<='${currentTime}' and status='Y'`,
+    //         orderby
+    //     };
+    // },[ needExactSearch, songName, artistName, keyword, orderby ]);
+    // const uniqKeys = React.useMemo(() => {
+    //     return {keyword, artistName, songName, orderby, lastKey:'song'}
+    // },[keyword, artistName, songName, orderby])
+    const currentTime = getCurrentTimeFunc();
+    const params = needExactSearch ? {
             scn: 'song', 
             query: `(song_name_str = '${songName}' and artist_str = '${artistName}') and open_time<='${currentTime}' and status='Y'`,
             orderby
@@ -51,10 +67,8 @@ function SearchResultSongsScroll(props) {
                     or song_name_str like '*${keyword}*' or artist_str like '*${keyword}*') and open_time<='${currentTime}' and status='Y'`,
             orderby
         };
-    },[ needExactSearch, songName, artistName, keyword, orderby ]);
-    const uniqKeys = React.useMemo(() => {
-        return {keyword, artistName, songName, orderby, lastKey:'song'}
-    },[keyword, artistName, songName, orderby])
+    const uniqKeys = {keyword, artistName, songName, orderby, lastKey:'song'};
+
     const {
         data,
         error,
