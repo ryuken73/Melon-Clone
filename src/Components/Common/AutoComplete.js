@@ -130,7 +130,8 @@ const UseAutocomplete = props => {
     // when auto suggest selected(value change)
     // remove history and searchResultPath are removed from useEffect dependency intentionally
     // otherwise pushed history will be incorrect.
-    console.log('^^ value changed:', value)
+    if(!(value instanceof Object)) return; // not suggest selected but enter key pressed
+    console.log('^^ suggest value selected:', value)
     const {artistName, songName} = value !== null ? value: {artistName:'', songName:''};
     setPrevSearch({artistName, songName})
     const encodedArtist = encodeURIComponent(artistName);
@@ -159,9 +160,10 @@ const UseAutocomplete = props => {
         const encodedInputValue = encodeURIComponent(inputValue);
         history.push(`${searchResultPath}?exactSearch=yes&artistName=${encodedArtist}&songName=${encodedSong}&keyword=${encodedInputValue}`);
         return;
+      } else {
+        history.push(`${searchResultPath}?exactSearch=no&keyword=${encodeURIComponent(event.target.value)}`);
       }
       setOptions([]);
-      history.push(`${searchResultPath}?exactSearch=no&keyword=${encodeURIComponent(event.target.value)}`);
     }
   },[setShowOptions, searchResultPath, history, prevSearch, inputValue])
 
