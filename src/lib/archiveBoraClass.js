@@ -1,5 +1,6 @@
 import CONSTANTS from 'config/constants';
 const {BASE_BORA_STREAM_URL, SRC_TYPE} = CONSTANTS;
+const isProduction = process.env.NOdE_ENV === 'production';
 
 class ArchiveBora {
     constructor(result){
@@ -19,7 +20,7 @@ class ArchiveBora {
         return {
             id: this.id,
             asset_id: this.asset_id,
-            download_url: this.download_url,
+            download_url: isProduction ? this.download_url.replace('http://', 'https://') : this.download_url,
             file_nm: this.file_nm,
             file_path: this.file_path,
             streaming_url: this.streaming_url,
