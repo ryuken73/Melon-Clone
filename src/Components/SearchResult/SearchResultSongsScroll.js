@@ -34,7 +34,7 @@ function SearchResultSongsScroll(props) {
     const query = queryString.parse(location.search)
     const {keyword, exactSearch, artistName, songName} = query;
     const needExactSearch = React.useMemo(() => exactSearch === 'yes',[exactSearch]);
-    
+    console.log('&&&&', exactSearch, needExactSearch)
 
     const {orderByTexts} = useAppState();
     const orderby = React.useMemo(() => orderByTexts['songList'],[orderByTexts]);

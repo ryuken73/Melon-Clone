@@ -43,7 +43,7 @@ function SearchResultPage(props) {
         if(category === 'archives'){
             return <SearchResultArchives></SearchResultArchives>
         }
-    },[category])
+    },[])
     return (
         <Container>
             <SearchResultBar></SearchResultBar>
