@@ -21,21 +21,33 @@ const ArtistDetailAlbumList = props => {
     const {artist_name, category} = match.params;
     const {fullViewHeightMediaQuery} = useMediaQueryEasy();
 
-    const params = React.useMemo(() => {
-        return {
-            scn: 'album',
-            query: `album_idx = '${artist_name}' allwordthruindexsyn and status='Y'`,
-            orderby: 'order by release_year desc' ,
-            bool: true
-        }
-    },[artist_name])
+    // const params = React.useMemo(() => {
+    //     return {
+    //         scn: 'album',
+    //         query: `album_idx = '${artist_name}' allwordthruindexsyn and status='Y'`,
+    //         orderby: 'order by release_year desc' ,
+    //         bool: true
+    //     }
+    // },[artist_name])
 
-    const uniqKeys = React.useMemo(() => {
-        return {
-            artist_name,
-            lastKey: 'artistDetailAlbum'
-        }
-    },[artist_name])
+    // const uniqKeys = React.useMemo(() => {
+    //     return {
+    //         artist_name,
+    //         lastKey: 'artistDetailAlbum'
+    //     }
+    // },[artist_name])
+
+    const params = {
+        scn: 'album',
+        query: `album_idx = '${artist_name}' allwordthruindexsyn and status='Y'`,
+        orderby: 'order by release_year desc' ,
+        bool: true
+    }
+
+    const uniqKeys = {
+        artist_name,
+        lastKey: 'artistDetailAlbum'
+    }
 
     const {
         data,
