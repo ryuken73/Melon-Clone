@@ -55,7 +55,10 @@ function SearchResultSongsScroll(props) {
     // const uniqKeys = React.useMemo(() => {
     //     return {keyword, artistName, songName, orderby, lastKey:'song'}
     // },[keyword, artistName, songName, orderby])
-    const currentTime = getCurrentTimeFunc();
+    const currentTime = React.useMemo(() => {
+        return getCurrentTimeFunc();
+    },[keyword, artistName, songName, orderby])
+    
     const params = needExactSearch ? {
             scn: 'song', 
             query: `(song_name_str = '${songName}' and artist_str = '${artistName}') and open_time<='${currentTime}' and status='Y'`,
