@@ -44,6 +44,7 @@ const PodcastPlayLink = props => {
     },[queryDetail, podcast, addSongsToCurrentPlaylist])
     return (
         <TextBox
+            clickable
             text={episode_title}
             onClick={addSongNPlay}
         >
