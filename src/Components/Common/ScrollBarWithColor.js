@@ -50,6 +50,12 @@ function useDebounce(value, delay) {
     return debouncedValue;
   }
 
+const getShownIndexRange = (clientHeight, scrollTop, scrollHeight) => {
+    const canBeShownCount = Math.floor(clientHeight / ROW_HEIGHT)
+    const fromIndex = Math.ceil(scrollTop / ROW_HEIGHT)
+    return {from: fromIndex, to: fromIndex + canBeShownCount - 1}
+}
+
 const ROW_HEIGHT=35;
 const ScrollBarWithColor = (props, ref) => {
     const {getMoreItem=()=>{}, moveScrollToTop=false, category} = props;
@@ -71,8 +77,14 @@ const ScrollBarWithColor = (props, ref) => {
 
     React.useEffect(() => {
         console.log(scrollbar.current)
+        const {getClientHeight, getScrollHeight, getScrollTop, getScrollTopForOffset} = scrollbar.current;
+        const shownIndexRange = getShownIndexRange(getClientHeight(), getScrollTop(), getScrollHeight());
+        const {from, to} = shownIndexRange;
         if(currentPlaylistIndex === -1) return;
-        scrollbar.current.scrollTop(currentPlaylistIndex*ROW_HEIGHT)
+        const isHidden = currentPlaylistIndex < from || currentPlaylistIndex > to; 
+        if(isHidden){
+            scrollbar.current.scrollTop((currentPlaylistIndex - 1)*ROW_HEIGHT)
+        }
     },[currentPlaylistIndex,scrollbar])
 
     React.useEffect(()=>{
