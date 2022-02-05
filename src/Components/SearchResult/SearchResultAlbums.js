@@ -27,7 +27,9 @@ function SearchResultAlbums(props) {
     const query = queryString.parse(location.search)
     const {keyword, exactSearch, artistName, songName} = query;
     const now = new Date();
-    const currentTime = getString(now, {sep:''}).substr(0,12);
+    const currentTime = React.useMemo(() => {
+        getString(now, {sep:''}).substr(0,12);
+    },[query])
     const needExactSearch = React.useMemo(() => exactSearch === 'yes',[exactSearch])
     const params = needExactSearch ? {
         scn: 'album', 
