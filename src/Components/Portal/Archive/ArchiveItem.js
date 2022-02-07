@@ -29,7 +29,7 @@ const RowReverseContainer = styled(Box)`
 function ArchiveItem(props) {
     // const {WIDTH_TO_HIDE_SIDE_PANEL} = CONSTANTS;
     // const hideRightPane = useMediaQuery(`(max-width:${WIDTH_TO_HIDE_SIDE_PANEL})`);
-    const {hideRightPane, showShortArchiveList} = useMediaQueryEasy();
+    const {show3ColArchiveList, showShortArchiveList} = useMediaQueryEasy();
     const {index, archives, history} = props
     const {addSongsToCurrentPlaylist} = useCurrentPlaylist();
     const {id, pgm_cd, pgm_nm, chan_cd, chan_cd_full, dj, last_brd_time, archiveChildren} = archives;
@@ -59,7 +59,7 @@ function ArchiveItem(props) {
                 <Box flexShrink={0} minWidth="20px">
                     <TextBox fontSize="14px" color="white" text={`${rownum}.`}></TextBox>
                 </Box>
-                <Box flexShrink={0} minWidth="20px">
+                {/* <Box flexShrink={0} minWidth="20px">
                     <TextBox 
                         clickable
                         fontSize="14px" 
@@ -70,7 +70,7 @@ function ArchiveItem(props) {
                         onClick={handleOnClickChannel}
                     >
                     </TextBox>
-                </Box>
+                </Box> */}
                 <TextBox 
                     clickable
                     fontSize="14px" 
@@ -78,9 +78,11 @@ function ArchiveItem(props) {
                     text={pgm_nm}
                     onClick={handleOnClickPgmNM}
                 ></TextBox>
-                <Box ml="auto" minWidth="100px" mr="20px">
-                    <TextBox opacity="0.5" text={`${UPDATE_TEXT} ${lastUpdated}`}></TextBox>
-                </Box>
+                {!show3ColArchiveList && (
+                    <Box ml="auto" minWidth="100px" mr="20px">
+                        <TextBox opacity="0.5" text={`${UPDATE_TEXT} ${lastUpdated}`}></TextBox>
+                    </Box>
+                )}
             </RowContainer>
             <RowReverseContainer>
                 <Box flexShrink={0} minWidth="20px"></Box>

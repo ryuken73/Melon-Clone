@@ -1,5 +1,6 @@
 import React from 'react';
-import Box from '@mui/material/Box'
+import Box from '@mui/material/Box';
+import Divider from '@mui/material/Divider';
 import CommonPageHeader from 'Components/Common/CommonPageHeader';
 import {withRouter} from 'react-router-dom';
 import TextBox from 'Components/Common/TextBox'; 
@@ -58,16 +59,27 @@ const ArchiveRecentPage = props => {
     const resultsFM = useQueryProgramList('F');
     const programs = [...createProgramList(resultsAM.data), ...createProgramList(resultsFM.data)];
     const archives = React.useMemo(() => createArchive(result[0].data), [result]);
-    const groupedArchives = groupBy('pgm_cd', archives, programs).slice(0,20)
+    const groupedArchives = groupBy('pgm_cd', archives, programs).slice(0,20);
+    const {powerFM, loveFM} = groupedArchives.reduce((acct, archive) => {
+        archive.chan_cd === 'A' && acct.loveFM.push(archive);
+        archive.chan_cd === 'F' && acct.powerFM.push(archive);
+        return acct;
+    },{powerFM:[], loveFM:[]})
     // console.log('@@@', result,programs, archives, groupedArchives)
     const {refetch} = result[0];
 
     const refresh = React.useCallback(()=>{
         refetch()
     },[refetch])
+    const handleOnClickPowerFM = React.useCallback(() => {
+        history.push(`/program/PowerFM`)
+    },[history])
+    const handleOnClickLoveFM = React.useCallback(() => {
+        history.push(`/program/loveFM`)
+    },[history])
 
     return (
-
+        <Box mr="5px">
         <CommonPageHeader>
             <Box display="flex" flexDisplay="row" alignItems="center" mb="5px">
                 <TextBox 
@@ -91,8 +103,37 @@ const ArchiveRecentPage = props => {
                 >
                 </TextBox>
             </Box>
-            <ArchiveList groupedArchives={groupedArchives}></ArchiveList>
+            <Box display="flex" flexDirection="row" width="100%">
+                <Box flex="1" p="20px" pl="0px" pb="0px" border="none 2px grey" borderRadius="25px" mr="10px">
+                    <TextBox 
+                        clickable
+                        fontSize="14px" 
+                        color={'lightskyblue'}
+                        text={`[Power FM]`}
+                        mr="5px"
+                        ml="3px"
+                        onClick={handleOnClickPowerFM}
+                    >
+                    </TextBox>
+                    <ArchiveList groupedArchives={powerFM}></ArchiveList>
+                </Box>
+                {/* <Divider orientation="vertical" variant="middle" flexItem /> */}
+                <Box flex="1" p="20px" pl="0px" pb="0px" border="none 2px grey" borderRadius="25px">
+                    <TextBox 
+                        clickable
+                        fontSize="14px" 
+                        color={'burlywood'}
+                        text={`[Love FM]`}
+                        mr="5px"
+                        ml="3px"
+                        onClick={handleOnClickLoveFM}
+                    >
+                    </TextBox>
+                    <ArchiveList groupedArchives={loveFM}></ArchiveList>
+                </Box>
+            </Box>
         </CommonPageHeader>
+        </Box>
     )
 }
 
