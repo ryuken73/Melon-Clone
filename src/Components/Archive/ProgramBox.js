@@ -22,16 +22,18 @@ const ProgramBox = props => {
         program = {},
         preserveHtmlTag=false,
         history,
+        category='archive',
+        ...rest
     } = props;
     const {
         pgm_cd,
         pgm_nm,
-        eval_imagePath,
+        eval_imagePath
     } = program;
 
     const handleClickProgram = React.useCallback(()=> {
-        history.push(`/archive/${pgm_cd}/archiveList`, {pgm_cd})
-    },[history, pgm_cd])
+        history.push(`/${category}/${pgm_cd}/${category}List`, {pgm_cd})
+    },[history, pgm_cd, category])
 
     return (
         <Container>
@@ -45,6 +47,7 @@ const ProgramBox = props => {
                 lazyLoading={true}
                 withoutSrcExtension={true}
                 onClick={handleClickProgram}
+                {...rest}
             ></ProgramBoxImage>
             <Box marginTop="5px"></Box>
             <TextBox 

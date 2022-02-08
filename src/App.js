@@ -8,6 +8,8 @@ import AlbumDetailPage from 'Components/Album/AlbumDetail/AlbumDetailPage';
 import ArtistDetailPage from 'Components/Artist/ArtistDetail/ArtistDetailPage';
 import ProgramPage from 'Components/Archive/ProgramPage';
 import ArchiveList from 'Components/Archive/ArchiveList';
+import PodcastProgramPage from 'Components/Podcast/PodcastProgramPage'
+import PodcastList from 'Components/Podcast/PodcastList'
 import SearchResultPage from 'Components/SearchResult/SearchResultPage';
 import SongView from 'Views/SongView';
 import PortalView from 'Components/Portal/PortalPage';
@@ -138,6 +140,8 @@ function App() {
           <Route path="/searchResult/:category" render={(routerProps)=><SearchResultPage {...routerProps} />} />
           <Route path="/program/:category" render={(routerProps)=><ProgramPage {...routerProps} />} />
           <Route path='/archive/:pgm_cd/archiveList' render={routerprops => <ArchiveList {...routerprops}></ArchiveList>}></Route>
+          <Route path="/podcastProgram/:category" render={(routerProps)=><PodcastProgramPage {...routerProps} />} />
+          <Route path="/podcast/:pgm_cd/podcastList" render={(routerProps)=><PodcastList {...routerProps} />} />
           <Route render={()=><withRouterNotFoundView />} />
         </Switch>
       </CenterPane>

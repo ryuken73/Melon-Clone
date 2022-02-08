@@ -12,13 +12,13 @@ const queryAll = async ({queryKey}) => {
   return response.json()
 };
 
-const useQueryPodcastDetail = (media_id, enabled=false) => {
-  console.log('^^^', media_id)
-  const {url, fetchOptions} = apiMap['doPodCastPgmInfoSelectView.mb']({media_id});
-  const results = useQuery(['doPodCastPgmInfoSelectView.mb', url, fetchOptions, media_id], queryAll, {
+const useQueryPodcastProgram = (audio_pgm_id, enabled=false) => {
+  console.log('^^^', audio_pgm_id)
+  const {url, fetchOptions} = apiMap['doPodCastPgmSelectView.mb']({audio_pgm_id});
+  const results = useQuery(['doPodCastPgmSelectView.mb', url, fetchOptions, audio_pgm_id], queryAll, {
     enabled
   })
   return results;
 } 
 
-export default useQueryPodcastDetail;
+export default useQueryPodcastProgram;

@@ -13,7 +13,7 @@ function usePlayerState() {
   // const song = currentPlaylist.find(song => song.src === src);
   const song = currentPlaylist.find(song => song.id === id);
   const src_type = song?.src_type;
-  console.log('&&&&', src, song, src_type)
+  // console.log('&&&&', src, song, src_type)
   const dispatch = useDispatch();
 
   const setPlayerSource = React.useCallback((src, image, index, srcObj) => {

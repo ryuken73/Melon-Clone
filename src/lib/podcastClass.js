@@ -25,8 +25,10 @@ class Podcast {
     get link() { return this.nativeProps.link}
     get media_id() { return this.nativeProps.media_id}
     get episode_title() { return this.nativeProps.episode_title}
+    get episode() { return this.episode_title}
     get song_name() { return this.nativeProps.episode_title}
     get artist() { return this.nativeProps.cast_nm}
+    get dj() { return this.artist}
     get src_type() { return SRC_TYPE.PODCAST }
     set src(audio_media_url) { this._src = audio_media_url};
     get src() { return this._src }
@@ -40,11 +42,13 @@ class Podcast {
             id: this.id,
             song_name: this.song_name,
             artist: this.artist,
+            dj: this.artist,
             src: this.src,
             src_type: this.src_type,
             brad_day: this.brad_day,
             brad_day_with_weekday: this.brad_day_with_weekday,
-            download_url: this.download_url
+            download_url: this.download_url,
+            episode: this.episode,
         }
     }
     get parsedWithoutBTag() {

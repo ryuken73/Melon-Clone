@@ -420,10 +420,63 @@ export const apiMap = {
             }
         }
     },
+    // get podcast program list
+    'doPodCastPgmListSearch.mb': options => {
+        const {
+            b_ipp=0,
+            b_page=99,
+            cmplt_yn='N',
+            service_yn='Y',
+            start_dd='',
+            end_dd='',
+            use_yn='',
+            on_air='',
+            chan_cd='',
+            week_yn='',
+            order_column='',
+            order_directions='',
+        } = options;
+        const postBody = new URLSearchParams();
+        postBody.append('b_ipp', b_ipp);
+        postBody.append('b_page', b_page);
+        postBody.append('cmplt_yn', cmplt_yn);
+        postBody.append('service_yn', service_yn);
+        postBody.append('start_dd', start_dd);
+        postBody.append('end_dd', end_dd);
+        postBody.append('use_yn', use_yn);
+        postBody.append('on_air', on_air);
+        postBody.append('chan_cd', chan_cd);
+        postBody.append('week_yn', week_yn);
+        postBody.append('order_column', order_column);
+        postBody.append('order_directions', order_directions);
+        return {
+            url: `/mbs/regist502/doPodCastPgmListSearch.mb`,
+            fetchOptions: {
+                method: 'POST',
+                body: postBody,
+                ...DEFAULT_FETCH_OPTIONS
+            }
+        }
+    },
+    // get podcast program detail from audio_pgm_id
+    'doPodCastPgmSelectView.mb': options => {
+        const {audio_pgm_id} = options;
+        console.log('^^^^', audio_pgm_id);
+        const postBody = new URLSearchParams();
+        postBody.append('audio_pgm_id', audio_pgm_id);
+        return {
+            url: `/mbs/regist502/doPodCastPgmSelectView.mb`,
+            fetchOptions: {
+                method: 'POST',
+                body: postBody,
+                ...DEFAULT_FETCH_OPTIONS
+            }
+        }
+    },
     // get podcast pgminfo(especially audio_pgm_tms_id) by media_id
     'doPodCastPgmInfoSelectView.mb': options => {
         const {media_id} = options;
-        console.log('^^^^', media_id)
+        console.log('^^^^', media_id);
         const postBody = new URLSearchParams();
         postBody.append('media_id', media_id);
         return {

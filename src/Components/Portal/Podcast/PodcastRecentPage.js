@@ -17,7 +17,7 @@ const PodcastRecentPage = props => {
     const {history} = props;
     const handleOnClick = React.useCallback(()=>{
         console.log('### history.location changed', history)
-        history.push('/podcast/all')
+        history.push('/podcastProgram/onair')
     },[history])
 
     const queryOptions = {

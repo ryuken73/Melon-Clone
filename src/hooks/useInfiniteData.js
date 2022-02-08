@@ -2,10 +2,12 @@ import * as React from 'react';
 import createAlbum from 'lib/albumClass';
 import createSong from 'lib/songClass';
 import createArchive from 'lib/archiveClass'
+import createPodcasts from 'lib/podcastClass';
 const createFuntions = {
   'albums': createAlbum,
   'songs': createSong,
-  'archives': createArchive
+  'archives': createArchive,
+  'podcasts': createPodcasts
 }
 
 function useInfiniteData(data, category) {
