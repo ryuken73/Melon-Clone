@@ -107,9 +107,9 @@ const ArchiveRecentPage = props => {
                 <Box flex="1" p="20px" pl="0px" pb="0px" border="none 2px grey" borderRadius="25px" mr="10px">
                     <TextBox 
                         clickable
-                        fontSize="14px" 
+                        fontSize="16px" 
                         color={'lightskyblue'}
-                        text={`[Power FM]`}
+                        text={`[파워FM 107.7]`}
                         mr="5px"
                         ml="3px"
                         onClick={handleOnClickPowerFM}
@@ -121,9 +121,9 @@ const ArchiveRecentPage = props => {
                 <Box flex="1" p="20px" pl="0px" pb="0px" border="none 2px grey" borderRadius="25px">
                     <TextBox 
                         clickable
-                        fontSize="14px" 
+                        fontSize="16px" 
                         color={'burlywood'}
-                        text={`[Love FM]`}
+                        text={`[러브FM 103.5]`}
                         mr="5px"
                         ml="3px"
                         onClick={handleOnClickLoveFM}
