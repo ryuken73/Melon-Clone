@@ -78,10 +78,10 @@ export const playlistSlice = createSlice({
         },
         setCurrentPlayingBySrc: (state, action) => {
             const {type, payload} = action;
-            const {src, playing} = payload;
+            const {src, id, playing} = payload;
             if(playing === true) {
                 state.currentPlaylist.forEach((song, index) => {
-                    if(song.src === src){
+                    if(song.src === src || song.id === id){
                         song.currentPlaying = true;
                         return
                     }

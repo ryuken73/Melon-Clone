@@ -19,6 +19,7 @@ export default function usePlayerEvent(playerRef) {
     const dispatch = useDispatch();
     const {showMessageBox} = useMessageBox();
     const currentSrc = useSelector(state => state.audioPlayer.currentSrc);
+    const currentId = useSelector(state => state.audioPlayer.currentId);
     const currentIndex = useSelector(state => state.audioPlayer.currentIndex);
     const endedTime = useSelector(state => state.audioPlayer.endedTime);
     const volume = useSelector(state => state.audioPlayer.volume);
@@ -45,10 +46,10 @@ export default function usePlayerEvent(playerRef) {
         console.log('in usePlayerEvent: handlePlaying')
         dispatch(setIsPlaying({isPlaying:true}))
         // dispatch(setCurrentPlayingByIndex({targetIndex: currentIndex, playing: true}));
-        dispatch(setCurrentPlayingBySrc({src: currentSrc, playing: true}));
+        dispatch(setCurrentPlayingBySrc({src: currentSrc, id: currentId, playing: true}));
         // if(player !== null) player.volume = volume;
     // },[dispatch, player, volume, currentSrc])
-    },[dispatch, currentSrc])
+    },[dispatch, currentSrc, currentId])
 
     const handlePause = React.useCallback(()=>{
         console.log('in usePlayerEvent: handlePause')
