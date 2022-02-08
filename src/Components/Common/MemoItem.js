@@ -3,11 +3,11 @@ import Box from '@mui/material/Box';
 import Divider from '@mui/material/Divider';
 
 const MemoItem = props => {
-    const {size, start, item, index, ItemElement, scrollToIndex, scrollToX, ...itemProps} = props
-    const scrollTo = React.useCallback(() => {
-        // scrollToIndex(55, {align:'start'})
-        scrollToX();
-    },[scrollToX])
+    const {size, start, item, index, ItemElement, scrollToIndex, ...itemProps} = props
+    // const scrollTo = React.useCallback(() => {
+    //     // scrollToIndex(55, {align:'start'})
+    //     scrollToX();
+    // },[scrollToX])
     console.log(`^^^ ${item.id}::${index}`)
     return (
         <div
@@ -22,7 +22,7 @@ const MemoItem = props => {
                 transition: 'all 5s'
             }}
         >
-            <Box key={item.id} onClick={scrollTo} px="10px">
+            <Box key={item.id} px="10px">
                 <ItemElement
                     rownum={index}
                     fontSize="14px"
