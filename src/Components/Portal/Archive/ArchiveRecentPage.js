@@ -104,7 +104,7 @@ const ArchiveRecentPage = props => {
                 </TextBox>
             </Box>
             <Box display="flex" flexDirection="row" width="100%">
-                <Box flex="1" p="20px" pl="0px" pb="0px" border="none 2px grey" borderRadius="25px" mr="10px">
+                <Box flex="1" p="20px" pt="10px" pl="0px" pb="0px" border="none 2px grey" borderRadius="25px" mr="10px">
                     <TextBox 
                         clickable
                         fontSize="16px" 
