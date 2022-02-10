@@ -31,10 +31,10 @@ const Container = styled(Box)`
 `
 
 const PodcastListItem = props => {
-    const {item:archive, rownum, isSearchResult=false, history, ...rest} = props;
+    const {item:archive, rownum, items:songs, isSearchResult=false, history, ...rest} = props;
     const [hovered, setHovered] = React.useState(false);
     const {addSongsToCurrentPlaylist} = useCurrentPlaylist();
-    const {checked, addChecked, delChecked} = useSongHelper(archive.id);
+    const {checked, addChecked, delChecked, setCheckedFromLastToThis} = useSongHelper(archive.id);
     const downloadFile = useDownloadSong([archive]);
     const onHovered = React.useCallback(()=>{
         setHovered(true);
@@ -43,13 +43,13 @@ const PodcastListItem = props => {
     const onHoverOut = React.useCallback(()=>{
         setHovered(false);
     },[setHovered])
-    const onChecked = React.useCallback(() => {
-        if(checked){
-            delChecked(archive);
-        } else {
-            addChecked(archive)
+    const onChecked = React.useCallback((checked, event) => {
+        if(event.nativeEvent.shiftKey){
+            setCheckedFromLastToThis(songs);
+            return
         }
-    },[addChecked, delChecked, archive, checked])
+        checked ? addChecked(archive):delChecked(archive);
+    },[addChecked, delChecked, setCheckedFromLastToThis, archive, songs])
     const addSongNPlay = React.useCallback(() => {
         addSongsToCurrentPlaylist(archive, true);
     },[archive, addSongsToCurrentPlaylist]);

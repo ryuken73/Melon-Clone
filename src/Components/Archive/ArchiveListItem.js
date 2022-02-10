@@ -48,11 +48,7 @@ const ArchiveListItem = props => {
             setCheckedFromLastToThis(songs);
             return
         }
-        if(checked){
-            addChecked(archive);
-        } else {
-            delChecked(archive)
-        }
+        checked ? addChecked(archive):delChecked(archive);
     },[addChecked, delChecked, setCheckedFromLastToThis, archive, songs])
     const addSongNPlay = React.useCallback(() => {
         addSongsToCurrentPlaylist(archive, true);

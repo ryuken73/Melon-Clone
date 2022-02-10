@@ -11,6 +11,7 @@ import useInfiniteData from 'hooks/useInfiniteData';
 import useQueryPodcastProgram from 'hooks/useQueryPodcastProgram';
 import CONSTANTS from 'config/constants';
 import createPodcastProgram from 'lib/podcastProgramClass';
+import SongHelper from 'Components/SongHelper';
 const {PODCAST_PAGE_SIZE=50} = CONSTANTS;
 
 const Container = styled(Box)`
@@ -68,6 +69,7 @@ const PodcastList = props => {
                     <TextBox fontSize="14px" text={`Getting More Data..`}></TextBox>
                 </Box>
             )}
+            <SongHelper></SongHelper>
         </Container>
     )
 }
