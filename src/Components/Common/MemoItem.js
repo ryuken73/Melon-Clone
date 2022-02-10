@@ -3,7 +3,7 @@ import Box from '@mui/material/Box';
 import Divider from '@mui/material/Divider';
 
 const MemoItem = props => {
-    const {size, start, item, index, ItemElement, scrollToIndex, ...itemProps} = props
+    const {size, start, item, items, index, ItemElement, scrollToIndex, ...itemProps} = props
     // const scrollTo = React.useCallback(() => {
     //     // scrollToIndex(55, {align:'start'})
     //     scrollToX();
@@ -28,6 +28,7 @@ const MemoItem = props => {
                     fontSize="14px"
                     color="white"
                     item={item}
+                    items={items}
                     width="100%"
                     {...itemProps}
                 ></ItemElement>

@@ -37,11 +37,11 @@ const Container = styled(Box)`
 
 const SongIteminSearchAll = props => {
     const {history} = props;
-    const {item:song, rownum, ...rest} = props;
+    const {item:song, rownum, items:songs=[], ...rest} = props;
     const [hovered, setHovered] = React.useState(false);
     const {addSongsToCurrentPlaylist} = useCurrentPlaylist();
     // const {showShortArchiveList} = useMediaQueryEasy()
-    const {checked, addChecked, delChecked} = useSongHelper(song.id);
+    const {checked, addChecked, delChecked, setCheckedFromLastToThis} = useSongHelper(song.id);
     const downloadFile = useDownloadSong([song]);
 
     const onHovered = React.useCallback(()=>{
@@ -56,13 +56,31 @@ const SongIteminSearchAll = props => {
 
     const {id, song_name, song_name_bold, artist, artist_bold, artist_matched, release_year, version, duration, runtime, src, albumImageSrc} = song;
 
-    const onChecked = React.useCallback(() => {
-        if(checked){
-            delChecked(song);
-        } else {
-            addChecked(song)
+    const onChecked = React.useCallback((checked, event) => {
+        console.log(event.nativeEvent.shiftKey)
+        if(event.nativeEvent.shiftKey){
+            setCheckedFromLastToThis(songs);
+            return
         }
-    },[addChecked, delChecked, song, checked])
+        if(checked){
+            addChecked(song);
+        } else {
+            delChecked(song)
+        }
+    },[addChecked, delChecked, setCheckedFromLastToThis, songs, song])
+
+    const onClickCheckBox = () => {};
+    // const onClickCheckBox = React.useCallback(event => {
+    //     if(event.shiftKey){
+    //         setCheckedFromLastToThis(songs)
+    //         return;
+    //     }
+    //     if(checked){
+    //         delChecked(song);
+    //     } else {
+    //         addChecked(song)
+    //     }
+    // },[checked, addChecked, delChecked, setCheckedFromLastToThis, songs, song])
 
     const addSongNPlay = React.useCallback(() => {
         addSongsToCurrentPlaylist(song, true);

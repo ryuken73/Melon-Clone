@@ -58,6 +58,7 @@ function ScrollBarVirtual(props) {
                     return (
                         <MemoItem
                             item={item}
+                            items={items}
                             index={virtualRow.index}
                             size={virtualRow.size}
                             start={virtualRow.start}
