@@ -57,7 +57,6 @@ const SongIteminSearchAll = props => {
     const {id, song_name, song_name_bold, artist, artist_bold, artist_matched, release_year, version, duration, runtime, src, albumImageSrc} = song;
 
     const onChecked = React.useCallback((checked, event) => {
-        console.log(event.nativeEvent.shiftKey)
         if(event.nativeEvent.shiftKey){
             setCheckedFromLastToThis(songs);
             return

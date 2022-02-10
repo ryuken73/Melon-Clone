@@ -38,7 +38,7 @@ export const songHelperSlice = createSlice({
             const {type, payload} = action;
             const {targetSongList, fromIndex, toIndex, checked} = payload;
             const songsBetween = [...targetSongList.slice(fromIndex, toIndex+1)];
-            console.log(songsBetween)
+            // console.log(songsBetween)
             songsBetween.forEach((song, index) => {
                 if(checked){
                     if(!state.checkedSongList.some(songInList => songInList.id === song.id)){

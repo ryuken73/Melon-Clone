@@ -11,6 +11,7 @@ import useInfiniteData from 'hooks/useInfiniteData';
 import useQueryProgram from 'hooks/useQueryProgram';
 import CONSTANTS from 'config/constants';
 import createProgramInfo from 'lib/programInfoClass';
+import SongHelper from 'Components/SongHelper';
 const {ARCHIVE_PAGE_SIZE=50} = CONSTANTS;
 
 const Container = styled(Box)`
@@ -68,6 +69,7 @@ const ArchiveList = props => {
                     <TextBox fontSize="14px" text={`Getting More Data..`}></TextBox>
                 </Box>
             )}
+            <SongHelper></SongHelper>
         </Container>
     )
 }
