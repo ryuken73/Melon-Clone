@@ -91,6 +91,7 @@ function SearchResultSongsScroll(props) {
             <SongItemHeaderInSongsScroll
                 songs={songs}
                 total={total}
+                targetPage="songList"
             ></SongItemHeaderInSongsScroll>
             <ScrollBarVirtual
                 items={songs}

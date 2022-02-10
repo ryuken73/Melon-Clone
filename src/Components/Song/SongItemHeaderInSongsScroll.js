@@ -38,7 +38,7 @@ const StyledButtonIcon = styled(ButtonIcon)`
 }
 `
 const SongItemHeaderInSongScroll = props => {
-    const {songs, total, ...rest} = props;
+    const {songs, total, targetPage, ...rest} = props;
     const {isOrderByDefault, setOrderByDefault} = useAppState();
     const {toggleAllSongChecked, isAllChecked} = useSongHelper();
     const toggleAllChecked = React.useCallback(checked => {
@@ -48,12 +48,12 @@ const SongItemHeaderInSongScroll = props => {
         return isAllChecked(songs)
     },[isAllChecked, songs]);
     const restoreOrderBy = React.useCallback(() => {
-        setOrderByDefault({page:'songList'})
-    },[setOrderByDefault])
+        setOrderByDefault({page: targetPage})
+    },[setOrderByDefault, targetPage])
 
     return (
             <Container sx={{position: 'relative'}} onClick={event => console.log('((',event.target)}>
-                {!isOrderByDefault('songList') && (
+                {!isOrderByDefault(targetPage) && (
                     <Box position="absolute" onClick={restoreOrderBy} sx={{top:-50, left:550}}>
                         <ButtonColorIcon
                             iconComponent={<SettingsBackupRestoreIcon></SettingsBackupRestoreIcon>}
@@ -71,28 +71,28 @@ const SongItemHeaderInSongScroll = props => {
                         <AnimatedNumber from={0} to={total || 0}></AnimatedNumber>
                     </NumberContainer>
                 </Box>
-                <OrderableBox page="songList" orderByString="order by song_name_str" flex="3">
+                <OrderableBox targetPage={targetPage} orderByString="order by song_name_str" flex="3">
                     {/* 곡명 */}
                     <TextBox clickable containerProps={{marginRight:"5px"}} text="곡명" {...rest}></TextBox>
                 </OrderableBox>
-                <OrderableBox page="songList" orderByString="order by album_name_str" width="25%">
+                <OrderableBox targetPage={targetPage} orderByString="order by album_name_str" width="25%">
                     {/* 앨범 */}
                     <TextBox clickable containerProps={{marginRight:"5px"}} text="앨범명" {...rest}></TextBox>
                 </OrderableBox>
-                {/* <OrderableBox page="songList" orderByString="order by release_year" width="5%" display={showShortArchiveList ? "none":"flex"} flexDirection="row" alignItems="center"> */}
-                <OrderableBox page="songList" orderByString="order by release_year" width="5%">
+                {/* <OrderableBox page={targetPage} orderByString="order by release_year" width="5%" display={showShortArchiveList ? "none":"flex"} flexDirection="row" alignItems="center"> */}
+                <OrderableBox targetPage={targetPage} orderByString="order by release_year" width="5%">
                     {/* 발매일 */}
                     <TextBox clickable containerProps={{marginRight:"5px"}} text="발매일" {...rest}></TextBox>
                 </OrderableBox>
-                <OrderableBox page="songList" orderByString="order by artist_str" width="15%" ml="5px">
+                <OrderableBox targetPage={targetPage} orderByString="order by artist_str" width="15%" ml="5px">
                     {/* 아티스트 */}
                     <TextBox clickable text="아티스트" {...rest} color="darkgrey"></TextBox>
                 </OrderableBox>
-                <OrderableBox page="songList" orderByString="order by version_str" width="10%">
+                <OrderableBox targetPage={targetPage} orderByString="order by version_str" width="10%">
                     {/* 버전 */}
                     <TextBox clickable text="버전" {...rest}  color="darkgrey"></TextBox>
                 </OrderableBox>
-                <OrderableBox clickable page="songList" orderByString="order by runtime" width="10%">
+                <OrderableBox clickable targetPage={targetPage} orderByString="order by runtime" width="10%">
                     {/* 재생시간 */}
                     <TextBox text="재생시간" {...rest} color="darkgrey"></TextBox>
                 </OrderableBox>

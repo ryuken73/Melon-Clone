@@ -16,26 +16,27 @@ const OrderableBox = props => {
       setOrderByStringPart, 
       setOrderByDirectionPart
   } = useAppState();
-  const {page, orderByString, ...rest} = props;
-  const active = orderByString === orderByStrings[page];
-  const orderByDirection = orderByDirections[page] || 'asc';
+  const {targetPage, orderByString, ...rest} = props;
+  const active = orderByString === orderByStrings[targetPage];
+  const orderByDirection = orderByDirections[targetPage] || 'asc';
   const handleClick = React.useCallback(() => {
+      if(targetPage === undefined) return;
       const needToggle = active;
       const newOrderByDirection = needToggle ? toggle(orderByDirection) : orderByDirection;
       const orderby = `${orderByString} ${newOrderByDirection}`;
       setOrderBy({
-          page,
+          page:targetPage,
           orderby
       })
       setOrderByStringPart({
-          page,
+          page:targetPage,
           orderByString
       })
       setOrderByDirectionPart({
-          page,
+          page:targetPage,
           orderByDirection: newOrderByDirection
       })
-  },[setOrderBy, setOrderByStringPart, setOrderByDirectionPart, orderByString, orderByDirection, page, active])
+  },[setOrderBy, setOrderByStringPart, setOrderByDirectionPart, orderByString, orderByDirection, targetPage, active])
   const ArrowOrderRecent = orderByDirection === 'asc' ? ArrowDownward : ArrowUpward;
   return (
       <Box onClick={handleClick} display="flex" sx={{height: '100%', position: 'relative'}} {...rest}>
