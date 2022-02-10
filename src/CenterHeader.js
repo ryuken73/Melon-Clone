@@ -8,6 +8,7 @@ import CenterHeaderNav from './CenterHeaderNav';
 import AutoComplete from './Components/Common/AutoComplete';
 import HoverButton from 'Components/Common/ButtonHover';
 import MenuIcon from '@mui/icons-material/Menu';
+import HomeIcon from '@mui/icons-material/Home';
 import useMediaQueryEasy from 'hooks/useMediaQueryEasy';
 import useAppState from 'hooks/useAppState';
 import colors from 'config/colors';
@@ -30,8 +31,17 @@ const StyledMenu = styled(Menu)`
             }
         }
     }
-    }
 `
+const OutlinedText = styled(Box)`
+    color: white;
+    font-weight: bold;
+    /* -webkit-text-stroke-width: 2px; */
+    /* -webkit-text-stroke-color: white; */
+    font-size: 20px;
+    opacity: 0.9;
+    cursor: pointer;
+`
+
 const CenterHeader = props => {
     const {history} = props;
     const [anchorEl, setAnchorEl] = React.useState(null);
@@ -42,6 +52,9 @@ const CenterHeader = props => {
     const onClickMenu = React.useCallback(event => {
         setAnchorEl(event.currentTarget)
     },[])
+    const onClickTitle = React.useCallback(event => {
+        history.push('/');
+    },[history])
     const handleClose = React.useCallback(event => {
         const category = event.target.id;
         category === 'home' && history.push('/');
@@ -49,7 +62,6 @@ const CenterHeader = props => {
         category === 'podcast' && history.push('/podcastProgram/onair');
         setAnchorEl(null);
     },[history])
-
     return (
         <Container>
             <HoverButton 
@@ -77,6 +89,7 @@ const CenterHeader = props => {
                 <MenuItem id="archive" onClick={handleClose}>아카이브</MenuItem>
                 <MenuItem id="podcast" onClick={handleClose}>팟캐스트</MenuItem> 
             </StyledMenu>
+            <OutlinedText onClick={onClickTitle}>MUSICKBANK</OutlinedText>
             <CenterHeaderNav historyPushedCount={historyPushedCount} setHistoryPushedCount={setHistoryPushedCount}></CenterHeaderNav>
             <AutoComplete searchResultPath={searchResultPath}></AutoComplete>
         </Container>
