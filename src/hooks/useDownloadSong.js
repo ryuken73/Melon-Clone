@@ -65,7 +65,8 @@ const useDownloadSong = (songsToDownload) => {
             const {download_url} = file;
             // console.log('^^^^^',file, download_url)
             // nativeDownload(download_url, 'a.mp4');
-            window.open(download_url)
+             // window.open(download_url)
+             window.location.assign(download_url);
         })
     },[doGetFileSizeBatch])
     return downloadFile;
