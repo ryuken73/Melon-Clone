@@ -32,11 +32,11 @@ const Container = styled(Box)`
 `
 
 const SongItemAlbumDetail = props => {
-    const {song, receipt_no, ...rest} = props;
+    const {song, songs, receipt_no, ...rest} = props;
     console.log('*****:', song)
     const [hovered, setHovered] = React.useState(false);
     const {addSongsToCurrentPlaylist} = useCurrentPlaylist();
-    const {checked, addChecked, delChecked} = useSongHelper(song.id);
+    const {checked, addChecked, delChecked, setCheckedFromLastToThis} = useSongHelper(song.id);
     const downloadFile = useDownloadSong([song]);
     
     const onHovered = React.useCallback(()=>{
@@ -50,13 +50,13 @@ const SongItemAlbumDetail = props => {
     const deboucedHovered = useDebounce(hovered, 100);
 
     const {rownum, id, song_name, song_name_bold, artist, artist_bold, version, duration, runtime, src, albumImageSrc} = song;
-    const onChecked = React.useCallback(() => {
-        if(checked){
-            delChecked(song);
-        } else {
-            addChecked(song)
+    const onChecked = React.useCallback((checked, event) => {
+        if(event.nativeEvent.shiftKey){
+            setCheckedFromLastToThis(songs);
+            return
         }
-    },[addChecked, delChecked, song, checked])
+        checked ? addChecked(song):delChecked(song);
+    },[addChecked, delChecked, song, songs, setCheckedFromLastToThis])
 
     const addSongNPlay = React.useCallback(() => {
         addSongsToCurrentPlaylist(song, true);

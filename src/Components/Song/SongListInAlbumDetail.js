@@ -36,6 +36,7 @@ const SongListInAlbumDetail = props => {
                             fontSize="14px"
                             color="white"
                             song={song}
+                            songs={songs}
                             receipt_no={receipt_no}
                             width="100%"
                         ></SongItemAlbumDetail>
