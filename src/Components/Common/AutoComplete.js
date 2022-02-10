@@ -134,9 +134,9 @@ const UseAutocomplete = props => {
     console.log('^^ suggest value selected:', value)
     const {artistName, songName} = value !== null ? value: {artistName:'', songName:''};
     setPrevSearch({artistName, songName})
-    const encodedArtist = encodeURIComponent(artistName);
-    const encodedSong = encodeURIComponent(songName);
-    const encodedInputValue = encodeURIComponent(inputValue);
+    const encodedArtist = encodeURIComponent(artistName.replace(/'/g,"`"));
+    const encodedSong = encodeURIComponent(songName.replace(/'/g,"`"));
+    const encodedInputValue = encodeURIComponent(inputValue.replace(/'/g,"`"));
     value !== null && history.push(`${searchResultPath}?exactSearch=yes&artistName=${encodedArtist} &songName=${encodedSong}&keyword=${encodedInputValue}`);
   // },[value, searchResultPath, dispatch, history])
   },[value,  dispatch])
@@ -155,13 +155,13 @@ const UseAutocomplete = props => {
       console.log('^^^ enter key pressed: ',event.target.value)
       const {artistName, songName} = prevSearch;
       if(event.target.value === `${artistName} ${songName}`){
-        const encodedArtist = encodeURIComponent(artistName);
-        const encodedSong = encodeURIComponent(songName);
-        const encodedInputValue = encodeURIComponent(inputValue);
+        const encodedArtist = encodeURIComponent(artistName.replace(/'/g,"`"));
+        const encodedSong = encodeURIComponent(songName.replace(/'/g,"`"));
+        const encodedInputValue = encodeURIComponent(inputValue.replace(/'/g,"`"));
         history.push(`${searchResultPath}?exactSearch=yes&artistName=${encodedArtist}&songName=${encodedSong}&keyword=${encodedInputValue}`);
         return;
       } else {
-        history.push(`${searchResultPath}?exactSearch=no&keyword=${encodeURIComponent(event.target.value)}`);
+        history.push(`${searchResultPath}?exactSearch=no&keyword=${encodeURIComponent(event.target.value.replace(/'/g,"`"))}`);
       }
       setOptions([]);
     }

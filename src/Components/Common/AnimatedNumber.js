@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { useSpring, animated } from 'react-spring'
 
-function Number({from=0, to=100}) {
+function Number({from=0, to=0}) {
   const [flip, set] = React.useState(false)
   const { number } = useSpring({
     reset: false,
