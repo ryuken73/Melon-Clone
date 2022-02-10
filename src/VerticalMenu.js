@@ -32,13 +32,14 @@ const SubTextBox = props => {
 const VerticalMenu = props => {
     const {history} = props;
     const onClickHome = React.useCallback(()=>{history.push('/')},[history.location])
+    const onClickPodcast = React.useCallback(()=>{history.push('/podcastProgram/onair')},[history.location])
     const onClickArchive = React.useCallback(()=>{history.push('/program/powerFM')},[history.location])
 
     return (
         <Container>
                 <SubTextBox text="홈" onClick={onClickHome}></SubTextBox>
                 <SubTextBox text="아카이브" onClick={onClickArchive}></SubTextBox>
-                <SubTextBox text="팟캐스트" onClick={onClickHome}></SubTextBox>
+                <SubTextBox text="팟캐스트" onClick={onClickPodcast}></SubTextBox>
         </Container>
     )
 }

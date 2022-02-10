@@ -46,7 +46,7 @@ const CenterHeader = props => {
         const category = event.target.id;
         category === 'home' && history.push('/');
         category === 'archive' && history.push('/program/powerFM');
-        category === 'podcast' && history.push('/');
+        category === 'podcast' && history.push('/podcastProgram/onair');
         setAnchorEl(null);
     },[history])
 

@@ -3,6 +3,7 @@ import Box from '@mui/material/Box'
 import styled from 'styled-components'
 import TextBox from 'Components/Common/TextBox'
 import PodcastPlayLink from 'Components/Portal/Podcast/PodcastPlayLink';
+import useQueryPodcastDetail from 'hooks/useQueryPodcastDetail';
 import useCurrentPlaylist from 'hooks/useCurrentPlaylist'
 import {withRouter} from 'react-router-dom'
 import CONSTANTS from 'config/constants';
@@ -29,7 +30,16 @@ function PodcastItem(props) {
     const {showShortArchiveList} = useMediaQueryEasy();
     const {index, podcast, history} = props
     const {pgm_title, brad_day_with_weekday, media_id, episode_title} = podcast;
+    const {refetch} = useQueryPodcastDetail(media_id);
     const rownum = index + 1;
+
+    const onClickTitle = React.useCallback(() => {
+        refetch()
+        .then(result => {
+            const {audio_pgm_id} = result.data.get
+            history.push(`/podcast/${audio_pgm_id}/podcastList`);
+        })
+    },[history, refetch])
 
     const UPDATE_TEXT = showShortArchiveList ? 'Last Updated: ' : 'Updated';
     return (
@@ -43,6 +53,7 @@ function PodcastItem(props) {
                     fontSize="14px" 
                     color="white" 
                     text={pgm_title}
+                    onClick={onClickTitle}
                 ></TextBox>
                 <Box ml="auto" minWidth="120px" mr="20px">
                     <TextBox opacity="0.5" text={`${brad_day_with_weekday}`}></TextBox>
