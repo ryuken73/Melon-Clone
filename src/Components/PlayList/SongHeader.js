@@ -2,10 +2,7 @@ import React from 'react'
 import Box from '@mui/material/Box';
 import RepeatIcon from '@mui/icons-material/Repeat';
 import styled from 'styled-components';
-import TextBox from '../Common/TextBox';
 import SmallCheckBox from '../Common/CheckBox';
-import HoverButton from '../Common/ButtonHover';
-// import {setCheckAll} from './playlistSlice';
 import useCurrentPlaylist from 'hooks/useCurrentPlaylist';
 
 const Container = styled(Box)`
@@ -19,19 +16,11 @@ const Container = styled(Box)`
 `
 
 const SongHeader = props => {
-
-    // const [checked, setChecked] = React.useState(false);
     const  { toggleCurrentPlayList, allChecked } = useCurrentPlaylist();
-    
     const onClickSetChecked = React.useCallback(()=>{
         // console.log('toggle:', checked)
         toggleCurrentPlayList();
     }, [toggleCurrentPlayList])
-
-    // React.useEffect(() => {
-    //     console.log()
-    //     currentPlaylist.length === 0 && setCheckAll(false);
-    // },[currentPlaylist, setCheckAll])
 
     return (
         <Container>

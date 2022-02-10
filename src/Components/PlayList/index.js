@@ -10,12 +10,10 @@ import usePlaylistInStorage from 'hooks/usePlaylistInStorage';
 
 const Container = styled(Box)`
     position: relative;
-    /* background: ${props => props.mode === 'flat' ? colors.playerLight1 : colors.player}; */
     background: ${props => props.mode === 'flat' ? 'repeating-linear-gradient(20deg, #031126,red 2000px)' : colors.player};
     flex-grow: 1;
     display: flex;
     flex-direction: column;
-    /* justify-content: center; */
     align-items: center;
 `
 const PlayList = props => {

@@ -7,7 +7,6 @@ import SmallCheckBox from '../Common/CheckBox';
 import PlayingIcon from 'Components/Common/PlayingIcon';
 import DragHandleIcon from '@mui/icons-material/DragHandle';
 import colors from '../../config/colors';
-// import useSongPlaylist from 'hooks/useSongPlaylist';
 import useCurrentPlaylist from 'hooks/useCurrentPlaylist';
 import usePlayerState from 'hooks/usePlayerState';
 import CONSTANTS from 'config/constants';
@@ -75,8 +74,6 @@ const Song = props => {
     const {song=defaultSong, sequenceId, provided} = props;
     const {id, song_name, artist, checkedPlaylist, albumImageSrc, src, currentPlaying, src_type} = song;
     // console.log('^^^^:', id, song_name, artist, checkedPlaylist, currentPlaying)
-    // const [loadPlayer, setLoadPlayer] = React.useState(false);
-    // const [setChecked] = useSongPlaylist(sequenceId);
     const {setChecked, setLastChecked, setCheckedFromLastToThis} = useCurrentPlaylist();
     const {src: currentLoadedSrc, setPlayerSource, playNow} = usePlayerState();
 
