@@ -15,12 +15,12 @@ const Container = styled(Box)`
 `
 function ArchiveList(props) {
     const {groupedArchives} = props;
-    const {show2ColArchiveList, show3ColArchiveList} = useMediaQueryEasy();
+    const {show1ColArchiveList, show2ColArchiveList} = useMediaQueryEasy();
     // const columns = show2ColArchiveList ? 2 : show3ColArchiveList ? 3 : MAX_COLUMNS_FOR_ARCHIVELIST;
-    const columns = show2ColArchiveList ? 1 : MAX_COLUMNS_FOR_ARCHIVELIST;
+    const columns = show1ColArchiveList ? 1 : MAX_COLUMNS_FOR_ARCHIVELIST;
     const archivesToShow = 
-        show2ColArchiveList ? groupedArchives.slice(0,4) :
-        show3ColArchiveList ? groupedArchives.slice(0,8) :
+        show1ColArchiveList ? groupedArchives.slice(0,4) :
+        show2ColArchiveList ? groupedArchives.slice(0,8) :
         groupedArchives.slice(0,8)
     return (
         <Container columns={columns}>

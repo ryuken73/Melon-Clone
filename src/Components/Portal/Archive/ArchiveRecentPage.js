@@ -81,7 +81,7 @@ const ArchiveRecentPage = props => {
     return (
         <Box mr="5px">
         <CommonPageHeader>
-            <Box display="flex" flexDisplay="row" alignItems="center" mb="5px">
+            {/* <Box display="flex" flexDisplay="row" alignItems="center" mb="5px">
                 <TextBox 
                     clickable
                     fontSize="20px" 
@@ -102,33 +102,61 @@ const ArchiveRecentPage = props => {
                     onClick={refresh}
                 >
                 </TextBox>
-            </Box>
+            </Box> */}
             <Box display="flex" flexDirection="row" width="100%">
-                <Box flex="1" p="20px" pt="10px" pl="0px" pb="0px" border="none 2px grey" borderRadius="25px" mr="10px">
-                    <TextBox 
-                        clickable
-                        fontSize="16px" 
-                        color={'lightskyblue'}
-                        text={`[파워FM 107.7]`}
-                        mr="5px"
-                        ml="3px"
-                        onClick={handleOnClickPowerFM}
-                    >
-                    </TextBox>
+                <Box flex="1" border="none 2px grey" borderRadius="25px" mr="10px">
+                    <Box display="flex" flexDisplay="row" alignItems="center" mb="5px">
+                        <TextBox 
+                            clickable
+                            fontSize="20px" 
+                            color="yellow" 
+                            opacity="0.7" 
+                            opacityOnHover="0.9" 
+                            text="최신 아카이브 >"
+                            onClick={handleOnClick}>
+                        </TextBox>
+                        <TextBox
+                            clickable
+                            fontSize="12px"
+                            color="grey"
+                            opacity="0.7"
+                            opacityOnHover="0.9" 
+                            text="새로고침" 
+                            ml="20px"
+                            onClick={refresh}
+                        >
+                        </TextBox>
+                        <Box ml="auto">
+                            <TextBox 
+                                clickable
+                                fontSize="16px" 
+                                color={'lightskyblue'}
+                                text={`[파워FM 106.7]`}
+                                mr="20px"
+                                ml="auto"
+                                onClick={handleOnClickPowerFM}
+                            >
+                            </TextBox>
+                        </Box>
+                    </Box>
                     <ArchiveList groupedArchives={powerFM}></ArchiveList>
                 </Box>
                 {/* <Divider orientation="vertical" variant="middle" flexItem /> */}
-                <Box flex="1" p="20px" pl="0px" pb="0px" border="none 2px grey" borderRadius="25px">
-                    <TextBox 
-                        clickable
-                        fontSize="16px" 
-                        color={'burlywood'}
-                        text={`[러브FM 103.5]`}
-                        mr="5px"
-                        ml="3px"
-                        onClick={handleOnClickLoveFM}
-                    >
-                    </TextBox>
+                <Box flex="1" border="none 2px grey" borderRadius="25px">
+                    <Box display="flex" flexDisplay="row" alignItems="center" mb="5px" height="30px">
+                        <Box ml="auto">
+                            <TextBox 
+                                clickable
+                                fontSize="16px" 
+                                color={'burlywood'}
+                                text={`[러브FM 103.5]`}
+                                mr="20px"
+                                ml="3px"
+                                onClick={handleOnClickLoveFM}
+                            >
+                            </TextBox>
+                        </Box>
+                    </Box>
                     <ArchiveList groupedArchives={loveFM}></ArchiveList>
                 </Box>
             </Box>
