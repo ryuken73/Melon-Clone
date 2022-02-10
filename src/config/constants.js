@@ -53,7 +53,7 @@ const prd = {
     "DOWNLOAD_URL": 'https://mbk-down.sbs.co.kr/music',
     "DOWNLOAD_URL_ONAIR": 'https://mbk-down.sbs.co.kr/onair',
     "AUTOCOMPLETE_URL": 'https://mbk-suggest.sbs.co.kr',
-    "OPEN_API_URL": "https://openapi.sbs.co.kr/",
-    "OPS_URL": "https://ops.sbs.co.kr",
+    // "OPEN_API_URL": "https://openapi.sbs.co.kr/",
+    // "OPS_URL": "https://ops.sbs.co.kr",
 }
 export default process.env.NODE_ENV === 'development' ? dev:prd;
