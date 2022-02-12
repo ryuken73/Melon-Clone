@@ -20,7 +20,7 @@ function useInfiniteData(data, category) {
           console.log('######', acc, apiResult.ERROR_MSG) 
           apiResult.ERROR_MSG && showMessageBox(apiResult.ERROR_MSG, 1000, 'error')
           const albums = apiResult.fdata || [];
-          return {...apiResult, fdata:[...albums, ...acc.fdata]}
+          return {...apiResult, fdata:[...acc.fdata, ...albums]}
       },{fdata:[]})
       return createFuntions[category](allData)
   },[pages, category]);
