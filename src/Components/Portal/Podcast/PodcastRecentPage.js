@@ -36,29 +36,31 @@ const PodcastRecentPage = props => {
     return (
 
         <CommonPageHeader>
-            <Box display="flex" flexDisplay="row" alignItems="center" mb="5px">
-                <TextBox 
-                    clickable
-                    fontSize="20px" 
-                    color="yellow" 
-                    opacity="0.7" 
-                    opacityOnHover="0.9" 
-                    text="최신 팟캐스트 >"
-                    onClick={handleOnClick}>
-                </TextBox>
-                <TextBox
-                    clickable
-                    fontSize="12px"
-                    color="grey"
-                    opacity="0.7"
-                    opacityOnHover="0.9" 
-                    text="새로고침" 
-                    ml="20px"
-                    onClick={refresh}
-                >
-                </TextBox>
-            </Box>
-            <PodcastList podcasts={podcasts}></PodcastList>
+            {podcasts.length > 0 &&  (
+                <Box display="flex" flexDisplay="row" alignItems="center" mb="5px">
+                    <TextBox 
+                        clickable
+                        fontSize="20px" 
+                        color="yellow" 
+                        opacity="0.7" 
+                        opacityOnHover="0.9" 
+                        text="최신 팟캐스트 >"
+                        onClick={handleOnClick}>
+                    </TextBox>
+                    <TextBox
+                        clickable
+                        fontSize="12px"
+                        color="grey"
+                        opacity="0.7"
+                        opacityOnHover="0.9" 
+                        text="새로고침" 
+                        ml="20px"
+                        onClick={refresh}
+                    >
+                    </TextBox>
+                </Box>
+            )}
+           <PodcastList podcasts={podcasts}></PodcastList>
         </CommonPageHeader>
     )
 }

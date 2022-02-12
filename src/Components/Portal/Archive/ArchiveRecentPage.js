@@ -126,38 +126,42 @@ const ArchiveRecentPage = props => {
                             onClick={refresh}
                         >
                         </TextBox>
-                        <Box ml="auto">
-                            <TextBox 
-                                clickable
-                                fontSize="16px" 
-                                color={'lightskyblue'}
-                                text={`[파워FM 106.7]`}
-                                mr="20px"
-                                ml="auto"
-                                onClick={handleOnClickPowerFM}
-                            >
-                            </TextBox>
-                        </Box>
+                        {powerFM.length > 0 && (
+                            <Box ml="auto">
+                                <TextBox 
+                                    clickable
+                                    fontSize="16px" 
+                                    color={'lightskyblue'}
+                                    text={`[파워FM 106.7]`}
+                                    mr="20px"
+                                    ml="auto"
+                                    onClick={handleOnClickPowerFM}
+                                >
+                                </TextBox>
+                            </Box>
+                            )}
                     </Box>
                     <ArchiveList groupedArchives={powerFM}></ArchiveList>
                 </Box>
                 {/* <Divider orientation="vertical" variant="middle" flexItem /> */}
                 <Box flex="1" border="none 2px grey" borderRadius="25px">
-                    <Box display="flex" flexDisplay="row" alignItems="center" mb="5px" height="30px">
-                        <Box ml="auto">
-                            <TextBox 
-                                clickable
-                                fontSize="16px" 
-                                color={'burlywood'}
-                                text={`[러브FM 103.5]`}
-                                mr="20px"
-                                ml="3px"
-                                onClick={handleOnClickLoveFM}
-                            >
-                            </TextBox>
+                    {loveFM.length > 0 && (
+                        <Box display="flex" flexDisplay="row" alignItems="center" mb="5px" height="30px">
+                            <Box ml="auto">
+                                <TextBox 
+                                    clickable
+                                    fontSize="16px" 
+                                    color={'burlywood'}
+                                    text={`[러브FM 103.5]`}
+                                    mr="20px"
+                                    ml="3px"
+                                    onClick={handleOnClickLoveFM}
+                                >
+                                </TextBox>
+                            </Box>
                         </Box>
-                    </Box>
-                    <ArchiveList groupedArchives={loveFM}></ArchiveList>
+                    )}
+                   <ArchiveList groupedArchives={loveFM}></ArchiveList>
                 </Box>
             </Box>
         </CommonPageHeader>
