@@ -15,25 +15,32 @@ const CustomButton = styled(Button)`
   } 
 `
 const Container = styled(Box)`
-  background: transparent;
+  background: darkslategrey;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   width: 100%;
-  /* background-image: url('/images/login-background3.jpg');
-  background-size: cover; */
+  background-image: url('/images/login-background3.jpg');
+  background-size: cover;
+  /* background-position: left 100px center;  */
+  background-repeat: no-repeat;
+  background-blend-mode: multiply;
   height: 100vh;
+`
+const Stack = styled(Box)`
+  flex: 3;
 `
 const LoginFormContainer = styled(Box)`
   display: flex;
   justify-content: space-around;
   align-items: center;
-  height: 100%;
+  /* height: 100%; */
   width: 600px;
+  flex: 10;
   /* margin-top: 50%; */
-  margin-top: auto;
-  margin-bottom: auto;
+  /* margin-top: auto; */
+  /* margin-bottom: auto; */
 `
 const CustomInput = styled(TextField)`
   label {
@@ -102,12 +109,13 @@ const Login = () => {
     <Container>
       <LogoOuter> MUSICBANK </LogoOuter>
       <LogoInner> MUSICBANK </LogoInner>
+      <Stack></Stack>
       <LoginFormContainer>
         <CustomInput onBlur={onBlurId} label="ID" size="small" autoFocus ></CustomInput>
         <CustomInput onBlur={onBlurPassword} label="PASSWORD" size="small" type="password" ></CustomInput>
-      <Box>
-        <CustomButton onClick={onClickLogin} background={"darkslategrey"}  fontSize="12px" hoverBackground="grey" >로그인</CustomButton>
-      </Box>
+        <Box>
+          <CustomButton onClick={onClickLogin} background={"darkslategrey"}  fontSize="12px" hoverBackground="grey" >로그인</CustomButton>
+        </Box>
       </LoginFormContainer>
       <Box mt="auto" mb="30px" sx={{fontSize:'13px', opacity:'0.5'}}>
         Copyright@ 2022 SBS. All Rights Reserved
