@@ -510,5 +510,23 @@ export const apiMap = {
                 method: 'GET'
             }
         }
+    },
+    // login
+    'doView.do': options => {
+        const {userid, password, play_chk=true} = options;
+        const postBody = new URLSearchParams()
+        postBody.append('userid', userid);
+        postBody.append('password', password);
+        postBody.append('play_chk', play_chk);
+        postBody.append('music_down_path', '');
+        postBody.append('iniPath', '');
+        return {
+            url: `/mbs/sysUser/doView.do`,
+            fetchOptions: {
+                method: 'POST',
+                body: postBody,
+                ...DEFAULT_FETCH_OPTIONS
+            }
+        }
     }
 }

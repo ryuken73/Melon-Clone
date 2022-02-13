@@ -4,6 +4,9 @@ import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import useAppState from 'hooks/useAppState';
+import useQueryLogin from 'hooks/useQueryLogin';
+import useMessageBox from 'hooks/useMessageBox';
+import useSessionStorage from 'hooks/useSessionStorage';
 import ButtonSmall from 'Components/Common/ButtonSmall';
 
 // const logoColor = '#03a9f4';
@@ -91,11 +94,19 @@ const LogoInner = styled(Logo)`
   animation: ${animate} 3s ease-in-out infinite;
 `
 
-
 const Login = () => {
   const [userId, setUserId] = React.useState(null);
   const [password, setPassword] = React.useState(null);
   const {saveLoginId, saveLoginSession} = useAppState();
+  const [storedId, storeInSessionStorage] = useSessionStorage('login', '');
+
+  React.useEffect(() => {
+    if(storedId !== ''){
+      saveLoginId(storedId);
+    }
+  },[storedId, saveLoginId])
+  const {showMessageBox} = useMessageBox()
+  const {refetch} = useQueryLogin(userId, password);
   const onBlurId = React.useCallback(event => {
     setUserId(event.target.value)
   },[])
@@ -103,8 +114,18 @@ const Login = () => {
     setPassword(event.target.value)
   },[])
   const onClickLogin = React.useCallback(() => {
-    saveLoginId(userId)
-  },[userId, saveLoginId])
+    refetch()
+    .then(result => {
+      const authenticated = result.data;
+      if(authenticated){
+        saveLoginId(userId)
+        storeInSessionStorage(userId);
+      } else {
+        showMessageBox('아이디/암호를 확인해주시기 바랍니다.', 1000, 'error')
+      }
+      
+    })
+  },[userId, refetch, saveLoginId, storeInSessionStorage, showMessageBox])
   return (
     <Container>
       <LogoOuter> MUSICBANK </LogoOuter>

@@ -27,6 +27,7 @@ import PlaylistDrawer from 'PlaylistDrawer';
 import useMediaQueryEasy from 'hooks/useMediaQueryEasy';
 import useMediaQueryApp from 'hooks/useMediaQueryApp';
 import useAppState from 'hooks/useAppState';
+import useSessionStorage from 'hooks/useSessionStorage';
 // import usePlaylistInStorage from 'hooks/usePlaylistInStorage';
 import CONSTANTS from 'config/constants';
 
@@ -131,7 +132,8 @@ function App() {
     <div>
       {loginId === null && (
         <div className='App'>
-          {loginId === null && <Login></Login>}
+          <Login></Login>
+          <MessageBox></MessageBox>
         </div>
       )} 
       {loginId !== null && (
