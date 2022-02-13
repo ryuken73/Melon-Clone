@@ -3,6 +3,7 @@ import React from 'react';
 import Box from '@mui/material/Box';
 import styled, {keyframes, css} from 'styled-components';
 import {Switch, Route} from 'react-router-dom';
+import Login from 'Login';
 import AlbumListPage from 'Components/Album/AlbumList/AlbumListPage';
 import AlbumDetailPage from 'Components/Album/AlbumDetail/AlbumDetailPage';
 import ArtistDetailPage from 'Components/Artist/ArtistDetail/ArtistDetailPage';
@@ -25,6 +26,7 @@ import Backdrop from 'Components/Common/BackDrop';
 import PlaylistDrawer from 'PlaylistDrawer';
 import useMediaQueryEasy from 'hooks/useMediaQueryEasy';
 import useMediaQueryApp from 'hooks/useMediaQueryApp';
+import useAppState from 'hooks/useAppState';
 // import usePlaylistInStorage from 'hooks/usePlaylistInStorage';
 import CONSTANTS from 'config/constants';
 
@@ -116,6 +118,7 @@ const Footer = styled(Box)`
 `
 
 function App() {
+  const {loginId} = useAppState();
   const playerRef = React.useRef(null);
   // const playerFlatRef = React.useRef(null);
   const {hideRightPane} = useMediaQueryApp();
@@ -125,54 +128,63 @@ function App() {
   // usePlaylistInStorage();
   // const [openPlaySkinFlat, setOpenPlaySkinFlat] = React.useState(false);
   return (
-    <div className='App'>
-      <LeftPane hide={hideRightPane}>
-        <VerticalMenu></VerticalMenu>
-      </LeftPane>
-      <CenterPane hideLeftPane={hideRightPane} hideRightPane={hideRightPane}>
-        <CenterHeader></CenterHeader>
-        <Switch>
-          <Route exact path="/" render={()=><PortalView />} />
-          <Route path="/albumList" render={(routerProps)=><AlbumListPage {...routerProps} />} />
-          <Route path="/album/:receipt_no" render={(routerProps)=><AlbumDetailPage {...routerProps} />} />
-          <Route path="/song/:id" render={(routerProps)=><SongView {...routerProps} />} />
-          <Route path="/artist/:artist_name/:category" render={(routerProps)=><ArtistDetailPage {...routerProps} />} />
-          <Route path="/searchResult/:category" render={(routerProps)=><SearchResultPage {...routerProps} />} />
-          <Route path="/program/:category" render={(routerProps)=><ProgramPage {...routerProps} />} />
-          <Route path='/archive/:pgm_cd/archiveList' render={routerprops => <ArchiveList {...routerprops}></ArchiveList>}></Route>
-          <Route path="/podcastProgram/:category" render={(routerProps)=><PodcastProgramPage {...routerProps} />} />
-          <Route path="/podcast/:pgm_cd/podcastList" render={(routerProps)=><PodcastList {...routerProps} />} />
-          <Route render={()=><withRouterNotFoundView />} />
-        </Switch>
-      </CenterPane>
-      <RightPane hide={hideRightPane}>
-        <PlayerSkin ref={playerRef} hide={hideRightPane}></PlayerSkin>
-        <Player ref={playerRef} hide={hideRightPane}></Player>
-        <PlayList hide={hideRightPane}></PlayList>
-      </RightPane> 
-      <MessageBox></MessageBox>
-      <Backdrop></Backdrop>
-      {/* <PlayerSkinFlat show={showPlaySkinFlat}> */}
-        {/* can mirror video, but too much performance degrade */}
-        {/* <Box display="flex" bgColor="transparent" alignItems="center" flex="3" height="100%" fontSize="20px">
-          <PlayerSkin mode="flat" miniPlayerRef={playerRef} hideRightPane={hideRightPane} ref={playerFlatRef}></PlayerSkin>
-        </Box> */}
-        {/* <Box ml="auto"> */}
-          {/* <PlayList mode="flat" flex="1" hide={!hideRightPane}></PlayList> */}
-        {/* </Box> */}
-      {/* </PlayerSkinFlat> */}
+    <div>
+      {loginId === null && (
+        <div className='App'>
+          {loginId === null && <Login></Login>}
+        </div>
+      )} 
+      {loginId !== null && (
+        <div className='App'>
+          <LeftPane hide={hideRightPane}>
+            <VerticalMenu></VerticalMenu>
+          </LeftPane>
+          <CenterPane hideLeftPane={hideRightPane} hideRightPane={hideRightPane}>
+            <CenterHeader></CenterHeader>
+            <Switch>
+              <Route exact path="/" render={()=><PortalView />} />
+              <Route path="/albumList" render={(routerProps)=><AlbumListPage {...routerProps} />} />
+              <Route path="/album/:receipt_no" render={(routerProps)=><AlbumDetailPage {...routerProps} />} />
+              <Route path="/song/:id" render={(routerProps)=><SongView {...routerProps} />} />
+              <Route path="/artist/:artist_name/:category" render={(routerProps)=><ArtistDetailPage {...routerProps} />} />
+              <Route path="/searchResult/:category" render={(routerProps)=><SearchResultPage {...routerProps} />} />
+              <Route path="/program/:category" render={(routerProps)=><ProgramPage {...routerProps} />} />
+              <Route path='/archive/:pgm_cd/archiveList' render={routerprops => <ArchiveList {...routerprops}></ArchiveList>}></Route>
+              <Route path="/podcastProgram/:category" render={(routerProps)=><PodcastProgramPage {...routerProps} />} />
+              <Route path="/podcast/:pgm_cd/podcastList" render={(routerProps)=><PodcastList {...routerProps} />} />
+              <Route render={()=><withRouterNotFoundView />} />
+            </Switch>
+          </CenterPane>
+          <RightPane hide={hideRightPane}>
+            <PlayerSkin ref={playerRef} hide={hideRightPane}></PlayerSkin>
+            <Player ref={playerRef} hide={hideRightPane}></Player>
+            <PlayList hide={hideRightPane}></PlayList>
+          </RightPane> 
+          <MessageBox></MessageBox>
+          <Backdrop></Backdrop>
+          {/* <PlayerSkinFlat show={showPlaySkinFlat}> */}
+            {/* can mirror video, but too much performance degrade */}
+            {/* <Box display="flex" bgColor="transparent" alignItems="center" flex="3" height="100%" fontSize="20px">
+              <PlayerSkin mode="flat" miniPlayerRef={playerRef} hideRightPane={hideRightPane} ref={playerFlatRef}></PlayerSkin>
+            </Box> */}
+            {/* <Box ml="auto"> */}
+              {/* <PlayList mode="flat" flex="1" hide={!hideRightPane}></PlayList> */}
+            {/* </Box> */}
+          {/* </PlayerSkinFlat> */}
 
-      <PlaylistDrawer hideRightPane={hideRightPane}>
-      </PlaylistDrawer>
+          <PlaylistDrawer hideRightPane={hideRightPane}>
+          </PlaylistDrawer>
 
-      <Footer show={hideRightPane}>
-        {/* <PlayerFlat setOpenPlaySkinFlat={setOpenPlaySkinFlat} ref={playerRef}></PlayerFlat> */}
-        <PlayerFlat hideRightPane={hideRightPane} ref={playerRef}></PlayerFlat>
-      </Footer>
-      {/* {hideRightPane && <Footer> 
-        <PlayerFlat ref={playerRef}></PlayerFlat>
-      </Footer>
-      } */}
+          <Footer show={hideRightPane}>
+            {/* <PlayerFlat setOpenPlaySkinFlat={setOpenPlaySkinFlat} ref={playerRef}></PlayerFlat> */}
+            <PlayerFlat hideRightPane={hideRightPane} ref={playerRef}></PlayerFlat>
+          </Footer>
+          {/* {hideRightPane && <Footer> 
+            <PlayerFlat ref={playerRef}></PlayerFlat>
+          </Footer>
+          } */}
+        </div>
+      )}
     </div>
   );
 }

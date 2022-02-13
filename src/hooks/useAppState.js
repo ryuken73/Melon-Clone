@@ -1,6 +1,8 @@
 import * as React from 'react';
 import {useSelector, useDispatch} from 'react-redux';
 import {
+  setLoginId,
+  setLoginSession,
   setOpenPlaySkinFlat, 
   setSearchResultPath, 
   setOrderByText,
@@ -12,6 +14,7 @@ import CONSTANTS from 'config/constants';
 const {DEFAULT_ORDER_BY_TEXT} = CONSTANTS;
 
 function useAppState() {
+  const loginId = useSelector((state) => state.app.loginId);
   const openPlaySkinFlat = useSelector((state) => state.app.openPlaySkinFlat);
   const searchResultPath = useSelector((state) => state.app.searchResultPath);
   const orderByTexts = useSelector((state) => state.app.orderByTexts);
@@ -47,7 +50,18 @@ function useAppState() {
     return orderByTexts[page] === DEFAULT_ORDER_BY_TEXT[page]
   },[orderByTexts])
 
+  const saveLoginId = React.useCallback(userId => {
+    dispatch(setLoginId(userId))
+  },[dispatch])
+
+  const saveLoginSession = React.useCallback(session => {
+    dispatch(setLoginId(session))
+  },[dispatch])
+
   return {
+    loginId,
+    saveLoginId,
+    saveLoginSession,
     openPlaySkinFlat, 
     searchResultPath, 
     orderByTexts, 

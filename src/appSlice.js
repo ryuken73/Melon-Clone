@@ -2,6 +2,8 @@ import {createSlice} from "@reduxjs/toolkit";
 import CONSTANTS from 'config/constants';
 const {DEFAULT_ORDER_BY_TEXT} = CONSTANTS
 const initialState = {
+    loginId:null,
+    loginSession:null,
     isMessageBoxHidden: true,
     messageBoxText:'',
     messageBoxLevel: 'success',
@@ -21,6 +23,14 @@ export const appSlice = createSlice({
     name: 'appSlice',
     initialState,
     reducers: {
+        setLoginId: (state, action) => {
+            const {type, payload} = action;
+            state.loginId = payload;
+        },
+        setLoginSession: (state, action) => {
+            const {type, payload} = action;
+            state.loginSession = payload;
+        },
         setMessageBoxHide: (state, action) => {
             const {type, payload} = action;
             state.isMessageBoxHidden = payload;
@@ -83,6 +93,8 @@ export const showMessageBoxForDuration = (text, duration=1000, level='success') 
 }
 
 export const {
+    setLoginId,
+    setLoginSession,
     setMessageBoxHide, 
     setMessageBoxText, 
     setMessageBoxLevel,

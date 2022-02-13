@@ -4,7 +4,7 @@ import Button from '@mui/material/Button';
 
 const ButtonSmall = styled(Button)`
     && {
-        color: white;
+        color: ${props => props.color || 'white'};
         font-size: ${props => props.fontSize || '10px'};
         background: ${props => props.background || 'transparent'};
         border-radius: 10px;
