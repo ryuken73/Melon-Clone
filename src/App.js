@@ -26,6 +26,7 @@ import Backdrop from 'Components/Common/BackDrop';
 import PlaylistDrawer from 'PlaylistDrawer';
 import useMediaQueryEasy from 'hooks/useMediaQueryEasy';
 import useMediaQueryApp from 'hooks/useMediaQueryApp';
+import useMediaQueryMenu from 'hooks/useMediaQueryMenu';
 import useAppState from 'hooks/useAppState';
 import useSessionStorage from 'hooks/useSessionStorage';
 // import usePlaylistInStorage from 'hooks/usePlaylistInStorage';
@@ -123,6 +124,7 @@ function App() {
   const playerRef = React.useRef(null);
   // const playerFlatRef = React.useRef(null);
   const {hideRightPane} = useMediaQueryApp();
+  const {hideLeftPane} = useMediaQueryMenu();
   console.log('&& re-render App')
   React.useEffect(() => console.log('re-render change hideRightPane'), [hideRightPane])
   // load saved playlist and sync playlist back afterward
@@ -138,10 +140,10 @@ function App() {
       )} 
       {loginId !== null && (
         <div className='App'>
-          <LeftPane hide={hideRightPane}>
+          <LeftPane hide={hideLeftPane}>
             <VerticalMenu></VerticalMenu>
           </LeftPane>
-          <CenterPane hideLeftPane={hideRightPane} hideRightPane={hideRightPane}>
+          <CenterPane hideLeftPane={hideLeftPane} hideRightPane={hideRightPane}>
             <CenterHeader></CenterHeader>
             <Switch>
               <Route exact path="/" render={()=><PortalView />} />

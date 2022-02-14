@@ -40,7 +40,7 @@ const ArchiveListHeader = props => {
     return (
             <Container>
                 <SmallCheckBox checked={allChecked} setChecked={toggleAllChecked} />
-                <Box flex={flexRownum} display="flex" justifyContent={alignRownum}>
+                <Box width="100px" display="flex" justifyContent={alignRownum}>
                     <NumberContainer>
                         <AnimatedNumber from={0} to={archives.length || 0}></AnimatedNumber>
                     </NumberContainer>
@@ -50,21 +50,18 @@ const ArchiveListHeader = props => {
                     </NumberContainer>
                     {isSearchResult && <TextBox ml="10px" text="프로그램"></TextBox>}
                 </Box>
-                <Box width="150px">
+                <Box flex="1">
                     <TextBox fontSize="13px" color="white" text={'방송일'}></TextBox>
                 </Box>
-                <Box width="50px">
+                <Box flex="3">
                     <TextBox text={"회차"}></TextBox>
                 </Box>
                 <Box flex="2" display="flex" flexDirection="row" alignItems="center">
-                    <TextBox text={"진행자"}></TextBox>
+                    <TextBox containerProps={{width:'100%', textalign:'center'}} text={"진행자"}></TextBox>
                 </Box>
-                <Box flex={flexArtist}>
-                    <TextBox text={"출연자"}></TextBox>
-                </Box>
-                <Box flex="2" display="flex" flexDirection="row" alignItems="center">
-                    <TextBox text={"보는라디오"}></TextBox>
-                </Box>
+                {/* <Box flex="2" display="flex" flexDirection="row" alignItems="center"> */}
+                    {/* <TextBox text={"보는라디오"}></TextBox> */}
+                {/* </Box> */}
             </Container>
     )
 }

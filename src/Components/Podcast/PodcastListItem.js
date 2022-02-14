@@ -82,14 +82,14 @@ const PodcastListItem = props => {
     return (
         <Container hovered={deboucedHovered} onMouseEnter={onHovered} onMouseLeave={onHoverOut}>
             <SmallCheckBox checked={checked} setChecked={onChecked} />
-            <Box width="50px" display="flex" justifyContent={alignRownum}>
+            <Box width="100px" display="flex" justifyContent={alignRownum}>
                 <TextBox text={rownum+1}></TextBox>
                 {isSearchResult && <TextBox clickable onClick={handleOnClickPgmNM} fontSize={fontSizeRownum} text={`.${pgm_nm}`}></TextBox>}
             </Box>
-            <Box flex="1">
+            <Box flex="1" minWidth="150px">
                 <TextBox fontSize={fontSizeBrdDD} color="white" text={brad_day_with_weekday}></TextBox>
             </Box>
-            <Box flex="2" display="flex" flexDirection="row" alignItems="center">
+            <Box flex="3" display="flex" flexDirection="row" alignItems="center">
                 <TextBox fontSize={fontSizeBrdDD} text={episode}></TextBox>
                 {deboucedHovered && (
                     <Box flexShrink="0" minWidth="150px" ml="auto" mr="20px">

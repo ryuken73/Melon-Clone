@@ -23,8 +23,8 @@ const SubContainer = styled(Box)`
 `
 
 const PATHS = {
-    'POWER FM': '/program/powerFM',
-    'LOVE FM': '/program/loveFM',
+    '파워FM': '/program/powerFM',
+    '러브FM': '/program/loveFM',
     '방송종료': '/program/end',
 }
 

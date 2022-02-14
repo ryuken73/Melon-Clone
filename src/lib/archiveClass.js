@@ -13,7 +13,8 @@ class Archive {
     get attach_path() { return this.nativeProps.attach_path}
     get attach_size() { return this.nativeProps.attach_size}
     get chan_cd() { return this.nativeProps.chan_cd}
-    get chan_cd_full() { return this.nativeProps.chan_cd === 'A' ? 'L·FM':'P·FM'}
+    // get chan_cd_full() { return this.nativeProps.chan_cd === 'A' ? 'L·FM':'P·FM'}
+    get chan_cd_full() { return this.nativeProps.chan_cd === 'A' ? '러브FM':'파워FM'}
     get pgm_nm() { return this.nativeProps.pgm_nm}
     get pgm_cd() { return this.nativeProps.pgm_cd}
     get episode() { return this.nativeProps.episode || '1부'}
