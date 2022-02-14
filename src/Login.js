@@ -114,6 +114,7 @@ const Login = () => {
   
   // automatic login in same browser tab
   React.useEffect(() => {
+    console.log('$$$', lastUserInSessionStg)
     if(lastUserInSessionStg !== ''){
       storeInState(lastUserInSessionStg);
     }
@@ -122,6 +123,7 @@ const Login = () => {
   // if login success, then set userId(storeInState) to show portal page
   // else remove stored id in localStorage.
   React.useEffect(() => {
+    console.log('$$$', lastUserInLocalStg)
     if(lastUserInLocalStg !== ''){
       loginWithPrevSession()
       .then(result => {

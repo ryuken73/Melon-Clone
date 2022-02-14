@@ -6,11 +6,16 @@ import {withRouter} from 'react-router-dom';
 import styled from 'styled-components';
 import CenterHeaderNav from './CenterHeaderNav';
 import AutoComplete from './Components/Common/AutoComplete';
+import TextBox from 'Components/Common/TextBox';
 import HoverButton from 'Components/Common/ButtonHover';
 import MenuIcon from '@mui/icons-material/Menu';
 import HomeIcon from '@mui/icons-material/Home';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import useMediaQueryEasy from 'hooks/useMediaQueryEasy';
 import useAppState from 'hooks/useAppState';
+import useQueryLogout from 'hooks/useQueryLogout';
+import useSessionStorage from 'hooks/useSessionStorage';
+import useLocalStorage from 'hooks/useLocalStorage';
 import colors from 'config/colors';
 
 const Container = styled(Box)`
@@ -41,14 +46,24 @@ const OutlinedText = styled(Box)`
     opacity: 0.9;
     cursor: pointer;
 `
+const CustomTextBox = styled(TextBox)`
+    margin-left: 10px;
+    margin-right: 10px;
+    font-weight: bold;
+    font-size: 14px;
+`
 
 const CenterHeader = props => {
     const {history} = props;
+    const {loginId, saveLoginId} = useAppState();
     const [anchorEl, setAnchorEl] = React.useState(null);
     const open = Boolean(anchorEl);
     const [historyPushedCount, setHistoryPushedCount] = React.useState(0);
+    const [lastUserInSessionStg, storeInSessionStorage] = useSessionStorage('login', '');
+    const [lastUserInLocalStg, storeInLocalStorage] = useLocalStorage('lastUserId', '');
     const {hideRightPane} = useMediaQueryEasy();
     const {searchResultPath} = useAppState();
+    const {refetch: logout} = useQueryLogout();
     const onClickMenu = React.useCallback(event => {
         setAnchorEl(event.currentTarget)
     },[])
@@ -62,6 +77,13 @@ const CenterHeader = props => {
         category === 'podcast' && history.push('/podcastProgram/onair');
         setAnchorEl(null);
     },[history])
+    const onClickLogout = React.useCallback(()=>{
+        logout();
+        storeInLocalStorage('');
+        storeInSessionStorage('');
+        saveLoginId(null);
+        history.push('/');
+    },[logout, storeInLocalStorage, storeInSessionStorage, saveLoginId, history])
     return (
         <Container>
             <HoverButton 
@@ -92,6 +114,13 @@ const CenterHeader = props => {
             <OutlinedText onClick={onClickTitle}>MUSICKBANK</OutlinedText>
             <CenterHeaderNav historyPushedCount={historyPushedCount} setHistoryPushedCount={setHistoryPushedCount}></CenterHeaderNav>
             <AutoComplete searchResultPath={searchResultPath}></AutoComplete>
+            <Box ml="auto" display="flex" flextDirection="row" alignItems="center">
+                <HoverButton>
+                    <AccountCircleIcon></AccountCircleIcon>
+                    <CustomTextBox text={loginId}></CustomTextBox>
+                    <CustomTextBox clickable onClick={onClickLogout} opacity="0.9" text={"로그아웃"}></CustomTextBox>
+                </HoverButton>
+            </Box>
         </Container>
     )
 }

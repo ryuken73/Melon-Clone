@@ -514,7 +514,7 @@ export const apiMap = {
     // login
     'doView.do': options => {
         const {userid, password, play_chk=true} = options;
-        const postBody = new URLSearchParams()
+        const postBody = new URLSearchParams();
         postBody.append('userid', userid);
         postBody.append('password', password);
         postBody.append('play_chk', play_chk);
@@ -522,6 +522,19 @@ export const apiMap = {
         postBody.append('iniPath', '');
         return {
             url: `/mbs/sysUser/doView.do`,
+            fetchOptions: {
+                method: 'POST',
+                body: postBody,
+                ...DEFAULT_FETCH_OPTIONS
+            }
+        }
+    },
+    // logout
+    'logoutRtnNo.do': () => {
+        const postBody = new URLSearchParams();
+        postBody.append('p', 'p');
+        return {
+            url: `/mbs/sysUser/logoutRtnNo.do`,
             fetchOptions: {
                 method: 'POST',
                 body: postBody,
