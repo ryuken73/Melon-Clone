@@ -1,10 +1,12 @@
 import * as React from 'react';
 import {useSelector, useDispatch} from 'react-redux';
 import useLocalStorage from 'hooks/useLocalStorage';
+import useAppState from './useAppState';
 import {setCurrentPlayList} from 'Components/PlayList/playlistSlice';
 
 function usePlaylistInStorage() {
-  const key = 'MBK-PLAYLIST';
+  const {loginId} = useAppState();
+  const key = `MBK-PLAYLIST-${loginId}`;
   const initialValue = [];
   const [storedValue, setValue] = useLocalStorage(key, initialValue);
   const currentPlaylist = useSelector(state => state.playlist.currentPlaylist);

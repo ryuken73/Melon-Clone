@@ -108,14 +108,14 @@ const Login = () => {
   const [userId, setUserId] = React.useState(null);
   const [password, setPassword] = React.useState(null);
   const {saveLoginId: storeInState} = useAppState();
-  const [lastUserInSessionStg, storeInSessionStorage] = useSessionStorage('login', '');
-  const [lastUserInLocalStg, storeInLocalStorage] = useLocalStorage('lastUserId', '');
+  const [lastUserInSessionStg, storeInSessionStorage] = useSessionStorage('login', null);
+  const [lastUserInLocalStg, storeInLocalStorage] = useLocalStorage('lastUserId', null);
   const {refetch: loginWithPrevSession} = useQueryLogin(lastUserInLocalStg, null);
   
   // automatic login in same browser tab
   React.useEffect(() => {
     console.log('$$$', lastUserInSessionStg)
-    if(lastUserInSessionStg !== ''){
+    if(lastUserInSessionStg !== null){
       storeInState(lastUserInSessionStg);
     }
   },[lastUserInSessionStg, storeInState])
@@ -124,7 +124,7 @@ const Login = () => {
   // else remove stored id in localStorage.
   React.useEffect(() => {
     console.log('$$$', lastUserInLocalStg)
-    if(lastUserInLocalStg !== ''){
+    if(lastUserInLocalStg !== null){
       loginWithPrevSession()
       .then(result => {
         const authenticated = result.data;
@@ -132,7 +132,7 @@ const Login = () => {
           storeInState(lastUserInLocalStg)
           storeInSessionStorage(lastUserInLocalStg);
         } else {
-          storeInLocalStorage('');
+          storeInLocalStorage(null);
         }
       })
     }
@@ -158,15 +158,21 @@ const Login = () => {
       }
       
     })
-  },[userId, refetch, storeInState, storeInSessionStorage, showMessageBox])
+  },[userId, refetch, storeInState, storeInSessionStorage, storeInLocalStorage, showMessageBox])
+  const handleKeyPressed = React.useCallback(event => {
+    if(event.charCode === 13 && event.target.value.trim()){
+      setPassword(event.target.value)
+      onClickLogin();
+    }
+  },[setPassword, onClickLogin])
   return (
     <Container>
       <LogoOuter> MUSICBANK </LogoOuter>
       <LogoInner> MUSICBANK </LogoInner>
       <Stack></Stack>
       <LoginFormContainer>
-        <CustomInput onBlur={onBlurId} label="ID" size="small" autoFocus ></CustomInput>
-        <CustomInput onBlur={onBlurPassword} label="PASSWORD" size="small" type="password" ></CustomInput>
+        <CustomInput onChange={onBlurId} label="ID" size="small" autoFocus ></CustomInput>
+        <CustomInput onChange={onBlurPassword} onKeyPress={handleKeyPressed} label="PASSWORD" size="small" type="password" ></CustomInput>
         <Box>
           <CustomButton onClick={onClickLogin} background={"darkslategrey"}  fontSize="12px" hoverBackground="grey" >로그인</CustomButton>
         </Box>

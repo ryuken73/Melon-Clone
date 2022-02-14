@@ -59,8 +59,8 @@ const CenterHeader = props => {
     const [anchorEl, setAnchorEl] = React.useState(null);
     const open = Boolean(anchorEl);
     const [historyPushedCount, setHistoryPushedCount] = React.useState(0);
-    const [lastUserInSessionStg, storeInSessionStorage] = useSessionStorage('login', '');
-    const [lastUserInLocalStg, storeInLocalStorage] = useLocalStorage('lastUserId', '');
+    const [lastUserInSessionStg, storeInSessionStorage] = useSessionStorage('login', null);
+    const [lastUserInLocalStg, storeInLocalStorage] = useLocalStorage('lastUserId', null);
     const {hideRightPane} = useMediaQueryEasy();
     const {searchResultPath} = useAppState();
     const {refetch: logout} = useQueryLogout();
@@ -79,8 +79,8 @@ const CenterHeader = props => {
     },[history])
     const onClickLogout = React.useCallback(()=>{
         logout();
-        storeInLocalStorage('');
-        storeInSessionStorage('');
+        storeInLocalStorage(null);
+        storeInSessionStorage(null);
         saveLoginId(null);
         history.push('/');
     },[logout, storeInLocalStorage, storeInSessionStorage, saveLoginId, history])
