@@ -73,7 +73,8 @@ function useCurrentPlaylist() {
     } 
     showMessageBox(message, 2000, level);
     if(playAfterAdd){
-      const songToPlay = songsArray[songsArray.length - 1];
+      // const songToPlay = songsArray[songsArray.length - 1];
+      const songToPlay = songsArray[0];
       level === 'success' && setPlayerSource(songToPlay.src, songToPlay.albumImageSrc, 0, songToPlay);
       if(level === 'error'){
         const alreadySongIndex = currentPlaylist.findIndex(song => song.id === songToPlay.id)
