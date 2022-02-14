@@ -55,6 +55,15 @@ const CustomInput = styled(TextField)`
   div input {
     color: white;
   }
+  div input:-webkit-autofill,
+  div input:-webkit-autofill:hover, 
+  div input:-webkit-autofill:focus {
+    /* border: 1px solid green; */
+    -webkit-text-fill-color: grey;
+    -webkit-box-shadow: 0 0 0px 1000px #000 inset;
+    transition: background-color 5000s ease-in-out 0s;
+  }
+
   && div.MuiInputBase-root fieldset {
     border-color: ${inputColor};
   }
