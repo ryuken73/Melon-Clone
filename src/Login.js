@@ -7,6 +7,7 @@ import useAppState from 'hooks/useAppState';
 import useQueryLogin from 'hooks/useQueryLogin';
 import useMessageBox from 'hooks/useMessageBox';
 import useSessionStorage from 'hooks/useSessionStorage';
+import useLocalStorage from 'hooks/useLocalStorage';
 import ButtonSmall from 'Components/Common/ButtonSmall';
 
 // const logoColor = '#03a9f4';
@@ -106,14 +107,34 @@ const LogoInner = styled(Logo)`
 const Login = () => {
   const [userId, setUserId] = React.useState(null);
   const [password, setPassword] = React.useState(null);
-  const {saveLoginId, saveLoginSession} = useAppState();
-  const [storedId, storeInSessionStorage] = useSessionStorage('login', '');
-
+  const {saveLoginId: storeInState} = useAppState();
+  const [lastUserInSessionStg, storeInSessionStorage] = useSessionStorage('login', '');
+  const [lastUserInLocalStg, storeInLocalStorage] = useLocalStorage('lastUserId', '');
+  const {refetch: loginWithPrevSession} = useQueryLogin(lastUserInLocalStg, null);
+  
+  // automatic login in same browser tab
   React.useEffect(() => {
-    if(storedId !== ''){
-      saveLoginId(storedId);
+    if(lastUserInSessionStg !== ''){
+      storeInState(lastUserInSessionStg);
     }
-  },[storedId, saveLoginId])
+  },[lastUserInSessionStg, storeInState])
+  // try login with userId in localStorage (with null passwd, only using session cookie)
+  // if login success, then set userId(storeInState) to show portal page
+  // else remove stored id in localStorage.
+  React.useEffect(() => {
+    if(lastUserInLocalStg !== ''){
+      loginWithPrevSession()
+      .then(result => {
+        const authenticated = result.data;
+        if(authenticated){
+          storeInState(lastUserInLocalStg)
+          storeInSessionStorage(lastUserInLocalStg);
+        } else {
+          storeInLocalStorage('');
+        }
+      })
+    }
+  },[lastUserInLocalStg, storeInState, storeInSessionStorage, storeInLocalStorage, loginWithPrevSession])
   const {showMessageBox} = useMessageBox()
   const {refetch} = useQueryLogin(userId, password);
   const onBlurId = React.useCallback(event => {
@@ -127,14 +148,15 @@ const Login = () => {
     .then(result => {
       const authenticated = result.data;
       if(authenticated){
-        saveLoginId(userId)
+        storeInState(userId)
         storeInSessionStorage(userId);
+        storeInLocalStorage(userId);
       } else {
         showMessageBox('아이디/암호를 확인해주시기 바랍니다.', 1000, 'error')
       }
       
     })
-  },[userId, refetch, saveLoginId, storeInSessionStorage, showMessageBox])
+  },[userId, refetch, storeInState, storeInSessionStorage, showMessageBox])
   return (
     <Container>
       <LogoOuter> MUSICBANK </LogoOuter>
