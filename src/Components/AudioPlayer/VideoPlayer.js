@@ -18,6 +18,7 @@ const VideoPlayer = (props, ref) => {
     },[ref])
     return (
         <CustomVideo
+            preload="auto"
             ref={ref}
             {...props}
         >
