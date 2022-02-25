@@ -4,6 +4,7 @@ import Box from '@mui/material/Box';
 import styled, {keyframes, css} from 'styled-components';
 import {Switch, Route} from 'react-router-dom';
 import Login from 'Login';
+import LoginLoading from 'LoginLoading';
 import AlbumListPage from 'Components/Album/AlbumList/AlbumListPage';
 import AlbumDetailPage from 'Components/Album/AlbumDetail/AlbumDetailPage';
 import ArtistDetailPage from 'Components/Artist/ArtistDetail/ArtistDetailPage';
@@ -134,7 +135,7 @@ function App() {
     <div>
       {loginId === null && (
         <div className='App'>
-          <Login></Login>
+          <LoginLoading></LoginLoading>
           <MessageBox></MessageBox>
         </div>
       )} 

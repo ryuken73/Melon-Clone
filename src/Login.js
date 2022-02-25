@@ -25,7 +25,8 @@ const Container = styled(Box)`
   justify-content: center;
   align-items: center;
   width: 100%;
-  background-image: url('/images/login-background3.jpg');
+  /* background-image: url('/images/login-background3.jpg'); */
+  background-image: ${props => `url(${props.backgroundImage})`};
   background-size: cover;
   /* background-position: left 100px center;  */
   background-repeat: no-repeat;
@@ -104,7 +105,8 @@ const LogoInner = styled(Logo)`
   animation: ${animate} 3s ease-in-out infinite;
 `
 
-const Login = () => {
+const Login = props => {
+  const {backgroundImage} = props;
   const [userId, setUserId] = React.useState(null);
   const [password, setPassword] = React.useState(null);
   const {saveLoginId: storeInState} = useAppState();
@@ -166,7 +168,7 @@ const Login = () => {
     }
   },[setPassword, onClickLogin])
   return (
-    <Container>
+    <Container backgroundImage={backgroundImage}>
       <LogoOuter> MUSICBANK </LogoOuter>
       <LogoInner> MUSICBANK </LogoInner>
       <Stack></Stack>
